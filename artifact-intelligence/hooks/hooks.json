@@ -1,0 +1,18 @@
+{
+  "description": "문서지능 플러그인 의존성 자동 셋업 — 첫 세션 1회 venv 2개+npm, 이후 no-op(멱등). 비블로킹이라 세션을 잡지 않는다.",
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/bin/bootstrap.sh",
+            "timeout": 600,
+            "statusMessage": "문서지능 의존성 준비 중…"
+          }
+        ]
+      }
+    ]
+  }
+}

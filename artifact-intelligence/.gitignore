@@ -1,0 +1,12 @@
+# 배포 비밀(관리자 키 등) — 서버 전용, 절대 커밋 금지
+.env
+
+# 설치 시 생성되는 것 — 커밋 금지
+정책서버토큰.conf      # enroll 로 받은 정책 토큰(설치마다 다름·비밀)
+mcp/.venv/
+build/.hwpxenv/
+node_modules/
+__pycache__/
+*.pyc
+assets/manifest.json
+sessions/

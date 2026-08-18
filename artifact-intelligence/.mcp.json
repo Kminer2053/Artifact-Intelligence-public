@@ -1,0 +1,7 @@
+{
+  "mcpServers": {
+    "artifact-intelligence": {
+      "command": "${CLAUDE_PLUGIN_ROOT}/mcp/run.sh"
+    }
+  }
+}

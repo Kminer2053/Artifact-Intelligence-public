@@ -1,0 +1,8 @@
+{
+  "name": "artifact-intelligence-tools",
+  "private": true,
+  "description": "kordoc 고정 설치 — workspace/api.py 의 파일읽기·서식분석이 실행 시점에 네트워크로 npx -y kordoc 을 받던 것을 없애기 위해서다(WP-S8). 밀폐 컨테이너에서 그 두 작업이 통째로 죽는 것을 막는다. `npm install` 한 번으로 node_modules 에 고정 설치되고, 코드는 그 안의 실행 파일을 먼저 찾는다.",
+  "dependencies": {
+    "kordoc": "4.7.1"
+  }
+}

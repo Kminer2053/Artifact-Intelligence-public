@@ -1,0 +1,5 @@
+# 문서지능 MCP 서버 의존성.
+# 배포 트리엔 .venv 가 없다(재생성물, .gitignore) — 설치 후 한 번 재생성한다:
+#   python3 -m venv mcp/.venv
+#   mcp/.venv/bin/pip install -r mcp/requirements.txt
+mcp>=1.28,<2

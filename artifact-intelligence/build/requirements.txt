@@ -1,0 +1,10 @@
+# Python 3.10+ 필요 — 배포 대상 Ubuntu 22.04 LTS 기본 파이썬이 3.10 이다.
+# ⚠ 3.12+ 전용 문법 금지(예: f-string 표현식 안의 백슬래시) — 서버(3.10)에서 SyntaxError.
+#    개발기가 3.12+ 라도 배포 3.10 을 기준으로 둔다. 검사: build/파이썬310가드.py (verify_all 포함).
+brotli==1.2.0
+fonttools==4.63.0
+lxml==6.1.1
+pillow==12.3.0
+pymupdf==1.28.0
+python-hwpx==6.0.2
+python-pptx==1.0.2
