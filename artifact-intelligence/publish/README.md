@@ -1,18 +1,18 @@
-# 문서지능 · Artifact Intelligence
-
 <div align="center">
+
+# 문서지능 · Artifact Intelligence
 
 **무엇을·누구에게·왜 보고할지와 사실·수치만 넘기면, 결재에 올릴 수 있는 문서 초안이 나옵니다.**  
 목차 잡기·개조식 변환·한 장 맞춤·한글(HWPX) 변환은 규칙이 알아서 합니다. 사람은 맞는지 보고 고칠 데만 짚습니다.
 
 먼저 써 보기 — 설치 없이 **https://artifact-intelligence.app**
 
-</div>
-
 ![산출](https://img.shields.io/badge/산출-6종%20문서-101B33)
 ![쓰는곳](https://img.shields.io/badge/쓰는곳-웹앱·MCP·스킬-1E67F0)
-![출력](https://img.shields.io/badge/출력-HTML·PDF·HWPX-267A68)
+![출력](https://img.shields.io/badge/출력-HTML·PDF·HWPX·PPTX-267A68)
 ![검증](https://img.shields.io/badge/검증-문체·조판·사실-E75757)
+
+</div>
 
 ---
 
@@ -48,7 +48,7 @@
 | **시행문** | 외부 기관·국민 대상 공문 | HTML·PDF·HWPX |
 | **규정** | 제정·개정 조문 | HTML·PDF·HWPX |
 | **보도자료** | 언론 배포 | HTML·PDF·HWPX |
-| **발표 슬라이드** | 정책보고·브리핑(16:9) | HTML·PDF |
+| **발표 슬라이드** | 정책보고·브리핑(16:9) | HTML·PDF·PPTX |
 
 문서마다 정해진 서식이 있어, 같은 내용은 어느 환경에서든 글꼴까지 똑같이 나옵니다.
 
