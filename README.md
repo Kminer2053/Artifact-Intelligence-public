@@ -64,10 +64,14 @@
 /plugin install artifact-intelligence@artifact-intelligence
 ```
 
-**Codex** — 스킬 폴더를 받은 뒤 MCP로 붙입니다:
+**Codex** — 공개 리포를 받아 MCP 서버로 붙입니다:
 ```bash
+git clone https://github.com/Kminer2053/Artifact-Intelligence-public
+cd Artifact-Intelligence-public/artifact-intelligence
+bash bin/bootstrap.sh          # 첫 1회: venv·의존성·정책 토큰 준비
 codex mcp add artifact-intelligence -- "$(pwd)/mcp/run.sh"
 ```
+Codex는 공개 등록 디렉토리가 없어 각자 위 명령으로 붙입니다. Python 3.10+ 필요.
 
 **웹앱** — 설치 없이 https://artifact-intelligence.app 에서 바로 씁니다.
 
