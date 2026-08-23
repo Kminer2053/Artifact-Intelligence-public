@@ -64,14 +64,12 @@
 /plugin install artifact-intelligence@artifact-intelligence
 ```
 
-**Codex** — 공개 리포를 받아 MCP 서버로 붙입니다:
+**Codex** — 플러그인 마켓플레이스로(클론 불필요):
 ```bash
-git clone https://github.com/Kminer2053/Artifact-Intelligence-public
-cd Artifact-Intelligence-public/artifact-intelligence
-bash bin/bootstrap.sh          # 첫 1회: venv·의존성·정책 토큰 준비
-codex mcp add artifact-intelligence -- "$(pwd)/mcp/run.sh"
+codex plugin marketplace add Kminer2053/Artifact-Intelligence-public
+codex plugin add artifact-intelligence@artifact-intelligence
 ```
-Codex는 공개 등록 디렉토리가 없어 각자 위 명령으로 붙입니다. Python 3.10+ 필요.
+Python 3.10+ 필요. 한글(HWPX)·업로드·규칙 조회까지 쓰려면 설치된 플러그인 폴더(`codex plugin list` 로 경로 확인)에서 `bash bin/bootstrap.sh` 를 한 번 실행하세요.
 
 **웹앱** — 설치 없이 https://artifact-intelligence.app 에서 바로 씁니다.
 
