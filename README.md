@@ -71,6 +71,19 @@ codex plugin add artifact-intelligence@artifact-intelligence
 ```
 Python 3.10+ 필요. 한글(HWPX)·업로드·규칙 조회까지 쓰려면 설치된 플러그인 폴더(`codex plugin list` 로 경로 확인)에서 `bash bin/bootstrap.sh` 를 한 번 실행하세요.
 
+**Cursor** — MCP 서버 + 규칙으로 붙입니다:
+```bash
+git clone https://github.com/Kminer2053/Artifact-Intelligence-public
+cd Artifact-Intelligence-public/artifact-intelligence
+bash bin/bootstrap.sh
+cp .cursor/rules/artifact-intelligence.mdc ~/.cursor/rules/   # 작업 안내 규칙(선택)
+```
+그다음 `~/.cursor/mcp.json` 의 `mcpServers` 에 아래를 추가하고 Cursor를 재시작하세요(`<경로>` 는 위 폴더의 절대경로):
+```json
+"artifact-intelligence": { "command": "<경로>/mcp/run.sh" }
+```
+Cursor는 MCP **도구**(판정·조립·게이트·내보내기)로 동작하고, 위 규칙 파일을 두면 작업 절차까지 안내됩니다.
+
 **웹앱** — 설치 없이 https://artifact-intelligence.app 에서 바로 씁니다.
 
 설치하면 첫 기동 때 규칙 조회용 토큰을 자동으로 받고, 한글(HWPX)·업로드 처리에 필요한 것도 한 번에 준비합니다. 파이썬 3.10 이상이 필요합니다.
