@@ -1,0 +1,101 @@
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("fonts/PretendardVariable.woff2") format("woff2-variations");
+  font-weight: 45 920;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Noto Serif KR";
+  src: url("fonts/NotoSerifKR.ttf") format("truetype-variations");
+  font-weight: 200 900;
+  font-display: swap;
+}
+
+
+
+:root {
+  
+  --doc-p-black: #000000;      --doc-p-white: #FFFFFF;
+  --doc-p-gray-head: #D9D9D9;  --doc-p-gray-soft: #F2F2F2;
+  --doc-p-gray-mid: #999999;   --doc-p-gray-dark: #303030;
+  --doc-p-gray-line: #808080;
+  --doc-p-navy: #1C3D62;       --doc-p-navy-deep: #23236A;
+  --doc-p-navy-accent: #1F3864;
+  --doc-p-blue-soft: #DFE6F7;  --doc-p-blue-pale: #EFF3FB;
+  --doc-p-blue-bar: #0080C0;   
+  --doc-p-green-soft: #E8F7CD; --doc-p-orange-soft: #FDDFC7;
+  --doc-p-yellow-hl: #FFFF00;  --doc-p-red-warn: #C00000;
+  --doc-p-gray-text: #404040;  --doc-p-gray-bar: #595959;
+
+  
+  --doc-p-line-hair: 0.1mm;    --doc-p-line-thin: 0.12mm;
+  --doc-p-line-mid: 0.25mm;    --doc-p-line-thick: 0.4mm;
+  --doc-p-line-cut: 0.7mm;
+
+  
+  --doc-page-w: 210mm;  --doc-page-h: 297mm;
+  --doc-margin-top: 15mm;  --doc-margin-bottom: 10mm;
+  --doc-margin-left: 20mm; --doc-margin-right: 20mm;
+
+  
+  --doc-font-display: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --doc-font-body: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --doc-font-note: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+
+  
+  --doc-h-l1-size: 16pt; --doc-h-l1-font: var(--doc-font-display); 
+  --doc-h-l2-size: 15pt; --doc-h-l2-font: var(--doc-font-body);    
+  --doc-h-l3-size: 15pt; --doc-h-l3-font: var(--doc-font-body);    
+  --doc-h-l4-size: 12pt; --doc-h-l4-font: var(--doc-font-note);    
+  --doc-h-l5-size: 12pt; --doc-h-l5-font: var(--doc-font-note);    
+  --doc-title-size: 16pt;
+  --doc-table-font-size: 11pt;
+  --doc-line-height: 1.6;   
+
+  
+  --doc-table-border: var(--doc-p-line-thin) solid var(--doc-p-black);
+  --doc-table-border-outer: var(--doc-p-line-thick) solid var(--doc-p-black);
+  
+  --doc-table-head-bg: var(--doc-p-blue-soft);
+  --doc-table-sum-bg: var(--doc-p-gray-soft);
+  --doc-color-text: var(--doc-p-black);
+  --doc-color-text-sub: var(--doc-p-gray-text);
+  --doc-color-accent: var(--doc-p-navy-accent);
+  --doc-color-warn: var(--doc-p-red-warn);
+}
+
+
+:root[data-fonts="hwp"] { 
+  --doc-font-display: "HY헤드라인M", "HYHeadLine-M", "Pretendard", sans-serif;
+  --doc-font-body: "휴먼명조", "HumanMyeongjo", "Noto Serif KR", serif;
+  --doc-font-note: "맑은 고딕", "Malgun Gothic", "Pretendard", sans-serif;
+}
+:root[data-fonts="serif"] { 
+  --doc-font-body: "Noto Serif KR", "AppleMyungjo", serif;
+}
+
+
+:root[data-genre="onepage"] {
+  --doc-margin-top: 25mm; --doc-margin-bottom: 20mm;
+  --doc-margin-left: 25mm; --doc-margin-right: 25mm;
+  --doc-h-l1-size: 15pt; --doc-h-l2-size: 13pt;
+  --doc-h-l3-size: 12pt; --doc-h-l4-size: 11pt;
+  --doc-title-size: 18pt;
+  --doc-line-height: 1.5;  
+}
+
+
+:root[data-genre="slides"] {
+  --doc-page-w: 338.7mm; --doc-page-h: 190.5mm;
+  
+  --doc-margin-top: 0mm; --doc-margin-bottom: 0mm;
+  --doc-margin-left: 0mm; --doc-margin-right: 0mm;
+}
+
+
+@media screen { :root { --doc-p-line-thin: max(0.12mm, 1px); } }
+@page {
+  size: A4;
+  margin: var(--doc-margin-top) var(--doc-margin-right) var(--doc-margin-bottom) var(--doc-margin-left);
+}

@@ -1,0 +1,1451 @@
+{
+ "_출처": {
+  "저장소": "https://github.com/neolord0/hwpxlib",
+  "라이선스": "Apache-2.0",
+  "커밋": "473d9d6aa82d8896f4f464b52d801e5691dc7cf3",
+  "긁은스크립트": "skill/artifact-intelligence/build/골든순서긁기.py",
+  "폴백표": "skill/artifact-intelligence/build/요소순서.json (hancom InitMap 등록순서)",
+  "읽은골든파일수": 49,
+  "요소수": 90,
+  "설명": "골든이 품은 요소는 골든이 실제로 보인 자식 순서를 정본으로, 골든에 없는 자식은 InitMap 폴백. 골든 안에서 자리가 흔들리는 태그(양방향 관측)는 정본에서 뺐다 — 각 요소의 뺀_흔들리는_태그 참고."
+ },
+ "요소": {
+  "hc:fillBrush": {
+   "자식순서": [
+    "hc:winBrush",
+    "hc:gradation",
+    "hc:imgBrush"
+   ],
+   "골든관측수": 802,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": []
+  },
+  "hc:gradation": {
+   "자식순서": [
+    "hc:color"
+   ],
+   "골든관측수": 445,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": []
+  },
+  "hc:imgBrush": {
+   "자식순서": [
+    "hc:img"
+   ],
+   "골든관측수": 9,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": []
+  },
+  "hh:borderFill": {
+   "자식순서": [
+    "hh:slash",
+    "hh:backSlash",
+    "hh:leftBorder",
+    "hh:rightBorder",
+    "hh:topBorder",
+    "hh:bottomBorder",
+    "hh:diagonal",
+    "hc:fillBrush"
+   ],
+   "골든관측수": 690,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": []
+  },
+  "hh:borderFills": {
+   "자식순서": [
+    "hh:borderFill"
+   ],
+   "골든관측수": 49,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": []
+  },
+  "hh:bullet": {
+   "자식순서": [
+    "hc:img",
+    "hh:paraHead"
+   ],
+   "골든관측수": 11,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": [
+    "hc:img"
+   ]
+  },
+  "hh:bullets": {
+   "자식순서": [
+    "hh:bullet"
+   ],
+   "골든관측수": 5,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": []
+  },
+  "hh:charPr": {
+   "자식순서": [
+    "hh:fontRef",
+    "hh:ratio",
+    "hh:spacing",
+    "hh:relSz",
+    "hh:offset",
+    "hh:italic",
+    "hh:bold",
+    "hh:underline",
+    "hh:strikeout",
+    "hh:outline",
+    "hh:shadow",
+    "hh:emboss",
+    "hh:engrave",
+    "hh:supscript",
+    "hh:subscript"
+   ],
+   "골든관측수": 1669,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": [
+    "hh:emboss",
+    "hh:engrave",
+    "hh:subscript"
+   ]
+  },
+  "hh:charProperties": {
+   "자식순서": [
+    "hh:charPr"
+   ],
+   "골든관측수": 49,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": []
+  },
+  "hh:compatibleDocument": {
+   "자식순서": [
+    "hh:layoutCompatibility"
+   ],
+   "골든관측수": 49,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": []
+  },
+  "hh:docOption": {
+   "자식순서": [
+    "hh:linkinfo",
+    "hh:licensemark"
+   ],
+   "골든관측수": 49,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": [
+    "hh:licensemark"
+   ]
+  },
+  "hh:font": {
+   "자식순서": [
+    "hh:substFont",
+    "hh:typeInfo"
+   ],
+   "골든관측수": 1794,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": []
+  },
+  "hh:fontface": {
+   "자식순서": [
+    "hh:font"
+   ],
+   "골든관측수": 343,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": []
+  },
+  "hh:fontfaces": {
+   "자식순서": [
+    "hh:fontface"
+   ],
+   "골든관측수": 49,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": []
+  },
+  "hh:forbiddenWordList": {
+   "자식순서": [
+    "hh:forbiddenWord"
+   ],
+   "골든관측수": 2,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": []
+  },
+  "hh:head": {
+   "자식순서": [
+    "hh:beginNum",
+    "hh:refList",
+    "hh:forbiddenWordList",
+    "hh:compatibleDocument",
+    "hh:docOption",
+    "hh:metaTag",
+    "hh:trackchageConfig"
+   ],
+   "골든관측수": 49,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [
+    "hh:beginNum",
+    "hh:compatibleDocument",
+    "hh:docOption",
+    "hh:forbiddenWordList",
+    "hh:metaTag",
+    "hh:refList",
+    "hh:trackchageConfig"
+   ],
+   "InitMap폴백_자식": []
+  },
+  "hh:margin": {
+   "자식순서": [
+    "hc:intent",
+    "hc:left",
+    "hc:right",
+    "hc:prev",
+    "hc:next"
+   ],
+   "골든관측수": 3781,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": []
+  },
+  "hh:memoProperties": {
+   "자식순서": [
+    "hh:memoPr"
+   ],
+   "골든관측수": 5,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": []
+  },
+  "hh:numbering": {
+   "자식순서": [
+    "hh:paraHead"
+   ],
+   "골든관측수": 51,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": []
+  },
+  "hh:numberings": {
+   "자식순서": [
+    "hh:numbering"
+   ],
+   "골든관측수": 46,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": []
+  },
+  "hh:paraPr": {
+   "자식순서": [
+    "hh:align",
+    "hh:heading",
+    "hh:breakSetting",
+    "hh:autoSpacing",
+    "hh:margin",
+    "hh:lineSpacing",
+    "hh:border"
+   ],
+   "골든관측수": 1914,
+   "뺀_흔들리는_태그": [
+    "hp:switch"
+   ],
+   "골든에만": [],
+   "InitMap폴백_자식": []
+  },
+  "hh:paraProperties": {
+   "자식순서": [
+    "hh:paraPr"
+   ],
+   "골든관측수": 49,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": []
+  },
+  "hh:refList": {
+   "자식순서": [
+    "hh:fontfaces",
+    "hh:borderFills",
+    "hh:charProperties",
+    "hh:tabProperties",
+    "hh:numberings",
+    "hh:bullets",
+    "hh:paraProperties",
+    "hh:styles",
+    "hh:memoProperties",
+    "hh:trackChanges",
+    "hh:trackChangeAuthors"
+   ],
+   "골든관측수": 49,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": []
+  },
+  "hh:styles": {
+   "자식순서": [
+    "hh:style"
+   ],
+   "골든관측수": 49,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": []
+  },
+  "hh:tabPr": {
+   "자식순서": [
+    "hh:tabItem",
+    "hp:switch"
+   ],
+   "골든관측수": 47,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [
+    "hp:switch"
+   ],
+   "InitMap폴백_자식": []
+  },
+  "hh:tabProperties": {
+   "자식순서": [
+    "hh:tabPr"
+   ],
+   "골든관측수": 49,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": []
+  },
+  "hh:trackChangeAuthors": {
+   "자식순서": [
+    "hh:trackChangeAuthor"
+   ],
+   "골든관측수": 1,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": []
+  },
+  "hh:trackChanges": {
+   "자식순서": [
+    "hh:trackChange"
+   ],
+   "골든관측수": 1,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": []
+  },
+  "hh:trackchageConfig": {
+   "자식순서": [
+    "config:configitemset",
+    "urn:oasis:names:tc:opendocument:xmlns:config:1.0:config-item-set"
+   ],
+   "골든관측수": 1,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [
+    "urn:oasis:names:tc:opendocument:xmlns:config:1.0:config-item-set"
+   ],
+   "InitMap폴백_자식": [
+    "config:configitemset"
+   ]
+  },
+  "hp:arc": {
+   "자식순서": [
+    "hp:drawText",
+    "hp:parameterset",
+    "hp:metaTag",
+    "hp:caption",
+    "hp:offset",
+    "hp:orgSz",
+    "hp:curSz",
+    "hp:flip",
+    "hp:rotationInfo",
+    "hp:renderingInfo",
+    "hp:lineShape",
+    "hc:fillBrush",
+    "hp:shadow",
+    "hc:center",
+    "hc:ax1",
+    "hc:ax2",
+    "hp:sz",
+    "hp:pos",
+    "hp:outMargin",
+    "hp:shapeComment"
+   ],
+   "골든관측수": 1,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": [
+    "hp:caption",
+    "hp:drawText",
+    "hp:metaTag",
+    "hp:parameterset"
+   ]
+  },
+  "hp:autoNum": {
+   "자식순서": [
+    "hp:autoNumFormat"
+   ],
+   "골든관측수": 3,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": []
+  },
+  "hp:btn": {
+   "자식순서": [
+    "hp:caption",
+    "hp:shapeComment",
+    "hp:parameterset",
+    "hp:metaTag",
+    "hp:formCharPr",
+    "hp:sz",
+    "hp:pos",
+    "hp:outMargin"
+   ],
+   "골든관측수": 1,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": [
+    "hp:caption",
+    "hp:metaTag",
+    "hp:parameterset",
+    "hp:shapeComment"
+   ]
+  },
+  "hp:caption": {
+   "자식순서": [
+    "hp:subList"
+   ],
+   "골든관측수": 11,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": []
+  },
+  "hp:case": {
+   "자식순서": [
+    "hh:tabItem",
+    "hh:margin",
+    "hh:lineSpacing",
+    "hh:heading",
+    "hp:chart"
+   ],
+   "골든관측수": 2555,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [
+    "hh:heading",
+    "hh:lineSpacing",
+    "hh:margin",
+    "hh:tabItem",
+    "hp:chart"
+   ],
+   "InitMap폴백_자식": []
+  },
+  "hp:chart": {
+   "자식순서": [
+    "hp:sz",
+    "hp:pos",
+    "hp:outMargin",
+    "hp:caption",
+    "hp:shapeComment",
+    "hp:parameterset",
+    "hp:metaTag"
+   ],
+   "골든관측수": 1,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": [
+    "hp:caption",
+    "hp:metaTag",
+    "hp:parameterset",
+    "hp:shapeComment"
+   ]
+  },
+  "hp:checkBtn": {
+   "자식순서": [
+    "hp:formCharPr",
+    "hp:sz",
+    "hp:pos",
+    "hp:outMargin"
+   ],
+   "골든관측수": 1,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [
+    "hp:formCharPr",
+    "hp:outMargin",
+    "hp:pos",
+    "hp:sz"
+   ],
+   "InitMap폴백_자식": []
+  },
+  "hp:colPr": {
+   "자식순서": [
+    "hp:colLine",
+    "hp:colSz"
+   ],
+   "골든관측수": 3,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": []
+  },
+  "hp:comboBox": {
+   "자식순서": [
+    "hp:caption",
+    "hp:shapeComment",
+    "hp:parameterset",
+    "hp:metaTag",
+    "hp:formCharPr",
+    "hp:listItem",
+    "hp:sz",
+    "hp:pos",
+    "hp:outMargin"
+   ],
+   "골든관측수": 1,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": [
+    "hp:caption",
+    "hp:metaTag",
+    "hp:parameterset",
+    "hp:shapeComment"
+   ]
+  },
+  "hp:compose": {
+   "자식순서": [
+    "hp:charPr"
+   ],
+   "골든관측수": 3,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": []
+  },
+  "hp:connectLine": {
+   "자식순서": [
+    "hc:fillBrush",
+    "hp:drawText",
+    "hp:parameterset",
+    "hp:metaTag",
+    "hp:caption",
+    "hp:offset",
+    "hp:orgSz",
+    "hp:curSz",
+    "hp:flip",
+    "hp:rotationInfo",
+    "hp:renderingInfo",
+    "hp:lineShape",
+    "hp:shadow",
+    "hp:startPt",
+    "hp:endPt",
+    "hp:sz",
+    "hp:pos",
+    "hp:outMargin",
+    "hp:shapeComment",
+    "hp:controlPoints"
+   ],
+   "골든관측수": 8,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": [
+    "hc:fillBrush",
+    "hp:caption",
+    "hp:drawText",
+    "hp:metaTag",
+    "hp:parameterset"
+   ]
+  },
+  "hp:container": {
+   "자식순서": [
+    "hp:caption",
+    "hp:parameterset",
+    "hp:metaTag",
+    "hp:offset",
+    "hp:orgSz",
+    "hp:curSz",
+    "hp:flip",
+    "hp:rotationInfo",
+    "hp:renderingInfo",
+    "hp:container",
+    "hp:ellipse",
+    "hp:arc",
+    "hp:polygon",
+    "hp:curve",
+    "hp:connectLine",
+    "hp:pic",
+    "hp:line",
+    "hp:rect",
+    "hp:sz",
+    "hp:pos",
+    "hp:outMargin",
+    "hp:shapeComment",
+    "hp:ole",
+    "hp:textart"
+   ],
+   "골든관측수": 72,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": [
+    "hp:arc",
+    "hp:caption",
+    "hp:container",
+    "hp:curve",
+    "hp:ellipse",
+    "hp:metaTag",
+    "hp:ole",
+    "hp:parameterset",
+    "hp:textart"
+   ]
+  },
+  "hp:controlPoints": {
+   "자식순서": [
+    "hp:point"
+   ],
+   "골든관측수": 7,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": []
+  },
+  "hp:ctrl": {
+   "자식순서": [
+    "hp:colPr",
+    "hp:fieldEnd",
+    "hp:bookmark",
+    "hp:header",
+    "hp:footer",
+    "hp:footNote",
+    "hp:endNote",
+    "hp:autoNum",
+    "hp:newNum",
+    "hp:fieldBegin",
+    "hp:pageNumCtrl",
+    "hp:pageHiding",
+    "hp:pageNum",
+    "hp:indexmark",
+    "hp:hiddenComment"
+   ],
+   "골든관측수": 513,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": [
+    "hp:bookmark",
+    "hp:endNote",
+    "hp:footNote",
+    "hp:indexmark",
+    "hp:pageNumCtrl"
+   ]
+  },
+  "hp:curve": {
+   "자식순서": [
+    "hp:drawText",
+    "hp:parameterset",
+    "hp:metaTag",
+    "hp:caption",
+    "hp:offset",
+    "hp:orgSz",
+    "hp:curSz",
+    "hp:flip",
+    "hp:rotationInfo",
+    "hp:renderingInfo",
+    "hp:lineShape",
+    "hc:fillBrush",
+    "hp:shadow",
+    "hp:seg",
+    "hp:sz",
+    "hp:pos",
+    "hp:outMargin",
+    "hp:shapeComment"
+   ],
+   "골든관측수": 1,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": [
+    "hp:caption",
+    "hp:drawText",
+    "hp:metaTag",
+    "hp:parameterset"
+   ]
+  },
+  "hp:default": {
+   "자식순서": [
+    "hh:tabItem",
+    "hh:margin",
+    "hh:lineSpacing",
+    "hh:heading",
+    "hp:ole"
+   ],
+   "골든관측수": 2555,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [
+    "hh:heading",
+    "hh:lineSpacing",
+    "hh:margin",
+    "hh:tabItem",
+    "hp:ole"
+   ],
+   "InitMap폴백_자식": []
+  },
+  "hp:drawText": {
+   "자식순서": [
+    "hp:subList",
+    "hp:textMargin"
+   ],
+   "골든관측수": 52,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": []
+  },
+  "hp:dutmal": {
+   "자식순서": [
+    "hp:mainText",
+    "hp:subText"
+   ],
+   "골든관측수": 1,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": []
+  },
+  "hp:edit": {
+   "자식순서": [
+    "hp:caption",
+    "hp:shapeComment",
+    "hp:parameterset",
+    "hp:metaTag",
+    "hp:formCharPr",
+    "hp:text",
+    "hp:sz",
+    "hp:pos",
+    "hp:outMargin"
+   ],
+   "골든관측수": 1,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": [
+    "hp:caption",
+    "hp:metaTag",
+    "hp:parameterset",
+    "hp:shapeComment"
+   ]
+  },
+  "hp:effects": {
+   "자식순서": [
+    "hp:shadow",
+    "hp:glow",
+    "hp:softEdge",
+    "hp:reflection"
+   ],
+   "골든관측수": 1,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": []
+  },
+  "hp:effectsColor": {
+   "자식순서": [
+    "hp:rgb",
+    "hp:cmyk",
+    "hp:scheme",
+    "hp:system",
+    "hp:effect"
+   ],
+   "골든관측수": 2,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": [
+    "hp:cmyk",
+    "hp:scheme",
+    "hp:system"
+   ]
+  },
+  "hp:ellipse": {
+   "자식순서": [
+    "hp:parameterset",
+    "hp:metaTag",
+    "hp:caption",
+    "hp:offset",
+    "hp:orgSz",
+    "hp:curSz",
+    "hp:flip",
+    "hp:rotationInfo",
+    "hp:renderingInfo",
+    "hp:lineShape",
+    "hc:fillBrush",
+    "hp:shadow",
+    "hp:drawText",
+    "hc:center",
+    "hc:ax1",
+    "hc:ax2",
+    "hc:start1",
+    "hc:end1",
+    "hc:start2",
+    "hc:end2",
+    "hp:sz",
+    "hp:pos",
+    "hp:outMargin",
+    "hp:shapeComment"
+   ],
+   "골든관측수": 303,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": [
+    "hp:caption",
+    "hp:metaTag",
+    "hp:parameterset"
+   ]
+  },
+  "hp:endNotePr": {
+   "자식순서": [
+    "hp:autoNumFormat",
+    "hp:noteLine",
+    "hp:noteSpacing",
+    "hp:numbering",
+    "hp:placement"
+   ],
+   "골든관측수": 49,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": []
+  },
+  "hp:equation": {
+   "자식순서": [
+    "hp:sz",
+    "hp:pos",
+    "hp:outMargin",
+    "hp:caption",
+    "hp:shapeComment",
+    "hp:parameterset",
+    "hp:metaTag",
+    "hp:script"
+   ],
+   "골든관측수": 1,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": [
+    "hp:caption",
+    "hp:metaTag",
+    "hp:parameterset"
+   ]
+  },
+  "hp:fieldBegin": {
+   "자식순서": [
+    "hp:parameters",
+    "hp:subList",
+    "hp:metaTag"
+   ],
+   "골든관측수": 212,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": []
+  },
+  "hp:footNotePr": {
+   "자식순서": [
+    "hp:autoNumFormat",
+    "hp:noteLine",
+    "hp:noteSpacing",
+    "hp:numbering",
+    "hp:placement"
+   ],
+   "골든관측수": 49,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": []
+  },
+  "hp:footer": {
+   "자식순서": [
+    "hp:subList"
+   ],
+   "골든관측수": 4,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": []
+  },
+  "hp:glow": {
+   "자식순서": [
+    "hp:effectsColor"
+   ],
+   "골든관측수": 1,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": []
+  },
+  "hp:header": {
+   "자식순서": [
+    "hp:subList"
+   ],
+   "골든관측수": 1,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [
+    "hp:subList"
+   ],
+   "InitMap폴백_자식": []
+  },
+  "hp:hiddenComment": {
+   "자식순서": [
+    "hp:subList"
+   ],
+   "골든관측수": 1,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": []
+  },
+  "hp:imgRect": {
+   "자식순서": [
+    "hc:pt0",
+    "hc:pt1",
+    "hc:pt2",
+    "hc:pt3"
+   ],
+   "골든관측수": 80,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": []
+  },
+  "hp:line": {
+   "자식순서": [
+    "hc:fillBrush",
+    "hp:drawText",
+    "hp:parameterset",
+    "hp:metaTag",
+    "hp:caption",
+    "hp:offset",
+    "hp:orgSz",
+    "hp:curSz",
+    "hp:flip",
+    "hp:rotationInfo",
+    "hp:renderingInfo",
+    "hp:lineShape",
+    "hp:shadow",
+    "hc:startPt",
+    "hc:endPt",
+    "hp:sz",
+    "hp:pos",
+    "hp:outMargin",
+    "hp:shapeComment"
+   ],
+   "골든관측수": 2,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": [
+    "hc:fillBrush",
+    "hp:caption",
+    "hp:drawText",
+    "hp:metaTag",
+    "hp:parameterset"
+   ]
+  },
+  "hp:linesegarray": {
+   "자식순서": [
+    "hp:lineseg"
+   ],
+   "골든관측수": 5327,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": []
+  },
+  "hp:listParam": {
+   "자식순서": [
+    "hp:unsignedintegerParam"
+   ],
+   "골든관측수": 1,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [
+    "hp:unsignedintegerParam"
+   ],
+   "InitMap폴백_자식": []
+  },
+  "hp:ole": {
+   "자식순서": [
+    "hp:caption",
+    "hp:parameterset",
+    "hp:metaTag",
+    "hp:offset",
+    "hp:orgSz",
+    "hp:curSz",
+    "hp:flip",
+    "hp:rotationInfo",
+    "hp:renderingInfo",
+    "hc:extent",
+    "hp:lineShape",
+    "hp:sz",
+    "hp:pos",
+    "hp:outMargin",
+    "hp:shapeComment"
+   ],
+   "골든관측수": 2,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": [
+    "hp:caption",
+    "hp:metaTag",
+    "hp:parameterset"
+   ]
+  },
+  "hp:p": {
+   "자식순서": [
+    "hp:run",
+    "hp:linesegarray"
+   ],
+   "골든관측수": 5474,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": []
+  },
+  "hp:pageBorderFill": {
+   "자식순서": [
+    "hp:offset"
+   ],
+   "골든관측수": 147,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": []
+  },
+  "hp:pagePr": {
+   "자식순서": [
+    "hp:margin"
+   ],
+   "골든관측수": 49,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": []
+  },
+  "hp:parameters": {
+   "자식순서": [
+    "hp:integerParam",
+    "hp:stringParam"
+   ],
+   "골든관측수": 212,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [
+    "hp:integerParam",
+    "hp:stringParam"
+   ],
+   "InitMap폴백_자식": []
+  },
+  "hp:parameterset": {
+   "자식순서": [
+    "hp:listParam"
+   ],
+   "골든관측수": 1,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [
+    "hp:listParam"
+   ],
+   "InitMap폴백_자식": []
+  },
+  "hp:pic": {
+   "자식순서": [
+    "hp:caption",
+    "hp:parameterset",
+    "hp:metaTag",
+    "hp:offset",
+    "hp:orgSz",
+    "hp:curSz",
+    "hp:flip",
+    "hp:rotationInfo",
+    "hp:renderingInfo",
+    "hp:lineShape",
+    "hp:imgRect",
+    "hp:imgClip",
+    "hp:inMargin",
+    "hp:imgDim",
+    "hp:effects",
+    "hp:sz",
+    "hp:pos",
+    "hp:outMargin",
+    "hp:shapeComment"
+   ],
+   "골든관측수": 80,
+   "뺀_흔들리는_태그": [
+    "hc:img"
+   ],
+   "골든에만": [],
+   "InitMap폴백_자식": [
+    "hp:caption",
+    "hp:metaTag",
+    "hp:parameterset"
+   ]
+  },
+  "hp:polygon": {
+   "자식순서": [
+    "hp:drawText",
+    "hp:parameterset",
+    "hp:metaTag",
+    "hp:caption",
+    "hp:offset",
+    "hp:orgSz",
+    "hp:curSz",
+    "hp:flip",
+    "hp:rotationInfo",
+    "hp:renderingInfo",
+    "hp:lineShape",
+    "hc:fillBrush",
+    "hp:shadow",
+    "hc:pt",
+    "hp:sz",
+    "hp:pos",
+    "hp:outMargin",
+    "hp:shapeComment"
+   ],
+   "골든관측수": 105,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": [
+    "hp:caption",
+    "hp:drawText",
+    "hp:metaTag",
+    "hp:parameterset"
+   ]
+  },
+  "hp:presentation": {
+   "자식순서": [
+    "hc:fillBrush"
+   ],
+   "골든관측수": 1,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": []
+  },
+  "hp:radioBtn": {
+   "자식순서": [
+    "hp:formCharPr",
+    "hp:sz",
+    "hp:pos",
+    "hp:outMargin"
+   ],
+   "골든관측수": 1,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [
+    "hp:formCharPr",
+    "hp:outMargin",
+    "hp:pos",
+    "hp:sz"
+   ],
+   "InitMap폴백_자식": []
+  },
+  "hp:rect": {
+   "자식순서": [
+    "hp:metaTag",
+    "hp:offset",
+    "hp:orgSz",
+    "hp:curSz",
+    "hp:flip",
+    "hp:rotationInfo",
+    "hp:renderingInfo",
+    "hp:lineShape",
+    "hc:fillBrush",
+    "hp:shadow",
+    "hp:drawText",
+    "hc:pt0",
+    "hc:pt1",
+    "hc:pt2",
+    "hc:pt3",
+    "hp:sz",
+    "hp:pos",
+    "hp:outMargin",
+    "hp:caption",
+    "hp:shapeComment",
+    "hp:parameterset"
+   ],
+   "골든관측수": 104,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": [
+    "hp:metaTag"
+   ]
+  },
+  "hp:reflection": {
+   "자식순서": [
+    "hp:skew",
+    "hp:scale",
+    "hp:alpha",
+    "hp:pos"
+   ],
+   "골든관측수": 1,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": []
+  },
+  "hp:renderingInfo": {
+   "자식순서": [
+    "hc:transMatrix",
+    "hc:scaMatrix",
+    "hc:rotMatrix"
+   ],
+   "골든관측수": 680,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": []
+  },
+  "hp:run": {
+   "자식순서": [
+    "hp:secPr",
+    "hp:ctrl",
+    "hp:ole",
+    "hp:equation",
+    "hp:line",
+    "hp:ellipse",
+    "hp:arc",
+    "hp:polygon",
+    "hp:curve",
+    "hp:connectLine",
+    "hp:textart",
+    "hp:compose",
+    "hp:dutmal",
+    "hp:btn",
+    "hp:checkBtn",
+    "hp:radioBtn",
+    "hp:comboBox",
+    "hp:listBox",
+    "hp:edit",
+    "hp:scrollBar",
+    "hp:video",
+    "hp:markpenBegin",
+    "hp:tbl",
+    "hp:pic",
+    "hp:container",
+    "hp:markpenEnd",
+    "hp:chart",
+    "hp:unknownObj",
+    "hp:switch"
+   ],
+   "골든관측수": 6546,
+   "뺀_흔들리는_태그": [
+    "hp:rect",
+    "hp:t"
+   ],
+   "골든에만": [
+    "hp:switch"
+   ],
+   "InitMap폴백_자식": [
+    "hp:chart",
+    "hp:listBox",
+    "hp:scrollBar",
+    "hp:unknownObj"
+   ]
+  },
+  "hp:secPr": {
+   "자식순서": [
+    "hp:grid",
+    "hp:startNum",
+    "hp:visibility",
+    "hp:lineNumberShape",
+    "hp:pagePr",
+    "hp:footNotePr",
+    "hp:endNotePr",
+    "hp:pageBorderFill",
+    "hp:masterPage",
+    "hp:parameterset",
+    "hp:presentation",
+    "hp:metaTag"
+   ],
+   "골든관측수": 49,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": [
+    "hp:metaTag",
+    "hp:parameterset"
+   ]
+  },
+  "hp:shadow": {
+   "자식순서": [
+    "hp:skew",
+    "hp:scale",
+    "hp:effectsColor"
+   ],
+   "골든관측수": 1,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [
+    "hp:effectsColor",
+    "hp:scale",
+    "hp:skew"
+   ],
+   "InitMap폴백_자식": []
+  },
+  "hp:subList": {
+   "자식순서": [
+    "hp:p"
+   ],
+   "골든관측수": 3745,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": []
+  },
+  "hp:switch": {
+   "자식순서": [
+    "hp:case",
+    "hp:default"
+   ],
+   "골든관측수": 2555,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [
+    "hp:case",
+    "hp:default"
+   ],
+   "InitMap폴백_자식": []
+  },
+  "hp:t": {
+   "자식순서": [
+    "hp:markpenBegin",
+    "hp:markpenEnd",
+    "hp:titleMark",
+    "hp:lineBreak",
+    "hp:hypen",
+    "hp:nbSpace",
+    "hp:fwSpace",
+    "hp:chval",
+    "hp:unknownch",
+    "hp:deleteBegin",
+    "hp:deleteEnd",
+    "hp:tab",
+    "hp:insertBegin",
+    "hp:insertEnd"
+   ],
+   "골든관측수": 143,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": [
+    "hp:chval",
+    "hp:hypen",
+    "hp:markpenBegin",
+    "hp:markpenEnd",
+    "hp:unknownch"
+   ]
+  },
+  "hp:tbl": {
+   "자식순서": [
+    "hp:sz",
+    "hp:pos",
+    "hp:outMargin",
+    "hp:caption",
+    "hp:shapeComment",
+    "hp:parameterset",
+    "hp:metaTag",
+    "hp:inMargin",
+    "hp:cellzoneList",
+    "hp:tr",
+    "hp:label"
+   ],
+   "골든관측수": 144,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": [
+    "hp:cellzoneList",
+    "hp:label",
+    "hp:metaTag",
+    "hp:parameterset",
+    "hp:shapeComment"
+   ]
+  },
+  "hp:tc": {
+   "자식순서": [
+    "hp:subList",
+    "hp:cellAddr",
+    "hp:cellSpan",
+    "hp:cellSz",
+    "hp:cellMargin"
+   ],
+   "골든관측수": 3656,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": []
+  },
+  "hp:textart": {
+   "자식순서": [
+    "hp:drawText",
+    "hp:parameterset",
+    "hp:metaTag",
+    "hp:caption",
+    "hp:offset",
+    "hp:orgSz",
+    "hp:curSz",
+    "hp:flip",
+    "hp:rotationInfo",
+    "hp:renderingInfo",
+    "hp:lineShape",
+    "hc:fillBrush",
+    "hp:shadow",
+    "hc:pt0",
+    "hc:pt1",
+    "hc:pt2",
+    "hc:pt3",
+    "hp:textartPr",
+    "hp:sz",
+    "hp:pos",
+    "hp:outMargin",
+    "hp:shapeComment",
+    "hp:outline"
+   ],
+   "골든관측수": 1,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": [
+    "hp:caption",
+    "hp:drawText",
+    "hp:metaTag",
+    "hp:outline",
+    "hp:parameterset"
+   ]
+  },
+  "hp:textartPr": {
+   "자식순서": [
+    "hp:shadow"
+   ],
+   "골든관측수": 1,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": []
+  },
+  "hp:tr": {
+   "자식순서": [
+    "hp:tc"
+   ],
+   "골든관측수": 693,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": []
+  },
+  "hp:video": {
+   "자식순서": [
+    "hp:caption",
+    "hp:parameterset",
+    "hp:metaTag",
+    "hp:offset",
+    "hp:orgSz",
+    "hp:curSz",
+    "hp:flip",
+    "hp:rotationInfo",
+    "hp:renderingInfo",
+    "hp:sz",
+    "hp:pos",
+    "hp:outMargin",
+    "hp:shapeComment"
+   ],
+   "골든관측수": 1,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [],
+   "InitMap폴백_자식": [
+    "hp:caption",
+    "hp:metaTag",
+    "hp:parameterset"
+   ]
+  },
+  "hs:sec": {
+   "자식순서": [
+    "hp:p"
+   ],
+   "골든관측수": 49,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [
+    "hp:p"
+   ],
+   "InitMap폴백_자식": []
+  },
+  "urn:oasis:names:tc:opendocument:xmlns:config:1.0:config-item-set": {
+   "자식순서": [
+    "urn:oasis:names:tc:opendocument:xmlns:config:1.0:config-item"
+   ],
+   "골든관측수": 1,
+   "뺀_흔들리는_태그": [],
+   "골든에만": [
+    "urn:oasis:names:tc:opendocument:xmlns:config:1.0:config-item"
+   ],
+   "InitMap폴백_자식": []
+  }
+ }
+}

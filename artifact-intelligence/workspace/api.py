@@ -77,15 +77,17 @@ _사양.loader.exec_module(자료뿌리)
     "어디": "where", "내용": "content",
     # 관리자설정저장 — 웹앱 전용(목록() 이 MCP 에서 거른다)이나 별칭을 한 곳에 다 둔다.
     "세션만료초": "session_ttl_sec", "llm키": "llm_key", "모델": "model",
-    "세션당상한": "per_session_limit", "하루총량": "daily_total",
+    "세션당상한": "per_session_limit", "하루총량": "daily_total", "장르토큰": "genre_tokens",
     "제공자": "provider", "베이스": "base_url", "표시": "display",
     # 정책 토큰(WP-S6) — 발급/활성/자동등록 op 의 인자. 별칭은 한 곳에 다 둔다.
     "메모": "memo", "지문": "fingerprint", "켜기": "enable", "라벨": "label",
+    # 2층 빌드플랜 op(플랜승인) — 한글 인자 키는 MCP 에서 400 을 내므로 별칭 필수.
+    "코멘트": "comment",
 }
 
 
 def 등록(이름, 받는것=(), 읽기=True, 설명="", en=None, 비동기=True, 승인필요=False,
-       관리자=False, 정책=False, 공개발급=False):
+       관리자=False, 정책=False, 공개발급=False, 숨김=False, 토큰필수=False):
     """작업 하나를 등록부에 적는다.
 
     `비동기` — 이 작업을 `작업시작` 으로 뒤에 걸 수 있는가. 기본은 **된다**이고,
@@ -106,6 +108,14 @@ def 등록(이름, 받는것=(), 읽기=True, 설명="", en=None, 비동기=True
     늘렸을 때 게이트가 자동으로 따라온다. 게다가 관리자 작업은 **웹앱 문 하나에만**
     두고 스킬·MCP·공개 목록에는 안 낸다 — `목록()` 이 이 플래그로 걸러 낸다(그
     함수 주석에 왜 거르는지 적었다).
+
+    `토큰필수` — 이 정책작업은 **발급받은 정책토큰 없이는 못 부른다**(익명 거부).
+    `정책` 게이트는 하드모드(문서지능_정책토큰필수=1)가 아니면 토큰 없는 익명도 통과시켜
+    웹앱 문을 연 채로 둔다 — compose·detect 같은 결과성 작업은 그래도 된다. 하지만
+    `지식`은 온톨로지 조각을 그대로 돌려주므로 익명 무제한 조회면 온톨로지가 통째로
+    새어 나간다. 그래서 이 작업만 하드모드와 무관하게 토큰을 요구한다(설치본은 부트스트랩
+    enroll 로 자동 발급받으니 조회 가능, 캐주얼 익명 덤프는 401). serve.py `_정책통과`
+    가 이 플래그를 보고 건다 — 이름별 분기 없이 등록부 한 곳에서 파생.
     """
     def 감싸기(fn):
         받는 = tuple(받는것)
@@ -119,6 +129,7 @@ def 등록(이름, 받는것=(), 읽기=True, 설명="", en=None, 비동기=True
                     "모양": {k: 인자모양.get(k, str) for k in 받는},
                     "비동기": 비동기, "승인필요": bool(승인필요),
                     "관리자": bool(관리자), "정책": bool(정책), "공개발급": bool(공개발급),
+                    "숨김": bool(숨김), "토큰필수": bool(토큰필수),
                     "설명": 설명 or (fn.__doc__ or "").strip().splitlines()[0], "함수": fn}
         if en:
             별칭[en] = 이름
@@ -157,10 +168,40 @@ def 등록부길(docs):
 
 # ── 읽기 ────────────────────────────────────────────────────────────────
 
-@등록("지식", ["path"], 설명="1층 온톨로지 조회(점 표기). 빈 값이면 최상위 키 목록",
-    en="knowledge", 관리자=True)
+_지식캐시 = {}                 # path → (결과, 만료시각) — 조각 조회를 프로세스 안에서 짧게 캐시
+_지식캐시TTL = int(os.environ.get("문서지능_지식캐시초") or 300)
+
+
+def _지식조회(정책서버, path):
+    """정책서버에서 온톨로지 **조각(path)만** 조회해 TTL 로 짧게 캐시한다 — 사용자 자료는
+    안 보내고 온톨로지 path 만 보낸다(정책만-로컬: 사용자 정보보호 우선). TTL 로 정책서버가
+    온톨로지를 갱신하면 그 최신성을 따라간다(피드백 루프로 정제되는 규칙이 클라에 반영)."""
+    import time as _t
+    지금 = _t.time()
+    쌍 = _지식캐시.get(path)
+    if 쌍 and 쌍[1] > 지금:
+        return 쌍[0]
+    r = _원격(정책서버, "지식", {"path": path})
+    if isinstance(r, dict) and r.get("ok"):
+        _지식캐시[path] = (r, 지금 + _지식캐시TTL)
+    return r
+
+
+@등록("지식", ["path"], 설명="1층 온톨로지 조각 조회(점 표기). 빈 값이면 최상위 키 목록. "
+    "배포 트리엔 온톨로지가 없어 정책서버에서 이 path 조각만 받아 온다(사용자 자료는 안 나감)",
+    en="knowledge", 정책=True, 숨김=True, 토큰필수=True)
 def 지식(path=""):
-    o = json.load(open(os.path.join(ROOT, "ontology", "ontology.json"), encoding="utf-8"))
+    로컬 = os.path.join(ROOT, "ontology", "ontology.json")
+    if not os.path.exists(로컬):
+        # 배포 트리엔 온톨로지가 없다(정책만-로컬) — 정책서버에서 이 path 조각만 조회해 캐시한다.
+        # 사용자 자료는 안 나가고 온톨로지 path 만 간다. 서버도 미설정이면 fail-closed(배포 안내).
+        정책서버 = _정책서버설정()
+        if 정책서버:
+            return _지식조회(정책서버, path)
+        return {"ok": False, "로그": "이 작업은 온톨로지가 필요합니다 — 환경변수 "
+                "문서지능_정책서버=https://… 를 설정하세요(온톨로지는 정책서버 뒤에 있습니다). "
+                "개발 환경이라면 ontology/ontology.json 을 두십시오."}
+    o = json.load(open(로컬, encoding="utf-8"))
     node = o
     for part in [p for p in str(path).split(".") if p]:
         if isinstance(node, list) and part.isdigit():
@@ -444,9 +485,21 @@ def 작업화면갱신():
     return {"ok": r1["ok"] and r2["ok"], "로그": r1["로그"] + r2["로그"]}
 
 
-@등록("승인화면", ["plan"], 읽기=False, 설명="빌드플랜 → 승인 화면(plan.html)", en="plan")
+@등록("승인화면", ["plan"], 읽기=False,
+    설명="빌드플랜 → 승인 화면 HTML 을 돌려준다. plan 은 plan_id(세션 플랜) 또는 파일 경로", en="plan")
 def 승인화면(plan):
-    return 돌리기([sys.executable, "buildplan/render_plan.py", plan])
+    경로 = plan
+    if plan and (os.sep not in str(plan)) and not str(plan).endswith(".json"):
+        경로 = 자료뿌리.플랜(plan)      # plan_id → 세션 플랜 경로로 푼다
+    try:
+        r = subprocess.run([sys.executable, "buildplan/render_plan.py", str(경로), "--stdout", "--web"],
+                           cwd=ROOT, capture_output=True, text=True, timeout=30,
+                           env=자료뿌리.자식환경())
+    except Exception as e:
+        return {"ok": False, "로그": f"승인 화면을 만들지 못했습니다 ({type(e).__name__})"}
+    if r.returncode != 0:
+        return {"ok": False, "로그": (r.stderr or "승인 화면 렌더에 실패했습니다").strip()[:300]}
+    return {"ok": True, "값": {"html": r.stdout}}
 
 
 @등록("관측", ["key"], 읽기=False, 설명="산출물에서 실제 분량·구성을 재어 기록(귀납 재료)", en="observe")
@@ -667,14 +720,38 @@ def 올리기(이름, 내용_base64):
     # 이름(개명됐을 수 있다)을 응답으로 돌려준다 — 부르는 쪽이 그 이름으로 이어
     # 읽어야 한다(X2 C-2 와 같은 함정: 응답의 이름을 안 쓰면 남의 파일을 읽는다).
     뿌리, 끝 = os.path.splitext(이름)
+    # 파일명이 길면(한글은 글자당 3바이트) 임시·충돌 접미사까지 붙어 파일시스템 이름 한도
+    # (암호화 홈은 ~143바이트)를 넘겨 [Errno 36] File name too long 이 난다. 확장자는 지키고
+    # 앞부분만 **바이트 기준**으로 잘라 저장한다 — 표시용 원본 이름은 브라우저가 따로 갖는다.
+    끝 = 끝[:12]
+    _b = 뿌리.encode("utf-8")
+    if len(_b) > 60:
+        뿌리 = _b[:60].decode("utf-8", "ignore").rstrip() or "file"
+    이름 = 뿌리 + 끝
     n, 놓을곳 = 0, os.path.join(안, 이름)
     while os.path.exists(놓을곳):
         n += 1
         이름 = f"{뿌리}-{n}{끝}"
         놓을곳 = os.path.join(안, 이름)
+    데이터 = base64.b64decode(자료.split(",")[-1])
+    def _써넣기(대상):
+        with 자료뿌리.쓰기(대상, "wb") as f:        # 반쪽 업로드가 inbox 에 안 남게
+            f.write(데이터)
     try:
-        with 자료뿌리.쓰기(놓을곳, "wb") as f:      # 반쪽 업로드가 inbox 에 안 남게
-            f.write(base64.b64decode(자료.split(",")[-1]))
+        _써넣기(놓을곳)
+    except OSError as e:
+        # [Errno 36] ENAMETOOLONG — 어떤 이유로든 이름/경로가 길면 **짧은 이름으로 물러선다**.
+        # 표시용 원본 이름은 브라우저가 따로 가지므로 저장 이름이 짧아도 사용자에겐 안 보인다.
+        if getattr(e, "errno", None) == 36:
+            import secrets
+            이름 = "up-" + secrets.token_hex(6) + 끝
+            놓을곳 = os.path.join(안, 이름)
+            try:
+                _써넣기(놓을곳)
+            except Exception as e2:
+                return {"ok": False, "로그": f"파일을 놓지 못했습니다: {e2}"}
+        else:
+            return {"ok": False, "로그": f"파일을 놓지 못했습니다: {e}"}
     except Exception as e:
         return {"ok": False, "로그": f"파일을 놓지 못했습니다: {e}"}
     return {"ok": True, "값": {"이름": 이름, "크기": os.path.getsize(놓을곳)}}
@@ -758,7 +835,12 @@ def 본(장르="samples"):
     **여기에 모양을 손으로 적지 않는다** — 등록부의 실물 문서에서 뽑는다.
     조립기가 바뀌면 실물이 먼저 바뀌고 이 모양이 따라온다.
     """
-    등록 = 자료뿌리.등록부(장르)
+    # 모양은 **정본(코드루트)** 등록부에서 뽑는다 — 세션 등록부(자료뿌리.등록부)를 읽으면
+    # 사용자가 아직 그 장르 문서를 안 만든 세션에서 빈 [] 가 나와 모양이 사라진다. 그러면
+    # 초안 지시문이 else 가지("실물 본을 못 가져왔다")로 떨어져, 모델이 스키마를 지어내
+    # 조립기가 크래시한다(시행문·보도자료·규정·슬라이드가 첫 제작에서 통째로 깨졌다).
+    # 모양은 "우리가 배포하는 것"(코드길)이므로 세션과 무관하게 코드루트에서 읽는다.
+    등록 = 자료뿌리.코드길("build", f"{장르}-docs.json")
     if not os.path.exists(등록):
         return {"ok": False, "로그": f"'{장르}' 등록부가 없습니다"}
     문서들 = json.load(open(등록, encoding="utf-8"))
@@ -1180,7 +1262,7 @@ _LLM세마포 = threading.BoundedSemaphore(int(os.environ.get("문서지능_LLM�
 _LLM대기최대초 = int(os.environ.get("문서지능_LLM대기초") or 240)
 
 
-def _서버LLM호출(지시문, 자료, 예시=None):
+def _서버LLM호출(지시문, 자료, 예시=None, 장르=None):
     """동시 호출을 세마포로 상류 상한에 맞추는 래퍼 — 초과분은 대기한다(탈락 아님).
     실제 호출은 _LLM호출_실제. 대기 시간이 한도를 넘으면 사람말로 알린다."""
     if not _서버LLM설정():
@@ -1188,18 +1270,30 @@ def _서버LLM호출(지시문, 자료, 예시=None):
     if not _LLM세마포.acquire(timeout=_LLM대기최대초):
         raise RuntimeError("동시 생성 요청이 많아 대기 시간을 초과했습니다 — 잠시 후 다시 시도해 주세요")
     try:
-        return _LLM호출_실제(지시문, 자료, 예시)
+        return _LLM호출_실제(지시문, 자료, 예시, 장르)
     finally:
         _LLM세마포.release()
 
 
-def _LLM호출_실제(지시문, 자료, 예시=None):
+def _LLM호출_실제(지시문, 자료, 예시=None, 장르=None):
     """설정된 제공자로 초안 3층 JSON 을 받아 온다. 키는 **헤더로만** 나가고 로그·응답엔 안 담긴다.
     제공자: openai호환(Featherless·Ollama·OpenAI·custom) / anthropic. 없으면 None."""
     import urllib.request, urllib.error
     cfg = _서버LLM설정()
     if not cfg:
         return None
+    # max_tokens 우선순위: **장르별 관리자 설정** → 전역 세션당상한(하위호환) → **장르별 코드 기본값**.
+    # (풀버전은 JSON 이 커서 넉넉히 — 안 그러면 배열 중간에서 잘려 반토막 JSON 이 난다. 관리자가
+    #  장르마다 따로 상한을 줄 수 있다 — 사장님 지적으로 저장만 되던 걸 실제 연결·장르 분리, '26-08-19.)
+    _llm설정 = _설정읽기().get("llm") or {}
+    _장르토큰 = _llm설정.get("장르토큰") if isinstance(_llm설정.get("장르토큰"), dict) else {}
+    _장르기본 = {"fullreport": 16000, "press": 12000, "regulation": 12000, "slides": 12000, "gongmun": 8000}.get(장르 or "", 8000)
+    def _양의(x):
+        try:
+            return int(x) if x and int(x) > 0 else 0
+        except (TypeError, ValueError):
+            return 0
+    최대토큰 = _양의(_장르토큰.get(장르)) or _양의(_llm설정.get("세션당상한")) or _장르기본
     # 자료는 대개 리스트(타입맵 "자료": list)다 — 문자열로 합쳐야 한다. 리스트를 그대로
     # content 에 실으면 OpenAI 호환 제공자가 422("messages.content Invalid input")로 막는다
     # (2026-08-13 Featherless 실측). 문자열이면 그대로, 아니면 줄바꿈으로 잇는다.
@@ -1219,7 +1313,7 @@ def _LLM호출_실제(지시문, 자료, 예시=None):
         url = (정상 or "https://api.anthropic.com").rstrip("/") + "/v1/messages"
         헤더 = {"x-api-key": cfg["키"], "anthropic-version": "2023-06-01",
               "content-type": "application/json"}
-        몸 = {"model": cfg["모델"], "max_tokens": 8192, "system": 지시문,
+        몸 = {"model": cfg["모델"], "max_tokens": 최대토큰, "system": 지시문,
              "messages": [{"role": "user", "content": 사용자글}]}
     else:                                    # openai호환 — Featherless·Ollama·OpenAI·custom
         정상, 오류 = _베이스URL검증(cfg["베이스"] or _기본LLM베이스)   # SSRF 방어(호출 시점)
@@ -1231,7 +1325,7 @@ def _LLM호출_실제(지시문, 자료, 예시=None):
         # JSON 모드 — 모델이 **유효 JSON 만** 뱉게 강제한다(작은 모델의 쉼표 누락 등 문법
         # 오류 방지, 2026-08-10 실측). OpenAI 호환 제공자 대부분 지원(Featherless 포함).
         몸 = {"model": cfg["모델"], "response_format": {"type": "json_object"},
-             "max_tokens": 8192,          # 안 주면 제공자 기본값에서 잘려 반토막 JSON 이 난다
+             "max_tokens": 최대토큰,          # 안 주면 제공자 기본값에서 잘려 반토막 JSON 이 난다
              "messages": [{"role": "system", "content": 지시문},
                           {"role": "user", "content": 사용자글}]}
     # User-Agent — 안 붙이면 urllib 기본값('Python-urllib/…')이 Cloudflare 봇 차단(error 1010,
@@ -1273,13 +1367,14 @@ def _서버채움(rid, 열쇠):
         지시문 = 본.get("지시문") or ""
         자료 = 본.get("자료") or ""
         예시 = 본.get("예시")
+        장르 = 본.get("장르")             # 장르별 max_tokens 기본값에 쓴다(풀버전은 넉넉히)
         # 작은 모델(예: gemma-4-E4B)은 JSON 모드를 켜도 이따금 반토막·잡말 섞인
         # JSON 을 낸다. 파싱까지 성공한 답이 나올 때까지 몇 번 되시도한다. doc 이
         # None 이면 키가 사라진 것이라 되시도 없이 대기로 되돌린다(채팅 폴백).
         doc, 마지막오류, 키사라짐 = None, None, False
         for 시도 in range(3):
             try:
-                doc = _서버LLM호출(지시문, 자료, 예시)
+                doc = _서버LLM호출(지시문, 자료, 예시, 장르)
                 if doc is None:      # 키 없음 → 되시도 무의미, 대기로
                     키사라짐 = True
                     break
@@ -1398,6 +1493,7 @@ def _지시문조립(자료, 장르="samples", 예시=None, 추가지시="", 유
           (json.dumps(시각의미, ensure_ascii=False, indent=1)[:1500] if 시각의미 else ""),
           "· 넣는 자리: 절 안에 \"표\"·\"도식\"·\"이미지\" 키로(돌려줄 모양의 예시 구조 그대로). 1p 는 top 의 \"table\".",
           "· 도식 type: 절차=process, 되돌아오면 cycle, 수렴 converge, 관계·구조 strategy/relation, 차트 line/bar/donut/hbar/stack.",
+          "· 도식·표는 반드시 그 절의 \"도식\"·\"표\" 키에 위 예시 구조(스펙)로 넣어라. 본문 항목 text 에 \"[도식] …\"·\"[표] …\"·\"[그림] …\" 처럼 자리표시 설명만 쓰지 마라 — 시스템이 그리지 못한다. 도식으로 만들 수 없으면 그 내용을 대괄호 없는 평범한 설명 문장으로 풀어 써라.",
           "· 표는 수치·비교(대안 비교·현행vs개선·일정표)일 때. 이미지는 상황 설명·가상 시뮬·예시에 효과적일 때만 — 1차로 올린 첨부에서 잘라(\"파일\"·\"쪽\"·\"자를곳\") 쓰고, 적합한 첨부가 없으면 \"출처\":\"생성\"·\"프롬프트\"로 AI 생성을 요청한다(자동으로 'AI 생성물' 표기가 붙는다). 시뮬레이션·사실적 장면이면 \"실사\":true 를 함께 넣는다(고품질 실사로 나감). 도해·차트·로고는 생성 말고 도식(SVG)·첨부로.",
           "",
           "[돌려줄 것 — JSON 하나만, 다른 말 없이]"]
@@ -1407,15 +1503,85 @@ def _지시문조립(자료, 장르="samples", 예시=None, 추가지시="", 유
                  ' "sections":[{"heading":"검토결과","items":[{"level":2,"html":"…"},{"level":3,"html":"…"}]}],\n'
                  ' "table":null,"attach":null}')
     elif 모양:
+        _키목록 = ", ".join(f'"{k}"' for k in 모양.keys())
         부 += ["아래는 이 문서 종류의 **실제 모양**이다(등록부의 실물에서 뽑은 것).",
-              "키와 중첩 구조를 그대로 따르고 값만 새로 채워라 — 값은 **베끼지 마라**.",
               "",
-              json.dumps(모양, ensure_ascii=False, indent=1)[:4000],
+              "[반드시 지킬 키 규칙 — 어기면 문서가 통째로 비어 버린다]",
+              "· **최상위 키는 정확히 이것들만 쓴다(한글 그대로). 번역·개명·영문화 절대 금지: " + _키목록 + "**"]
+        # 장/절/항목 중첩은 **풀버전 보고서 전용** 구조다(모양에 최상위 "장" 키가 있을 때만).
+        # 이 지시를 시행문·보도자료·규정·슬라이드에도 실으면 모델이 아래 모양 덤프(예: 규정의
+        # 평면 조(條) 리스트)를 무시하고 장/절/항목으로 내 게이트에 걸린다(규정 "조가 하나도 없다").
+        # 그 장르들은 아래 모양 덤프만으로 구조를 이끈다.
+        if "장" in 모양:
+            부 += ['· **본문은 반드시 "장"(배열)에 담는다.** 구조는 '
+                  '[{"제목":"…","절":[{"제목":"…","항목":[{"level":2,"text":"…"}]}]}] 다.',
+                  '· **각 "장"·"절"의 "제목"에는 자료에 맞는 구체적 제목을 반드시 써라 — null·빈 문자열 금지.** (예: "추진 배경 및 필요성", "시스템 구축 방안")',
+                  '· **"보고내용 요약"은 "장"이 아니라 "요약":{"블록":[{"제목":"…","항목":[{"text":"…","세부":["…"]}]}]} 필드에 담아라** — 요약 페이지는 별도로 있다.',
+                  '· "sections"·"body"·"chapters"·"toc"·"cover"·"summary" 같은 **영문 키를 쓰지 마라** — 조립기가 못 읽어 표지만 남는다.']
+        부 += ['· **제목·본문·항목에 번호·마커를 붙이지 마라** — 장 번호(Ⅰ.Ⅱ.)·조 번호(제N조)·절 마커(□)·항목 마커(○·-·※)는 시스템이 자동으로 붙인다. 순수 문구만 써라.',
+              "· 아래 모양의 키·중첩 구조를 **글자 그대로** 따르고 값만 새로 채워라(값은 베끼지 마라).",
               "",
-              '"filename" 은 영문 소문자·하이픈으로 반드시 넣어라.']
+              json.dumps(모양, ensure_ascii=False, indent=1)[:6000],
+              "",
+              '"filename" 은 영문 소문자·하이픈으로 반드시 넣어라. **그 밖의 키 이름은 위 한글 그대로, 하나도 바꾸지 마라.**']
     else:
         부 += ["이 문서 종류의 정본 구조를 그대로 따르는 JSON. \"filename\" 은 영문 소문자·하이픈으로 반드시 넣어라.",
               "**주의: 이 종류의 실물 본을 못 가져왔다 — 키를 지어내지 말고 사용자에게 알려라.**"]
+    if 추가지시:
+        부 += ["", str(추가지시)]
+    return "\n".join(x for x in 부 if x is not None)
+
+
+def _설계지시문조립(자료, 장르="samples", 유형id=None, 추가지시=""):
+    """**2층 빌드플랜(작성 계획)** 을 짜는 시스템 프롬프트를 서버에서 만든다 — _지시문조립
+    (초안용)과 같은 온톨로지를 당기되, 본문 대신 **buildplan/schema.json 구조의 설계 JSON**
+    을 요청한다. '방법론까지만'(2층 경계)을 못박고, 실제 개수·문구·표 등장은 3층으로 미룬다."""
+    한장 = (장르 == "samples")
+    정본 = _장르정본(장르)
+    장르규칙 = 지식("document_types." + str(정본))
+    장르값 = 장르규칙.get("값") or {"키": 장르규칙.get("키")}
+    선택 = None
+    if 한장:
+        _ts = 지식("document_types.onepage-report.구성.목차로직.types").get("값") or []
+        if 유형id:
+            선택 = next((t for t in _ts if t.get("id") == 유형id), None)
+        선택 = 선택 or _유형판정(자료)
+    부 = ["너는 대한민국 공공기관 문서의 **작성 계획(2층 빌드플랜)** 을 짜는 설계자다.",
+         "아직 본문을 쓰지 마라 — **어떻게 만들지 설계만** 하고, 그 설계를 사용자가 승인한 뒤에야 초안을 쓴다.",
+         "지금 설계할 문서 종류: " + str(정본), "",
+         "[이 문서 종류의 규칙]",
+         json.dumps(장르값, ensure_ascii=False, indent=1)[:5000]]
+    if 한장 and 선택:
+        부 += ["",
+              "[이 자료에 맞게 판정된 보고목적 유형과 목차 시퀀스 — 설계의 뼈대로 삼아라]",
+              json.dumps({"id": 선택.get("id"), "이름": 선택.get("label"),
+                          "표준시퀀스": 선택.get("표준시퀀스"),
+                          "압축시퀀스": 선택.get("압축시퀀스")}, ensure_ascii=False, indent=1)]
+    부 += ["",
+         "[사용자가 준 자료(사용자 메시지에 있다)를 읽고 요구 — 독자·목적·상황 — 를 분석하라]",
+         "",
+         "[돌려줄 것 — 아래 구조의 **JSON 하나만**, 다른 말 없이. 이것은 '작성 계획'이지 본문이 아니다]",
+         "{",
+         '  "request": {"원문요약": "자료 핵심 1~2줄", "입력유형": "명확지정|목적만|예시문서", "첨부": []},',
+         '  "요구분석": {"독자": "누가 읽고 판단하나", "목적": "독자가 이 문서를 받고 무엇을 해야 하나(유형 판정 기준)",',
+         '    "상황": "어떤 계기·배경에서 나온 보고인가",',
+         '    "확인필요": [{"항목": "모호한 것", "질문": "사용자에게 물을 것", "왜": "왜 필요한지"}]},',
+         '  "판정": {"문서유형": "' + str(정본) + '", "보고목적유형": "' + str((선택 or {}).get("id") or "") + '",',
+         '    "근거": "왜 이 유형으로 판정했나 — 사용자가 반박할 수 있게 구체적으로",',
+         '    "대안후보": [{"유형": "갈렸던 다른 유형", "탈락사유": "왜 그건 아닌가"}], "확신도": "높음|중간|낮음"},',
+         '  "개체구성": [{"개체": "제목|요약박스|본문|붙임", "포함": true, "비고": "왜 넣나/빼나"}],',
+         '  "적용방법론": {"본문": {"구성": "목차 패턴 요약", "문체": "이 종류의 문체 규칙", "디자인": "마커·시각 위계"}},',
+         '  "본문순서": ["본문을 이 순서로 쓸 절 제목 목록 — 판정 유형의 표준 시퀀스를 따르되 자료에 맞게(3~5개)"],',
+         '  "등장요소_전망": [{"요소": "표|이미지", "가능성": "높음|중간|낮음", "근거": "왜 그렇게 보나", "확정": "3층"}],',
+         '  "제약": {"분량예산": "표 유무별 기준", "게이트": ["통과 기준"]},',
+         '  "미확정_3층위임": ["일부러 안 정한 것 — 실제 절 개수·항목 수·최종 문구·표 등장 여부 등"],',
+         '  "승인": {"status": "대기"}',
+         "}",
+         "",
+         "[경계 — 반드시 지켜라]",
+         "· 2층은 **방법론까지만** 정한다. 실제 □·○ 개수, 절 최종 문구, 표 등장 여부는 정하지 마라 — 자료를 보고 3층(초안)에서 정한다.",
+         "· 안 정한 것은 '미확정_3층위임'에 반드시 적어라(경계를 지켰다는 증거다).",
+         "· 모호한 것을 지어내지 마라 — '요구분석.확인필요'에 질문으로 남겨라(성실하기보다 되묻는다)."]
     if 추가지시:
         부 += ["", str(추가지시)]
     return "\n".join(x for x in 부 if x is not None)
@@ -1463,6 +1629,77 @@ def 요청내기(자료="", 장르="samples", 유형id=None, 예시=None, 추가
         열쇠 = 자료뿌리.세션열쇠()
         threading.Thread(target=_서버채움, args=(rid, 열쇠), name=f"llm-{rid}", daemon=True).start()
     return {"ok": True, "값": {"id": rid, "서버처리": 서버처리}}
+
+
+# ── 2층 빌드플랜(작성 계획) — 판정과 초안 사이의 '설계 확정' 단계 (제품 5단계 ③) ──────
+# 세 표면 공용: 웹앱·스킬·MCP 모두 여기를 거친다. 초안(3층)과 같은 두 갈래다 —
+# 키 있는 브라우저·에이전트는 '설계지시문내기'로 지시문만 받아 **자기 모델**로 플랜을
+# 짓고(플랜저장), 키 없는 웹앱은 '설계'가 **서버 기본 모델**로 대신 짓는다. 지은 플랜은
+# 승인화면(plan.html)으로 사람이 보고 '플랜승인' 한다 — 승인돼야 초안이 등록·조립된다
+# (_플랜승인막힘 게이트, 이미 저장·새문서에 물려 있음).
+@등록("설계지시문내기", ["자료", "장르", "유형id", "추가지시"], 정책=True,
+    설명="서버가 온톨로지로 조립한 '작성 계획(2층)' 설계 프롬프트만 돌려준다(원문은 안 나간다) — 키 있는 브라우저·에이전트가 이걸로 직접 모델을 불러 빌드플랜 JSON 을 짓는다",
+    en="composeplan")
+def 설계지시문내기(자료, 장르="samples", 유형id=None, 추가지시=""):
+    return {"ok": True, "값": {"지시문": _설계지시문조립(자료, 장르, 유형id, 추가지시)}}
+
+
+@등록("플랜저장", ["plan", "장르"], 읽기=False,
+    설명="모델이 지은 작성 계획(빌드플랜) JSON 을 승인 대기 상태로 저장한다 — plan_id 를 돌려준다",
+    en="saveplan")
+def 플랜저장(plan=None, 장르="samples"):
+    import time as _t, uuid
+    if isinstance(plan, str):
+        try:
+            plan = json.loads(plan)
+        except Exception:
+            return {"ok": False, "로그": "작성 계획이 JSON 이 아닙니다"}
+    if not isinstance(plan, dict):
+        return {"ok": False, "로그": "작성 계획(JSON 객체)이 필요합니다"}
+    pid = plan.get("plan_id") or (_t.strftime("plan-%m%d-%H%M%S-") + uuid.uuid4().hex[:4])
+    plan["plan_id"] = pid
+    plan["장르"] = 장르
+    승인 = plan.get("승인") if isinstance(plan.get("승인"), dict) else {}
+    if (승인.get("status") or "").strip() not in ("대기", "승인", "수정요청", "되묻기중"):
+        승인["status"] = "대기"
+    plan["승인"] = 승인
+    자료뿌리.원자json(자료뿌리.플랜(pid), plan, indent=1)
+    return {"ok": True, "값": {"plan_id": pid}}
+
+
+@등록("설계", ["자료", "장르", "유형id", "추가지시"], 읽기=False,
+    설명="서버가 자료로 '작성 계획(2층 빌드플랜)' 을 짓는다(키 없이 쓰는 길) — 서버 기본 모델이 설계 프롬프트로 빌드플랜 JSON 을 만들어 저장하고 plan_id 를 돌려준다",
+    en="drawplan")
+def 설계(자료="", 장르="samples", 유형id=None, 추가지시=""):
+    if not _서버LLM설정():
+        return {"ok": False, "로그": "서버 기본 모델이 설정되어 있지 않습니다 — 오른쪽 위 “API 키”를 넣고 브라우저에서 직접 설계해 주세요"}
+    지시 = _설계지시문조립(자료, 장르, 유형id, 추가지시)
+    try:
+        plan = _서버LLM호출(지시, str(자료))      # _JSON뽑기 경유 파싱된 dict (반토막 대비 3회 되시도)
+    except Exception as e:
+        return {"ok": False, "로그": f"작성 계획을 만들지 못했습니다 ({type(e).__name__})"}
+    if not isinstance(plan, dict):
+        return {"ok": False, "로그": "작성 계획을 JSON 으로 받지 못했습니다 — 다시 시도해 주세요"}
+    return 플랜저장(plan, 장르)
+
+
+@등록("플랜승인", ["plan_id", "status", "코멘트"], 읽기=False,
+    설명="작성 계획(빌드플랜)의 승인 상태를 기록한다 — 승인/수정요청. 승인돼야 초안(3층)이 조립·등록된다",
+    en="approveplan")
+def 플랜승인(plan_id="", status="승인", 코멘트=""):
+    import time as _t
+    try:
+        plan = json.load(open(자료뿌리.플랜(plan_id), encoding="utf-8"))
+    except OSError:
+        return {"ok": False, "로그": "그 작성 계획을 찾지 못했습니다"}
+    except ValueError:
+        return {"ok": False, "로그": "작성 계획 파일이 깨졌습니다"}
+    if status not in ("승인", "수정요청", "대기", "되묻기중"):
+        status = "승인"
+    plan["승인"] = {"status": status, "코멘트": 코멘트 or "",
+                  "일시": _t.strftime("%Y-%m-%dT%H:%M:%S")}
+    자료뿌리.원자json(자료뿌리.플랜(plan_id), plan, indent=1)
+    return {"ok": True, "값": {"plan_id": plan_id, "status": status}}
 
 
 @등록("요청목록", ["id"], 설명="기다리는 요청들 — AI 가 이것을 보고 초안을 쓴다", en="asks")
@@ -2146,6 +2383,12 @@ def _정책토큰설정():
     return None
 
 
+def _자료작(작):
+    """이 작업이 사용자 자료(문서 내용)를 인자로 받나 — 받으면 정책서버로 위임하지 않고
+    로컬에서 돈다(정책만-로컬: 사용자 정보보호 최우선). 자료 없는 정책작업만 위임한다."""
+    return any(a in (작.get("받는것") or ()) for a in ("자료", "자료들", "payload", "doc", "docs"))
+
+
 def 부르기(이름, 인자=None):
     """이름으로 작업 하나를 부른다. 세 껍데기가 다 이 함수만 쓴다."""
     서버 = _서버설정()
@@ -2156,11 +2399,13 @@ def 부르기(이름, 인자=None):
         # 다시 원격 호출하는 고리가 생기지 않게 막아 둔다(workspace/serve.py 참고).
         return _원격(서버, 이름, 인자)
     작 = 찾기(이름)
-    # 온톨로지를 읽는 **정책 작업만** 정책서버로 위임한다(2026-08-12) — 스킬이 온톨로지를
-    # 설치 PC에 두지 않게. 여기도 이름별 분기가 아니라 등록부 '정책' 플래그에서 파생한다
-    # (손목록 금지). 실행(조립·게이트·저장)은 정책 플래그가 없어 로컬에서 돈다.
+    # 온톨로지를 읽는 정책 작업만 정책서버로 위임하되, **사용자 자료를 받는 정책작업
+    # (판정·프롬프트조립)은 위임하지 않고 로컬에서 돈다** — 자료가 정책서버로 나가지 않게
+    # (정책만-로컬: 사용자 정보보호 최우선, plugin-local-first-architecture). 그런 작업은 로컬
+    # 실행 중 지식()이 필요한 온톨로지 조각만 정책서버에서 조회한다. 자료 없는 정책작업
+    # (장르·시퀀스·지식)만 위임. 이름별 분기가 아니라 등록부 '정책'+받는것에서 파생(손목록 금지).
     정책서버 = _정책서버설정()
-    if 정책서버 and 작 and 작.get("정책"):
+    if 정책서버 and 작 and 작.get("정책") and not _자료작(작):
         return _원격(정책서버, 이름, 인자)
     # 배포 트리엔 온톨로지가 없다(정책서버 뒤에 둔다). 정책작업인데 정책서버도 미설정이고
     # 로컬 온톨로지도 없으면 — 조용한 FileNotFoundError 대신 명시 거절한다(fail-closed, 배포 안내).
@@ -2217,7 +2462,8 @@ def 목록(관리자포함=False):
     # 경로(/api/enroll)로 부르는 인프라 문이지 에이전트가 쓰는 문서 도구가 아니다. MCP
     # 도구·SKILL 표·공개 목록에 실을 이유가 없다(HTTP 디스패치는 전체 등록부에서 풀어 무영향).
     return [{k: (list(v) if k == "받는것" else v) for k, v in w.items() if k != "함수"}
-            for w in 작업.values() if 관리자포함 or not (w.get("관리자") or w.get("공개발급"))]
+            for w in 작업.values()
+            if 관리자포함 or not (w.get("관리자") or w.get("공개발급") or w.get("숨김"))]
 
 
 # ── WP-S6: 게이트 배선 — 지어냈나(환각 검수) ─────────────────────────────
@@ -2523,6 +2769,7 @@ def 관리자설정보기():
             "표시": llm.get("표시") or "",                  # 키 없이 진행 시 탑바 안내 문구(관리자가 정함)
             "세션당상한": llm.get("세션당상한"),
             "하루총량": llm.get("하루총량"),
+            "장르토큰": llm.get("장르토큰") if isinstance(llm.get("장르토큰"), dict) else {},
         },
         "설정깨짐": bool(d.get("_깨짐")),
         "설정경로있음": os.path.exists(자료뿌리.설정길()),
@@ -2530,11 +2777,11 @@ def 관리자설정보기():
 
 
 @등록("관리자설정저장",
-    ["세션만료초", "llm키", "모델", "세션당상한", "하루총량", "제공자", "베이스", "표시"],
+    ["세션만료초", "llm키", "모델", "세션당상한", "하루총량", "제공자", "베이스", "표시", "장르토큰"],
     읽기=False, en="admincfgset", 관리자=True,
-    설명="관리자 설정 저장 — LLM 제공자·서버·키·모델·상한·안내문구와 세션 무반응 시간. 응답에도 키는 마스킹")
+    설명="관리자 설정 저장 — LLM 제공자·서버·키·모델·상한(장르별 max_tokens 포함)·안내문구와 세션 무반응 시간. 응답에도 키는 마스킹")
 def 관리자설정저장(세션만료초=None, llm키=None, 모델=None, 세션당상한=None, 하루총량=None,
-             제공자=None, 베이스=None, 표시=None):
+             제공자=None, 베이스=None, 표시=None, 장르토큰=None):
     """설정.json 에 관리자 설정을 저장한다(빗장으로 읽고-고치고-쓰기를 잠근다).
 
     부분 저장이다 — 준 값만 바꾸고 나머지는 그대로 둔다. **빈 llm키는 '지우기'가
@@ -2589,6 +2836,21 @@ def 관리자설정저장(세션만료초=None, llm키=None, 모델=None, 세션
                     return {"ok": False, "로그": f"{이름}은 1 이상의 정수여야 합니다"}
                 llm[이름] = n
                 변경.append(f"{이름}={n}")
+        # 장르별 max_tokens — 관리자가 장르마다 따로 상한을 준다. {장르: 양의정수} 로 저장한다.
+        # 빈 값/0 은 그 장르에서 빼(→ 코드 기본값으로 돌아간다). 아는 장르만 받는다.
+        if isinstance(장르토큰, dict):
+            표 = llm.get("장르토큰") if isinstance(llm.get("장르토큰"), dict) else {}
+            아는장르 = {"samples", "fullreport", "gongmun", "regulation", "press", "slides"}
+            for g, v in 장르토큰.items():
+                if g not in 아는장르:
+                    continue
+                n = _양의정수(v, None) if (v is not None and str(v).strip() != "") else None
+                if n:
+                    표[g] = n
+                else:
+                    표.pop(g, None)
+            llm["장르토큰"] = 표
+            변경.append("장르토큰=" + (", ".join(f"{k}:{x}" for k, x in 표.items()) or "(비움)"))
         if llm:
             d["llm"] = llm
         d.pop("_깨짐", None)

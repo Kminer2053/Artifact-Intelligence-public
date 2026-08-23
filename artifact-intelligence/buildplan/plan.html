@@ -1,0 +1,79 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8">
+<title>작성 계획 확인 — plan-0819-144606-3c27</title>
+<style>
+*{box-sizing:border-box}
+body{font-family:"Apple SD Gothic Neo","Malgun Gothic",sans-serif;max-width:880px;margin:0 auto;
+padding:28px 24px;color:#222;line-height:1.75;background:#f7f8fa;font-size:14.5px}
+h1{font-size:22px;margin:0 0 4px} .top-sub{color:#777;font-size:13px;margin:0 0 20px}
+h2{font-size:17px;margin:34px 0 8px;color:#1F3864}
+.d{color:#666;font-size:13px;margin:0 0 12px}
+.hero{display:flex;gap:24px;background:#1F3864;color:#fff;border-radius:12px;padding:22px 26px;align-items:center;flex-wrap:wrap}
+.hero-l{flex:1;min-width:220px} .lab{font-size:12px;opacity:.8;margin-bottom:5px}
+.big{font-size:25px;font-weight:800;line-height:1.3} .sub{font-size:13px;opacity:.85;margin-top:6px}
+.btns{display:flex;gap:10px;margin-top:8px}
+.btns button{border:0;border-radius:8px;padding:11px 18px;font-size:14px;font-weight:700;cursor:pointer}
+.ok{background:#fff;color:#1F3864} .no{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.5)}
+.res{font-size:12px;margin-top:9px;opacity:.9;min-height:16px}
+.why{background:#eef3ff;border-left:4px solid #1F3864;padding:14px 18px;margin:16px 0 0;
+border-radius:0 8px 8px 0;font-size:14px}
+.why b{display:block;margin-bottom:6px}
+.sent{margin:4px 0 0;padding-left:18px} .sent li{margin:5px 0}
+.warn{background:#fff8ea;border:1px solid #f0d9a0;border-radius:10px;padding:16px 20px;margin-top:26px}
+.warn h2{color:#8a6100;margin-top:0}
+.ask{background:#fff;border:1px solid #ecdfc0;border-radius:8px;padding:13px 15px;margin:12px 0}
+.ask-q{font-weight:700;font-size:15px;margin-bottom:5px}
+.ask-w{color:#666;font-size:13px;margin:0 0 9px;line-height:1.65}
+.ask textarea{width:100%;min-height:48px;border:1px solid #ddd;border-radius:6px;padding:8px 10px;font-size:13.5px;font-family:inherit}
+.card{background:#fff;border:1px solid #e2e2e2;border-radius:10px;padding:16px 18px}
+.kv{display:flex;gap:14px;margin:9px 0;align-items:baseline}
+.kv .k{color:#888;min-width:82px;flex-shrink:0;font-size:13px;font-weight:600}
+.kv .v{flex:1}
+table{width:100%;border-collapse:collapse;background:#fff;font-size:13.5px;border:1px solid #e2e2e2;border-radius:10px;overflow:hidden}
+th{background:#eef1f6;text-align:left;padding:9px 14px;font-size:12.5px}
+td{padding:10px 14px;border-top:1px solid #eee;vertical-align:top;line-height:1.65}
+.alt-t{font-weight:700;width:150px} .y{color:#1a7f37;font-weight:700;width:60px} .n{color:#999;width:60px}
+.poss{font-weight:700;width:130px}
+.chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px}
+.chip{background:#1F3864;color:#fff;padding:9px 16px;border-radius:22px;font-size:14px;font-weight:600}
+.dele{background:#fff;border:1px solid #e2e2e2;border-radius:10px;padding:14px 14px 14px 32px;font-size:13.5px;color:#555;margin:0}
+.dele li{margin:6px 0}
+.more{color:#999;font-size:12.5px;margin-top:6px;padding-left:6px}
+</style></head><body>
+<h1>작성 계획 확인</h1>
+<p class="top-sub">문서를 쓰기 전에, 어떻게 만들지 먼저 보여드립니다 · 현재: <b>승인됨</b></p>
+
+<div class="hero">
+  <div class="hero-l">
+    <div class="lab">이 요청을 이렇게 만들려고 합니다</div>
+    <div class="big"></div>
+    <div class="sub">A4 한 장 보고서 · 판단 확신: 높음</div>
+  </div>
+  <div class="hero-r">
+    <div class="lab">이 방향이 맞습니까?</div>
+    <div class="btns">
+      <button class="ok" onclick="mark('승인')">네, 이대로 진행</button>
+      <button class="no" onclick="mark('수정요청')">아니요, 수정할게요</button>
+    </div>
+    <div id="res" class="res"></div>
+  </div>
+</div>
+<div class="why"><b>왜 이렇게 판단했나</b>판단·선택 필요</div>
+
+
+<section><h2>제가 이해한 요청</h2><div class="card"><div class="kv"><span class="k">누가 읽나</span><span class="v">경영진</span></div><div class="kv"><span class="k">읽고 할 일</span><span class="v">추진 가부·위탁/직영 결정</span></div><div class="kv"><span class="k">배경</span><span class="v"></span></div></div></section>
+
+<section><h2>문서 구성</h2><table class="ent"><tr><th>요소</th><th>포함</th><th>이유</th></tr><tr><td>제목</td><td class="y">넣음</td><td></td></tr><tr><td>본문</td><td class="y">넣음</td><td></td></tr></table></section>
+
+
+<section><h2>자료를 보고 정할 것들</h2><p class="d">설계 단계에서 미리 못 박지 않고, 내용을 쓰면서 정하는 항목입니다.</p><ul class="dele"><li>실제 절 개수</li><li>표 등장 여부</li></ul></section>
+<script>
+function mark(s) {
+  const answers = [...document.querySelectorAll('[data-ask]')]
+    .filter(t => t.value.trim())
+    .map(t => `- ${t.dataset.ask}: ${t.value.trim()}`);
+  const txt = `[작성 계획 ${s}]` + (answers.length ? `\n답변:\n${answers.join('\n')}` : '');
+  navigator.clipboard.writeText(txt);
+  document.getElementById('res').textContent = '복사됐습니다 — 대화창에 붙여넣어 주세요.';
+}
+</script>
+</body></html>

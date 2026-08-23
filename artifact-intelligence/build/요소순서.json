@@ -1,0 +1,5462 @@
+{
+ "_출처": {
+  "저장소": "https://github.com/hancom-io/hwpx-owpml-model",
+  "라이선스": "Apache-2.0 (Hancom Inc.)",
+  "커밋": "1453388472c703a4b299a0834f425cdac16644b9",
+  "긁은스크립트": "skill/artifact-intelligence/build/요소순서긁기.py",
+  "긁은cpp파일수": 288,
+  "긁은클래스수": 313,
+  "요소수": 307,
+  "태그중복(여러부모가다른이름으로쓴클래스)": [
+   {
+    "클래스": "CAbstractButtonObjectType",
+    "별칭들": [
+     "hp:btn",
+     "hp:checkBtn",
+     "hp:radioBtn"
+    ]
+   },
+   {
+    "클래스": "CAutoNumNewNumType",
+    "별칭들": [
+     "hp:autoNum",
+     "hp:newNum"
+    ]
+   },
+   {
+    "클래스": "CBorderType",
+    "별칭들": [
+     "hh:bottomBorder",
+     "hh:diagonal",
+     "hh:leftBorder",
+     "hh:rightBorder",
+     "hh:topBorder"
+    ]
+   },
+   {
+    "클래스": "CConnectPointType",
+    "별칭들": [
+     "hp:endPt",
+     "hp:startPt"
+    ]
+   },
+   {
+    "클래스": "CDiffEntryType",
+    "별칭들": [
+     "hhs:bodyDiff",
+     "hhs:headDiff",
+     "hhs:packageDiff",
+     "hhs:tailDiff"
+    ]
+   },
+   {
+    "클래스": "CHWPValue",
+    "별칭들": [
+     "hc:intent",
+     "hc:left",
+     "hc:next",
+     "hc:prev",
+     "hc:right"
+    ]
+   },
+   {
+    "클래스": "CHeaderFooterType",
+    "별칭들": [
+     "hp:footer",
+     "hp:header"
+    ]
+   },
+   {
+    "클래스": "CMatrixType",
+    "별칭들": [
+     "hc:rotMatrix",
+     "hc:scaMatrix",
+     "hc:transMatrix"
+    ]
+   },
+   {
+    "클래스": "CMetaTag",
+    "별칭들": [
+     "hh:metaTag",
+     "hp:metaTag"
+    ]
+   },
+   {
+    "클래스": "CNoteType",
+    "별칭들": [
+     "hp:endNote",
+     "hp:footNote"
+    ]
+   },
+   {
+    "클래스": "CParameterList",
+    "별칭들": [
+     "hp:arrayParam",
+     "hp:listParam",
+     "hp:parameters",
+     "hp:parameterset"
+    ]
+   },
+   {
+    "클래스": "CPointType",
+    "별칭들": [
+     "hc:ax1",
+     "hc:ax2",
+     "hc:center",
+     "hc:end1",
+     "hc:end2",
+     "hc:endPt",
+     "hc:extent",
+     "hc:pt",
+     "hc:pt0",
+     "hc:pt1",
+     "hc:pt2",
+     "hc:pt3",
+     "hc:start1",
+     "hc:start2",
+     "hc:startPt"
+    ]
+   },
+   {
+    "클래스": "CSlashType",
+    "별칭들": [
+     "hh:backSlash",
+     "hh:slash"
+    ]
+   },
+   {
+    "클래스": "CTrackChangeTag",
+    "별칭들": [
+     "hp:deleteBegin",
+     "hp:deleteEnd",
+     "hp:insertBegin",
+     "hp:insertEnd"
+    ]
+   }
+  ]
+ },
+ "요소": {
+  "hp:offset": {
+   "클래스": "CPBFOffset",
+   "출처파일": "OWPML/Class/Para/poffset.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "left",
+    "right",
+    "top",
+    "bottom"
+   ],
+   "속성기본값": {
+    "left": "1417",
+    "right": "1417",
+    "top": "1417",
+    "bottom": "1417"
+   },
+   "태그별칭": [
+    "hp:offset"
+   ]
+  },
+  "hp:pos": {
+   "클래스": "CRFPos",
+   "출처파일": "OWPML/Class/Para/pos.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "start",
+    "end"
+   ],
+   "속성기본값": {
+    "start": "0.0",
+    "end": "0.0"
+   },
+   "태그별칭": [
+    "hp:pos"
+   ]
+  },
+  "hp:btn": {
+   "클래스": "CAbstractButtonObjectType",
+   "출처파일": "OWPML/Class/Para/AbstractButtonObjectType.cpp",
+   "자식순서": [
+    "hp:sz",
+    "hp:pos",
+    "hp:outMargin",
+    "hp:caption",
+    "hp:shapeComment",
+    "hp:parameterset",
+    "hp:metaTag",
+    "hp:formCharPr"
+   ],
+   "속성순서": [
+    "caption",
+    "value",
+    "radioGroupName",
+    "triState",
+    "backStyle"
+   ],
+   "속성기본값": {},
+   "태그별칭": [
+    "hp:btn",
+    "hp:checkBtn",
+    "hp:radioBtn"
+   ]
+  },
+  "(무명):CAbstractDiffDataType": {
+   "클래스": "CAbstractDiffDataType",
+   "출처파일": "OWPML/Class/Etc/AbstractDiffDataType.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "path"
+   ],
+   "속성기본값": {},
+   "태그별칭": []
+  },
+  "(무명):CAbstractDrawingObjectType": {
+   "클래스": "CAbstractDrawingObjectType",
+   "출처파일": "OWPML/Class/Para/AbstractDrawingObjectType.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": []
+  },
+  "(무명):CAbstractFormObjectType": {
+   "클래스": "CAbstractFormObjectType",
+   "출처파일": "OWPML/Class/Para/AbstractFormObjectType.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "name",
+    "foreColor",
+    "backColor",
+    "groupName",
+    "tabStop",
+    "editable",
+    "tabOrder",
+    "enabled",
+    "borderTypeIDRef",
+    "drawFrame",
+    "printable",
+    "command"
+   ],
+   "속성기본값": {
+    "tabStop": "true",
+    "editable": "true",
+    "tabOrder": "-1",
+    "enabled": "true",
+    "borderTypeIDRef": "0",
+    "drawFrame": "true",
+    "printable": "true"
+   },
+   "태그별칭": []
+  },
+  "(무명):CAbstractShapeComponentType": {
+   "클래스": "CAbstractShapeComponentType",
+   "출처파일": "OWPML/Class/Para/AbstractShapeComponentType.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "href",
+    "groupLevel",
+    "instid"
+   ],
+   "속성기본값": {
+    "groupLevel": "0",
+    "instid": "0"
+   },
+   "태그별칭": []
+  },
+  "(무명):CAbstractShapeObjectType": {
+   "클래스": "CAbstractShapeObjectType",
+   "출처파일": "OWPML/Class/Para/AbstractShapeObjectType.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "id",
+    "zOrder",
+    "numberingType",
+    "textFlow",
+    "lock",
+    "dropcapstyle"
+   ],
+   "속성기본값": {
+    "id": "0",
+    "zOrder": "0",
+    "numberingType": "ASONT_NONE",
+    "textFlow": "ASOTFT_BOTH_SIDES",
+    "lock": "false",
+    "dropcapstyle": "DCS_NONE"
+   },
+   "태그별칭": []
+  },
+  "hh:adjustBaselineInFixedLinespacing": {
+   "클래스": "CAdjustBaselineInFixedLinespacing",
+   "출처파일": "OWPML/Class/Head/adjustBaselineInFixedLinespacing.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:adjustBaselineInFixedLinespacing"
+   ]
+  },
+  "hh:adjustBaselineOfObjectToBottom": {
+   "클래스": "CAdjustBaselineOfObjectToBottom",
+   "출처파일": "OWPML/Class/Head/adjustBaselineOfObjectToBottom.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:adjustBaselineOfObjectToBottom"
+   ]
+  },
+  "hh:adjustLineheightToFont": {
+   "클래스": "CAdjustLineheightToFont",
+   "출처파일": "OWPML/Class/Head/adjustLineheightToFont.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:adjustLineheightToFont"
+   ]
+  },
+  "hh:adjustMarginFromAdjustLineheight": {
+   "클래스": "CAdjustMarginFromAdjustLineheight",
+   "출처파일": "OWPML/Class/Head/doNotAlignLastForbidden.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:adjustMarginFromAdjustLineheight"
+   ]
+  },
+  "hh:adjustParaBorderOffsetWithBorder": {
+   "클래스": "CAdjustParaBorderOffsetWithBorder",
+   "출처파일": "OWPML/Class/Head/adjustParaBorderOffsetWithBorder.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:adjustParaBorderOffsetWithBorder"
+   ]
+  },
+  "hh:adjustParaBorderfillToSpacing": {
+   "클래스": "CAdjustParaBorderfillToSpacing",
+   "출처파일": "OWPML/Class/Head/adjustParaBorderfillToSpacing.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:adjustParaBorderfillToSpacing"
+   ]
+  },
+  "hh:adjustVertPosOfLine": {
+   "클래스": "CAdjustVertPosOfLine",
+   "출처파일": "OWPML/Class/Head/adjustVertPosOfLine.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:adjustVertPosOfLine"
+   ]
+  },
+  "odf:algorithm": {
+   "클래스": "CAlgorithm",
+   "출처파일": "OWPML/Class/Etc/odfelement.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "odf:algorithm"
+   ]
+  },
+  "hh:align": {
+   "클래스": "CAlign",
+   "출처파일": "OWPML/Class/Head/align.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "horizontal",
+    "vertical"
+   ],
+   "속성기본값": {
+    "horizontal": "0",
+    "vertical": "0"
+   },
+   "태그별칭": [
+    "hh:align"
+   ]
+  },
+  "hp:alpha": {
+   "클래스": "CAlpha",
+   "출처파일": "OWPML/Class/Para/alpha.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "start",
+    "end"
+   ],
+   "속성기본값": {
+    "start": "0.0",
+    "end": "0.0"
+   },
+   "태그별칭": [
+    "hp:alpha"
+   ]
+  },
+  "hhs:any": {
+   "클래스": "CAnyType",
+   "출처파일": "OWPML/Class/Etc/DeleteType.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hhs:any"
+   ]
+  },
+  "hh:applyAtLeastToPercent100Pct": {
+   "클래스": "CApplyAtLeastToPercent100Pct",
+   "출처파일": "OWPML/Class/Head/applyAtLeastToPercent100Pct.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:applyAtLeastToPercent100Pct"
+   ]
+  },
+  "hh:applyCharSpacingToCharGrid": {
+   "클래스": "CApplyCharSpacingToCharGrid",
+   "출처파일": "OWPML/Class/Head/applyCharSpacingToCharGrid.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:applyCharSpacingToCharGrid"
+   ]
+  },
+  "hh:applyExtendHeaderFooterEachSection": {
+   "클래스": "CApplyExtendHeaderFooterEachSection",
+   "출처파일": "OWPML/Class/Head/applyExtendHeaderFooterEachSection.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:applyExtendHeaderFooterEachSection"
+   ]
+  },
+  "hh:applyFontWeightToBold": {
+   "클래스": "CApplyFontWeightToBold",
+   "출처파일": "OWPML/Class/Head/applyFontWeightToBold.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:applyFontWeightToBold"
+   ]
+  },
+  "hh:applyFontspaceToLatin": {
+   "클래스": "CApplyFontspaceToLatin",
+   "출처파일": "OWPML/Class/Head/applyFontspaceToLatin.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:applyFontspaceToLatin"
+   ]
+  },
+  "hh:applyMinColumnWidthTo1mm": {
+   "클래스": "CApplyMinColumnWidthTo1mm",
+   "출처파일": "OWPML/Class/Head/applyMinColumnWidthTo1mm.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:applyMinColumnWidthTo1mm"
+   ]
+  },
+  "hh:applyNextspacingOfLastPara": {
+   "클래스": "CApplyNextspacingOfLastPara",
+   "출처파일": "OWPML/Class/Head/applyNextspacingOfLastPara.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:applyNextspacingOfLastPara"
+   ]
+  },
+  "hh:applyParaBorderToOutside": {
+   "클래스": "CApplyParaBorderToOutside",
+   "출처파일": "OWPML/Class/Head/applyParaBorderToOutside.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:applyParaBorderToOutside"
+   ]
+  },
+  "hh:applyPrevspacingBeneathObject": {
+   "클래스": "CApplyPrevspacingBeneathObject",
+   "출처파일": "OWPML/Class/Head/applyPrevspacingBeneathObject.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:applyPrevspacingBeneathObject"
+   ]
+  },
+  "hh:applyTabPosBasedOnSegment": {
+   "클래스": "CApplyTabPosBasedOnSegment",
+   "출처파일": "OWPML/Class/Head/applyTabPosBasedOnSegment.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:applyTabPosBasedOnSegment"
+   ]
+  },
+  "hp:arc": {
+   "클래스": "CArcType",
+   "출처파일": "OWPML/Class/Para/ArcType.cpp",
+   "자식순서": [
+    "hp:lineShape",
+    "hc:fillBrush",
+    "hp:drawText",
+    "hp:shadow",
+    "hp:parameterset",
+    "hp:metaTag",
+    "hp:sz",
+    "hp:pos",
+    "hp:outMargin",
+    "hp:caption",
+    "hp:shapeComment",
+    "hp:offset",
+    "hp:orgSz",
+    "hp:curSz",
+    "hp:flip",
+    "hp:rotationInfo",
+    "hp:renderingInfo",
+    "hc:center",
+    "hc:ax1",
+    "hc:ax2"
+   ],
+   "속성순서": [
+    "type"
+   ],
+   "속성기본값": {
+    "type": "SAT_NORMAL"
+   },
+   "태그별칭": [
+    "hp:arc"
+   ]
+  },
+  "hp:autoNumFormat": {
+   "클래스": "CAutoNumFormatType",
+   "출처파일": "OWPML/Class/Para/AutoNumFormatType.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "type",
+    "userChar",
+    "prefixChar",
+    "suffixChar",
+    "supscript"
+   ],
+   "속성기본값": {
+    "type": "LNT_DIGIT",
+    "supscript": "false"
+   },
+   "태그별칭": [
+    "hp:autoNumFormat"
+   ]
+  },
+  "hp:autoNum": {
+   "클래스": "CAutoNumNewNumType",
+   "출처파일": "OWPML/Class/Para/AutoNumNewNumType.cpp",
+   "자식순서": [
+    "hp:autoNumFormat"
+   ],
+   "속성순서": [
+    "num",
+    "numType"
+   ],
+   "속성기본값": {
+    "num": "1",
+    "numType": "ANT_PAGE"
+   },
+   "태그별칭": [
+    "hp:autoNum",
+    "hp:newNum"
+   ]
+  },
+  "hh:autoSpacing": {
+   "클래스": "CAutoSpacing",
+   "출처파일": "OWPML/Class/Head/autoSpacing.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "eAsianEng",
+    "eAsianNum"
+   ],
+   "속성기본값": {
+    "eAsianEng": "false",
+    "eAsianNum": "false"
+   },
+   "태그별칭": [
+    "hh:autoSpacing"
+   ]
+  },
+  "hh:baseCharUnitOfIndentOnFirstChar": {
+   "클래스": "CBaseCharUnitOfIndentOnFirstChar",
+   "출처파일": "OWPML/Class/Head/baseCharUnitOfIndentOnFirstChar.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:baseCharUnitOfIndentOnFirstChar"
+   ]
+  },
+  "hh:baseCharUnitOnEAsian": {
+   "클래스": "CBaseCharUnitOnEAsian",
+   "출처파일": "OWPML/Class/Head/baseCharUnitOnEAsian.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:baseCharUnitOnEAsian"
+   ]
+  },
+  "hh:baseLineSpacingOnLineGrid": {
+   "클래스": "CBaseLineSpacingOnLineGrid",
+   "출처파일": "OWPML/Class/Head/baseLineSpacingOnLineGrid.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:baseLineSpacingOnLineGrid"
+   ]
+  },
+  "hh:beginNum": {
+   "클래스": "CBeginNum",
+   "출처파일": "OWPML/Class/Head/beginNum.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "page",
+    "footnote",
+    "endnote",
+    "pic",
+    "tbl",
+    "equation"
+   ],
+   "속성기본값": {
+    "page": "0",
+    "footnote": "0",
+    "endnote": "0",
+    "pic": "0",
+    "tbl": "0",
+    "equation": "0"
+   },
+   "태그별칭": [
+    "hh:beginNum"
+   ]
+  },
+  "hh:bold": {
+   "클래스": "CBold",
+   "출처파일": "OWPML/Class/Head/bold.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:bold"
+   ]
+  },
+  "hp:bookmark": {
+   "클래스": "CBookmark",
+   "출처파일": "OWPML/Class/Para/bookmark.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "name"
+   ],
+   "속성기본값": {},
+   "태그별칭": [
+    "hp:bookmark"
+   ]
+  },
+  "hh:border": {
+   "클래스": "CBorder",
+   "출처파일": "OWPML/Class/Head/border.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "borderFillIDRef",
+    "offsetLeft",
+    "offsetRight",
+    "offsetTop",
+    "offsetBottom",
+    "connect",
+    "ignoreMargin"
+   ],
+   "속성기본값": {
+    "borderFillIDRef": "0",
+    "offsetLeft": "0",
+    "offsetRight": "0",
+    "offsetTop": "0",
+    "offsetBottom": "0",
+    "connect": "false",
+    "ignoreMargin": "false"
+   },
+   "태그별칭": [
+    "hh:border"
+   ]
+  },
+  "hh:borderFill": {
+   "클래스": "CBorderFillType",
+   "출처파일": "OWPML/Class/Head/BorderFillType.cpp",
+   "자식순서": [
+    "hh:slash",
+    "hh:backSlash",
+    "hh:leftBorder",
+    "hh:rightBorder",
+    "hh:topBorder",
+    "hh:bottomBorder",
+    "hh:diagonal",
+    "hc:fillBrush"
+   ],
+   "속성순서": [
+    "id",
+    "threeD",
+    "shadow",
+    "centerLine",
+    "breakCellSeparateLine"
+   ],
+   "속성기본값": {
+    "id": "0",
+    "threeD": "false",
+    "shadow": "false",
+    "centerLine": "0",
+    "breakCellSeparateLine": "false"
+   },
+   "태그별칭": [
+    "hh:borderFill"
+   ]
+  },
+  "hh:borderFills": {
+   "클래스": "CBorderFills",
+   "출처파일": "OWPML/Class/Head/borderFills.cpp",
+   "자식순서": [
+    "hh:borderFill"
+   ],
+   "속성순서": [
+    "itemCnt"
+   ],
+   "속성기본값": {
+    "itemCnt": "0"
+   },
+   "태그별칭": [
+    "hh:borderFills"
+   ]
+  },
+  "hh:bottomBorder": {
+   "클래스": "CBorderType",
+   "출처파일": "OWPML/Class/Head/BorderType.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "type",
+    "width",
+    "color"
+   ],
+   "속성기본값": {
+    "type": "0",
+    "width": "0",
+    "color": "0x000000"
+   },
+   "태그별칭": [
+    "hh:bottomBorder",
+    "hh:diagonal",
+    "hh:leftBorder",
+    "hh:rightBorder",
+    "hh:topBorder"
+   ]
+  },
+  "hh:breakSetting": {
+   "클래스": "CBreakSetting",
+   "출처파일": "OWPML/Class/Head/breakSetting.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "breakLatinWord",
+    "breakNonLatinWord",
+    "widowOrphan",
+    "keepWithNext",
+    "keepLines",
+    "pageBreakBefore",
+    "lineWrap"
+   ],
+   "속성기본값": {
+    "breakNonLatinWord": "0",
+    "widowOrphan": "false",
+    "keepWithNext": "false",
+    "keepLines": "false",
+    "pageBreakBefore": "false",
+    "lineWrap": "0"
+   },
+   "태그별칭": [
+    "hh:breakSetting"
+   ]
+  },
+  "hh:breakTabOverLine": {
+   "클래스": "CBreakTabOverLine",
+   "출처파일": "OWPML/Class/Head/breakTabOverLine.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:breakTabOverLine"
+   ]
+  },
+  "hh:bullet": {
+   "클래스": "CBulletType",
+   "출처파일": "OWPML/Class/Head/BulletType.cpp",
+   "자식순서": [
+    "hc:img",
+    "hh:paraHead"
+   ],
+   "속성순서": [
+    "id",
+    "char",
+    "useImage",
+    "checkedChar"
+   ],
+   "속성기본값": {
+    "id": "0",
+    "useImage": "false"
+   },
+   "태그별칭": [
+    "hh:bullet"
+   ]
+  },
+  "hh:bullets": {
+   "클래스": "CBullets",
+   "출처파일": "OWPML/Class/Head/bullets.cpp",
+   "자식순서": [
+    "hh:bullet"
+   ],
+   "속성순서": [
+    "itemCnt"
+   ],
+   "속성기본값": {
+    "itemCnt": "0"
+   },
+   "태그별칭": [
+    "hh:bullets"
+   ]
+  },
+  "hp:caption": {
+   "클래스": "CCaption",
+   "출처파일": "OWPML/Class/Para/caption.cpp",
+   "자식순서": [
+    "hp:subList"
+   ],
+   "속성순서": [
+    "side",
+    "fullSz",
+    "width",
+    "gap",
+    "lastWidth"
+   ],
+   "속성기본값": {
+    "side": "CST_LEFT",
+    "fullSz": "false",
+    "width": "-1",
+    "gap": "850",
+    "lastWidth": "0"
+   },
+   "태그별칭": [
+    "hp:caption"
+   ]
+  },
+  "ha:CaretPosition": {
+   "클래스": "CCaretPosition",
+   "출처파일": "OWPML/Class/Etc/CaretPosition.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "listIDRef",
+    "paraIDRef",
+    "pos"
+   ],
+   "속성기본값": {
+    "listIDRef": "0",
+    "paraIDRef": "0",
+    "pos": "0"
+   },
+   "태그별칭": [
+    "ha:CaretPosition"
+   ]
+  },
+  "hp:cellAddr": {
+   "클래스": "CCellAddr",
+   "출처파일": "OWPML/Class/Para/cellAddr.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "colAddr",
+    "rowAddr"
+   ],
+   "속성기본값": {
+    "colAddr": "0",
+    "rowAddr": "0"
+   },
+   "태그별칭": [
+    "hp:cellAddr"
+   ]
+  },
+  "hp:cellMargin": {
+   "클래스": "CCellMargin",
+   "출처파일": "OWPML/Class/Para/cellMargin.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hp:cellMargin"
+   ]
+  },
+  "hp:cellSpan": {
+   "클래스": "CCellSpan",
+   "출처파일": "OWPML/Class/Para/cellSpan.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "colSpan",
+    "rowSpan"
+   ],
+   "속성기본값": {
+    "colSpan": "1",
+    "rowSpan": "1"
+   },
+   "태그별칭": [
+    "hp:cellSpan"
+   ]
+  },
+  "hp:cellSz": {
+   "클래스": "CCellSz",
+   "출처파일": "OWPML/Class/Para/cellSz.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "width",
+    "height"
+   ],
+   "속성기본값": {
+    "width": "0",
+    "height": "0"
+   },
+   "태그별칭": [
+    "hp:cellSz"
+   ]
+  },
+  "hp:cellzone": {
+   "클래스": "CCellzone",
+   "출처파일": "OWPML/Class/Para/cellzone.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "startRowAddr",
+    "startColAddr",
+    "endRowAddr",
+    "endColAddr",
+    "borderFillIDRef"
+   ],
+   "속성기본값": {
+    "startRowAddr": "0",
+    "startColAddr": "0",
+    "endRowAddr": "0",
+    "endColAddr": "0",
+    "borderFillIDRef": "0"
+   },
+   "태그별칭": [
+    "hp:cellzone"
+   ]
+  },
+  "hp:cellzoneList": {
+   "클래스": "CCellzoneList",
+   "출처파일": "OWPML/Class/Para/cellzoneList.cpp",
+   "자식순서": [
+    "hp:cellzone"
+   ],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hp:cellzoneList"
+   ]
+  },
+  "hp:chval": {
+   "클래스": "CChar",
+   "출처파일": "OWPML/Class/Para/t.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hp:chval"
+   ]
+  },
+  "hp:charPr": {
+   "클래스": "CCharPr",
+   "출처파일": "OWPML/Class/Para/charPr.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "prIDRef"
+   ],
+   "속성기본값": {
+    "prIDRef": "0"
+   },
+   "태그별칭": [
+    "hp:charPr"
+   ]
+  },
+  "hh:charProperties": {
+   "클래스": "CCharProperties",
+   "출처파일": "OWPML/Class/Head/charProperties.cpp",
+   "자식순서": [
+    "hh:charPr"
+   ],
+   "속성순서": [
+    "itemCnt"
+   ],
+   "속성기본값": {
+    "itemCnt": "0"
+   },
+   "태그별칭": [
+    "hh:charProperties"
+   ]
+  },
+  "hh:shadow": {
+   "클래스": "CCharShadow",
+   "출처파일": "OWPML/Class/Head/shadow.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "type",
+    "color",
+    "offsetX",
+    "offsetY"
+   ],
+   "속성기본값": {
+    "type": "CSHT_NONE",
+    "offsetX": "0",
+    "offsetY": "0"
+   },
+   "태그별칭": [
+    "hh:shadow"
+   ]
+  },
+  "hh:charPr": {
+   "클래스": "CCharShapeType",
+   "출처파일": "OWPML/Class/Head/CharShapeType.cpp",
+   "자식순서": [
+    "hh:fontRef",
+    "hh:ratio",
+    "hh:spacing",
+    "hh:relSz",
+    "hh:offset",
+    "hh:italic",
+    "hh:bold",
+    "hh:underline",
+    "hh:strikeout",
+    "hh:outline",
+    "hh:shadow",
+    "hh:emboss",
+    "hh:engrave",
+    "hh:supscript",
+    "hh:subscript"
+   ],
+   "속성순서": [
+    "id",
+    "height",
+    "textColor",
+    "shadeColor",
+    "useFontSpace",
+    "useKerning",
+    "symMark",
+    "borderFillIDRef"
+   ],
+   "속성기본값": {
+    "id": "0",
+    "height": "1000",
+    "textColor": "0x000000",
+    "shadeColor": "0xFFFFFF",
+    "useFontSpace": "false",
+    "useKerning": "false",
+    "symMark": "SMT_NONE",
+    "borderFillIDRef": "0"
+   },
+   "태그별칭": [
+    "hh:charPr"
+   ]
+  },
+  "hp:chart": {
+   "클래스": "CChartType",
+   "출처파일": "OWPML/Class/Para/ChartType.cpp",
+   "자식순서": [
+    "hp:sz",
+    "hp:pos",
+    "hp:outMargin",
+    "hp:caption",
+    "hp:shapeComment",
+    "hp:parameterset",
+    "hp:metaTag"
+   ],
+   "속성순서": [
+    "chartIDRef"
+   ],
+   "속성기본값": {},
+   "태그별칭": [
+    "hp:chart"
+   ]
+  },
+  "hp:cmyk": {
+   "클래스": "CCmyk",
+   "출처파일": "OWPML/Class/Para/cmyk.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "c",
+    "m",
+    "y",
+    "k"
+   ],
+   "속성기본값": {
+    "c": "0",
+    "m": "0",
+    "y": "0",
+    "k": "0"
+   },
+   "태그별칭": [
+    "hp:cmyk"
+   ]
+  },
+  "hp:colLine": {
+   "클래스": "CColLine",
+   "출처파일": "OWPML/Class/Para/colLine.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "type",
+    "width",
+    "color"
+   ],
+   "속성기본값": {
+    "type": "LT2_SOLID",
+    "width": "LWT_0_12",
+    "color": "0x000000"
+   },
+   "태그별칭": [
+    "hp:colLine"
+   ]
+  },
+  "hp:colSz": {
+   "클래스": "CColSz",
+   "출처파일": "OWPML/Class/Para/colSz.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "width",
+    "gap"
+   ],
+   "속성기본값": {
+    "width": "0",
+    "gap": "0"
+   },
+   "태그별칭": [
+    "hp:colSz"
+   ]
+  },
+  "hc:color": {
+   "클래스": "CColor",
+   "출처파일": "OWPML/Class/Core/color.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "value"
+   ],
+   "속성기본값": {},
+   "태그별칭": [
+    "hc:color"
+   ]
+  },
+  "hp:colPr": {
+   "클래스": "CColumnDefType",
+   "출처파일": "OWPML/Class/Para/ColumnDefType.cpp",
+   "자식순서": [
+    "hp:colLine",
+    "hp:colSz"
+   ],
+   "속성순서": [
+    "id",
+    "type",
+    "layout",
+    "colCount",
+    "sameSz",
+    "sameGap"
+   ],
+   "속성기본값": {
+    "type": "CDT_NEWSPAPER",
+    "layout": "CDL_LEFT",
+    "colCount": "1",
+    "sameSz": "false",
+    "sameGap": "0"
+   },
+   "태그별칭": [
+    "hp:colPr"
+   ]
+  },
+  "hp:comboBox": {
+   "클래스": "CComboBoxType",
+   "출처파일": "OWPML/Class/Para/ComboBoxType.cpp",
+   "자식순서": [
+    "hp:sz",
+    "hp:pos",
+    "hp:outMargin",
+    "hp:caption",
+    "hp:shapeComment",
+    "hp:parameterset",
+    "hp:metaTag",
+    "hp:formCharPr",
+    "hp:listItem"
+   ],
+   "속성순서": [
+    "listBoxRows",
+    "listBoxWidth",
+    "editEnable",
+    "selectedValue"
+   ],
+   "속성기본값": {
+    "listBoxRows": "-1",
+    "listBoxWidth": "-1",
+    "editEnable": "false"
+   },
+   "태그별칭": [
+    "hp:comboBox"
+   ]
+  },
+  "hh:compatibleDocument": {
+   "클래스": "CCompatibleDocumentType",
+   "출처파일": "OWPML/Class/Head/CompatibleDocumentType.cpp",
+   "자식순서": [
+    "hh:layoutCompatibility"
+   ],
+   "속성순서": [
+    "targetProgram"
+   ],
+   "속성기본값": {
+    "targetProgram": "0"
+   },
+   "태그별칭": [
+    "hh:compatibleDocument"
+   ]
+  },
+  "hp:compose": {
+   "클래스": "CCompose",
+   "출처파일": "OWPML/Class/Para/compose.cpp",
+   "자식순서": [
+    "hp:charPr"
+   ],
+   "속성순서": [
+    "circleType",
+    "charSz",
+    "composeType",
+    "charPrCnt",
+    "composeText"
+   ],
+   "속성기본값": {
+    "circleType": "SCT_SHAPE_CIRCLE",
+    "charSz": "-4",
+    "composeType": "0",
+    "charPrCnt": "0"
+   },
+   "태그별칭": [
+    "hp:compose"
+   ]
+  },
+  "config:configitem": {
+   "클래스": "CConfigItem",
+   "출처파일": "OWPML/Class/Etc/odfelement.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "name",
+    "type"
+   ],
+   "속성기본값": {},
+   "태그별칭": [
+    "config:configitem"
+   ]
+  },
+  "config:configitemset": {
+   "클래스": "CConfigItemSet",
+   "출처파일": "OWPML/Class/Etc/odfelement.cpp",
+   "자식순서": [
+    "config:configitem"
+   ],
+   "속성순서": [
+    "name"
+   ],
+   "속성기본값": {},
+   "태그별칭": [
+    "config:configitemset"
+   ]
+  },
+  "hp:point": {
+   "클래스": "CConnectControlPointType",
+   "출처파일": "OWPML/Class/Para/ConnectPointType.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "x",
+    "y",
+    "type"
+   ],
+   "속성기본값": {
+    "x": "-1",
+    "y": "-1",
+    "type": "0"
+   },
+   "태그별칭": [
+    "hp:point"
+   ]
+  },
+  "hp:controlPoints": {
+   "클래스": "CConnectControlPoints",
+   "출처파일": "OWPML/Class/Para/ConnectPointType.cpp",
+   "자식순서": [
+    "hp:point"
+   ],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hp:controlPoints"
+   ]
+  },
+  "hp:connectLine": {
+   "클래스": "CConnectLineType",
+   "출처파일": "OWPML/Class/Para/ConnectLineType.cpp",
+   "자식순서": [
+    "hp:lineShape",
+    "hc:fillBrush",
+    "hp:drawText",
+    "hp:shadow",
+    "hp:parameterset",
+    "hp:metaTag",
+    "hp:sz",
+    "hp:pos",
+    "hp:outMargin",
+    "hp:caption",
+    "hp:shapeComment",
+    "hp:offset",
+    "hp:orgSz",
+    "hp:curSz",
+    "hp:flip",
+    "hp:rotationInfo",
+    "hp:renderingInfo",
+    "hp:startPt",
+    "hp:endPt",
+    "hp:controlPoints"
+   ],
+   "속성순서": [
+    "type"
+   ],
+   "속성기본값": {
+    "type": "0"
+   },
+   "태그별칭": [
+    "hp:connectLine"
+   ]
+  },
+  "hh:connectParaBorderfillOfEqualBorder": {
+   "클래스": "CConnectParaBorderfillOfEqualBorder",
+   "출처파일": "OWPML/Class/Head/connectParaBorderfillOfEqualBorder.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:connectParaBorderfillOfEqualBorder"
+   ]
+  },
+  "hp:endPt": {
+   "클래스": "CConnectPointType",
+   "출처파일": "OWPML/Class/Para/ConnectPointType.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "x",
+    "y",
+    "subjectIDRef",
+    "subjectIdx"
+   ],
+   "속성기본값": {
+    "x": "-1",
+    "y": "-1",
+    "subjectIDRef": "0",
+    "subjectIdx": "0"
+   },
+   "태그별칭": [
+    "hp:endPt",
+    "hp:startPt"
+   ]
+  },
+  "(무명):CContainer": {
+   "클래스": "CContainer",
+   "출처파일": "OWPML/Class/Etc/container.cpp",
+   "자식순서": [
+    "ocf:rootfiles"
+   ],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": []
+  },
+  "hp:container": {
+   "클래스": "CContainerType",
+   "출처파일": "OWPML/Class/Para/ContainerType.cpp",
+   "자식순서": [
+    "hp:sz",
+    "hp:pos",
+    "hp:outMargin",
+    "hp:caption",
+    "hp:shapeComment",
+    "hp:parameterset",
+    "hp:metaTag",
+    "hp:offset",
+    "hp:orgSz",
+    "hp:curSz",
+    "hp:flip",
+    "hp:rotationInfo",
+    "hp:renderingInfo",
+    "hp:container",
+    "hp:line",
+    "hp:rect",
+    "hp:ellipse",
+    "hp:arc",
+    "hp:polygon",
+    "hp:curve",
+    "hp:connectLine",
+    "hp:pic",
+    "hp:ole",
+    "hp:textart"
+   ],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hp:container"
+   ]
+  },
+  "hp:ctrl": {
+   "클래스": "CCtrl",
+   "출처파일": "OWPML/Class/Para/ctrl.cpp",
+   "자식순서": [
+    "hp:colPr",
+    "hp:fieldBegin",
+    "hp:fieldEnd",
+    "hp:bookmark",
+    "hp:header",
+    "hp:footer",
+    "hp:footNote",
+    "hp:endNote",
+    "hp:autoNum",
+    "hp:newNum",
+    "hp:pageNumCtrl",
+    "hp:pageHiding",
+    "hp:pageNum",
+    "hp:indexmark",
+    "hp:hiddenComment"
+   ],
+   "속성순서": [
+    "charStyleIDRef"
+   ],
+   "속성기본값": {},
+   "태그별칭": [
+    "hp:ctrl"
+   ]
+  },
+  "hp:curSz": {
+   "클래스": "CCurSz",
+   "출처파일": "OWPML/Class/Para/curSz.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "width",
+    "height"
+   ],
+   "속성기본값": {
+    "width": "0",
+    "height": "0"
+   },
+   "태그별칭": [
+    "hp:curSz"
+   ]
+  },
+  "hp:curve": {
+   "클래스": "CCurveType",
+   "출처파일": "OWPML/Class/Para/CurveType.cpp",
+   "자식순서": [
+    "hp:lineShape",
+    "hc:fillBrush",
+    "hp:drawText",
+    "hp:shadow",
+    "hp:parameterset",
+    "hp:metaTag",
+    "hp:sz",
+    "hp:pos",
+    "hp:outMargin",
+    "hp:caption",
+    "hp:shapeComment",
+    "hp:offset",
+    "hp:orgSz",
+    "hp:curSz",
+    "hp:flip",
+    "hp:rotationInfo",
+    "hp:renderingInfo",
+    "hp:seg"
+   ],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hp:curve"
+   ]
+  },
+  "hhs:delete": {
+   "클래스": "CDeleteType",
+   "출처파일": "OWPML/Class/Etc/DeleteType.cpp",
+   "자식순서": [
+    "hhs:any"
+   ],
+   "속성순서": [
+    "OPID"
+   ],
+   "속성기본값": {},
+   "태그별칭": [
+    "hhs:delete"
+   ]
+  },
+  "hhs:bodyDiff": {
+   "클래스": "CDiffEntryType",
+   "출처파일": "OWPML/Class/Etc/DiffEntryType.cpp",
+   "자식순서": [
+    "hhs:insert",
+    "hhs:update",
+    "hhs:delete",
+    "hhs:position"
+   ],
+   "속성순서": [
+    "href"
+   ],
+   "속성기본값": {},
+   "태그별칭": [
+    "hhs:bodyDiff",
+    "hhs:headDiff",
+    "hhs:packageDiff",
+    "hhs:tailDiff"
+   ]
+  },
+  "hh:doNotAdjustEmptyAnchorLine": {
+   "클래스": "CDoNotAdjustEmptyAnchorLine",
+   "출처파일": "OWPML/Class/Head/doNotAdjustEmptyAnchorLine.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:doNotAdjustEmptyAnchorLine"
+   ]
+  },
+  "hh:doNotAdjustWordInJustify": {
+   "클래스": "CDoNotAdjustWordInJustify",
+   "출처파일": "OWPML/Class/Head/doNotAdjustWordInJustify.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:doNotAdjustWordInJustify"
+   ]
+  },
+  "hh:doNotAlignLastForbidden": {
+   "클래스": "CDoNotAlignLastForbidden",
+   "출처파일": "OWPML/Class/Head/doNotAlignLastForbidden.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:doNotAlignLastForbidden"
+   ]
+  },
+  "hh:doNotAlignLastPeriod": {
+   "클래스": "CDoNotAlignLastPeriod",
+   "출처파일": "OWPML/Class/Head/doNotAlignLastPeriod.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:doNotAlignLastPeriod"
+   ]
+  },
+  "hh:doNotAlignWhitespaceOnRight": {
+   "클래스": "CDoNotAlignWhitespaceOnRight",
+   "출처파일": "OWPML/Class/Head/doNotAlignWhitespaceOnRight.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:doNotAlignWhitespaceOnRight"
+   ]
+  },
+  "hh:doNotApplyAutoSpaceEAsianEng": {
+   "클래스": "CDoNotApplyAutoSpaceEAsianEng",
+   "출처파일": "OWPML/Class/Head/doNotApplyAutoSpaceEAsianEng.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:doNotApplyAutoSpaceEAsianEng"
+   ]
+  },
+  "hh:doNotApplyAutoSpaceEAsianNum": {
+   "클래스": "CDoNotApplyAutoSpaceEAsianNum",
+   "출처파일": "OWPML/Class/Head/doNotApplyAutoSpaceEAsianNum.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:doNotApplyAutoSpaceEAsianNum"
+   ]
+  },
+  "hh:doNotApplyColSeparatorAtNoGap": {
+   "클래스": "CDoNotApplyColSeparatorAtNoGap",
+   "출처파일": "OWPML/Class/Head/doNotApplyColSeparatorAtNoGap.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:doNotApplyColSeparatorAtNoGap"
+   ]
+  },
+  "hh:doNotApplyDiacSymMarkOfNoneAndSix": {
+   "클래스": "CDoNotApplyDiacSymMarkOfNoneAndSix",
+   "출처파일": "OWPML/Class/Head/doNotApplyDiacSymMarkOfNoneAndSix.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:doNotApplyDiacSymMarkOfNoneAndSix"
+   ]
+  },
+  "hh:doNotApplyExtensionCharCompose": {
+   "클래스": "CDoNotApplyExtensionCharCompose",
+   "출처파일": "OWPML/Class/Head/doNotApplyExtensionCharCompose.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:doNotApplyExtensionCharCompose"
+   ]
+  },
+  "hh:doNotApplyGridInHeaderFooter": {
+   "클래스": "CDoNotApplyGridInHeaderFooter",
+   "출처파일": "OWPML/Class/Head/doNotApplyGridInHeaderFooter.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:doNotApplyGridInHeaderFooter"
+   ]
+  },
+  "hh:doNotApplyHeaderFooterAtNoSpace": {
+   "클래스": "CDoNotApplyHeaderFooterAtNoSpace",
+   "출처파일": "OWPML/Class/Head/doNotApplyHeaderFooterAtNoSpace.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:doNotApplyHeaderFooterAtNoSpace"
+   ]
+  },
+  "hh:doNotApplyImageEffect": {
+   "클래스": "CDoNotApplyImageEffect",
+   "출처파일": "OWPML/Class/Head/doNotApplyImageEffect.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:doNotApplyImageEffect"
+   ]
+  },
+  "hh:doNotApplyLinegridAtNoLinespacing": {
+   "클래스": "CDoNotApplyLinegridAtNoLinespacing",
+   "출처파일": "OWPML/Class/Head/doNotApplyLinegridAtNoLinespacing.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:doNotApplyLinegridAtNoLinespacing"
+   ]
+  },
+  "hh:doNotApplyShapeComment": {
+   "클래스": "CDoNotApplyShapeComment",
+   "출처파일": "OWPML/Class/Head/doNotApplyShapeComment.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:doNotApplyShapeComment"
+   ]
+  },
+  "hh:doNotApplyStrikeoutWithUnderline": {
+   "클래스": "CDoNotApplyStrikeoutWithUnderline",
+   "출처파일": "OWPML/Class/Head/doNotApplyStrikeoutWithUnderline.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:doNotApplyStrikeoutWithUnderline"
+   ]
+  },
+  "hh:doNotApplyVertOffsetOfForward": {
+   "클래스": "CDoNotApplyVertOffsetOfForward",
+   "출처파일": "OWPML/Class/Head/doNotApplyVertOffsetOfForward.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:doNotApplyVertOffsetOfForward"
+   ]
+  },
+  "hh:doNotApplyWhiteSpaceHeight": {
+   "클래스": "CDoNotApplyWhiteSpaceHeight",
+   "출처파일": "OWPML/Class/Head/doNotApplyWhiteSpaceHeight.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:doNotApplyWhiteSpaceHeight"
+   ]
+  },
+  "hh:doNotFormattingAtBeneathAnchor": {
+   "클래스": "CDoNotFormattingAtBeneathAnchor",
+   "출처파일": "OWPML/Class/Head/doNotFormattingAtBeneathAnchor.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:doNotFormattingAtBeneathAnchor"
+   ]
+  },
+  "hh:doNotHoldAnchorOfTable": {
+   "클래스": "CDoNotHoldAnchorOfTable",
+   "출처파일": "OWPML/Class/Head/doNotHoldAnchorOfTable.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:doNotHoldAnchorOfTable"
+   ]
+  },
+  "ha:docdistribute": {
+   "클래스": "CDocDistribute",
+   "출처파일": "OWPML/Class/Etc/DocDistribute.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "key",
+    "nocopy",
+    "noprint"
+   ],
+   "속성기본값": {
+    "nocopy": "false",
+    "noprint": "false"
+   },
+   "태그별칭": [
+    "ha:docdistribute"
+   ]
+  },
+  "hh:docOption": {
+   "클래스": "CDocOption",
+   "출처파일": "OWPML/Class/Head/docoption.cpp",
+   "자식순서": [
+    "hh:linkinfo",
+    "hh:licensemark"
+   ],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:docOption"
+   ]
+  },
+  "hh:licensemark": {
+   "클래스": "CDocOptionLicenseMark",
+   "출처파일": "OWPML/Class/Head/docoptionLinkInfo.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "type",
+    "flag",
+    "lang"
+   ],
+   "속성기본값": {
+    "type": "0",
+    "flag": "0",
+    "lang": "0"
+   },
+   "태그별칭": [
+    "hh:licensemark"
+   ]
+  },
+  "hh:linkinfo": {
+   "클래스": "CDocOptionLinkInfo",
+   "출처파일": "OWPML/Class/Head/docoptionLinkInfo.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "path",
+    "pageInherit",
+    "footnoteInherit"
+   ],
+   "속성기본값": {
+    "pageInherit": "false",
+    "footnoteInherit": "false"
+   },
+   "태그별칭": [
+    "hh:linkinfo"
+   ]
+  },
+  "hp:drawText": {
+   "클래스": "CDrawText",
+   "출처파일": "OWPML/Class/Para/drawText.cpp",
+   "자식순서": [
+    "hp:textMargin",
+    "hp:subList"
+   ],
+   "속성순서": [
+    "lastWidth",
+    "name",
+    "editable"
+   ],
+   "속성기본값": {
+    "lastWidth": "0",
+    "editable": "false"
+   },
+   "태그별칭": [
+    "hp:drawText"
+   ]
+  },
+  "hp:dutmal": {
+   "클래스": "CDutmal",
+   "출처파일": "OWPML/Class/Para/dutmal.cpp",
+   "자식순서": [
+    "hp:mainText",
+    "hp:subText"
+   ],
+   "속성순서": [
+    "posType",
+    "szRatio",
+    "option",
+    "styleIDRef",
+    "align"
+   ],
+   "속성기본값": {
+    "posType": "DPT_TOP",
+    "szRatio": "0",
+    "option": "0",
+    "styleIDRef": "0",
+    "align": "DAT_CENTER"
+   },
+   "태그별칭": [
+    "hp:dutmal"
+   ]
+  },
+  "hp:numbering": {
+   "클래스": "CFNNumbering",
+   "출처파일": "OWPML/Class/Para/numbering.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "type",
+    "newNum"
+   ],
+   "속성기본값": {
+    "type": "FNNT_CONTINUOUS",
+    "newNum": "1"
+   },
+   "태그별칭": [
+    "hp:numbering"
+   ]
+  },
+  "hp:placement": {
+   "클래스": "CFNPlacement",
+   "출처파일": "OWPML/Class/Para/placement.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "place",
+    "beneathText"
+   ],
+   "속성기본값": {
+    "place": "FNPT_EACH_COLUMN",
+    "beneathText": "false"
+   },
+   "태그별칭": [
+    "hp:placement"
+   ]
+  },
+  "hp:edit": {
+   "클래스": "CEditType",
+   "출처파일": "OWPML/Class/Para/EditType.cpp",
+   "자식순서": [
+    "hp:sz",
+    "hp:pos",
+    "hp:outMargin",
+    "hp:caption",
+    "hp:shapeComment",
+    "hp:parameterset",
+    "hp:metaTag",
+    "hp:formCharPr",
+    "hp:text"
+   ],
+   "속성순서": [
+    "multiLine",
+    "passwordChar",
+    "maxLength",
+    "scrollBars",
+    "tabKeyBehavior",
+    "numOnly",
+    "readOnly",
+    "alignText"
+   ],
+   "속성기본값": {
+    "multiLine": "false",
+    "passwordChar": "L\"*\"",
+    "maxLength": "0",
+    "scrollBars": "ESBT_NONE",
+    "numOnly": "false",
+    "readOnly": "false",
+    "alignText": "EAT_LEFT"
+   },
+   "태그별칭": [
+    "hp:edit"
+   ]
+  },
+  "hp:effect": {
+   "클래스": "CEffect",
+   "출처파일": "OWPML/Class/Para/effect.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "type",
+    "value"
+   ],
+   "속성기본값": {},
+   "태그별칭": [
+    "hp:effect"
+   ]
+  },
+  "hp:effectsColor": {
+   "클래스": "CEffectsColorType",
+   "출처파일": "OWPML/Class/Para/EffectsColorType.cpp",
+   "자식순서": [
+    "hp:rgb",
+    "hp:cmyk",
+    "hp:scheme",
+    "hp:system",
+    "hp:effect"
+   ],
+   "속성순서": [
+    "type",
+    "schemeIdx",
+    "systemIdx",
+    "presetIdx"
+   ],
+   "속성기본값": {
+    "schemeIdx": "-1",
+    "systemIdx": "-1",
+    "presetIdx": "-1"
+   },
+   "태그별칭": [
+    "hp:effectsColor"
+   ]
+  },
+  "hp:effects": {
+   "클래스": "CEffectsType",
+   "출처파일": "OWPML/Class/Para/EffectsType.cpp",
+   "자식순서": [
+    "hp:shadow",
+    "hp:glow",
+    "hp:softEdge",
+    "hp:reflection"
+   ],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hp:effects"
+   ]
+  },
+  "hp:ellipse": {
+   "클래스": "CEllipseType",
+   "출처파일": "OWPML/Class/Para/EllipseType.cpp",
+   "자식순서": [
+    "hp:lineShape",
+    "hc:fillBrush",
+    "hp:drawText",
+    "hp:shadow",
+    "hp:parameterset",
+    "hp:metaTag",
+    "hp:sz",
+    "hp:pos",
+    "hp:outMargin",
+    "hp:caption",
+    "hp:shapeComment",
+    "hp:offset",
+    "hp:orgSz",
+    "hp:curSz",
+    "hp:flip",
+    "hp:rotationInfo",
+    "hp:renderingInfo",
+    "hc:center",
+    "hc:ax1",
+    "hc:ax2",
+    "hc:start1",
+    "hc:start2",
+    "hc:end1",
+    "hc:end2"
+   ],
+   "속성순서": [
+    "intervalDirty",
+    "hasArcPr",
+    "arcType"
+   ],
+   "속성기본값": {
+    "intervalDirty": "false",
+    "hasArcPr": "false",
+    "arcType": "SAT_NORMAL"
+   },
+   "태그별칭": [
+    "hp:ellipse"
+   ]
+  },
+  "hh:emboss": {
+   "클래스": "CEmboss",
+   "출처파일": "OWPML/Class/Head/emboss.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:emboss"
+   ]
+  },
+  "odf:encryptiondata": {
+   "클래스": "CEncryptionData",
+   "출처파일": "OWPML/Class/Etc/odfelement.cpp",
+   "자식순서": [
+    "odf:algorithm",
+    "odf:keyderivation",
+    "odf:startkeygeneration"
+   ],
+   "속성순서": [
+    "checksum"
+   ],
+   "속성기본값": {},
+   "태그별칭": [
+    "odf:encryptiondata"
+   ]
+  },
+  "hp:endNotePr": {
+   "클래스": "CEndNoteShapeType",
+   "출처파일": "OWPML/Class/Para/EndNoteShapeType.cpp",
+   "자식순서": [
+    "hp:autoNumFormat",
+    "hp:noteLine",
+    "hp:noteSpacing",
+    "hp:numbering",
+    "hp:placement"
+   ],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hp:endNotePr"
+   ]
+  },
+  "hh:engrave": {
+   "클래스": "CEngrave",
+   "출처파일": "OWPML/Class/Head/engrave.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:engrave"
+   ]
+  },
+  "hp:equation": {
+   "클래스": "CEquationType",
+   "출처파일": "OWPML/Class/Para/EquationType.cpp",
+   "자식순서": [
+    "hp:sz",
+    "hp:pos",
+    "hp:outMargin",
+    "hp:caption",
+    "hp:shapeComment",
+    "hp:parameterset",
+    "hp:metaTag",
+    "hp:script"
+   ],
+   "속성순서": [
+    "version",
+    "baseLine",
+    "textColor",
+    "baseUnit",
+    "lineMode",
+    "font"
+   ],
+   "속성기본값": {
+    "version": "L\"\"",
+    "baseLine": "85",
+    "textColor": "0x000000",
+    "baseUnit": "1000",
+    "lineMode": "ELT_CHAR",
+    "font": "L\"\""
+   },
+   "태그별칭": [
+    "hp:equation"
+   ]
+  },
+  "hh:extendLineheightToOffset": {
+   "클래스": "CExtendLineheightToOffset",
+   "출처파일": "OWPML/Class/Head/extendLineheightToOffset.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:extendLineheightToOffset"
+   ]
+  },
+  "hh:extendLineheightToParaBorderOffset": {
+   "클래스": "CExtendLineheightToParaBorderOffset",
+   "출처파일": "OWPML/Class/Head/extendLineheightToParaBorderOffset.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:extendLineheightToParaBorderOffset"
+   ]
+  },
+  "hh:extendVertLimitToPageMargins": {
+   "클래스": "CExtendVertLimitToPageMargins",
+   "출처파일": "OWPML/Class/Head/extendVertLimitToPageMargins.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:extendVertLimitToPageMargins"
+   ]
+  },
+  "hp:fieldBegin": {
+   "클래스": "CFieldBegin",
+   "출처파일": "OWPML/Class/Para/fieldBegin.cpp",
+   "자식순서": [
+    "hp:parameters",
+    "hp:subList",
+    "hp:metaTag"
+   ],
+   "속성순서": [
+    "id",
+    "type",
+    "name",
+    "editable",
+    "dirty",
+    "zorder",
+    "fieldid"
+   ],
+   "속성기본값": {
+    "editable": "true",
+    "dirty": "false",
+    "zorder": "-1"
+   },
+   "태그별칭": [
+    "hp:fieldBegin"
+   ]
+  },
+  "hp:fieldEnd": {
+   "클래스": "CFieldEnd",
+   "출처파일": "OWPML/Class/Para/fieldEnd.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "beginIDRef",
+    "fieldid"
+   ],
+   "속성기본값": {},
+   "태그별칭": [
+    "hp:fieldEnd"
+   ]
+  },
+  "odf:fileentry": {
+   "클래스": "CFileEntry",
+   "출처파일": "OWPML/Class/Etc/odfelement.cpp",
+   "자식순서": [
+    "odf:encryptiondata"
+   ],
+   "속성순서": [
+    "size"
+   ],
+   "속성기본값": {
+    "size": "0"
+   },
+   "태그별칭": [
+    "odf:fileentry"
+   ]
+  },
+  "hc:fillBrush": {
+   "클래스": "CFillBrushType",
+   "출처파일": "OWPML/Class/Core/FillBrushType.cpp",
+   "자식순서": [
+    "hc:winBrush",
+    "hc:gradation",
+    "hc:imgBrush"
+   ],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hc:fillBrush"
+   ]
+  },
+  "hp:firstKey": {
+   "클래스": "CFirstKey",
+   "출처파일": "OWPML/Class/Para/firstKey.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hp:firstKey"
+   ]
+  },
+  "hh:fixedUnderlineWidth": {
+   "클래스": "CFixedUnderlineWidth",
+   "출처파일": "OWPML/Class/Head/fixedUnderlineWidth.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:fixedUnderlineWidth"
+   ]
+  },
+  "hp:flip": {
+   "클래스": "CFlip",
+   "출처파일": "OWPML/Class/Para/flip.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "horizontal",
+    "vertical"
+   ],
+   "속성기본값": {
+    "horizontal": "false",
+    "vertical": "false"
+   },
+   "태그별칭": [
+    "hp:flip"
+   ]
+  },
+  "hh:font": {
+   "클래스": "CFont",
+   "출처파일": "OWPML/Class/Head/font.cpp",
+   "자식순서": [
+    "hh:substFont",
+    "hh:typeInfo"
+   ],
+   "속성순서": [
+    "id",
+    "face",
+    "type",
+    "isEmbedded",
+    "binaryItemIDRef"
+   ],
+   "속성기본값": {
+    "id": "0",
+    "type": "0",
+    "isEmbedded": "false"
+   },
+   "태그별칭": [
+    "hh:font"
+   ]
+  },
+  "hh:fontRef": {
+   "클래스": "CFontRef",
+   "출처파일": "OWPML/Class/Head/fontRef.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "hangul",
+    "latin",
+    "hanja",
+    "japanese",
+    "other",
+    "symbol",
+    "user"
+   ],
+   "속성기본값": {
+    "hanja": "0",
+    "symbol": "0"
+   },
+   "태그별칭": [
+    "hh:fontRef"
+   ]
+  },
+  "hh:fontface": {
+   "클래스": "CFontfaceType",
+   "출처파일": "OWPML/Class/Head/FontfaceType.cpp",
+   "자식순서": [
+    "hh:font"
+   ],
+   "속성순서": [
+    "lang",
+    "fontCnt"
+   ],
+   "속성기본값": {
+    "lang": "0",
+    "fontCnt": "0"
+   },
+   "태그별칭": [
+    "hh:fontface"
+   ]
+  },
+  "hh:fontfaces": {
+   "클래스": "CFontfaces",
+   "출처파일": "OWPML/Class/Head/fontfaces.cpp",
+   "자식순서": [
+    "hh:fontface"
+   ],
+   "속성순서": [
+    "itemCnt"
+   ],
+   "속성기본값": {
+    "itemCnt": "0"
+   },
+   "태그별칭": [
+    "hh:fontfaces"
+   ]
+  },
+  "hp:footNotePr": {
+   "클래스": "CFootNoteShapeType",
+   "출처파일": "OWPML/Class/Para/FootNoteShapeType.cpp",
+   "자식순서": [
+    "hp:autoNumFormat",
+    "hp:noteLine",
+    "hp:noteSpacing",
+    "hp:numbering",
+    "hp:placement"
+   ],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hp:footNotePr"
+   ]
+  },
+  "hh:forbiddenWord": {
+   "클래스": "CForbiddenWord",
+   "출처파일": "OWPML/Class/Head/ForbiddenWordListType.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:forbiddenWord"
+   ]
+  },
+  "hh:forbiddenWordList": {
+   "클래스": "CForbiddenWordListType",
+   "출처파일": "OWPML/Class/Head/ForbiddenWordListType.cpp",
+   "자식순서": [
+    "hh:forbiddenWord"
+   ],
+   "속성순서": [
+    "itemCnt"
+   ],
+   "속성기본값": {
+    "itemCnt": "0"
+   },
+   "태그별칭": [
+    "hh:forbiddenWordList"
+   ]
+  },
+  "hp:formCharPr": {
+   "클래스": "CFormCharPr",
+   "출처파일": "OWPML/Class/Para/formCharPr.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "charPrIDRef",
+    "followContext",
+    "autoSz",
+    "wordWrap"
+   ],
+   "속성기본값": {
+    "followContext": "false",
+    "autoSz": "false",
+    "wordWrap": "false"
+   },
+   "태그별칭": [
+    "hp:formCharPr"
+   ]
+  },
+  "hp:fwSpace": {
+   "클래스": "CFwSpace",
+   "출처파일": "OWPML/Class/Para/fwSpace.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hp:fwSpace"
+   ]
+  },
+  "hp:glow": {
+   "클래스": "CGlow",
+   "출처파일": "OWPML/Class/Para/glow.cpp",
+   "자식순서": [
+    "hp:effectsColor"
+   ],
+   "속성순서": [
+    "alpha",
+    "radius"
+   ],
+   "속성기본값": {
+    "alpha": "0.0",
+    "radius": "0.0"
+   },
+   "태그별칭": [
+    "hp:glow"
+   ]
+  },
+  "hc:gradation": {
+   "클래스": "CGradation",
+   "출처파일": "OWPML/Class/Core/gradation.cpp",
+   "자식순서": [
+    "hc:color"
+   ],
+   "속성순서": [
+    "type",
+    "angle",
+    "centerX",
+    "centerY",
+    "step",
+    "colorNum",
+    "stepCenter",
+    "alpha"
+   ],
+   "속성기본값": {
+    "type": "0",
+    "angle": "90",
+    "centerX": "0",
+    "centerY": "0",
+    "step": "50",
+    "colorNum": "2",
+    "stepCenter": "50",
+    "alpha": "0.0"
+   },
+   "태그별칭": [
+    "hc:gradation"
+   ]
+  },
+  "(무명):CGraphType": {
+   "클래스": "CGraphType",
+   "출처파일": "OWPML/Class/Para/GraphType.cpp",
+   "자식순서": [
+    "hp:sz",
+    "hp:pos",
+    "hp:outMargin",
+    "hp:caption",
+    "hp:shapeComment",
+    "hp:parameterset",
+    "hp:metaTag",
+    "hp:offset",
+    "hp:orgSz",
+    "hp:curSz",
+    "hp:flip",
+    "hp:rotationInfo",
+    "hp:renderingInfo"
+   ],
+   "속성순서": [
+    "propjson",
+    "imageIDRef"
+   ],
+   "속성기본값": {},
+   "태그별칭": []
+  },
+  "hp:grid": {
+   "클래스": "CGrid",
+   "출처파일": "OWPML/Class/Para/grid.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "lineGrid",
+    "charGrid",
+    "wonggojiFormat"
+   ],
+   "속성기본값": {
+    "lineGrid": "0",
+    "charGrid": "0",
+    "wonggojiFormat": "false"
+   },
+   "태그별칭": [
+    "hp:grid"
+   ]
+  },
+  "opf:guide": {
+   "클래스": "CGuideType",
+   "출처파일": "OWPML/Class/Etc/GuideType.cpp",
+   "자식순서": [
+    "opf:reference"
+   ],
+   "속성순서": [
+    "id"
+   ],
+   "속성기본값": {},
+   "태그별칭": [
+    "opf:guide"
+   ]
+  },
+  "(무명):CHWPApplicationSetting": {
+   "클래스": "CHWPApplicationSetting",
+   "출처파일": "OWPML/Class/Etc/HWPApplicationSetting.cpp",
+   "자식순서": [
+    "ha:CaretPosition",
+    "ha:docdistribute",
+    "config:configitemset"
+   ],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": []
+  },
+  "(무명):CHWPMLHeadType": {
+   "클래스": "CHWPMLHeadType",
+   "출처파일": "OWPML/Class/Head/HWPMLHeadType.cpp",
+   "자식순서": [
+    "hh:beginNum",
+    "hh:refList",
+    "hh:forbiddenWordList",
+    "hh:compatibleDocument",
+    "hh:docOption",
+    "hh:trackchageConfig",
+    "hh:metaTag"
+   ],
+   "속성순서": [
+    "version",
+    "secCnt"
+   ],
+   "속성기본값": {
+    "secCnt": "0"
+   },
+   "태그별칭": []
+  },
+  "(무명):CHWPMLHistoryType": {
+   "클래스": "CHWPMLHistoryType",
+   "출처파일": "OWPML/Class/Etc/HWPMLHistoryType.cpp",
+   "자식순서": [
+    "hhs:historyEntry"
+   ],
+   "속성순서": [
+    "version"
+   ],
+   "속성기본값": {},
+   "태그별칭": []
+  },
+  "hc:intent": {
+   "클래스": "CHWPValue",
+   "출처파일": "OWPML/Class/Core/HWPValue.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "value",
+    "unit"
+   ],
+   "속성기본값": {
+    "value": "-1",
+    "unit": "UVT_HWPUNIT"
+   },
+   "태그별칭": [
+    "hc:intent",
+    "hc:left",
+    "hc:next",
+    "hc:prev",
+    "hc:right"
+   ]
+  },
+  "hp:footer": {
+   "클래스": "CHeaderFooterType",
+   "출처파일": "OWPML/Class/Para/HeaderFooterType.cpp",
+   "자식순서": [
+    "hp:subList"
+   ],
+   "속성순서": [
+    "id",
+    "applyPageType"
+   ],
+   "속성기본값": {
+    "applyPageType": "APT_BOTH"
+   },
+   "태그별칭": [
+    "hp:footer",
+    "hp:header"
+   ]
+  },
+  "hh:heading": {
+   "클래스": "CHeading",
+   "출처파일": "OWPML/Class/Head/heading.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "type",
+    "idRef",
+    "level"
+   ],
+   "속성기본값": {
+    "type": "0",
+    "idRef": "0",
+    "level": "0"
+   },
+   "태그별칭": [
+    "hh:heading"
+   ]
+  },
+  "hp:hiddenComment": {
+   "클래스": "CHiddenComment",
+   "출처파일": "OWPML/Class/Para/hiddenComment.cpp",
+   "자식순서": [
+    "hp:subList"
+   ],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hp:hiddenComment"
+   ]
+  },
+  "hhs:historyEntry": {
+   "클래스": "CHistoryEntryType",
+   "출처파일": "OWPML/Class/Etc/HistoryEntryType.cpp",
+   "자식순서": [
+    "hhs:packageDiff",
+    "hhs:headDiff",
+    "hhs:bodyDiff",
+    "hhs:tailDiff"
+   ],
+   "속성순서": [
+    "revisionNumber",
+    "revisionDate",
+    "revisionAuthor",
+    "revisionDesc",
+    "autoSave"
+   ],
+   "속성기본값": {
+    "revisionNumber": "0",
+    "autoSave": "false"
+   },
+   "태그별칭": [
+    "hhs:historyEntry"
+   ]
+  },
+  "hp:hypen": {
+   "클래스": "CHypen",
+   "출처파일": "OWPML/Class/Para/hypen.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hp:hypen"
+   ]
+  },
+  "opf:identifier": {
+   "클래스": "CIdentifier",
+   "출처파일": "OWPML/Class/Etc/identifier.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "opf:identifier"
+   ]
+  },
+  "hc:img": {
+   "클래스": "CImageType",
+   "출처파일": "OWPML/Class/Core/ImageType.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "binaryItemIDRef",
+    "bright",
+    "contrast",
+    "effect",
+    "alpha"
+   ],
+   "속성기본값": {
+    "bright": "0",
+    "contrast": "0",
+    "effect": "IET_REAL_PIC",
+    "alpha": "0.0"
+   },
+   "태그별칭": [
+    "hc:img"
+   ]
+  },
+  "hc:imgBrush": {
+   "클래스": "CImgBrush",
+   "출처파일": "OWPML/Class/Core/imgBrush.cpp",
+   "자식순서": [
+    "hc:img"
+   ],
+   "속성순서": [
+    "mode"
+   ],
+   "속성기본값": {
+    "mode": "IBMT_TILE"
+   },
+   "태그별칭": [
+    "hc:imgBrush"
+   ]
+  },
+  "hp:imgClip": {
+   "클래스": "CImgClip",
+   "출처파일": "OWPML/Class/Para/imgClip.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "left",
+    "right",
+    "top",
+    "bottom"
+   ],
+   "속성기본값": {
+    "left": "-1",
+    "right": "-1",
+    "top": "-1",
+    "bottom": "-1"
+   },
+   "태그별칭": [
+    "hp:imgClip"
+   ]
+  },
+  "hp:imgDim": {
+   "클래스": "CImgDim",
+   "출처파일": "OWPML/Class/Para/imgDim.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "dimwidth",
+    "dimheight"
+   ],
+   "속성기본값": {
+    "dimwidth": "0",
+    "dimheight": "0"
+   },
+   "태그별칭": [
+    "hp:imgDim"
+   ]
+  },
+  "hp:imgRect": {
+   "클래스": "CImgRect",
+   "출처파일": "OWPML/Class/Para/imgRect.cpp",
+   "자식순서": [
+    "hc:pt0",
+    "hc:pt1",
+    "hc:pt2",
+    "hc:pt3"
+   ],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hp:imgRect"
+   ]
+  },
+  "hp:indexmark": {
+   "클래스": "CIndexmark",
+   "출처파일": "OWPML/Class/Para/indexmark.cpp",
+   "자식순서": [
+    "hp:firstKey",
+    "hp:secondKey"
+   ],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hp:indexmark"
+   ]
+  },
+  "hhs:insert": {
+   "클래스": "CInsertType",
+   "출처파일": "OWPML/Class/Etc/InsertType.cpp",
+   "자식순서": [
+    "hhs:insert"
+   ],
+   "속성순서": [
+    "OPID"
+   ],
+   "속성기본값": {},
+   "태그별칭": [
+    "hhs:insert"
+   ]
+  },
+  "hp:inMargin": {
+   "클래스": "CInsideMarginType",
+   "출처파일": "OWPML/Class/Para/InsideMarginType.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hp:inMargin"
+   ]
+  },
+  "hh:italic": {
+   "클래스": "CItalic",
+   "출처파일": "OWPML/Class/Head/italic.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:italic"
+   ]
+  },
+  "opf:item": {
+   "클래스": "CItem",
+   "출처파일": "OWPML/Class/Etc/item.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "id",
+    "href",
+    "isEmbeded"
+   ],
+   "속성기본값": {
+    "isEmbeded": "true"
+   },
+   "태그별칭": [
+    "opf:item"
+   ]
+  },
+  "opf:itemref": {
+   "클래스": "CItemref",
+   "출처파일": "OWPML/Class/Etc/itemref.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "id",
+    "idref",
+    "linear"
+   ],
+   "속성기본값": {
+    "linear": "0"
+   },
+   "태그별칭": [
+    "opf:itemref"
+   ]
+  },
+  "odf:keyderivation": {
+   "클래스": "CKeyDerivation",
+   "출처파일": "OWPML/Class/Etc/odfelement.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "salt"
+   ],
+   "속성기본값": {},
+   "태그별칭": [
+    "odf:keyderivation"
+   ]
+  },
+  "hp:label": {
+   "클래스": "CLabel",
+   "출처파일": "OWPML/Class/Para/label.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "topmargin",
+    "leftmargin",
+    "boxwidth",
+    "boxlength",
+    "boxmarginhor",
+    "boxmarginver",
+    "labelcols",
+    "labelrows",
+    "landscape",
+    "pagewidth",
+    "pageheight"
+   ],
+   "속성기본값": {
+    "topmargin": "0",
+    "leftmargin": "0",
+    "boxwidth": "0",
+    "boxlength": "0",
+    "boxmarginhor": "0",
+    "boxmarginver": "0",
+    "labelcols": "0",
+    "labelrows": "0",
+    "landscape": "0",
+    "pagewidth": "0",
+    "pageheight": "0"
+   },
+   "태그별칭": [
+    "hp:label"
+   ]
+  },
+  "opf:language": {
+   "클래스": "CLanguage",
+   "출처파일": "OWPML/Class/Etc/language.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "opf:language"
+   ]
+  },
+  "hh:layoutCompatibility": {
+   "클래스": "CLayoutCompatibility",
+   "출처파일": "OWPML/Class/Head/layoutCompatibility.cpp",
+   "자식순서": [
+    "hh:applyFontWeightToBold",
+    "hh:useInnerUnderline",
+    "hh:fixedUnderlineWidth",
+    "hh:doNotApplyStrikeoutWithUnderline",
+    "hh:useLowercaseStrikeout",
+    "hh:extendLineheightToOffset",
+    "hh:applyFontspaceToLatin",
+    "hh:treatQuotationAsLatin",
+    "hh:doNotApplyDiacSymMarkOfNoneAndSix",
+    "hh:doNotAlignWhitespaceOnRight",
+    "hh:doNotAdjustWordInJustify",
+    "hh:baseCharUnitOnEAsian",
+    "hh:baseCharUnitOfIndentOnFirstChar",
+    "hh:adjustLineheightToFont",
+    "hh:adjustBaselineInFixedLinespacing",
+    "hh:applyPrevspacingBeneathObject",
+    "hh:applyNextspacingOfLastPara",
+    "hh:applyAtLeastToPercent100Pct",
+    "hh:doNotApplyAutoSpaceEAsianEng",
+    "hh:doNotApplyAutoSpaceEAsianNum",
+    "hh:adjustParaBorderfillToSpacing",
+    "hh:connectParaBorderfillOfEqualBorder",
+    "hh:adjustParaBorderOffsetWithBorder",
+    "hh:extendLineheightToParaBorderOffset",
+    "hh:applyParaBorderToOutside",
+    "hh:applyMinColumnWidthTo1mm",
+    "hh:applyTabPosBasedOnSegment",
+    "hh:breakTabOverLine",
+    "hh:adjustVertPosOfLine",
+    "hh:doNotApplyWhiteSpaceHeight",
+    "hh:doNotAlignLastPeriod",
+    "hh:doNotAlignLastForbidden",
+    "hh:adjustMarginFromAdjustLineheight",
+    "hh:baseLineSpacingOnLineGrid",
+    "hh:applyCharSpacingToCharGrid",
+    "hh:doNotApplyGridInHeaderFooter",
+    "hh:applyExtendHeaderFooterEachSection",
+    "hh:doNotApplyHeaderFooterAtNoSpace",
+    "hh:doNotApplyColSeparatorAtNoGap",
+    "hh:doNotApplyLinegridAtNoLinespacing",
+    "hh:doNotApplyImageEffect",
+    "hh:doNotApplyShapeComment",
+    "hh:doNotAdjustEmptyAnchorLine",
+    "hh:overlapBothAllowOverlap",
+    "hh:doNotApplyVertOffsetOfForward",
+    "hh:extendVertLimitToPageMargins",
+    "hh:doNotHoldAnchorOfTable",
+    "hh:doNotFormattingAtBeneathAnchor",
+    "hh:adjustBaselineOfObjectToBottom",
+    "hh:doNotApplyExtensionCharCompose"
+   ],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:layoutCompatibility"
+   ]
+  },
+  "hp:lineBreak": {
+   "클래스": "CLineBreak",
+   "출처파일": "OWPML/Class/Para/lineBreak.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hp:lineBreak"
+   ]
+  },
+  "hp:lineNumberShape": {
+   "클래스": "CLineNumberShape",
+   "출처파일": "OWPML/Class/Para/visibility.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "restartType",
+    "countBy",
+    "distance",
+    "startNumber"
+   ],
+   "속성기본값": {
+    "restartType": "0",
+    "countBy": "0",
+    "distance": "0",
+    "startNumber": "0"
+   },
+   "태그별칭": [
+    "hp:lineNumberShape"
+   ]
+  },
+  "hp:lineseg": {
+   "클래스": "CLineSeg",
+   "출처파일": "OWPML/Class/Para/PType.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "textpos",
+    "vertpos",
+    "vertsize",
+    "textheight",
+    "baseline",
+    "spacing",
+    "horzpos",
+    "horzsize",
+    "flags"
+   ],
+   "속성기본값": {},
+   "태그별칭": [
+    "hp:lineseg"
+   ]
+  },
+  "hp:linesegarray": {
+   "클래스": "CLineSegArray",
+   "출처파일": "OWPML/Class/Para/PType.cpp",
+   "자식순서": [
+    "hp:lineseg"
+   ],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hp:linesegarray"
+   ]
+  },
+  "hp:lineShape": {
+   "클래스": "CLineShapeType",
+   "출처파일": "OWPML/Class/Para/LineShapeType.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "color",
+    "width",
+    "style",
+    "endCap",
+    "headStyle",
+    "tailStyle",
+    "headfill",
+    "tailfill",
+    "headSz",
+    "tailSz",
+    "outlineStyle",
+    "alpha"
+   ],
+   "속성기본값": {
+    "color": "0x000000",
+    "width": "0",
+    "style": "LT2_SOLID",
+    "endCap": "LECT_FLAT",
+    "headStyle": "AT_NORMAL",
+    "tailStyle": "AT_NORMAL",
+    "headfill": "false",
+    "tailfill": "false",
+    "headSz": "AST_SMALL_SMALL",
+    "tailSz": "AST_SMALL_SMALL",
+    "outlineStyle": "OLST_NORMAL",
+    "alpha": "0.0"
+   },
+   "태그별칭": [
+    "hp:lineShape"
+   ]
+  },
+  "hh:lineSpacing": {
+   "클래스": "CLineSpacing",
+   "출처파일": "OWPML/Class/Head/lineSpacing.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "type",
+    "value",
+    "unit"
+   ],
+   "속성기본값": {
+    "type": "0",
+    "value": "-1",
+    "unit": "UVT_HWPUNIT"
+   },
+   "태그별칭": [
+    "hh:lineSpacing"
+   ]
+  },
+  "hp:line": {
+   "클래스": "CLineType",
+   "출처파일": "OWPML/Class/Para/LineType.cpp",
+   "자식순서": [
+    "hp:lineShape",
+    "hc:fillBrush",
+    "hp:drawText",
+    "hp:shadow",
+    "hp:parameterset",
+    "hp:metaTag",
+    "hp:sz",
+    "hp:pos",
+    "hp:outMargin",
+    "hp:caption",
+    "hp:shapeComment",
+    "hp:offset",
+    "hp:orgSz",
+    "hp:curSz",
+    "hp:flip",
+    "hp:rotationInfo",
+    "hp:renderingInfo",
+    "hc:startPt",
+    "hc:endPt"
+   ],
+   "속성순서": [
+    "isReverseHV"
+   ],
+   "속성기본값": {
+    "isReverseHV": "false"
+   },
+   "태그별칭": [
+    "hp:line"
+   ]
+  },
+  "hp:listBox": {
+   "클래스": "CListBoxType",
+   "출처파일": "OWPML/Class/Para/ListBoxType.cpp",
+   "자식순서": [
+    "hp:sz",
+    "hp:pos",
+    "hp:outMargin",
+    "hp:caption",
+    "hp:shapeComment",
+    "hp:parameterset",
+    "hp:metaTag",
+    "hp:formCharPr",
+    "hp:listItem"
+   ],
+   "속성순서": [
+    "itemHeight",
+    "topIdx",
+    "selectedValue"
+   ],
+   "속성기본값": {
+    "itemHeight": "-1",
+    "topIdx": "0"
+   },
+   "태그별칭": [
+    "hp:listBox"
+   ]
+  },
+  "hp:listItem": {
+   "클래스": "CListItemType",
+   "출처파일": "OWPML/Class/Para/ListItemType.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "displayText",
+    "value"
+   ],
+   "속성기본값": {},
+   "태그별칭": [
+    "hp:listItem"
+   ]
+  },
+  "hp:mainText": {
+   "클래스": "CMainText",
+   "출처파일": "OWPML/Class/Para/mainText.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hp:mainText"
+   ]
+  },
+  "opf:manifest": {
+   "클래스": "CManifestType",
+   "출처파일": "OWPML/Class/Etc/ManifestType.cpp",
+   "자식순서": [
+    "opf:item"
+   ],
+   "속성순서": [
+    "id"
+   ],
+   "속성기본값": {},
+   "태그별칭": [
+    "opf:manifest"
+   ]
+  },
+  "hh:refList": {
+   "클래스": "CMappingTableType",
+   "출처파일": "OWPML/Class/Head/MappingTableType.cpp",
+   "자식순서": [
+    "hh:fontfaces",
+    "hh:borderFills",
+    "hh:charProperties",
+    "hh:tabProperties",
+    "hh:numberings",
+    "hh:bullets",
+    "hh:paraProperties",
+    "hh:styles",
+    "hh:memoProperties",
+    "hh:trackChanges",
+    "hh:trackChangeAuthors"
+   ],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:refList"
+   ]
+  },
+  "hh:margin": {
+   "클래스": "CMargin",
+   "출처파일": "OWPML/Class/Head/margin.cpp",
+   "자식순서": [
+    "hc:intent",
+    "hc:left",
+    "hc:right",
+    "hc:prev",
+    "hc:next"
+   ],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:margin"
+   ]
+  },
+  "hp:markpenBegin": {
+   "클래스": "CMarkpenBegin",
+   "출처파일": "OWPML/Class/Para/markpenBegin.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "color"
+   ],
+   "속성기본값": {},
+   "태그별칭": [
+    "hp:markpenBegin"
+   ]
+  },
+  "hp:markpenEnd": {
+   "클래스": "CMarkpenEnd",
+   "출처파일": "OWPML/Class/Para/markpenEnd.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hp:markpenEnd"
+   ]
+  },
+  "hp:masterPage": {
+   "클래스": "CMasterPage",
+   "출처파일": "OWPML/Class/Para/masterPage.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "idRef"
+   ],
+   "속성기본값": {},
+   "태그별칭": [
+    "hp:masterPage"
+   ]
+  },
+  "(무명):CMasterPageType": {
+   "클래스": "CMasterPageType",
+   "출처파일": "OWPML/Class/Etc/MasterPageType.cpp",
+   "자식순서": [
+    "hp:subList"
+   ],
+   "속성순서": [
+    "id",
+    "type",
+    "pageNumber",
+    "pageDuplicate",
+    "pageFront"
+   ],
+   "속성기본값": {
+    "type": "MPT_BOTH",
+    "pageNumber": "0",
+    "pageDuplicate": "false",
+    "pageFront": "false"
+   },
+   "태그별칭": []
+  },
+  "hc:rotMatrix": {
+   "클래스": "CMatrixType",
+   "출처파일": "OWPML/Class/Core/MatrixType.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "e1",
+    "e2",
+    "e3",
+    "e4",
+    "e5",
+    "e6"
+   ],
+   "속성기본값": {
+    "e1": "0.0",
+    "e2": "0.0",
+    "e3": "0.0",
+    "e4": "0.0",
+    "e5": "0.0",
+    "e6": "0.0"
+   },
+   "태그별칭": [
+    "hc:rotMatrix",
+    "hc:scaMatrix",
+    "hc:transMatrix"
+   ]
+  },
+  "hh:memoProperties": {
+   "클래스": "CMemoProperties",
+   "출처파일": "OWPML/Class/Head/memoProperties.cpp",
+   "자식순서": [
+    "hh:memoPr"
+   ],
+   "속성순서": [
+    "itemCnt"
+   ],
+   "속성기본값": {
+    "itemCnt": "0"
+   },
+   "태그별칭": [
+    "hh:memoProperties"
+   ]
+  },
+  "hh:memoPr": {
+   "클래스": "CMemoShapeType",
+   "출처파일": "OWPML/Class/Head/MemoShapeType.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "id",
+    "width",
+    "lineWidth",
+    "lineType",
+    "lineColor",
+    "fillColor",
+    "activeColor",
+    "memoType"
+   ],
+   "속성기본값": {
+    "id": "0",
+    "width": "55",
+    "lineWidth": "LWT_0_12",
+    "lineType": "LT2_SOLID",
+    "memoType": "MST_NOMAL"
+   },
+   "태그별칭": [
+    "hh:memoPr"
+   ]
+  },
+  "opf:meta": {
+   "클래스": "CMeta",
+   "출처파일": "OWPML/Class/Etc/meta.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "id",
+    "name",
+    "content",
+    "schme"
+   ],
+   "속성기본값": {},
+   "태그별칭": [
+    "opf:meta"
+   ]
+  },
+  "hh:metaTag": {
+   "클래스": "CMetaTag",
+   "출처파일": "OWPML/Class/Para/MetaTag.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:metaTag",
+    "hp:metaTag"
+   ]
+  },
+  "opf:metadata": {
+   "클래스": "CMetadataType",
+   "출처파일": "OWPML/Class/Etc/MetadataType.cpp",
+   "자식순서": [
+    "opf:title",
+    "opf:language",
+    "opf:identifier",
+    "opf:meta"
+   ],
+   "속성순서": [
+    "id"
+   ],
+   "속성기본값": {},
+   "태그별칭": [
+    "opf:metadata"
+   ]
+  },
+  "hp:nbSpace": {
+   "클래스": "CNbSpace",
+   "출처파일": "OWPML/Class/Para/nbSpace.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hp:nbSpace"
+   ]
+  },
+  "hp:noteLine": {
+   "클래스": "CNoteLine",
+   "출처파일": "OWPML/Class/Para/noteLine.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "length",
+    "type",
+    "width",
+    "color"
+   ],
+   "속성기본값": {
+    "length": "0",
+    "type": "LT2_SOLID",
+    "width": "LWT_0_12",
+    "color": "0x000000"
+   },
+   "태그별칭": [
+    "hp:noteLine"
+   ]
+  },
+  "(무명):CNoteShapeType": {
+   "클래스": "CNoteShapeType",
+   "출처파일": "OWPML/Class/Para/NoteShapeType.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": []
+  },
+  "hp:noteSpacing": {
+   "클래스": "CNoteSpacing",
+   "출처파일": "OWPML/Class/Para/noteSpacing.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "betweenNotes",
+    "belowLine",
+    "aboveLine"
+   ],
+   "속성기본값": {
+    "betweenNotes": "850",
+    "belowLine": "567",
+    "aboveLine": "567"
+   },
+   "태그별칭": [
+    "hp:noteSpacing"
+   ]
+  },
+  "hp:endNote": {
+   "클래스": "CNoteType",
+   "출처파일": "OWPML/Class/Para/NoteType.cpp",
+   "자식순서": [
+    "hp:subList"
+   ],
+   "속성순서": [
+    "flag",
+    "number",
+    "userChar",
+    "prefixChar",
+    "suffixChar",
+    "instId"
+   ],
+   "속성기본값": {
+    "flag": "0",
+    "number": "0",
+    "userChar": "0",
+    "prefixChar": "0",
+    "suffixChar": "0",
+    "instId": "0"
+   },
+   "태그별칭": [
+    "hp:endNote",
+    "hp:footNote"
+   ]
+  },
+  "hh:numbering": {
+   "클래스": "CNumberingType",
+   "출처파일": "OWPML/Class/Head/NumberingType.cpp",
+   "자식순서": [
+    "hh:paraHead"
+   ],
+   "속성순서": [
+    "id",
+    "start"
+   ],
+   "속성기본값": {
+    "id": "0",
+    "start": "1"
+   },
+   "태그별칭": [
+    "hh:numbering"
+   ]
+  },
+  "hh:numberings": {
+   "클래스": "CNumberings",
+   "출처파일": "OWPML/Class/Head/numberings.cpp",
+   "자식순서": [
+    "hh:numbering"
+   ],
+   "속성순서": [
+    "itemCnt"
+   ],
+   "속성기본값": {
+    "itemCnt": "0"
+   },
+   "태그별칭": [
+    "hh:numberings"
+   ]
+  },
+  "(무명):CODFManifest": {
+   "클래스": "CODFManifest",
+   "출처파일": "OWPML/Class/Etc/odfelement.cpp",
+   "자식순서": [
+    "odf:fileentry"
+   ],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": []
+  },
+  "hp:ole": {
+   "클래스": "COLEType",
+   "출처파일": "OWPML/Class/Para/OLEType.cpp",
+   "자식순서": [
+    "hp:sz",
+    "hp:pos",
+    "hp:outMargin",
+    "hp:caption",
+    "hp:shapeComment",
+    "hp:parameterset",
+    "hp:metaTag",
+    "hp:offset",
+    "hp:orgSz",
+    "hp:curSz",
+    "hp:flip",
+    "hp:rotationInfo",
+    "hp:renderingInfo",
+    "hc:extent",
+    "hp:lineShape"
+   ],
+   "속성순서": [
+    "objectType",
+    "binaryItemIDRef",
+    "hasMoniker",
+    "drawAspect",
+    "eqBaseLine"
+   ],
+   "속성기본값": {
+    "hasMoniker": "false",
+    "eqBaseLine": "85"
+   },
+   "태그별칭": [
+    "hp:ole"
+   ]
+  },
+  "hh:offset": {
+   "클래스": "COffset",
+   "출처파일": "OWPML/Class/Head/offset.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "hangul",
+    "latin",
+    "hanja",
+    "japanese",
+    "other",
+    "symbol",
+    "user"
+   ],
+   "속성기본값": {
+    "hangul": "0",
+    "latin": "0",
+    "hanja": "0",
+    "japanese": "0",
+    "other": "0",
+    "symbol": "0",
+    "user": "0"
+   },
+   "태그별칭": [
+    "hh:offset"
+   ]
+  },
+  "hp:orgSz": {
+   "클래스": "COrgSz",
+   "출처파일": "OWPML/Class/Para/orgSz.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "width",
+    "height"
+   ],
+   "속성기본값": {
+    "width": "0",
+    "height": "0"
+   },
+   "태그별칭": [
+    "hp:orgSz"
+   ]
+  },
+  "hp:outMargin": {
+   "클래스": "COutMargin",
+   "출처파일": "OWPML/Class/Para/outMargin.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hp:outMargin"
+   ]
+  },
+  "hh:outline": {
+   "클래스": "COutline",
+   "출처파일": "OWPML/Class/Head/outline.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "type"
+   ],
+   "속성기본값": {
+    "type": "0"
+   },
+   "태그별칭": [
+    "hh:outline"
+   ]
+  },
+  "hh:overlapBothAllowOverlap": {
+   "클래스": "COverlapBothAllowOverlap",
+   "출처파일": "OWPML/Class/Head/overlapBothAllowOverlap.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:overlapBothAllowOverlap"
+   ]
+  },
+  "hp:margin": {
+   "클래스": "CPMargin",
+   "출처파일": "OWPML/Class/Para/pmargin.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "header",
+    "footer",
+    "gutter"
+   ],
+   "속성기본값": {
+    "header": "4252",
+    "footer": "4252",
+    "gutter": "0"
+   },
+   "태그별칭": [
+    "hp:margin"
+   ]
+  },
+  "hp:outline": {
+   "클래스": "CPOutline",
+   "출처파일": "OWPML/Class/Para/poutline.cpp",
+   "자식순서": [
+    "hc:pt"
+   ],
+   "속성순서": [
+    "cnt"
+   ],
+   "속성기본값": {
+    "cnt": "0"
+   },
+   "태그별칭": [
+    "hp:outline"
+   ]
+  },
+  "hp:shadow": {
+   "클래스": "CShadowType",
+   "출처파일": "OWPML/Class/Para/ShadowType.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "type",
+    "color",
+    "offsetX",
+    "offsetY",
+    "alpha"
+   ],
+   "속성기본값": {
+    "type": "SHT_NONE",
+    "color": "0x000000",
+    "offsetX": "0",
+    "offsetY": "0",
+    "alpha": "0.0"
+   },
+   "태그별칭": [
+    "hp:shadow"
+   ]
+  },
+  "hp:p": {
+   "클래스": "CPType",
+   "출처파일": "OWPML/Class/Para/PType.cpp",
+   "자식순서": [
+    "hp:run",
+    "hp:linesegarray"
+   ],
+   "속성순서": [
+    "id",
+    "paraPrIDRef",
+    "styleIDRef",
+    "pageBreak",
+    "columnBreak",
+    "merged",
+    "paraTcId"
+   ],
+   "속성기본값": {
+    "pageBreak": "false",
+    "columnBreak": "false",
+    "merged": "false",
+    "paraTcId": "0"
+   },
+   "태그별칭": [
+    "hp:p"
+   ]
+  },
+  "(무명):CPackage": {
+   "클래스": "CPackage",
+   "출처파일": "OWPML/Class/Etc/package.cpp",
+   "자식순서": [
+    "opf:metadata",
+    "opf:manifest",
+    "opf:spine",
+    "opf:tours",
+    "opf:guide"
+   ],
+   "속성순서": [
+    "version",
+    "id"
+   ],
+   "속성기본값": {},
+   "태그별칭": []
+  },
+  "hp:pageBorderFill": {
+   "클래스": "CPageBorderFill",
+   "출처파일": "OWPML/Class/Para/pageBorderFill.cpp",
+   "자식순서": [
+    "hp:offset"
+   ],
+   "속성순서": [
+    "type",
+    "borderFillIDRef",
+    "textBorder",
+    "headerInside",
+    "footerInside",
+    "fillArea"
+   ],
+   "속성기본값": {
+    "borderFillIDRef": "0",
+    "headerInside": "false",
+    "footerInside": "false"
+   },
+   "태그별칭": [
+    "hp:pageBorderFill"
+   ]
+  },
+  "hp:pageHiding": {
+   "클래스": "CPageHiding",
+   "출처파일": "OWPML/Class/Para/pageHiding.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "hideHeader",
+    "hideFooter",
+    "hideMasterPage",
+    "hideBorder",
+    "hideFill",
+    "hidePageNum"
+   ],
+   "속성기본값": {
+    "hideHeader": "false",
+    "hideFooter": "false",
+    "hideMasterPage": "false",
+    "hideBorder": "false",
+    "hideFill": "false",
+    "hidePageNum": "false"
+   },
+   "태그별칭": [
+    "hp:pageHiding"
+   ]
+  },
+  "hp:pageNum": {
+   "클래스": "CPageNum",
+   "출처파일": "OWPML/Class/Para/pageNum.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "pos",
+    "formatType",
+    "sideChar"
+   ],
+   "속성기본값": {
+    "pos": "PNPT_TOP_LEFT",
+    "formatType": "LNT_DIGIT",
+    "sideChar": "L\"\""
+   },
+   "태그별칭": [
+    "hp:pageNum"
+   ]
+  },
+  "hp:pageNumCtrl": {
+   "클래스": "CPageNumCtrl",
+   "출처파일": "OWPML/Class/Para/pageNumCtrl.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "pageStartsOn"
+   ],
+   "속성기본값": {
+    "pageStartsOn": "PNST_BOTH"
+   },
+   "태그별칭": [
+    "hp:pageNumCtrl"
+   ]
+  },
+  "hp:pagePr": {
+   "클래스": "CPagePr",
+   "출처파일": "OWPML/Class/Para/pagePr.cpp",
+   "자식순서": [
+    "hp:margin"
+   ],
+   "속성순서": [
+    "landscape",
+    "width",
+    "height",
+    "gutterType"
+   ],
+   "속성기본값": {
+    "landscape": "PLT_NARROWLY",
+    "width": "59528",
+    "height": "84188",
+    "gutterType": "PGT_LEFT_ONLY"
+   },
+   "태그별칭": [
+    "hp:pagePr"
+   ]
+  },
+  "hh:paraHead": {
+   "클래스": "CParaHeadType2",
+   "출처파일": "OWPML/Class/Head/ParaHeadType.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "start"
+   ],
+   "속성기본값": {
+    "start": "0"
+   },
+   "태그별칭": [
+    "hh:paraHead"
+   ]
+  },
+  "hp:subList": {
+   "클래스": "CParaListType",
+   "출처파일": "OWPML/Class/Para/ParaListType.cpp",
+   "자식순서": [
+    "hp:p"
+   ],
+   "속성순서": [
+    "id",
+    "textDirection",
+    "lineWrap",
+    "vertAlign",
+    "linkListIDRef",
+    "linkListNextIDRef",
+    "textWidth",
+    "textHeight",
+    "hasTextRef",
+    "hasNumRef",
+    "metatag"
+   ],
+   "속성기본값": {
+    "textDirection": "PTDT_HORIZONTAL",
+    "lineWrap": "PLWT_BREAK",
+    "vertAlign": "PVAT_TOP",
+    "textWidth": "0",
+    "textHeight": "0",
+    "hasTextRef": "false",
+    "hasNumRef": "false"
+   },
+   "태그별칭": [
+    "hp:subList"
+   ]
+  },
+  "hh:paraProperties": {
+   "클래스": "CParaProperties",
+   "출처파일": "OWPML/Class/Head/paraProperties.cpp",
+   "자식순서": [
+    "hh:paraPr"
+   ],
+   "속성순서": [
+    "itemCnt"
+   ],
+   "속성기본값": {
+    "itemCnt": "0"
+   },
+   "태그별칭": [
+    "hh:paraProperties"
+   ]
+  },
+  "hh:paraPr": {
+   "클래스": "CParaShapeType",
+   "출처파일": "OWPML/Class/Head/ParaShapeType.cpp",
+   "자식순서": [
+    "hh:align",
+    "hh:heading",
+    "hh:breakSetting",
+    "hh:margin",
+    "hh:lineSpacing",
+    "hh:border",
+    "hh:autoSpacing"
+   ],
+   "속성순서": [
+    "id",
+    "tabPrIDRef",
+    "condense",
+    "fontLineHeight",
+    "snapToGrid",
+    "suppressLineNumbers",
+    "checked"
+   ],
+   "속성기본값": {
+    "tabPrIDRef": "0",
+    "condense": "0",
+    "fontLineHeight": "false",
+    "snapToGrid": "true",
+    "suppressLineNumbers": "false",
+    "checked": "false"
+   },
+   "태그별칭": [
+    "hh:paraPr"
+   ]
+  },
+  "(무명):CParam": {
+   "클래스": "CParam",
+   "출처파일": "OWPML/Class/Para/ParameterList.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "name"
+   ],
+   "속성기본값": {},
+   "태그별칭": []
+  },
+  "(무명):CParameterArrayType": {
+   "클래스": "CParameterArrayType",
+   "출처파일": "OWPML/Class/Etc/ParameterArrayType.cpp",
+   "자식순서": [
+    "ha:ParameterItem"
+   ],
+   "속성순서": [
+    "count"
+   ],
+   "속성기본값": {
+    "count": "0"
+   },
+   "태그별칭": []
+  },
+  "(무명):CParameterBinary": {
+   "클래스": "CParameterBinary",
+   "출처파일": "OWPML/Class/Etc/ParameterBinary.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "binaryIDRef"
+   ],
+   "속성기본값": {},
+   "태그별칭": []
+  },
+  "ha:ParameterItem": {
+   "클래스": "CParameterItemtype",
+   "출처파일": "OWPML/Class/Etc/ParameterItemtype.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "id",
+    "type"
+   ],
+   "속성기본값": {
+    "type": "0"
+   },
+   "태그별칭": [
+    "ha:ParameterItem"
+   ]
+  },
+  "hp:arrayParam": {
+   "클래스": "CParameterList",
+   "출처파일": "OWPML/Class/Para/ParameterList.cpp",
+   "자식순서": [
+    "hp:booleanParam",
+    "hp:integerParam",
+    "hp:unsignedintegerParam",
+    "hp:bindataParam",
+    "hp:floatParam",
+    "hp:stringParam",
+    "hp:listParam",
+    "hp:arrayParam"
+   ],
+   "속성순서": [
+    "cnt",
+    "name"
+   ],
+   "속성기본값": {
+    "cnt": "0"
+   },
+   "태그별칭": [
+    "hp:arrayParam",
+    "hp:listParam",
+    "hp:parameters",
+    "hp:parameterset"
+   ]
+  },
+  "(무명):CParameterSetType": {
+   "클래스": "CParameterSetType",
+   "출처파일": "OWPML/Class/Etc/ParameterSetType.cpp",
+   "자식순서": [
+    "ha:ParameterItem"
+   ],
+   "속성순서": [
+    "count"
+   ],
+   "속성기본값": {
+    "count": "0"
+   },
+   "태그별칭": []
+  },
+  "hp:pic": {
+   "클래스": "CPictureType",
+   "출처파일": "OWPML/Class/Para/PictureType.cpp",
+   "자식순서": [
+    "hp:sz",
+    "hp:pos",
+    "hp:outMargin",
+    "hp:caption",
+    "hp:shapeComment",
+    "hp:parameterset",
+    "hp:metaTag",
+    "hp:offset",
+    "hp:orgSz",
+    "hp:curSz",
+    "hp:flip",
+    "hp:rotationInfo",
+    "hp:renderingInfo",
+    "hp:lineShape",
+    "hp:imgRect",
+    "hp:imgClip",
+    "hp:effects",
+    "hp:inMargin",
+    "hp:imgDim",
+    "hc:img"
+   ],
+   "속성순서": [
+    "reverse"
+   ],
+   "속성기본값": {
+    "reverse": "false"
+   },
+   "태그별칭": [
+    "hp:pic"
+   ]
+  },
+  "hc:ax1": {
+   "클래스": "CPointType",
+   "출처파일": "OWPML/Class/Core/PointType.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "x",
+    "y"
+   ],
+   "속성기본값": {
+    "x": "-1",
+    "y": "-1"
+   },
+   "태그별칭": [
+    "hc:ax1",
+    "hc:ax2",
+    "hc:center",
+    "hc:end1",
+    "hc:end2",
+    "hc:endPt",
+    "hc:extent",
+    "hc:pt",
+    "hc:pt0",
+    "hc:pt1",
+    "hc:pt2",
+    "hc:pt3",
+    "hc:start1",
+    "hc:start2",
+    "hc:startPt"
+   ]
+  },
+  "hp:polygon": {
+   "클래스": "CPolygonType",
+   "출처파일": "OWPML/Class/Para/PolygonType.cpp",
+   "자식순서": [
+    "hp:lineShape",
+    "hc:fillBrush",
+    "hp:drawText",
+    "hp:shadow",
+    "hp:parameterset",
+    "hp:metaTag",
+    "hp:sz",
+    "hp:pos",
+    "hp:outMargin",
+    "hp:caption",
+    "hp:shapeComment",
+    "hp:offset",
+    "hp:orgSz",
+    "hp:curSz",
+    "hp:flip",
+    "hp:rotationInfo",
+    "hp:renderingInfo",
+    "hc:pt"
+   ],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hp:polygon"
+   ]
+  },
+  "hhs:position": {
+   "클래스": "CPositionType",
+   "출처파일": "OWPML/Class/Etc/PositionType.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hhs:position"
+   ]
+  },
+  "hp:presentation": {
+   "클래스": "CPresentation",
+   "출처파일": "OWPML/Class/Para/presentation.cpp",
+   "자식순서": [
+    "hc:fillBrush"
+   ],
+   "속성순서": [
+    "effect",
+    "soundIDRef",
+    "showtime",
+    "applyto"
+   ],
+   "속성기본값": {
+    "effect": "0",
+    "showtime": "1",
+    "applyto": "0"
+   },
+   "태그별칭": [
+    "hp:presentation"
+   ]
+  },
+  "hpf:PublicKey": {
+   "클래스": "CPublicKey",
+   "출처파일": "OWPML/Class/Etc/signatureelement.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hpf:PublicKey"
+   ]
+  },
+  "hh:ratio": {
+   "클래스": "CRatio",
+   "출처파일": "OWPML/Class/Head/ratio.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "hangul",
+    "latin",
+    "hanja",
+    "japanese",
+    "other",
+    "symbol",
+    "user"
+   ],
+   "속성기본값": {
+    "hangul": "100",
+    "latin": "100",
+    "hanja": "100",
+    "japanese": "100",
+    "other": "100",
+    "symbol": "100",
+    "user": "100"
+   },
+   "태그별칭": [
+    "hh:ratio"
+   ]
+  },
+  "(무명):CRdf": {
+   "클래스": "CRdf",
+   "출처파일": "OWPML/Class/RDF/RDF.cpp",
+   "자식순서": [
+    "rdf:Description"
+   ],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": []
+  },
+  "rdf:Description": {
+   "클래스": "CRdfDescription",
+   "출처파일": "OWPML/Class/RDF/RDF.cpp",
+   "자식순서": [
+    "rdf:type"
+   ],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "rdf:Description"
+   ]
+  },
+  "rdf:type": {
+   "클래스": "CRdfType",
+   "출처파일": "OWPML/Class/RDF/RDF.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "rdf:type"
+   ]
+  },
+  "hp:rect": {
+   "클래스": "CRectangleType",
+   "출처파일": "OWPML/Class/Para/RectangleType.cpp",
+   "자식순서": [
+    "hp:lineShape",
+    "hc:fillBrush",
+    "hp:drawText",
+    "hp:shadow",
+    "hp:parameterset",
+    "hp:metaTag",
+    "hp:sz",
+    "hp:pos",
+    "hp:outMargin",
+    "hp:caption",
+    "hp:shapeComment",
+    "hp:offset",
+    "hp:orgSz",
+    "hp:curSz",
+    "hp:flip",
+    "hp:rotationInfo",
+    "hp:renderingInfo",
+    "hc:pt0",
+    "hc:pt1",
+    "hc:pt2",
+    "hc:pt3"
+   ],
+   "속성순서": [
+    "ratio"
+   ],
+   "속성기본값": {},
+   "태그별칭": [
+    "hp:rect"
+   ]
+  },
+  "opf:reference": {
+   "클래스": "CReference",
+   "출처파일": "OWPML/Class/Etc/reference.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "id",
+    "type",
+    "title",
+    "href"
+   ],
+   "속성기본값": {},
+   "태그별칭": [
+    "opf:reference"
+   ]
+  },
+  "hp:reflection": {
+   "클래스": "CReflection",
+   "출처파일": "OWPML/Class/Para/reflection.cpp",
+   "자식순서": [
+    "hp:skew",
+    "hp:scale",
+    "hp:alpha",
+    "hp:pos"
+   ],
+   "속성순서": [
+    "alignStyle",
+    "radius",
+    "direction",
+    "distance",
+    "rotationStyle",
+    "fadeDirection"
+   ],
+   "속성기본값": {
+    "radius": "0.0",
+    "direction": "0.0",
+    "distance": "0.0",
+    "rotationStyle": "false",
+    "fadeDirection": "0.0"
+   },
+   "태그별칭": [
+    "hp:reflection"
+   ]
+  },
+  "hh:relSz": {
+   "클래스": "CRelSz",
+   "출처파일": "OWPML/Class/Head/relSz.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "hangul",
+    "latin",
+    "hanja",
+    "japanese",
+    "other",
+    "symbol",
+    "user"
+   ],
+   "속성기본값": {
+    "hangul": "100",
+    "latin": "100",
+    "hanja": "100",
+    "japanese": "100",
+    "other": "100",
+    "symbol": "100",
+    "user": "100"
+   },
+   "태그별칭": [
+    "hh:relSz"
+   ]
+  },
+  "hp:renderingInfo": {
+   "클래스": "CRenderingInfo",
+   "출처파일": "OWPML/Class/Para/renderingInfo.cpp",
+   "자식순서": [
+    "hc:transMatrix",
+    "hc:scaMatrix",
+    "hc:rotMatrix"
+   ],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hp:renderingInfo"
+   ]
+  },
+  "hp:rgb": {
+   "클래스": "CRgb",
+   "출처파일": "OWPML/Class/Para/rgb.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "r",
+    "g",
+    "b"
+   ],
+   "속성기본값": {
+    "r": "0",
+    "g": "0",
+    "b": "0"
+   },
+   "태그별칭": [
+    "hp:rgb"
+   ]
+  },
+  "ocf:rootfile": {
+   "클래스": "CRootFile",
+   "출처파일": "OWPML/Class/Etc/container.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "ocf:rootfile"
+   ]
+  },
+  "ocf:rootfiles": {
+   "클래스": "CRootFiles",
+   "출처파일": "OWPML/Class/Etc/container.cpp",
+   "자식순서": [
+    "ocf:rootfile"
+   ],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "ocf:rootfiles"
+   ]
+  },
+  "hp:rotationInfo": {
+   "클래스": "CRotationInfo",
+   "출처파일": "OWPML/Class/Para/rotationInfo.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "angle",
+    "centerX",
+    "centerY",
+    "rotateimage"
+   ],
+   "속성기본값": {
+    "angle": "0",
+    "centerX": "0",
+    "centerY": "0",
+    "rotateimage": "false"
+   },
+   "태그별칭": [
+    "hp:rotationInfo"
+   ]
+  },
+  "hp:run": {
+   "클래스": "CRunType",
+   "출처파일": "OWPML/Class/Para/RunType.cpp",
+   "자식순서": [
+    "hp:secPr",
+    "hp:ctrl",
+    "hp:t",
+    "hp:tbl",
+    "hp:pic",
+    "hp:ole",
+    "hp:container",
+    "hp:equation",
+    "hp:line",
+    "hp:rect",
+    "hp:ellipse",
+    "hp:arc",
+    "hp:polygon",
+    "hp:curve",
+    "hp:connectLine",
+    "hp:textart",
+    "hp:compose",
+    "hp:dutmal",
+    "hp:btn",
+    "hp:radioBtn",
+    "hp:checkBtn",
+    "hp:comboBox",
+    "hp:listBox",
+    "hp:edit",
+    "hp:scrollBar",
+    "hp:video",
+    "hp:markpenBegin",
+    "hp:markpenEnd",
+    "hp:chart",
+    "hp:unknownObj"
+   ],
+   "속성순서": [
+    "charPrIDRef",
+    "charTcId"
+   ],
+   "속성기본값": {
+    "charTcId": "0"
+   },
+   "태그별칭": [
+    "hp:run"
+   ]
+  },
+  "hp:scale": {
+   "클래스": "CScaleType",
+   "출처파일": "OWPML/Class/Para/ScaleType.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "x",
+    "y"
+   ],
+   "속성기본값": {
+    "x": "0.0",
+    "y": "0.0"
+   },
+   "태그별칭": [
+    "hp:scale"
+   ]
+  },
+  "hp:scheme": {
+   "클래스": "CScheme",
+   "출처파일": "OWPML/Class/Para/scheme.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "r",
+    "g",
+    "b"
+   ],
+   "속성기본값": {
+    "r": "0",
+    "g": "0",
+    "b": "0"
+   },
+   "태그별칭": [
+    "hp:scheme"
+   ]
+  },
+  "hp:script": {
+   "클래스": "CScript",
+   "출처파일": "OWPML/Class/Para/script.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hp:script"
+   ]
+  },
+  "hp:scrollBar": {
+   "클래스": "CScrollBarType",
+   "출처파일": "OWPML/Class/Para/ScrollBarType.cpp",
+   "자식순서": [
+    "hp:sz",
+    "hp:pos",
+    "hp:outMargin",
+    "hp:caption",
+    "hp:shapeComment",
+    "hp:parameterset",
+    "hp:metaTag",
+    "hp:formCharPr"
+   ],
+   "속성순서": [
+    "delay",
+    "largeChange",
+    "smallChange",
+    "min",
+    "max",
+    "page",
+    "value",
+    "type"
+   ],
+   "속성기본값": {},
+   "태그별칭": [
+    "hp:scrollBar"
+   ]
+  },
+  "hp:secondKey": {
+   "클래스": "CSecondKey",
+   "출처파일": "OWPML/Class/Para/secondKey.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hp:secondKey"
+   ]
+  },
+  "hp:secPr": {
+   "클래스": "CSectionDefinitionType",
+   "출처파일": "OWPML/Class/Para/SectionDefinitionType.cpp",
+   "자식순서": [
+    "hp:startNum",
+    "hp:grid",
+    "hp:visibility",
+    "hp:lineNumberShape",
+    "hp:pagePr",
+    "hp:footNotePr",
+    "hp:endNotePr",
+    "hp:pageBorderFill",
+    "hp:masterPage",
+    "hp:parameterset",
+    "hp:presentation",
+    "hp:metaTag"
+   ],
+   "속성순서": [
+    "id",
+    "textDirection",
+    "spaceColumns",
+    "tabStop",
+    "tabStopVal",
+    "tabStopUnit",
+    "outlineShapeIDRef",
+    "memoShapeIDRef",
+    "textVerticalWidthHead",
+    "masterPageCnt"
+   ],
+   "속성기본값": {
+    "textDirection": "STDT_HORIZONTAL",
+    "spaceColumns": "0",
+    "tabStop": "8000",
+    "outlineShapeIDRef": "0",
+    "memoShapeIDRef": "0",
+    "textVerticalWidthHead": "false",
+    "masterPageCnt": "0"
+   },
+   "태그별칭": [
+    "hp:secPr"
+   ]
+  },
+  "(무명):CSectionType": {
+   "클래스": "CSectionType",
+   "출처파일": "OWPML/Class/Etc/SectionType.cpp",
+   "자식순서": [
+    "hp:p"
+   ],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": []
+  },
+  "hp:seg": {
+   "클래스": "CSeg",
+   "출처파일": "OWPML/Class/Para/seg.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "type",
+    "x1",
+    "y1",
+    "x2",
+    "y2"
+   ],
+   "속성기본값": {
+    "type": "SEGT_CURVE",
+    "x1": "-1",
+    "y1": "-1",
+    "x2": "-1",
+    "y2": "-1"
+   },
+   "태그별칭": [
+    "hp:seg"
+   ]
+  },
+  "hp:shapeComment": {
+   "클래스": "CShapeComment",
+   "출처파일": "OWPML/Class/Para/shapeComment.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hp:shapeComment"
+   ]
+  },
+  "(무명):CSignatures": {
+   "클래스": "CSignatures",
+   "출처파일": "OWPML/Class/Etc/signatureelement.cpp",
+   "자식순서": [
+    "hpf:PublicKey"
+   ],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": []
+  },
+  "opf:site": {
+   "클래스": "CSite",
+   "출처파일": "OWPML/Class/Etc/site.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "id",
+    "title",
+    "href"
+   ],
+   "속성기본값": {},
+   "태그별칭": [
+    "opf:site"
+   ]
+  },
+  "hp:skew": {
+   "클래스": "CSkewType",
+   "출처파일": "OWPML/Class/Para/SkewType.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "x",
+    "y"
+   ],
+   "속성기본값": {
+    "x": "0.0",
+    "y": "0.0"
+   },
+   "태그별칭": [
+    "hp:skew"
+   ]
+  },
+  "hh:backSlash": {
+   "클래스": "CSlashType",
+   "출처파일": "OWPML/Class/Head/SlashType.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "type",
+    "Crooked",
+    "isCounter"
+   ],
+   "속성기본값": {
+    "type": "0",
+    "Crooked": "0",
+    "isCounter": "false"
+   },
+   "태그별칭": [
+    "hh:backSlash",
+    "hh:slash"
+   ]
+  },
+  "hp:softEdge": {
+   "클래스": "CSoftEdge",
+   "출처파일": "OWPML/Class/Para/softEdge.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "radius"
+   ],
+   "속성기본값": {
+    "radius": "0.0"
+   },
+   "태그별칭": [
+    "hp:softEdge"
+   ]
+  },
+  "hh:spacing": {
+   "클래스": "CSpacing",
+   "출처파일": "OWPML/Class/Head/spacing.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "hangul",
+    "latin",
+    "hanja",
+    "japanese",
+    "other",
+    "symbol",
+    "user"
+   ],
+   "속성기본값": {
+    "hangul": "0",
+    "latin": "0",
+    "hanja": "0",
+    "japanese": "0",
+    "other": "0",
+    "symbol": "0",
+    "user": "0"
+   },
+   "태그별칭": [
+    "hh:spacing"
+   ]
+  },
+  "opf:spine": {
+   "클래스": "CSpineType",
+   "출처파일": "OWPML/Class/Etc/SpineType.cpp",
+   "자식순서": [
+    "opf:itemref"
+   ],
+   "속성순서": [
+    "id"
+   ],
+   "속성기본값": {},
+   "태그별칭": [
+    "opf:spine"
+   ]
+  },
+  "odf:startkeygeneration": {
+   "클래스": "CStartKeyGerneration",
+   "출처파일": "OWPML/Class/Etc/odfelement.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "odf:startkeygeneration"
+   ]
+  },
+  "hp:startNum": {
+   "클래스": "CStartNum",
+   "출처파일": "OWPML/Class/Para/startNum.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "pageStartsOn",
+    "page",
+    "pic",
+    "tbl",
+    "equation"
+   ],
+   "속성기본값": {
+    "pageStartsOn": "SNST_BOTH",
+    "page": "0",
+    "pic": "0",
+    "tbl": "0",
+    "equation": "0"
+   },
+   "태그별칭": [
+    "hp:startNum"
+   ]
+  },
+  "hh:strikeout": {
+   "클래스": "CStrikeout",
+   "출처파일": "OWPML/Class/Head/strikeout.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "shape",
+    "color"
+   ],
+   "속성기본값": {
+    "shape": "0"
+   },
+   "태그별칭": [
+    "hh:strikeout"
+   ]
+  },
+  "(무명):CString": {
+   "클래스": "CString",
+   "출처파일": "OWPML/Class/Head/string.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": []
+  },
+  "hh:style": {
+   "클래스": "CStyleType",
+   "출처파일": "OWPML/Class/Head/StyleType.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "id",
+    "type",
+    "name",
+    "engName",
+    "paraPrIDRef",
+    "charPrIDRef",
+    "nextStyleIDRef",
+    "langID",
+    "lockForm"
+   ],
+   "속성기본값": {
+    "charPrIDRef": "0",
+    "lockForm": "false"
+   },
+   "태그별칭": [
+    "hh:style"
+   ]
+  },
+  "hh:styles": {
+   "클래스": "CStyles",
+   "출처파일": "OWPML/Class/Head/styles.cpp",
+   "자식순서": [
+    "hh:style"
+   ],
+   "속성순서": [
+    "itemCnt"
+   ],
+   "속성기본값": {
+    "itemCnt": "0"
+   },
+   "태그별칭": [
+    "hh:styles"
+   ]
+  },
+  "hp:subText": {
+   "클래스": "CSubText",
+   "출처파일": "OWPML/Class/Para/subText.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hp:subText"
+   ]
+  },
+  "hh:subscript": {
+   "클래스": "CSubscript",
+   "출처파일": "OWPML/Class/Head/subscript.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:subscript"
+   ]
+  },
+  "hh:substFont": {
+   "클래스": "CSubstFont",
+   "출처파일": "OWPML/Class/Head/substFont.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "face",
+    "type",
+    "isEmbedded",
+    "binaryItemIDRef"
+   ],
+   "속성기본값": {
+    "type": "0",
+    "isEmbedded": "false"
+   },
+   "태그별칭": [
+    "hh:substFont"
+   ]
+  },
+  "hh:supscript": {
+   "클래스": "CSupscript",
+   "출처파일": "OWPML/Class/Head/supscript.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:supscript"
+   ]
+  },
+  "hp:system": {
+   "클래스": "CSystem",
+   "출처파일": "OWPML/Class/Para/system.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "h",
+    "s",
+    "l"
+   ],
+   "속성기본값": {
+    "h": "0",
+    "s": "0",
+    "l": "0"
+   },
+   "태그별칭": [
+    "hp:system"
+   ]
+  },
+  "hp:sz": {
+   "클래스": "CSz",
+   "출처파일": "OWPML/Class/Para/sz.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "width",
+    "widthRelTo",
+    "height",
+    "heightRelTo",
+    "protect"
+   ],
+   "속성기본값": {
+    "width": "0",
+    "widthRelTo": "ABSOLUTE",
+    "height": "0",
+    "heightRelTo": "ABSOLUTE",
+    "protect": "false"
+   },
+   "태그별칭": [
+    "hp:sz"
+   ]
+  },
+  "hp:t": {
+   "클래스": "CT",
+   "출처파일": "OWPML/Class/Para/t.cpp",
+   "자식순서": [
+    "hp:markpenBegin",
+    "hp:markpenEnd",
+    "hp:titleMark",
+    "hp:tab",
+    "hp:lineBreak",
+    "hp:hypen",
+    "hp:nbSpace",
+    "hp:fwSpace",
+    "hp:chval",
+    "hp:unknownch",
+    "hp:insertBegin",
+    "hp:insertEnd",
+    "hp:deleteBegin",
+    "hp:deleteEnd"
+   ],
+   "속성순서": [
+    "charStyleIDRef"
+   ],
+   "속성기본값": {},
+   "태그별칭": [
+    "hp:t"
+   ]
+  },
+  "hp:tab": {
+   "클래스": "CTab",
+   "출처파일": "OWPML/Class/Para/tab.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "width",
+    "leader",
+    "type"
+   ],
+   "속성기본값": {
+    "width": "0",
+    "leader": "0",
+    "type": "0"
+   },
+   "태그별칭": [
+    "hp:tab"
+   ]
+  },
+  "hh:tabPr": {
+   "클래스": "CTabDefType",
+   "출처파일": "OWPML/Class/Head/TabDefType.cpp",
+   "자식순서": [
+    "hh:tabItem"
+   ],
+   "속성순서": [
+    "id",
+    "autoTabLeft",
+    "autoTabRight"
+   ],
+   "속성기본값": {
+    "id": "0",
+    "autoTabLeft": "false",
+    "autoTabRight": "false"
+   },
+   "태그별칭": [
+    "hh:tabPr"
+   ]
+  },
+  "hh:tabItem": {
+   "클래스": "CTabItem",
+   "출처파일": "OWPML/Class/Head/tabItem.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "pos",
+    "type",
+    "leader",
+    "unit"
+   ],
+   "속성기본값": {
+    "pos": "-1",
+    "leader": "0",
+    "unit": "-1"
+   },
+   "태그별칭": [
+    "hh:tabItem"
+   ]
+  },
+  "hh:tabProperties": {
+   "클래스": "CTabProperties",
+   "출처파일": "OWPML/Class/Head/tabProperties.cpp",
+   "자식순서": [
+    "hh:tabPr"
+   ],
+   "속성순서": [
+    "itemCnt"
+   ],
+   "속성기본값": {
+    "itemCnt": "0"
+   },
+   "태그별칭": [
+    "hh:tabProperties"
+   ]
+  },
+  "hp:tbl": {
+   "클래스": "CTableType",
+   "출처파일": "OWPML/Class/Para/TableType.cpp",
+   "자식순서": [
+    "hp:sz",
+    "hp:pos",
+    "hp:outMargin",
+    "hp:caption",
+    "hp:shapeComment",
+    "hp:parameterset",
+    "hp:metaTag",
+    "hp:inMargin",
+    "hp:cellzoneList",
+    "hp:tr",
+    "hp:label"
+   ],
+   "속성순서": [
+    "pageBreak",
+    "repeatHeader",
+    "rowCnt",
+    "colCnt",
+    "cellSpacing",
+    "borderFillIDRef",
+    "noAdjust"
+   ],
+   "속성기본값": {
+    "repeatHeader": "false",
+    "rowCnt": "0",
+    "colCnt": "0",
+    "noAdjust": "false"
+   },
+   "태그별칭": [
+    "hp:tbl"
+   ]
+  },
+  "hp:tc": {
+   "클래스": "CTc",
+   "출처파일": "OWPML/Class/Para/tc.cpp",
+   "자식순서": [
+    "hp:cellAddr",
+    "hp:cellSpan",
+    "hp:cellSz",
+    "hp:cellMargin",
+    "hp:subList"
+   ],
+   "속성순서": [
+    "name",
+    "header",
+    "hasMargin",
+    "protect",
+    "editable",
+    "dirty",
+    "borderFillIDRef"
+   ],
+   "속성기본값": {
+    "header": "false",
+    "hasMargin": "false",
+    "protect": "false",
+    "editable": "false",
+    "dirty": "false"
+   },
+   "태그별칭": [
+    "hp:tc"
+   ]
+  },
+  "hp:text": {
+   "클래스": "CText",
+   "출처파일": "OWPML/Class/Para/text.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hp:text"
+   ]
+  },
+  "hp:textMargin": {
+   "클래스": "CTextMargin",
+   "출처파일": "OWPML/Class/Para/textMargin.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hp:textMargin"
+   ]
+  },
+  "hp:textart": {
+   "클래스": "CTextart",
+   "출처파일": "OWPML/Class/Para/textart.cpp",
+   "자식순서": [
+    "hp:lineShape",
+    "hc:fillBrush",
+    "hp:drawText",
+    "hp:shadow",
+    "hp:parameterset",
+    "hp:metaTag",
+    "hp:sz",
+    "hp:pos",
+    "hp:outMargin",
+    "hp:caption",
+    "hp:shapeComment",
+    "hp:offset",
+    "hp:orgSz",
+    "hp:curSz",
+    "hp:flip",
+    "hp:rotationInfo",
+    "hp:renderingInfo",
+    "hc:pt0",
+    "hc:pt1",
+    "hc:pt2",
+    "hc:pt3",
+    "hp:textartPr",
+    "hp:outline"
+   ],
+   "속성순서": [
+    "text"
+   ],
+   "속성기본값": {},
+   "태그별칭": [
+    "hp:textart"
+   ]
+  },
+  "hp:textartPr": {
+   "클래스": "CTextartPr",
+   "출처파일": "OWPML/Class/Para/textartPr.cpp",
+   "자식순서": [
+    "hp:shadow"
+   ],
+   "속성순서": [
+    "fontName",
+    "fontStyle",
+    "fontType",
+    "textShape",
+    "lineSpacing",
+    "charSpacing",
+    "align"
+   ],
+   "속성기본값": {
+    "fontStyle": "L\"REGULAR\"",
+    "fontType": "TAFT_TTF",
+    "textShape": "0",
+    "lineSpacing": "120",
+    "charSpacing": "100",
+    "align": "TAAT_LEFT"
+   },
+   "태그별칭": [
+    "hp:textartPr"
+   ]
+  },
+  "opf:title": {
+   "클래스": "CTitle",
+   "출처파일": "OWPML/Class/Etc/title.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "opf:title"
+   ]
+  },
+  "hp:titleMark": {
+   "클래스": "CTitleMark",
+   "출처파일": "OWPML/Class/Para/titleMark.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "ignore"
+   ],
+   "속성기본값": {
+    "ignore": "false"
+   },
+   "태그별칭": [
+    "hp:titleMark"
+   ]
+  },
+  "opf:tour": {
+   "클래스": "CTour",
+   "출처파일": "OWPML/Class/Etc/tour.cpp",
+   "자식순서": [
+    "opf:site"
+   ],
+   "속성순서": [
+    "id",
+    "title"
+   ],
+   "속성기본값": {},
+   "태그별칭": [
+    "opf:tour"
+   ]
+  },
+  "opf:tours": {
+   "클래스": "CToursType",
+   "출처파일": "OWPML/Class/Etc/ToursType.cpp",
+   "자식순서": [
+    "opf:tour"
+   ],
+   "속성순서": [
+    "id"
+   ],
+   "속성기본값": {},
+   "태그별칭": [
+    "opf:tours"
+   ]
+  },
+  "hp:tr": {
+   "클래스": "CTr",
+   "출처파일": "OWPML/Class/Para/tr.cpp",
+   "자식순서": [
+    "hp:tc"
+   ],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hp:tr"
+   ]
+  },
+  "hh:trackChangeAuthors": {
+   "클래스": "CTrackChangeAuthors",
+   "출처파일": "OWPML/Class/Head/trackchange.cpp",
+   "자식순서": [
+    "hh:trackChangeAuthor"
+   ],
+   "속성순서": [
+    "itemCnt"
+   ],
+   "속성기본값": {
+    "itemCnt": "0"
+   },
+   "태그별칭": [
+    "hh:trackChangeAuthors"
+   ]
+  },
+  "hh:trackchageConfig": {
+   "클래스": "CTrackChangeConfig",
+   "출처파일": "OWPML/Class/Head/trackchangeConfig.cpp",
+   "자식순서": [
+    "config:configitemset"
+   ],
+   "속성순서": [
+    "flags"
+   ],
+   "속성기본값": {
+    "flags": "0"
+   },
+   "태그별칭": [
+    "hh:trackchageConfig"
+   ]
+  },
+  "hp:deleteBegin": {
+   "클래스": "CTrackChangeTag",
+   "출처파일": "OWPML/Class/Para/trackchangetag.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "Id",
+    "TcId",
+    "paraend"
+   ],
+   "속성기본값": {
+    "Id": "0",
+    "TcId": "0",
+    "paraend": "false"
+   },
+   "태그별칭": [
+    "hp:deleteBegin",
+    "hp:deleteEnd",
+    "hp:insertBegin",
+    "hp:insertEnd"
+   ]
+  },
+  "hh:trackChanges": {
+   "클래스": "CTrackChanges",
+   "출처파일": "OWPML/Class/Head/trackchange.cpp",
+   "자식순서": [
+    "hh:trackChange"
+   ],
+   "속성순서": [
+    "itemCnt"
+   ],
+   "속성기본값": {
+    "itemCnt": "0"
+   },
+   "태그별칭": [
+    "hh:trackChanges"
+   ]
+  },
+  "hh:treatQuotationAsLatin": {
+   "클래스": "CTreatQuotationAsLatin",
+   "출처파일": "OWPML/Class/Head/treatQuotationAsLatin.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:treatQuotationAsLatin"
+   ]
+  },
+  "hh:typeInfo": {
+   "클래스": "CTypeInfo",
+   "출처파일": "OWPML/Class/Head/typeInfo.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "familyType",
+    "serifStyle",
+    "weight",
+    "proportion",
+    "contrast",
+    "strokeVariation",
+    "armStyle",
+    "letterform",
+    "midline",
+    "xHeight"
+   ],
+   "속성기본값": {
+    "weight": "-1",
+    "proportion": "-1",
+    "contrast": "-1",
+    "strokeVariation": "-1",
+    "armStyle": "0",
+    "xHeight": "-1"
+   },
+   "태그별칭": [
+    "hh:typeInfo"
+   ]
+  },
+  "hh:underline": {
+   "클래스": "CUnderline",
+   "출처파일": "OWPML/Class/Head/underline.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "type",
+    "shape",
+    "color"
+   ],
+   "속성기본값": {
+    "type": "ULT_NONE",
+    "shape": "LT2_NONE",
+    "color": "0x000000"
+   },
+   "태그별칭": [
+    "hh:underline"
+   ]
+  },
+  "hp:unknownch": {
+   "클래스": "CUnknownChar",
+   "출처파일": "OWPML/Class/Para/t.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hp:unknownch"
+   ]
+  },
+  "hp:unknownObj": {
+   "클래스": "CUnknownObjectType",
+   "출처파일": "OWPML/Class/Para/UnknownObjectType.cpp",
+   "자식순서": [
+    "hp:lineShape",
+    "hc:fillBrush",
+    "hp:drawText",
+    "hp:shadow",
+    "hp:parameterset",
+    "hp:metaTag",
+    "hp:sz",
+    "hp:pos",
+    "hp:outMargin",
+    "hp:caption",
+    "hp:shapeComment",
+    "hp:offset",
+    "hp:orgSz",
+    "hp:curSz",
+    "hp:flip",
+    "hp:rotationInfo",
+    "hp:renderingInfo",
+    "hc:pt0",
+    "hc:pt1",
+    "hc:pt2",
+    "hc:pt3"
+   ],
+   "속성순서": [
+    "nativectrlid"
+   ],
+   "속성기본값": {
+    "nativectrlid": "0"
+   },
+   "태그별칭": [
+    "hp:unknownObj"
+   ]
+  },
+  "hhs:update": {
+   "클래스": "CUpdateType",
+   "출처파일": "OWPML/Class/Etc/UpdateType.cpp",
+   "자식순서": [
+    "hhs:insert",
+    "hhs:update",
+    "hhs:delete",
+    "hhs:position"
+   ],
+   "속성순서": [
+    "oldValue"
+   ],
+   "속성기본값": {},
+   "태그별칭": [
+    "hhs:update"
+   ]
+  },
+  "hh:useInnerUnderline": {
+   "클래스": "CUseInnerUnderline",
+   "출처파일": "OWPML/Class/Head/useInnerUnderline.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:useInnerUnderline"
+   ]
+  },
+  "hh:useLowercaseStrikeout": {
+   "클래스": "CUseLowercaseStrikeout",
+   "출처파일": "OWPML/Class/Head/useLowercaseStrikeout.cpp",
+   "자식순서": [],
+   "속성순서": [],
+   "속성기본값": {},
+   "태그별칭": [
+    "hh:useLowercaseStrikeout"
+   ]
+  },
+  "(무명):CVersion": {
+   "클래스": "CVersion",
+   "출처파일": "OWPML/Class/Etc/version.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "tagetApplication",
+    "major",
+    "minor",
+    "micro",
+    "buildNumber",
+    "os",
+    "xmlVersion",
+    "application",
+    "appVersion"
+   ],
+   "속성기본값": {
+    "tagetApplication": "0",
+    "major": "0",
+    "minor": "0",
+    "micro": "0",
+    "buildNumber": "0",
+    "os": "0"
+   },
+   "태그별칭": []
+  },
+  "hp:video": {
+   "클래스": "CVideoType",
+   "출처파일": "OWPML/Class/Para/VideoType.cpp",
+   "자식순서": [
+    "hp:sz",
+    "hp:pos",
+    "hp:outMargin",
+    "hp:caption",
+    "hp:shapeComment",
+    "hp:parameterset",
+    "hp:metaTag",
+    "hp:offset",
+    "hp:orgSz",
+    "hp:curSz",
+    "hp:flip",
+    "hp:rotationInfo",
+    "hp:renderingInfo"
+   ],
+   "속성순서": [
+    "videotype",
+    "fileIDRef",
+    "imageIDRef",
+    "tag"
+   ],
+   "속성기본값": {
+    "videotype": "VT_LOCAL"
+   },
+   "태그별칭": [
+    "hp:video"
+   ]
+  },
+  "hp:visibility": {
+   "클래스": "CVisibility",
+   "출처파일": "OWPML/Class/Para/visibility.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "hideFirstHeader",
+    "hideFirstFooter",
+    "hideFirstMasterPage",
+    "border",
+    "fill",
+    "hideFirstPageNum",
+    "hideFirstEmptyLine",
+    "showLineNumber"
+   ],
+   "속성기본값": {
+    "hideFirstHeader": "false",
+    "hideFirstFooter": "false",
+    "hideFirstMasterPage": "false",
+    "hideFirstPageNum": "false",
+    "hideFirstEmptyLine": "false",
+    "showLineNumber": "false"
+   },
+   "태그별칭": [
+    "hp:visibility"
+   ]
+  },
+  "hc:winBrush": {
+   "클래스": "CWinBrush",
+   "출처파일": "OWPML/Class/Core/winBrush.cpp",
+   "자식순서": [],
+   "속성순서": [
+    "faceColor",
+    "hatchColor",
+    "hatchStyle",
+    "alpha"
+   ],
+   "속성기본값": {
+    "faceColor": "0xFFFFFF",
+    "hatchColor": "0x000000",
+    "alpha": "0.0"
+   },
+   "태그별칭": [
+    "hc:winBrush"
+   ]
+  }
+ }
+}

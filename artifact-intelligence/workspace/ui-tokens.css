@@ -1,0 +1,134 @@
+/* ui-tokens.css — 문서지능 앱 셸 토큰층 (WP-F1 마무리 — 브랜드킷 화이트 테마)
+ *
+ * 이 파일이 색의 정본이다. **여기 말고 다른 앱 파일(app.html·workspace.html·
+ * render_workspace.py·render_editor_any.py)에는 hex 색이 직접 등장하면 안 된다**
+ * (build/verify_all.py 의 check_app_no_raw_hex 가 잰다). 새 색이 필요하면 이 파일에
+ * 토큰을 추가하고 var()로 가져다 쓴다 — 손으로 값을 복제하지 않는다(구현계획.md 규칙 2).
+ *
+ * 문서 산출물(보고서 HTML)은 이 파일을 몰라야 한다 — `--doc-*` 접두는 여기 없고
+ * build/report.css 등 문서 CSS 가 정본이다(구현계획.md §4-0 대원칙, 문서·앱을 가른다).
+ *
+ * WP-F1 마무리 (사장님 판정 2026-08-08, 승인 목업 f1cands/bk-white.html) 에서 바뀐 것 —
+ *   · 앱 배경 역할이 Paper(크림)에서 흰색으로 바뀌었다 — 브랜드킷 원래 Paper 값 자체는
+ *     지우지 않는다(여전히 브랜드 6색 중 하나), **역할**만 --ai-color-bg 로 분리해 흰색을 준다.
+ *   · **다크 모드를 뺐다**(사장님이 다크를 싫어하심) — body.dark 블록·다크 4색·
+ *     ink-base/paper-base 별칭(다크에서도 안 바뀌는 히어로를 만들려던 장치, 이제 히어로 자체가
+ *     흰색이라 필요 없다)을 전부 지웠다. 남은 것은 "on-dark"(고정 잉크 배경) 3색뿐인데,
+ *     이건 앱 전체 다크 모드와 무관하게 **편집기의 늘 잉크색인 edit-bar** 하나만 쓴다
+ *     (render_editor_any.py CHROME) — 이름은 겹치지만 뜻이 다르다, 아래 그 자리에 적었다.
+ *   · muted·line 을 흰 배경 기준으로 다시 쟀다(bk-white.html 실측) — 크림 배경에 어울리던
+ *     따뜻한 회색(#d9d6ce 류)은 흰 배경에서는 탁해 보인다.
+ *   · 헤딩 전용 self-host 폰트(--ai-font-heading)를 더했다 — 왜 필요한가는 그 옆 주석에.
+ *   · 에이전트 카드색(--ai-color-agent-*)을 더했다 — Mint 는 AI 신호 전용이라는 규칙은
+ *     그대로다, 이 토큰들도 그 신호를 보여주는 카드 하나에만 쓴다(app.html 의 .진행 div.ai배지).
+ *
+ * 출처:
+ *   ① 브랜드킷 원본 6색·글꼴·간격·radius·모션 — 기획 및 디자인/artifact-intelligence-brand-kit/tokens.css
+ *   ② 보조색 — bk-white.html(승인 목업, 흰 배경 기준 실측) + 구현계획-부록/브랜드적용명세.md §1-1
+ *      (디자인 앱 v1.1 실측값 중 흰 배경에서도 그대로 쓸 수 있는 것만 남겼다)
+ *   ③ 앱 파생 토큰 — ①②에서 var()/color-mix() 로만 유도, 새 hex 없음
+ */
+
+/* WP-F1 마무리 — 헤딩·강조 전용 self-host 폰트.
+ * 왜 self-host 인가 — serve.py 의 CSP(WP-S2 ③)는 style-src 'self' 라 Google Fonts
+ * (fonts.googleapis.com)를 못 불러온다. font-src 는 CSP 에 따로 없어 default-src 'self'
+ * 를 상속하므로 **자기 출처 폰트는 이미 허용된다** — 그래서 자체 호스팅이면 CSP 를
+ * 한 줄도 안 고쳐도 된다(바깥 의존도 안 생긴다 — 컨테이너·오프라인에서도 그대로 뜬다).
+ * 왜 이름을 "Noto Sans KR" 과 다르게 두는가 — 이 파일엔 700-900 두 자락만 있다(용량 때문에
+ * 필요한 굵기만 서브셋, 완성형 한글 11,172자+라틴+문장부호, woff2, 실측 1.1MB). 같은 이름
+ * "Noto Sans KR" 로 등록하면 본문이 요청하는 400 굵기까지 **이 얼굴 안에서** 가장 가까운
+ * 굵기(700)를 고른다(CSS 폰트 매칭은 그 가족 안에서 고르지, 굵기가 안 맞는다고 다음 글꼴
+ * 가족으로 안 넘어간다) — 그러면 본문 전체가 조용히 굵어진다. 그래서 이름을 나눠 헤딩류
+ * (h1·브랜드·eyebrow·버튼·카드 제목처럼 700 이상만 쓰는 자리)에만 명시로 붙인다.
+ * 실측(2026-08-08) — CSP 켠 실제 serve.py 로 띄우고 getComputedStyle(h1).fontWeight == '800'
+ * 확인(보고 참조). */
+@font-face {
+  font-family: "Noto Sans KR Display";
+  src: url("fonts/NotoSansKR-heading-700-900.woff2") format("woff2-variations");
+  font-weight: 700 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* ① 브랜드킷 원본 6색 (기획 및 디자인/artifact-intelligence-brand-kit/tokens.css 그대로) */
+  --ai-color-ink: #101B33;      /* Ink Navy — 본문 글자·버튼 */
+  --ai-color-signal: #1E67F0;   /* Signal Blue — 강조·링크·활성 */
+  --ai-color-agent: #58E3C1;    /* Agent Mint — AI 상태 신호 전용(남용 금지) */
+  --ai-color-paper: #F4F1EA;    /* Paper — 브랜드킷 원값 그대로 남긴다(참조용).
+                                    앱 배경 **역할**은 더는 이 색이 아니다 — 아래 --ai-color-bg 참고 */
+  --ai-color-review: #F2B84B;   /* Review Amber — 검토·경고 */
+  --ai-color-issue: #E75757;    /* Issue Red — 오류·문제 */
+
+  --ai-font-sans: "Noto Sans KR", system-ui, -apple-system, "Apple SD Gothic Neo", sans-serif;
+  /* 헤딩 전용 self-host 폰트 — 위 @font-face 주석 참고. 700 미만 굵기에는 절대 쓰지 않는다
+     (그 아래 굵기는 이 얼굴에 없어 가장 가까운 700으로 붙어 버린다). */
+  --ai-font-heading: "Noto Sans KR Display", var(--ai-font-sans);
+
+  --ai-space-1: 4px;  --ai-space-2: 8px;  --ai-space-3: 12px;
+  --ai-space-4: 16px; --ai-space-6: 24px; --ai-space-8: 32px;
+  --ai-space-12: 48px; --ai-space-16: 64px;
+
+  --ai-radius-sm: 8px; --ai-radius-md: 14px; --ai-radius-lg: 20px;
+  --ai-shadow-card: 0 16px 50px rgba(16, 27, 51, .12);
+  --ai-motion-fast: 160ms; --ai-motion-normal: 240ms;
+
+  /* ② 보조색 — 흰 배경 기준(WP-F1 마무리, bk-white.html 실측) */
+  --ai-color-muted: #5b6577;         /* 보조 텍스트 */
+  --ai-color-muted-hero: #455067;    /* 히어로 본문(더 큰 글자) 전용 — bk-white.html .hero p 실측,
+                                         일반 muted 보다 살짝 진하게 재야 큰 글자에서 흐려 보이지 않는다 */
+  --ai-color-line: #e7e9ee;          /* 구분선·카드 보더 (흰 바탕 위) */
+  --ai-color-canvas: #fdfdfc;        /* 문서 캔버스(미리보기 패널) 배경 */
+  --ai-color-agent-panel: #f8f9fb;   /* 중립 패널 배경(첨부함 등 — Mint 아님, 그냥 옅은 회백) */
+  --ai-color-frame-line: #e5e7eb;    /* 앱 프레임 내부 구분선 */
+  --ai-color-signal-tint: #eef3ff;   /* Signal Blue 옅은 배경 — 활성 목차 */
+  --ai-color-signal-tint-2: #edf2ff; /* Signal Blue 옅은 배경 — 콜아웃 */
+  --ai-color-status-bg: #e5faf4;     /* 상태 배지(AI 검토 중) 배경 */
+  --ai-color-status-fg: #267a68;     /* 상태 배지(AI 검토 중) 글자 */
+
+  /* 편집기 고정 잉크 바 전용 3색 — render_editor_any.py 의 edit-bar 는 밝기 모드와 무관하게
+     늘 Ink 배경이다(디자인 앱 레일과 같은 성격, 앱 전체 다크 모드 토글은 뗐지만 이 바는
+     원래부터 토글과 무관했다). 본문용 muted/signal/issue 보다 흰쪽으로 섞어 Ink 위에서도
+     대비를 확보한다. */
+  --ai-color-muted-on-dark: #9aa5b8;
+  --ai-color-signal-on-dark: color-mix(in srgb, var(--ai-color-signal) 55%, var(--ai-color-white));
+  --ai-color-issue-on-dark: color-mix(in srgb, var(--ai-color-issue) 45%, var(--ai-color-white));
+
+  /* ③ 앱 파생 토큰 — 전부 위 값에서 var()/color-mix() 로만 유도(새 hex 없음) */
+  --ai-color-white: #fff;                       /* 브랜드 6색엔 없지만 카드·버튼 글자에 필요 —
+                                                    design-app-v1.1 styles.css 의 --white 와 동일 값 */
+  --ai-color-bg: var(--ai-color-white);          /* 앱 배경 역할 — WP-F1 마무리로 Paper 대신 흰색 */
+  --ai-color-signal-soft: color-mix(in srgb, var(--ai-color-signal) 10%, var(--ai-color-white));
+  --ai-color-review-tint: color-mix(in srgb, var(--ai-color-review) 16%, var(--ai-color-bg));
+  --ai-color-review-line: color-mix(in srgb, var(--ai-color-review) 55%, var(--ai-color-bg));
+  --ai-color-review-ink: color-mix(in srgb, var(--ai-color-review) 65%, var(--ai-color-ink));
+  --ai-color-issue-tint: color-mix(in srgb, var(--ai-color-issue) 12%, var(--ai-color-white));
+  --ai-color-issue-line: color-mix(in srgb, var(--ai-color-issue) 45%, var(--ai-color-bg));
+  --ai-color-issue-ink: color-mix(in srgb, var(--ai-color-issue) 60%, var(--ai-color-ink));
+  --ai-color-status-line: color-mix(in srgb, var(--ai-color-status-fg) 45%, var(--ai-color-white));
+  --ai-color-ink-soft: color-mix(in srgb, var(--ai-color-ink) 78%, var(--ai-color-white));
+  --ai-color-ink-hover: color-mix(in srgb, var(--ai-color-ink) 84%, var(--ai-color-signal));
+  --ai-color-line-strong: color-mix(in srgb, var(--ai-color-line) 55%, var(--ai-color-ink));
+  --ai-color-signal-tint-strong: color-mix(in srgb, var(--ai-color-signal) 6%, transparent);
+
+  /* 에이전트 카드 — Mint 는 여전히 AI 신호 전용이다(브랜드킷 원칙 2, 남용 금지). 이 세 토큰은
+     app.html 의 .진행 div.ai배지(AI 가 실제로 처리 중일 때) 카드 하나에만 쓴다 — 다른 자리의
+     "좋음"은 여전히 Signal Blue 다. bk-white.html .agent 블록 실측(배경 #f1fdf9·굵은 글자
+     #0d5a4a)에 가까운 비율로 유도했다(정확한 픽셀 일치는 아니다 — color-mix 두 값 배합이라
+     세 값 목표를 동시에 못 맞춘다, 방향만 같다는 뜻으로 남긴다). */
+  --ai-color-agent-tint: color-mix(in srgb, var(--ai-color-agent) 8%, var(--ai-color-white));
+  --ai-color-agent-ink: color-mix(in srgb, var(--ai-color-agent) 45%, var(--ai-color-ink));
+  --ai-color-agent-muted: color-mix(in srgb, var(--ai-color-agent) 30%, var(--ai-color-muted));
+
+  /* 구조 치수 — 디자인 앱 §04 워크스페이스 실측(구현계획.md §4-2) */
+  --ai-topbar-h: 78px;
+  --ai-rail-w: 66px;
+  --ai-outline-w: 180px;
+  --ai-panel-w: 230px;
+}
+
+/* 어절 단위 줄바꿈 — 한글이 어절 중간에서 끊기지 않게 한다(word-break: keep-all). 문서지능의
+   조판 원칙(어절분리)을 앱 UI 에도 적용하는 것이다 — 문서 만드는 서비스가 정작 UI 에서 어절을
+   끊으면 안 된다. URL·API 키처럼 아주 긴 토큰만 넘칠 때 강제로 끊는다(overflow-wrap). 이 파일을
+   링크하는 앱 화면(app·admin·약관·workspace·편집기)에만 걸리고 문서 산출물은 자기 CSS 를 쓴다. */
+html { word-break: keep-all; overflow-wrap: break-word; }

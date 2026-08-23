@@ -1,8 +1,0 @@
-# 하위 설치본이 만드는 것
-**/정책서버토큰.conf
-**/.venv/
-**/.hwpxenv/
-**/node_modules/
-**/__pycache__/
-*.pyc
-**/.env

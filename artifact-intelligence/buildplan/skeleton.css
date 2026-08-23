@@ -1,0 +1,132 @@
+/* 골격(2층 빌드플랜) 와이어프레임 조판.
+   원칙: 확정된 것은 실선·검정, 3층이 정할 것은 점선·회색.
+   내용이 아니라 '무엇이 어디에 오는가'만 보이게 — 문구는 회색 자리표시로 둔다. */
+
+:root { --sk-ink: #1F3864; --sk-line: #C3CEDD; --sk-dim: #9AA7B8; --sk-lock: #B9C2CE; }
+
+body { margin: 0; background: #F0F2F5;
+  font-family: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; color: #16202E; }
+
+.sk-sheet { width: min(190mm, 100%); margin: 8mm auto; background: #fff;
+  padding: 12mm 14mm 16mm; box-sizing: border-box; box-shadow: 0 1px 8px rgba(0,0,0,.14); }
+
+.sk-head { border-bottom: 2px solid var(--sk-ink); padding-bottom: 5mm; margin-bottom: 7mm; }
+.sk-head .kind { font-size: 11pt; color: var(--sk-ink); font-weight: 700; letter-spacing: .04em; }
+.sk-head .req { font-size: 13pt; font-weight: 700; margin: 2.5mm 0 0; line-height: 1.55;
+  word-break: keep-all; }
+/* 사실 목록 — 라벨과 값을 열로 갈라 한 줄에 뭉치지 않게 */
+.sk-facts { display: grid; grid-template-columns: 30mm 1fr; gap: 2mm 4mm;
+  margin: 4mm 0 0; font-size: 10.5pt; }
+.sk-facts dt { color: #5B6878; font-weight: 600; }
+.sk-facts dd { margin: 0; color: #16202E; line-height: 1.6; word-break: keep-all; }
+.sk-facts dd .sub { display: block; color: #5B6878; font-size: 10pt; margin-top: 0.8mm;
+  line-height: 1.55; }
+.sk-note { font-size: 10pt; color: #5B6878; line-height: 1.6; margin: -1mm 0 3mm;
+  word-break: keep-all; }
+
+.sk-legend { display: flex; gap: 14px; font-size: 10pt; color: #5B6878; margin-bottom: 6mm;
+  align-items: center; flex-wrap: wrap; }
+.sk-legend i { display: inline-block; width: 22px; height: 0; vertical-align: middle;
+  margin-right: 5px; }
+.sk-legend .solid i { border-top: 2px solid var(--sk-ink); }
+.sk-legend .dash i { border-top: 2px dashed var(--sk-lock); }
+
+.sk-sect-h { font-size: 11pt; font-weight: 700; color: var(--sk-ink); margin: 7mm 0 3mm;
+  display: flex; align-items: center; gap: 8px; }
+.sk-sect-h::after { content: ""; flex: 1; border-top: 1px solid var(--sk-line); }
+
+/* 개체 슬롯 — 문서를 이루는 큰 덩어리 */
+.sk-slot { border: 1.6px solid var(--sk-ink); border-radius: 4px; padding: 3.5mm 4mm;
+  margin-bottom: 3mm; background: #FBFCFE; }
+.sk-slot[data-off] { border-style: dashed; border-color: var(--sk-lock); background: #F7F8FA;
+  opacity: .55; }
+.sk-slot .nm { font-size: 12pt; font-weight: 700; }
+.sk-slot .nm .off { font-size: 9.5pt; color: #A0392E; font-weight: 400; margin-left: 6px; }
+.sk-slot .how { font-size: 10.5pt; color: #4A5768; margin-top: 1.5mm; line-height: 1.55; }
+
+/* 구성 요소 덩어리 — 클릭 한 번이면 여기가 통째로 잡힌다 */
+.sk-slots { border: 1.4px solid var(--sk-line); border-radius: 5px; padding: 3mm; }
+.sk-slots.ent-sel { background: rgba(0,128,192,.04); }
+.sk-slot:last-child { margin-bottom: 0; }
+
+/* 본문 슬롯 — 안에 순서(항목)를 품는다 */
+.sk-slot-body { background: #F7FAFD; }
+.sk-slot-body .sk-sec { margin-top: 2.5mm; }
+.sk-slot-body .sk-sec:first-of-type { margin-top: 3mm; }
+.sk-sec { border: 1.4px solid var(--sk-ink); border-radius: 3px; background: #fff;
+  padding: 3mm 3.5mm; margin-bottom: 3mm; }
+.sk-sec .t { font-size: 11.5pt; font-weight: 700; }
+.sk-sec .t .no { display: inline-block; min-width: 5.5mm; color: var(--sk-ink); }
+.sk-sec .why { font-size: 10pt; color: #5B6878; margin-top: 1mm; line-height: 1.5; }
+
+/* 3층이 정하는 자리 — 점선 + 회색, 클릭해도 편집 불가임을 형태로 말한다 */
+.sk-lock { border: 1.4px dashed var(--sk-lock); border-radius: 3px; background: #FAFBFC;
+  color: var(--sk-dim); font-size: 10pt; padding: 2.2mm 3mm; margin-top: 2mm; line-height: 1.5; }
+.sk-lock b { color: #7C8896; font-weight: 600; }
+
+/* 등장요소 자리(표·이미지) — 가능성에 따라 진하기가 달라진다 */
+.sk-elem { border: 1.4px dashed var(--sk-lock); border-radius: 3px; padding: 2.5mm 3mm;
+  margin-bottom: 2mm; font-size: 10.5pt; color: #5B6878; background: #FAFBFC; }
+.sk-elem[data-lv="높음"] { border-color: var(--sk-ink); color: #16202E; background: #F2F6FC; }
+.sk-elem[data-lv="중간"] { border-color: #8FA3BE; color: #35455A; }
+.sk-elem[data-lv="없음"] { opacity: .5; }
+.sk-elem .lv { float: right; font-weight: 700; font-size: 10pt; }
+
+.sk-budget { display: flex; gap: 4mm; }
+.sk-budget .b { flex: 1; border: 1.4px solid var(--sk-line); border-radius: 3px;
+  padding: 2.5mm 3mm; font-size: 10.5pt; background: #fff; }
+.sk-budget .b .k { color: #5B6878; font-size: 9.5pt; display: block; margin-bottom: 1mm; }
+
+.sk-gate { font-size: 10pt; color: #5B6878; line-height: 1.7; }
+.sk-gate span { display: inline-block; border: 1px solid var(--sk-line); border-radius: 10px;
+  padding: 0.8mm 3mm; margin: 0 4px 4px 0; background: #fff; cursor: pointer; }
+.sk-gate span:hover { border-color: var(--sk-ink); color: var(--sk-ink); }
+
+.sk-est { margin-top: 6mm; padding: 3mm 4mm; border-left: 3px solid var(--sk-ink);
+  background: #F2F6FC; font-size: 11pt; }
+.sk-est b { color: var(--sk-ink); }
+.sk-est .sub { font-size: 10pt; color: #5B6878; margin-top: 1mm; }
+
+.sk-ask { border: 1.4px solid #E0A030; background: #FFFBF2; border-radius: 3px;
+  padding: 2.5mm 3mm; margin-bottom: 2mm; font-size: 10.5pt; }
+.sk-ask .q { font-weight: 700; color: #8A5A10; }
+.sk-ask .a { color: #4A5768; margin-top: 1mm; }
+
+/* 되돌아온 것 — 나중 단계에서 구성으로 돌아온 요청·관찰 */
+.sk-back { border: 1.4px solid #C05050; border-left-width: 3px; background: #FDF7F7;
+  border-radius: 3px; padding: 2.5mm 3mm; margin-bottom: 2mm; font-size: 10.5pt; }
+.sk-back[data-kind="확인 필요"] { border-color: #E0A030; background: #FFFBF2; }
+.sk-back[data-kind="관찰"] { border-color: #5B7FB8; background: #F4F8FD; }
+.sk-back .tag { float: right; font-size: 9.5pt; font-weight: 700; color: #A03030; }
+.sk-back[data-kind="확인 필요"] .tag { color: #8A5A10; }
+.sk-back[data-kind="관찰"] .tag { color: #2F5A96; }
+.sk-back b { color: #16202E; }
+.sk-back .q { margin-top: 1mm; color: #24344A; line-height: 1.55; }
+.sk-back .src { margin-top: 1mm; font-size: 9.5pt; color: #7C8896; }
+/* 얼마나 급한 일인지 — 심각도. 처리 상태는 칩으로 왼쪽에 붙인다. */
+.sk-back .sev { float: right; margin-right: 3mm; font-size: 9.5pt; font-weight: 600; }
+.sk-back .sev[data-sev="어긋남"] { color: #A03030; }
+.sk-back .sev[data-sev="주의"] { color: #8A5A10; }
+.sk-back .sev[data-sev="참고"] { color: #5B6673; font-weight: 500; }
+.sk-back .lv { display: inline-block; margin-right: 2mm; padding: 0.3mm 1.6mm;
+  border: 1px solid #C6CFD9; border-radius: 2px; background: #fff;
+  font-size: 9pt; color: #55606D; vertical-align: 1px; }
+
+/* 계획만 고치고 문서를 안 만든 상태 — 화면이 사실대로 말하게 한다 */
+.sk-stale { margin-top: 1.5mm; padding: 1.5mm 2.5mm; border-radius: 3px;
+  background: #FFF6E5; border: 1px solid #E5C070; color: #7A5510;
+  font-size: 10pt; font-weight: 600; }
+
+/* 표기 방식 선택 — 정답이 하나가 아니라 고르는 것들 */
+.sk-picks { display: flex; gap: 3mm; flex-wrap: wrap; }
+.sk-pick { flex: 1 1 46mm; border: 1.4px solid var(--sk-line); border-radius: 3px;
+  padding: 2.5mm 3mm; background: #fff; font-size: 10.5pt; cursor: pointer; }
+.sk-pick:hover { border-color: var(--sk-ink); }
+.sk-pick.ent-sel { border-color: var(--sk-ink); background: #F2F6FC; }
+.sk-pick .k { display: block; color: #5B6878; font-size: 9.5pt; margin-bottom: 1mm; }
+.sk-pick .lv { font-weight: 700; color: var(--sk-ink); }
+
+/* 기준이 바뀌어 다시 봐야 하는 것 — 결과가 실제로 달라질 때만 뜬다 */
+.sk-basis { margin-top: 1.5mm; padding: 1.5mm 2.5mm; border-radius: 3px;
+  background: #FDEDED; border: 1px solid #D89090; color: #7A2020;
+  font-size: 10pt; font-weight: 600; }

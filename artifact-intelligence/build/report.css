@@ -1,0 +1,213 @@
+
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #8a8f98;
+  font-family: var(--doc-font-body);
+  color: var(--doc-color-text);
+  line-height: var(--doc-line-height);
+  padding: 10mm 0;
+  -webkit-font-smoothing: antialiased;
+  
+  word-break: normal;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+
+.sheet {
+  width: var(--doc-page-w);
+  min-height: var(--doc-page-h);
+  margin: 0 auto;
+  background: var(--doc-p-white);
+  box-shadow: 0 2mm 6mm rgba(0,0,0,.35);
+  padding: var(--doc-margin-top) var(--doc-margin-right) var(--doc-margin-bottom) var(--doc-margin-left);
+}
+@media print {
+  
+  body { background: none; padding: 0; }
+  .sheet { box-shadow: none; margin: 0; width: 210mm; min-height: auto;
+           padding: 0 var(--doc-margin-right) 0 var(--doc-margin-left); }
+}
+
+@page { size: A4; margin: var(--doc-margin-top) 0 var(--doc-margin-bottom) 0; }
+
+:root { --doc-page-mt: var(--doc-margin-top); --doc-page-mb: var(--doc-margin-bottom); }
+
+
+.doc-titlebar {
+  height: 2.1mm;
+  background: var(--doc-p-blue-bar);
+  margin-bottom: 2.2mm;
+}
+.doc-titlebar.bottom {
+  height: 1.9mm;
+  margin: 2.2mm 0 0;
+}
+.doc-title {
+  font-family: var(--doc-font-display);
+  font-size: var(--doc-title-size);
+  font-weight: 800;
+  text-align: center;
+  letter-spacing: -0.02em;
+  padding: 0 2mm;
+  line-height: 1.35;
+}
+
+.doc-byline {
+  text-align: right;
+  font-size: 11pt;
+  color: var(--doc-color-text-sub);
+  margin: 1mm 0 2.5mm;
+}
+
+
+.doc-summary {
+  border: 0.3mm solid var(--doc-p-black);
+  background: #EAEAEA; 
+  padding: 2.6mm 4mm;
+  font-size: 13pt;
+  font-weight: 600;
+  margin-bottom: 4mm;
+}
+
+
+.font-switcher {
+  position: fixed; top: 4mm; right: 4mm; z-index: 9;
+  display: flex; gap: 2px;
+  font-family: "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+}
+.font-switcher button {
+  font-size: 11px; padding: 4px 8px; border: 1px solid #666;
+  background: #fff; cursor: pointer; border-radius: 3px;
+}
+.font-switcher button.on { background: #1F3864; color: #fff; border-color: #1F3864; }
+@media print { .font-switcher { display: none; } }
+
+
+.h-l1 { 
+  font-family: var(--doc-h-l1-font);
+  font-size: var(--doc-h-l1-size);
+  font-weight: 800;
+  margin: 4mm 0 1.5mm;
+  padding-left: 1.3em;
+}
+.h-l1::before { content: "□"; display: inline-block; width: 1.3em; margin-left: -1.3em; }
+
+.i-l2 { 
+  font-family: var(--doc-h-l2-font);
+  font-size: var(--doc-h-l2-size);
+  margin: 0.5mm 0 0.5mm 1.5em;
+  padding-left: 1.2em;
+  
+}
+
+.i-l2::before { content: var(--doc-mk2, "○"); display: inline-block;
+  width: 1.2em; margin-left: -1.2em; }
+[data-mk2="◦"] { --doc-mk2: "◦"; }
+
+.i-l3 { 
+  font-family: var(--doc-h-l3-font);
+  font-size: var(--doc-h-l3-size);
+  margin: 0.4mm 0 0.4mm 3em;
+  padding-left: 0.85em;
+  color: var(--doc-color-text);
+}
+.i-l3::before { content: "-"; display: inline-block; width: 0.85em; margin-left: -0.85em; }
+
+.i-l4 { 
+  font-family: var(--doc-h-l4-font);
+  font-size: var(--doc-h-l4-size);
+  margin: 0.4mm 0 0.4mm 4.2em;
+  padding-left: 0.8em;
+  color: var(--doc-color-text-sub);
+}
+.i-l4::before { content: "*"; display: inline-block; width: 0.8em; margin-left: -0.8em; }
+
+
+.num { font-weight: 700; }
+.accent { color: var(--doc-color-accent); font-weight: 700; }
+.delta { color: var(--doc-color-warn); }   
+
+
+.doc-table-wrap { margin: 1.8mm 0 1.8mm 1.5em; }
+.doc-table-caption { 
+  text-align: right;
+  font-family: var(--doc-font-note);
+  font-size: 9.5pt;
+  color: var(--doc-color-text-sub);
+  margin-bottom: 0.8mm;
+}
+table.doc-table {
+  width: 100%;
+  border-collapse: separate; border-spacing: 0;  
+  font-family: var(--doc-font-note);
+  font-size: var(--doc-table-font-size);
+  border-top: 0.4mm solid var(--doc-p-black);
+  border-bottom: 0.4mm solid var(--doc-p-black);
+}
+table.doc-table th, table.doc-table td {
+  border: none;
+  border-bottom: var(--doc-table-border);        
+  padding: 1.4mm 2mm;
+  text-align: center;
+  line-height: 1.4;
+}
+table.doc-table th {
+  background: var(--doc-table-head-bg);
+  font-weight: 700;
+  border-bottom: var(--doc-table-border);        
+}
+table.doc-table tr:last-child td { border-bottom: none; } 
+table.doc-table td.r { text-align: right; }
+
+
+.doc-attach {
+  font-family: var(--doc-font-body);
+  font-size: 12pt;
+  margin-top: 3.5mm;
+}
+.doc-attach .label { font-weight: 700; }
+
+
+
+
+table.doc-table[data-style="기본표"] { border: 0.12mm solid var(--doc-p-black); }
+table.doc-table[data-style="기본표"] th,
+table.doc-table[data-style="기본표"] td {
+  border-right: 0.12mm solid var(--doc-p-black);
+  border-bottom: 0.12mm solid var(--doc-p-black);
+}
+table.doc-table[data-style="기본표"] th:last-child,
+table.doc-table[data-style="기본표"] td:last-child { border-right: none; }
+table.doc-table[data-style="기본표"] tr:last-child td { border-bottom: none; }
+
+
+table.doc-table[data-style="겉바속촉"] { border: 0.4mm solid var(--doc-p-black); }
+table.doc-table[data-style="겉바속촉"] th,
+table.doc-table[data-style="겉바속촉"] td {
+  border-right: 0.12mm solid var(--doc-p-black);
+  border-bottom: 0.12mm solid var(--doc-p-black);
+}
+table.doc-table[data-style="겉바속촉"] th:last-child,
+table.doc-table[data-style="겉바속촉"] td:last-child { border-right: none; }
+table.doc-table[data-style="겉바속촉"] tr:last-child td { border-bottom: none; }
+
+
+table.doc-table[data-style="투명표"] { border-top: none; border-bottom: none; }
+table.doc-table[data-style="투명표"] th,
+table.doc-table[data-style="투명표"] td { border: none; background: none; }
+
+
+table.doc-table[data-style="하단두줄"] { border-bottom: 0.9mm double var(--doc-p-black); }
+
+
+table.doc-table[data-style="테두리점선"] { border: 0.12mm dashed var(--doc-p-black); }
+table.doc-table[data-style="테두리점선"] th {
+  border-bottom: 0.3mm dashed var(--doc-p-black);
+}
+table.doc-table[data-style="테두리점선"] td {
+  border-bottom: 0.12mm dashed var(--doc-p-black);
+}
+table.doc-table[data-style="테두리점선"] tr:last-child td { border-bottom: none; }

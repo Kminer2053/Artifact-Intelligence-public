@@ -1,0 +1,111 @@
+
+
+:root {
+  --rg-mt: 25mm; --rg-mr: 25mm; --rg-mb: 25mm; --rg-ml: 25mm;
+  --rg-size: 14pt;              
+  --rg-lh: 2.3;                 
+  --rg-ch: 4.94mm;              
+}
+
+
+@page { size: A4; margin: var(--rg-mt) 0 var(--rg-mb) 0; }
+
+:root { --doc-page-mt: var(--rg-mt); --doc-page-mb: var(--rg-mb); }
+
+body {
+  margin: 0;
+  font-family: var(--doc-font-serif, "Noto Serif KR", "Pretendard", serif);
+  font-size: var(--rg-size);
+  line-height: var(--rg-lh);
+  color: #000;
+  background: #f5f5f5;
+}
+
+.rg-sheet {
+  width: 210mm;
+  min-height: 297mm;
+  margin: 0 auto;
+  padding: var(--rg-mt) var(--rg-mr) var(--rg-mb) var(--rg-ml);
+  box-sizing: border-box;
+  background: #fff;
+}
+@media print {
+  body { background: #fff; }
+  
+  .rg-sheet { margin: 0; box-shadow: none; min-height: auto;
+              padding-top: 0; padding-bottom: 0; }
+}
+
+
+.rg-head { text-align: center; margin-bottom: calc(var(--rg-ch) * 2); }
+.rg-org { font-size: var(--rg-size); line-height: 1.6; }
+.rg-title {
+  font-size: var(--rg-size);      
+  font-weight: 700;
+  line-height: 1.8;
+  margin: calc(var(--rg-ch) * 0.6) 0 0;
+  letter-spacing: 0.1em;
+}
+.rg-no { font-size: var(--rg-size); line-height: 1.6; }
+
+
+
+.rg-body { text-align: justify; word-break: normal; text-justify: inter-word;
+  overflow-wrap: break-word; }
+.rg-body p, .rg-body h2 { margin: 0; font-size: var(--rg-size); line-height: var(--rg-lh); }
+
+
+.rg-장, .rg-절 {
+  font-weight: 700;
+  text-align: center;
+  margin: calc(var(--rg-ch) * 1.4) 0 calc(var(--rg-ch) * 0.6);
+}
+.rg-절 { font-weight: 700; }
+.rg-장 .mk, .rg-절 .mk { margin-right: 0.5em; }
+
+
+.rg-조 {
+  padding-left: calc(var(--rg-ch) * 2);
+  text-indent: calc(var(--rg-ch) * -2);
+}
+.rg-조 > .mk, .rg-조 > .ttl { font-weight: 700; }   
+
+.rg-조 > .mk + .tx, .rg-조 > .ttl + .tx { margin-left: 0; }
+
+
+.rg-항, .rg-호, .rg-목 { font-weight: 400; }        
+.rg-body [data-d="1"] { padding-left: calc(var(--rg-ch) * 3); text-indent: calc(var(--rg-ch) * -1); }
+.rg-body [data-d="2"] { padding-left: calc(var(--rg-ch) * 5); text-indent: calc(var(--rg-ch) * -1); }
+.rg-body [data-d="3"] { padding-left: calc(var(--rg-ch) * 7); text-indent: calc(var(--rg-ch) * -1); }
+
+.mk-h { }
+
+
+.rg-부칙 {
+  font-weight: 700;
+  margin: calc(var(--rg-ch) * 1.8) 0 calc(var(--rg-ch) * 0.4);
+}
+.rg-부칙문 {
+  padding-left: calc(var(--rg-ch) * 2);
+  text-indent: calc(var(--rg-ch) * -2);
+}
+
+
+.rg-별표 { font-weight: 700; margin: calc(var(--rg-ch) * 2) 0 calc(var(--rg-ch) * 0.6); }
+.rg-table-wrap { margin: 0 0 calc(var(--rg-ch) * 1.2); }
+table.rg-table {
+  width: 100%;
+  border-collapse: separate; border-spacing: 0;
+  font-size: 12pt;                 
+  line-height: 1.5;
+  border-top: 0.4mm solid #000;
+  border-bottom: 0.4mm solid #000;
+}
+table.rg-table th, table.rg-table td {
+  border: none;
+  border-bottom: 0.12mm solid #000;     
+  padding: 1.2mm 2mm;
+  text-align: center;
+}
+table.rg-table th { background: var(--doc-p-gray-head, #D9D9D9); font-weight: 700; }
+table.rg-table tr:last-child td { border-bottom: none; }

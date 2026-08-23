@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg"><defs>
+<!-- 기획 및 디자인/artifact-intelligence-brand-kit/logo-mark.svg(문서+접힌 모서리+글줄 3개)를
+     그대로 옮기되, 그 파일이 박아 둔 hex(#1E67F0 사각형·#58E3C1 글줄)는 빼고 선만 남겼다 —
+     다른 심볼과 같은 규칙(fill=none·stroke=currentColor, 아래 .상표선 만 별도로 색을 준다)을
+     따라야 앱-hex 검사(check_app_no_raw_hex)를 어기지 않는다(WP-F1 마무리). -->
+<symbol id="logo-mark" viewBox="0 0 100 100"><path d="M17 9h45l21 21v61H17z"/><path d="M62 9v24h21"/><path class="상표선" d="M31 47h37M31 60h37M31 73h25"/></symbol>
+<symbol id="intent" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M12 2v3M22 12h-3M12 22v-3M2 12h3"/></symbol>
+<symbol id="context" viewBox="0 0 24 24"><path d="M5 5h6v6H5zM13 13h6v6h-6zM15 5h4v4M5 15h4v4M11 8h4M8 11v4"/></symbol>
+<symbol id="outline" viewBox="0 0 24 24"><path d="M6 4h12M6 10h9M6 16h12M6 22h7"/><circle cx="3" cy="4" r=".7"/><circle cx="3" cy="10" r=".7"/><circle cx="3" cy="16" r=".7"/><circle cx="3" cy="22" r=".7"/></symbol>
+<symbol id="tone" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4zM8 9h8M8 12h5"/></symbol>
+<symbol id="design" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M8 7h8M8 11h8M8 15h5"/></symbol>
+<symbol id="evidence" viewBox="0 0 24 24"><path d="M9 7 6 4 3 7l3 3 3-3ZM21 17l-3-3-3 3 3 3 3-3ZM8 17h7M6 10v5"/></symbol>
+<symbol id="agent" viewBox="0 0 24 24"><circle cx="12" cy="12" r="7"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M9 12h6M12 9v6"/></symbol>
+<symbol id="review" viewBox="0 0 24 24"><path d="M5 3h11l3 3v15H5zM16 3v4h4m-12 7 2 2 5-6"/></symbol>
+<symbol id="refine" viewBox="0 0 24 24"><path d="M4 18 16 6l2 2L6 20H4zM14 6l2-2 4 4-2 2M9 19h11"/></symbol>
+<symbol id="collaborate" viewBox="0 0 24 24"><circle cx="8" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c.5-4 2-6 5-6s4.5 2 5 6M13 20c.3-3 1.7-5 4-5s3.5 2 4 5"/></symbol>
+<symbol id="publish" viewBox="0 0 24 24"><path d="M12 3v12M7 8l5-5 5 5M5 14v7h14v-7"/></symbol>
+<symbol id="archive" viewBox="0 0 24 24"><path d="M4 7h16v14H4zM3 3h18v4H3zM9 11h6"/></symbol>
+</defs></svg>
