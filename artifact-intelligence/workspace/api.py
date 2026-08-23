@@ -677,8 +677,15 @@ def 장르():
     2026-08-04: 웹앱 드롭다운에 셋만 손으로 적어 두 장르가 빠졌다 — 오늘 하루 종일
     고쳐 온 바로 그 병을 새 화면에서 또 저질렀다. 목록은 언제나 세어서 얻는다.
     """
-    o = json.load(open(os.path.join(ROOT, "ontology", "ontology.json"), encoding="utf-8"))
-    타입 = o.get("document_types") or {}
+    # 온톨로지는 지식()으로 조각만 받는다(정책만-로컬엔 로컬 ontology.json 이 없다 · A1 조회).
+    # A1(로컬강제)에선 지식()이 로컬 온톨로지를 읽어 같은 결과가 난다. document_types 는 커서
+    # 지식()이 키 목록만 준다(값=None·키=[…]) → 키로 존재를 보고 status 는 조각으로 받는다.
+    # (예전엔 여기서 ontology.json 을 직접 읽어 정책만-로컬 배포본의 판정이 통째로 죽었다.)
+    _dt = 지식("document_types")
+    타입키 = list((_dt.get("값") or {}).keys()) or (_dt.get("키") or [])
+    def _상태(k):
+        r = 지식("document_types." + str(k) + ".status")
+        return r.get("값") if isinstance(r, dict) and r.get("ok") else None
     이름표 = {"samples": "onepage-report"}
     사람말 = {"onepage-report": "1페이지 보고서", "gongmun": "시행문",
             "fullreport": "풀버전 보고서", "regulation": "규정", "press-release": "보도자료",
@@ -687,9 +694,9 @@ def 장르():
     for p in 등록부들():
         키 = os.path.basename(p).replace("-docs.json", "")
         정본키 = 이름표.get(키, 키)
-        if 정본키 not in 타입:
-            정본키 = next((k for k in 타입 if k.startswith(키)), None)
-        if not 정본키 or 타입[정본키].get("status") != "만들수있음":
+        if 정본키 not in 타입키:
+            정본키 = next((k for k in 타입키 if k.startswith(키)), None)
+        if not 정본키 or _상태(정본키) != "만들수있음":
             continue
         out.append({"등록부": 키, "정본": 정본키,
                     "이름": 사람말.get(정본키, 정본키)})
