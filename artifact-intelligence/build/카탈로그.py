@@ -758,85 +758,7 @@ def 항목화(모음: 모으개) -> dict:
 # (테두리변·테두리굵기mm·테두리색). 필드로 면제하면 포인트색 하나 열자고 "어느 변에
 # 선이 있나" 까지 같이 열리고, 그러면 mm 검사가 "상" 이라는 값에 걸린다
 # (2026-08-07 실측 — 오탐 7건이 여기서 났다).
-# ── 편집·내용 의존 서식 전수 (전 장르 × 전 종류) — 포괄감사 '26-08-23 ─────────────
-# 편집기 기능(글꼴 전환·정렬·마커·간격·표 스타일·강조)과 콘텐츠(글꼴 메트릭이 정하는 줄간격·
-# 내어쓰기·행잉인덴트, 자간사냥이 정하는 자간)가 표본 38건이 안 밟은 값을 내면 유한 값집합이
-# fail-close 한다(사장님 '한번에 다 파악해 반영'). 이 필드들은 전부 _변환가능한가 검증규칙이
-# 있고 _hwpx_write 가 무손실로 싣는다 → "값 열거"가 아니라 "유효하면 통과"로 닫는다. 구조 열거
-# (마디·역할/종류·병합·머리칸·쪽크기·기울임·굵기·밑줄취소선·어절분리·pt)는 편집·내용이 무한값을
-# 안 내므로 값집합 그대로 둔다(가드의 핵심 목적 — 회전·투명도·그림자 같은 미지 서식 차단 — 은 유지).
-_편집내용종류 = ["문단", "조각", "칸", "칸조각", "가로줄", "가로줄칸", "가로줄칸조각", "장식", "그림", "표"]
-_편집내용필드 = ["색", "바탕", "테두리색", "위여백mm", "아래여백mm", "왼여백mm",
-             "내어mm", "안들여mm", "자간em", "줄간격",
-             "테두리변", "테두리선종류", "테두리굵기mm", "글꼴"]
-_전장르 = ["fullreport", "gongmun", "onepage", "press-release", "regulation", "slides"]
-
 _연속변수정본 = [
-    dict(자리="편집·내용 의존 서식 전수(색·여백·내어·안들여·자간·줄간격·테두리·글꼴) — 전 장르·전 종류",
-         장르=_전장르, 입력열쇠=[],
-         제한="없음 — 각 필드는 _변환가능한가 규칙으로 검증(색 hex·mm·자간 -0.5~1.0·선종류·글꼴명 등)",
-         변환식이름="편집/조판 실측값 → charPr·문단서식·borderFill(무손실)",
-         변환식="편집기 스위치·조판 압축·글꼴 메트릭이 정하는 값 → 화면읽기 → _hwpx_write 무손실 전이",
-         면제=[(t, f) for t in _편집내용종류 for f in _편집내용필드],
-         면제근거="편집 기능·글꼴 메트릭·조판 압축이 표본 밖 값을 내는 필드 — 전부 변환식 검증+무손실이라 값집합 대신 규칙으로 닫는다(개별 whack-a-mole 방지)",
-         앵커=[("build/카탈로그.py", "_변환가능한가"), ("build/_hwpx_write.py", "charPr")]),
-    dict(자리="마커 글자(개별 블릿·문서 위계·장르 기본 마커)",
-         장르=["fullreport", "gongmun", "onepage", "press-release", "regulation", "slides"],
-         입력열쇠=["위계체계", "블릿"],
-         제한="없음 — 짧은 글머리 글자(len≤8)",
-         변환식이름="마커글자→set_list_format(bullet_char)",
-         변환식="::before content(data-mk·data-hier·장르 CSS) → 화면읽기 마커글자 → set_list_format(bullet_char=글자)",
-         # 편집기 개별 블릿(data-mk: ○ □ - ※ · ▪)·문서 위계(data-hier B/S/N)·장르 기본 마커
-         # (onepage i-l4 의 * 등)가 내는 글머리표. 값집합에 없는 글리프면 fail-close 했다(사장님
-         # HWPX 실패 — fullreport '·▪' 4건, onepage '*' 등). 처음엔 fullreport 만 면제했는데
-         # onepage 의 '*' 가 또 걸려 **전 장르로** 넓혔다. set_list_format 이 임의 글리프를 무손실로
-         # 실으므로 "값 열거"가 아니라 "짧은 마커면 통과"(_변환가능한가 len≤8)로 닫는다.
-         면제=[("문단", "마커글자")],
-         면제근거="각 장르 CSS([data-mk]·[data-hier]·i-l* ::before)가 임의 글리프를 마커로 낸다 — set_list_format 이 무손실로 싣는다",
-         앵커=[("build/fullreport.css", ".blk[data-mk"),
-              ("build/_hwpx_write.py", "set_list_format(bullet_char")]),
-    dict(자리="글자·바탕 색(토큰·포인트색) — CSS 가 선언한 임의 hex 색은 charPr 로 무손실 간다",
-         장르=["fullreport", "gongmun", "onepage", "press-release", "regulation", "slides"],
-         입력열쇠=["포인트색"],
-         제한="없음 — #RRGGBB(_변환가능한가 가 _색꼴 로 검증, 역할._색 → charPr color/fillColor)",
-         변환식이름="hex→charPr color/fillColor",
-         변환식="CSS color/background(tokens.css·var(--pt)) → 화면읽기 색 → charPr color·fillColor",
-         # tokens.css 가 --doc-p-gray-text(#404040)·--doc-p-gray-bar(#595959) 등 회색 계열을 선언하고
-         # 각 장르 CSS 가 주석·보조 텍스트에 쓴다. 값집합(onepage 조각·색 3가지)엔 없어 fail-close 했다
-         # (사장님 onepage HWPX '표준 양식 밖 1건' = 조각·색 #404040). 색은 마커·정렬처럼 "값 열거"가
-         # 아니라 "유효 hex면 통과"(_변환가능한가 1768)로 닫는다 — charPr 가 임의 hex 를 무손실로 싣는다.
-         면제=[("조각", "색"), ("문단", "색"), ("칸", "색"),
-              ("조각", "바탕"), ("문단", "바탕"), ("칸", "바탕"), ("장식", "바탕")],
-         면제근거="tokens.css(--doc-p-gray-text=#404040 등)·var(--pt) 가 선언한 색이라 값집합이 성립하지 않는다 — _색꼴(hex)만 통과, HWPX charPr 가 임의 hex 를 무손실로 싣는다",
-         앵커=[("build/tokens.css", "--doc-p-gray-text"),
-              ("build/_hwpx_write.py", "color=_색")]),
-    dict(자리="정렬(text-align) — 편집기 정렬(좌/가운데/우)이 장르마다 값집합 밖 값을 낸다",
-         장르=["fullreport", "gongmun", "onepage", "press-release", "regulation", "slides"],
-         입력열쇠=["정렬"],
-         제한="없음 — left·right·center·justify·start(역할._정렬표가 다 사상)",
-         변환식이름="정렬→alignment(LEFT/RIGHT/CENTER/JUSTIFY)",
-         변환식="text-align → 화면읽기 정렬 → 역할._정렬표 → 문단/표 alignment",
-         # 편집기 정렬(좌/우)은 장르 값집합이 좁아(onepage 문단 [center·justify·right] 뿐 — left 없음)
-         # fail-close 했다. 역할._정렬표가 5값 전부 HWPX 로 무손실 사상하므로 "값 열거"가 아니라
-         # "유효 정렬값이면 통과"(_변환가능한가)로 닫는다 — 마커·여백과 같은 처리.
-         면제=[("문단", "정렬"), ("칸", "정렬"), ("표", "정렬"), ("장식", "정렬"),
-              ("가로줄", "정렬"), ("가로줄칸", "정렬"), ("그림", "정렬")],
-         면제근거="편집기 정렬(좌/우)이 장르 값집합 밖 값을 낼 수 있으나 역할._정렬표가 5값 전부 alignment 로 무손실 사상",
-         앵커=[("build/역할.py", "_정렬표 = {"),
-              ("build/_hwpx_write.py", "alignment")]),
-    dict(자리="내어쓰기(안들여mm) — 마커 행잉 인덴트가 폰트·글자수로 정해지는 기하값",
-         장르=["fullreport", "gongmun", "onepage", "press-release", "regulation", "slides"],
-         입력열쇠=[],
-         제한="없음 — em 기반 행잉 인덴트라 폰트 크기마다 다른 연속량(가드는 mm 변환검사만)",
-         변환식이름="mm→indent_intent_mm(HWPUNIT)",
-         변환식="::before margin-left:-0.8em/-1.35em → 화면읽기 안들여mm → 문단 내어쓰기 HWPUNIT",
-         # 왼여백 항목(위 858행)은 '내어(안들여)는 CSS 선언값이라 유한'이라 뒀는데, em 기반이라
-         # 폰트 크기마다 mm 가 달라진다(사장님 onepage HWPX 실패: 안들여mm=3.1 이 유한 6가지 밖).
-         # 왼여백mm 과 같은 기하 실측이므로 면제(변환식 통과)로 닫는다.
-         면제=[("문단", "안들여mm"), ("칸", "안들여mm"), ("가로줄칸", "안들여mm")],
-         면제근거="안들여(내어쓰기)는 마커 ::before 의 -em 행잉이라 폰트·글자수로 변하는 기하값 — 값 집합이 성립하지 않는다(왼여백mm 과 같은 처리)",
-         앵커=[("화면읽기.py", "안들여mm"),
-              ("build/_hwpx_write.py", "indent")]),
     dict(자리="1p 항목별 임의 pt", 장르=["onepage"],
          입력열쇠=["title_fs", "summary_fs", "fs"],
          제한="없음 — 임의 pt",
@@ -926,50 +848,6 @@ _연속변수정본 = [
                 "성립하지 않는다 — 표본 21가지 밖 17.4 가 실제 콘텐츠에서 나와 섰다(2026-08-13)",
          앵커=[("화면읽기.py", "왼여백mm: Math.round((r.left"),
               ("_hwpx_write.py", "indent_left_mm=round")]),
-    dict(자리="개체 위/아래 간격(빈줄) — 편집기가 개체마다 세로 여백을 준다",
-         장르=["fullreport", "gongmun", "onepage", "press-release", "regulation", "slides"],
-         입력열쇠=["간격조정"],
-         제한="없음 — 임의 mm(가드는 mm 변환검사만)",
-         변환식이름="mm→문단 위/아래 spacing(HWPUNIT)",
-         변환식="doc['간격조정'][경로]={위,아래} → [data-path] margin-top/bottom → 화면읽기 위/아래여백mm → 문단 spacing",
-         # 편집기 '위/아래 간격'이 개체 블록에 임의 세로 margin 을 준다(정렬·왼여백과 같은 이치의
-         # 사용자 자유). 위/아래여백은 원래 CSS 선언값이라 유한으로 묶였는데(위 858행), 이 기능이
-         # 임의 mm 를 열므로 값 집합이 성립하지 않는다 — 면제(변환식 통과)로 닫는다.
-         면제=[("문단", "위여백mm"), ("문단", "아래여백mm"),
-              ("칸", "위여백mm"), ("칸", "아래여백mm")],
-         면제근거="편집기 위/아래 간격이 개체 블록에 임의 세로 margin 을 준다 — 값 집합이 성립하지 않는다(마커·왼여백과 같은 처리)",
-         앵커=[("화면읽기.py", "위여백mm: mm(s.marginTop)"),
-              ("_hwpx_write.py", "set_paragraph_spacing")]),
-    dict(자리="표 스타일 프리셋 테두리(변·선종류·굵기) — 1p 표 스타일 6종이 값집합 밖 테두리를 낸다",
-         장르=["onepage"],
-         입력열쇠=[],
-         제한="없음 — 변(상우하좌)·선종류(solid/dashed/dotted/double)·mm(_변환가능한가 검증)",
-         변환식이름="테두리→borderFill(변마다 독립)",
-         변환식="report.css 표 스타일(기본표·겉바속촉·하단두줄·테두리점선) → 화면읽기 표/칸 테두리 → _변별괘선 borderFill",
-         # onepage 표 스타일 6종(editor-profiles 444-451, report.css 193·204·220·223)만 프리셋을
-         # 노출한다. 표본은 기본값(샌드위치)뿐이라 값집합이 표·테두리변={상,하}·선종류={solid}로 굳어,
-         # 사용자가 기본표·하단두줄·테두리점선을 고르면 우/좌·double·dashed·0.9mm 가 밖으로 선다.
-         # 역할._겉접기+_hwpx_write._변별괘선이 변마다 독립 borderFill 로 무손실 전이(적대검증 real).
-         면제=[("표", "테두리변"), ("표", "테두리선종류"), ("표", "테두리굵기mm"),
-              ("칸", "테두리변"), ("칸", "테두리굵기mm")],
-         면제근거="onepage 표 스타일 프리셋이 표본(샌드위치) 밖 테두리를 만든다 — _변환가능한가가 변·선종류·mm 를 검증하고 _hwpx_write 가 변마다 무손실 전이",
-         앵커=[("build/report.css", "data-style"),
-              ("build/_hwpx_write.py", "_변별괘선")]),
-    dict(자리="줄간격(계산 line-height) — 글꼴 메트릭·조판 압축이 정하는 연속량이라 값집합 불성립",
-         장르=["fullreport", "gongmun", "onepage", "press-release", "regulation"],
-         입력열쇠=[],
-         제한="없음 — line_spacing_percent(0<v≤1000, _변환가능한가 검증)",
-         변환식이름="줄간격%→line_spacing_percent(FIXED HWPUNIT)",
-         변환식="계산 lineHeight/fontSize×100 → 화면읽기 줄간격 → apply_paragraph_format(line_spacing_percent)·_줄높이못박기",
-         # 줄간격은 line-height:normal 렌더 실측(글꼴 메트릭 + assemble --lhs 0.02 압축)이라
-         # 왼여백mm·자간em 처럼 내용·글꼴 의존 연속량이다(fullreport 문단 21가지·그림 6가지 등
-         # 촘촘한 띠). 유한 값집합이 성립하지 않아 새 문서가 표본 밖 비율을 내면 fail-close 했다.
-         # _변환가능한가에 규칙(0<v≤1000)이 이미 있고(사문이었다), _hwpx_write 가 임의 %를 무손실.
-         면제=[("문단", "줄간격"), ("칸", "줄간격"), ("그림", "줄간격"),
-              ("가로줄", "줄간격"), ("가로줄칸", "줄간격"), ("장식", "줄간격")],
-         면제근거="줄간격은 글꼴 메트릭·조판 압축이 정하는 계산 연속량 — 값 집합이 성립하지 않는다(왼여백mm·자간em과 같은 처리, _hwpx_write line_spacing_percent 가 임의값 무손실)",
-         앵커=[("build/화면읽기.py", "줄간격재기"),
-              ("build/_hwpx_write.py", "line_spacing_percent")]),
     dict(자리="쪽 수(지면수) — 내용 분량이 정한다",
          장르=["fullreport", "gongmun", "onepage", "press-release", "regulation"],
          입력열쇠=[],
@@ -1802,26 +1680,6 @@ def _변환가능한가(이름: str, 필드: str, 값: str) -> str | None:
         # CSS 가 낼 수 있는 계산값 — _hwpx_write._선종류표 가 이 넷+solid 만 사상한다
         return None if 값 in ("solid", "dashed", "dotted", "double") else \
             "선종류→LineType2 에 넣을 수 없다 — solid·dashed·dotted·double 이어야 한다"
-    if 이름 == "마커글자":
-        # 편집기 개별 블릿(data-mk: ○ □ - ※ · ▪)·문서 위계(data-hier B/S/N)가 내는 글머리표.
-        # _hwpx_write.set_list_format(bullet_char=…) 가 임의 짧은 글리프를 무손실로 싣는다 —
-        # 값 열거가 아니라 "짧은 마커면 통과"(·/▪·번호마커를 값집합에 다 박는 건 무의미). 카운터
-        # 마커(1. · (1) · 가.)도 8자 이내. 빈 값은 위에서 "없음"으로 이미 통과.
-        return None if (len(값) <= 8) else \
-            "마커글자→set_list_format 에 넣기엔 길다 — 8자 이내 글머리표여야 한다"
-    if 이름 == "정렬":
-        # 편집기 정렬(좌/가운데/우)이 장르 값집합 밖 값을 낼 수 있으나, 역할._정렬표가
-        # left·right·center·justify·start 를 HWPX alignment(LEFT/RIGHT/CENTER/JUSTIFY) 로
-        # 다 사상한다(무손실). 표 정렬은 대문자(LEFT…)로 오기도 한다.
-        return None if 값 in ("center", "right", "justify", "start", "left",
-                              "CENTER", "RIGHT", "JUSTIFY", "LEFT") else \
-            "정렬→alignment 에 넣을 수 없다 — left·right·center·justify·start 여야 한다"
-    if 이름 == "글꼴":
-        # 글꼴 전환(내장·명조·한글원본)이 장르 값집합 밖 얼굴을 낼 수 있으나(예: regulation 값집합엔
-        # Noto Serif KR 뿐인데 전환하면 Pretendard·HY헤드라인M), HWPX 는 임의 글꼴 이름을 charPr
-        # 얼굴로 무손실 저장한다(없으면 뷰어가 대체). 빈 값만 막고 짧은 글꼴명은 통과.
-        return None if (값 and len(값) <= 40) else \
-            "글꼴 이름이 비었거나 너무 길다 — charPr 얼굴 이름이어야 한다"
     if 이름 == "png있음":
         return None if 값 in ("참", "거짓") else "그림이 찍혔는지는 참·거짓이어야 한다"
     if 이름 == "지면수":

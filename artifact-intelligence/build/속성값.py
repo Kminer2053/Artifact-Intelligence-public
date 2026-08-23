@@ -35,39 +35,10 @@ script-src 'unsafe-inline' 아래에서 돌고, 로그인이 없어 세션쿠키
 등록부(ontology/editor-profiles.json)·CSS 에서 세어서 넘긴다.
 """
 import math
-import re as _re
-import html as _html
 import sys
 
 # 숫자 하나. 지수표기(1e3)·공백·단위·부호섞임은 안 받는다 — pt·mm 자리의 계약이다.
 _숫자꼴 = ("0123456789", ".", "+-")
-
-# 개체 위/아래 간격(빈줄) — doc['간격조정']={data-path:{위,아래,span}} 를 문서당 <style> 로.
-# 블록에 data-path 가 직접 있으면 그 셀렉터, 안쪽 span 에 있으면 그 블록을 :has 로 잡는다.
-# 값은 mm 꼴만(그 밖은 버려 CSS 주입 차단), 경로는 따옴표·꺾쇠·중괄호 있으면 버린다.
-_간격mm = _re.compile(r"^\d+(?:\.\d+)?mm$")
-def 간격스타일(doc):
-    m = (doc or {}).get("간격조정")
-    if not isinstance(m, dict) or not m:
-        return ""
-    e = _html.escape
-    규칙 = []
-    for 경로, v in m.items():
-        경로 = str(경로)
-        if not isinstance(v, dict) or _re.search(r'[<>"{}\\]', 경로):
-            continue
-        선언 = []
-        위, 아래 = str(v.get("위") or ""), str(v.get("아래") or "")
-        if _간격mm.match(위):
-            선언.append(f"margin-top:{e(위)}")
-        if _간격mm.match(아래):
-            선언.append(f"margin-bottom:{e(아래)}")
-        if not 선언:
-            continue
-        셀 = (f'[data-ent]:has(> [data-path="{e(경로)}"])' if v.get("span")
-              else f'[data-path="{e(경로)}"]')
-        규칙.append(셀 + "{" + ";".join(선언) + "}")
-    return ("<style data-gap>\n" + "\n".join(규칙) + "\n</style>\n") if 규칙 else ""
 
 
 def _거부(자리, 값, 왜):

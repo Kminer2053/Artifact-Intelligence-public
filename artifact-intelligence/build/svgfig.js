@@ -26,16 +26,13 @@ function tspans(lines, x, y0, fs, lh = 1.25) {
   return lines.map((t, i) => `<tspan x="${x}" y="${r1(top + i * fs * lh)}">${esc(t)}</tspan>`).join("");
 }
 function box(x, y, bw, bh, text, fill, o = {}) {
-  const color = o.color || "#000", stroke = o.stroke || "#555", lh = 1.18;
-  // 상자 높이는 고정이라 긴 글자가 위아래로 삐져나온다(사장님 지적). 넘치면 폰트를 줄여
-  // 상자 안에 맞춘다(최소 8.5px). 폰트가 작아질수록 한 줄에 더 들어가 줄 수도 함께 준다.
-  let fs = o.fs || 13, lines = wrap(text, (bw - 10) / fs);
-  while (lines.length * fs * lh > bh - 6 && fs > 8.5) { fs -= 0.5; lines = wrap(text, (bw - 10) / fs); }
+  const fs = o.fs || 13, color = o.color || "#000", stroke = o.stroke || "#555";
+  const lines = wrap(text, (bw - 10) / fs);
   return `<rect x="${x}" y="${y}" width="${bw}" height="${bh}" rx="2" fill="${fill}" `
        + `stroke="${stroke}" stroke-width="1.2"/>`
        + `<text x="${x + bw / 2}" y="${y + bh / 2}" font-size="${fs}" fill="${color}" `
        + `font-weight="${o.bold === false ? 400 : 700}" text-anchor="middle" `
-       + `dominant-baseline="central">${tspans(lines, x + bw / 2, y + bh / 2, fs, lh)}</text>`;
+       + `dominant-baseline="central">${tspans(lines, x + bw / 2, y + bh / 2, fs)}</text>`;
 }
 const arrowDefs = () =>
   `<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" `

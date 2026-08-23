@@ -324,27 +324,6 @@ table.fr-table tr + tr td { border-top: 0.1mm solid #999; }
 [data-hier="S"] .i-l5::before { content: "\203B"; }
 
 
-[data-hier="N"] .fr-sec::before,
-[data-hier="N"] .i-l2::before,
-[data-hier="N"] .i-l3::before,
-[data-hier="N"] .i-l4::before,
-[data-hier="N"] .i-l5::before { content: none !important; }
-[data-hier="N"] .fr-sec,
-[data-hier="N"] .i-l2,
-[data-hier="N"] .i-l3,
-[data-hier="N"] .i-l4 { padding-left: 0 !important; }
-
-
-[data-genre="fullreport"] .blk[data-mk="없음"]::before { content: none !important; }
-[data-genre="fullreport"] .blk[data-mk="없음"] { padding-left: 0 !important; }
-[data-genre="fullreport"] .blk[data-mk="○"]::before { content: "\25CB" !important; }
-[data-genre="fullreport"] .blk[data-mk="□"]::before { content: "\25A1" !important; }
-[data-genre="fullreport"] .blk[data-mk="-"]::before { content: "-" !important; }
-[data-genre="fullreport"] .blk[data-mk="※"]::before { content: "\203B" !important; }
-[data-genre="fullreport"] .blk[data-mk="·"]::before { content: "\00B7" !important; }
-[data-genre="fullreport"] .blk[data-mk="▪"]::before { content: "\25AA" !important; }
-
-
 [data-margin="custom"] .fr-page {
   padding: var(--m-t,25mm) var(--m-r,20mm) var(--m-b,25mm) var(--m-l,20mm); }
 [data-margin="custom"] .fr-content {

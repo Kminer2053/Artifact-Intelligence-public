@@ -67,25 +67,6 @@ LEVEL_CLS = {2: "i-l2", 3: "i-l3", 4: "i-l4"}
 _PROFILES = None
 
 
-_ALIGN_CSS = {"좌측": "left", "가운데": "center", "우측": "right"}
-_GAP_CSS = {"좁게": "margin-top:0.4mm;margin-bottom:0.4mm", "넓게": "margin-top:5mm;margin-bottom:5mm"}
-def _정렬속성(obj):
-    """개체 정렬·간격 필드 → data-* + text-align/margin(편집기 왕복·셀 상속). 없으면 빈 문자열.
-    간격은 표에만 쓰이고 장·절엔 없어 무해하다(한 style 속성에 합쳐 낸다)."""
-    if not isinstance(obj, dict):
-        return ""
-    styles, attrs = [], ""
-    v = obj.get("정렬")
-    if v in _ALIGN_CSS:
-        styles.append(f"text-align:{_ALIGN_CSS[v]}"); attrs += f' data-정렬="{html.escape(str(v))}"'
-    g = obj.get("간격")
-    if g in _GAP_CSS:
-        styles.append(_GAP_CSS[g]); attrs += f' data-간격="{html.escape(str(g))}"'
-    if styles:
-        attrs += f' style="{html.escape(";".join(styles))}"'
-    return attrs
-
-
 def load_profile(genre):
     """편집기 프로파일(ontology/editor-profiles.json) — 개체→액션 선언."""
     global _PROFILES
@@ -313,7 +294,7 @@ def build(doc):
     )]
     table = doc.get("table")
     for si, sec in enumerate(doc.get("sections", [])):
-        parts.append(f'  <h2 class="h-l1" data-ent="절"{_정렬속성(sec)} data-path="sections.{si}.heading">'
+        parts.append(f'  <h2 class="h-l1" data-ent="절" data-path="sections.{si}.heading">'
                      f'{html.escape(sec["heading"])}</h2>\n')
         for ii, it in enumerate(sec["items"]):
             cls = LEVEL_CLS.get(it["level"], "i-l2")
@@ -321,7 +302,7 @@ def build(doc):
             parts.append(f'  <p class="{cls}" data-ent="항목" '
                          f'data-path="sections.{si}.items.{ii}.html"{fss}>{it["html"]}</p>\n')
         if table and table.get("after_heading") == sec["heading"]:
-            parts.append(f'  <div class="doc-table-wrap" data-ent="표"{_정렬속성(table)} data-path="table">\n')
+            parts.append('  <div class="doc-table-wrap" data-ent="표" data-path="table">\n')
             parts.append(f'    <div class="doc-table-caption">{html.escape(table["caption"])}</div>\n')
             # 표 스타일은 **등록부가 정한 여섯 중 하나**다 — 후보를 여기 손으로 적지
             # 않고 편집기 프로파일(ontology/editor-profiles.json 의 표.스타일)에서
@@ -361,7 +342,7 @@ def build(doc):
     else:
         attach_line = ''
     parts.append(TAIL.format(attach_line=attach_line))
-    return "".join(parts).replace("</head>", 속성값.간격스타일(doc) + "</head>", 1)  # #3 개체 위/아래 간격
+    return "".join(parts)
 
 
 def 조립하기(등록부경로, only=None, out=None):

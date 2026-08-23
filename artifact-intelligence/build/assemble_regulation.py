@@ -70,25 +70,6 @@ GANADA = "가나다라마바사아자차카타파하거너더러머버서어저�
 _PROFILES = None
 
 
-_ALIGN_CSS = {"좌측": "left", "가운데": "center", "우측": "right"}
-_GAP_CSS = {"좁게": "margin-top:0.4mm;margin-bottom:0.4mm", "넓게": "margin-top:5mm;margin-bottom:5mm"}
-def _정렬속성(obj):
-    """개체 정렬·간격 필드 → data-* + text-align/margin(편집기 왕복·셀 상속). 없으면 빈 문자열.
-    간격은 표에만 쓰이고 장·절엔 없어 무해하다(한 style 속성에 합쳐 낸다)."""
-    if not isinstance(obj, dict):
-        return ""
-    styles, attrs = [], ""
-    v = obj.get("정렬")
-    if v in _ALIGN_CSS:
-        styles.append(f"text-align:{_ALIGN_CSS[v]}"); attrs += f' data-정렬="{html.escape(str(v))}"'
-    g = obj.get("간격")
-    if g in _GAP_CSS:
-        styles.append(_GAP_CSS[g]); attrs += f' data-간격="{html.escape(str(g))}"'
-    if styles:
-        attrs += f' style="{html.escape(";".join(styles))}"'
-    return attrs
-
-
 def load_profile(genre):
     global _PROFILES
     if _PROFILES is None:
@@ -306,7 +287,7 @@ def build(doc):
             rows = "<tr>" + "".join(f"<th>{e(h)}</th>" for h in tb.get("header", [])) + "</tr>"
             for row in tb.get("rows", []):
                 rows += "<tr>" + "".join(f"<td>{e(c)}</td>" for c in row) + "</tr>"
-            parts.append(f'    <div class="rg-table-wrap" data-ent="표"{_정렬속성(tb)} '
+            parts.append(f'    <div class="rg-table-wrap" data-ent="표" '
                          f'data-path="별표.{ti}.표"><table class="rg-table">{rows}</table></div>\n')
 
     parts.append("""  </div>
@@ -315,7 +296,7 @@ def build(doc):
 </body>
 </html>
 """)
-    return "".join(parts).replace("</head>", 속성값.간격스타일(doc) + "</head>", 1)  # #3 개체 위/아래 간격
+    return "".join(parts)
 
 
 def 조립하기(등록부경로, only=None, out=None):

@@ -34,10 +34,7 @@
   "delSection": "이 절 삭제",
   "mk2": "2단 마커(○↔◦) 전환",
   "tablestyle": "표 모양 바꾸기",
-  "addFig": "도식 넣기",
-  "align": "정렬(가운데/좌/우)",
-  "pagebreak": "장을 새 쪽/이어서 시작",
-  "tablegap": "표 위아래 간격(좁게/보통/넓게)"
+  "addFig": "도식 넣기"
  },
  "장르": {
   "fullreport": {
@@ -71,9 +68,7 @@
       "edit",
       "ai",
       "addBox",
-      "addFig",
-      "align",
-      "pagebreak"
+      "addFig"
      ]
     },
     "절": {
@@ -84,8 +79,7 @@
       "addBox",
       "addFig",
       "ai",
-      "delSection",
-      "align"
+      "delSection"
      ]
     },
     "항목": {
@@ -161,9 +155,7 @@
       "edit",
       "tablerow",
       "del",
-      "ai",
-      "align",
-      "tablegap"
+      "ai"
      ]
     },
     "별첨": {
@@ -237,25 +229,7 @@
      ]
     ],
     "재조판": true,
-    "복사": "본문",
-    "위계": [
-     [
-      "도형식",
-      "○ - ※"
-     ],
-     [
-      "번호식",
-      "1. 가. (1)"
-     ],
-     [
-      "5단 번호식",
-      "5단"
-     ],
-     [
-      "블릿 없음",
-      "없음"
-     ]
-    ]
+    "복사": "본문"
    },
    "자동": [
     "목차",
@@ -341,10 +315,7 @@
      "액션": [
       "edit",
       "tablerow",
-      "del",
-      "align",
-      "tablegap",
-      "ai"
+      "del"
      ]
     },
     "이미지": {
@@ -396,8 +367,7 @@
      "액션": [
       "edit",
       "addBelow",
-      "ai",
-      "align"
+      "ai"
      ]
     },
     "항목": {
@@ -437,9 +407,7 @@
       "edit",
       "tablerow",
       "del",
-      "ai",
-      "align",
-      "tablegap"
+      "ai"
      ],
      "스타일": [
       "기본표",
@@ -544,9 +512,7 @@
       "edit",
       "tablerow",
       "del",
-      "ai",
-      "align",
-      "tablegap"
+      "ai"
      ]
     },
     "이미지": {
@@ -905,10 +871,7 @@
      "액션": [
       "edit",
       "tablerow",
-      "del",
-      "align",
-      "tablegap",
-      "ai"
+      "del"
      ]
     }
    }
@@ -987,10 +950,7 @@
      "액션": [
       "edit",
       "tablerow",
-      "del",
-      "align",
-      "tablegap",
-      "ai"
+      "del"
      ]
     },
     "붙임": {
@@ -1059,10 +1019,7 @@
      "액션": [
       "edit",
       "tablerow",
-      "del",
-      "align",
-      "tablegap",
-      "ai"
+      "del"
      ]
     },
     "도식": {
@@ -1111,40 +1068,7 @@
       "del"
      ],
      "힌트": "의미 아이콘 + 라벨(+설명) 카드 줄. 아이콘은 라이브러리에서 고릅니다. 벡터라 색은 강조색을 따릅니다.",
-     "아이콘군": [
-      "report-doc",
-      "document",
-      "checklist",
-      "folder",
-      "briefcase",
-      "approval-stamp",
-      "signature",
-      "policy-law",
-      "person",
-      "team",
-      "collaboration",
-      "presentation",
-      "customer",
-      "dialogue",
-      "education",
-      "notification",
-      "budget",
-      "cost-save",
-      "growth-up",
-      "goal-flag",
-      "schedule",
-      "bar-chart",
-      "data",
-      "location",
-      "safety-shield",
-      "warning",
-      "check-done",
-      "settings",
-      "ai-chip",
-      "network",
-      "search",
-      "environment"
-     ]
+     "아이콘군": ["report-doc", "document", "checklist", "folder", "briefcase", "approval-stamp", "signature", "policy-law", "person", "team", "collaboration", "presentation", "customer", "dialogue", "education", "notification", "budget", "cost-save", "growth-up", "goal-flag", "schedule", "bar-chart", "data", "location", "safety-shield", "warning", "check-done", "settings", "ai-chip", "network", "search", "environment"]
     },
     "출처": {
      "라벨": "출처",
@@ -1169,64 +1093,9 @@
    "_간지": "간지는 15장 초과 시 자동 삽입(사장님 판정 '26-08-13) — 편집기 선택 항목은 조립기 자동삽입 구현과 함께 후속",
    "상단바": {
     "_설명": "디자인 영역 — 문서 단위. 테마·효과는 하나 선택(라디오), 화면기능은 켬/끔 토글. 테마는 편집 첫 단계에서 고른다(정본 slides.테마).",
-    "테마": [
-     [
-      "네이비",
-      "네이비"
-     ],
-     [
-      "감청",
-      "감청"
-     ],
-     [
-      "청록",
-      "청록"
-     ],
-     [
-      "숲",
-      "숲"
-     ],
-     [
-      "자목",
-      "자목"
-     ],
-     [
-      "먹",
-      "먹"
-     ]
-    ],
-    "효과": [
-     [
-      "없음",
-      "없음"
-     ],
-     [
-      "페이드",
-      "페이드"
-     ],
-     [
-      "상승",
-      "상승"
-     ],
-     [
-      "순차",
-      "순차"
-     ]
-    ],
-    "화면": [
-     [
-      "앞뒤이동",
-      "앞뒤 이동"
-     ],
-     [
-      "PDF",
-      "PDF"
-     ],
-     [
-      "목차점프",
-      "목차 점프"
-     ]
-    ]
+    "테마": [["네이비", "네이비"], ["감청", "감청"], ["청록", "청록"], ["숲", "숲"], ["자목", "자목"], ["먹", "먹"]],
+    "효과": [["없음", "없음"], ["페이드", "페이드"], ["상승", "상승"], ["순차", "순차"]],
+    "화면": [["앞뒤이동", "앞뒤 이동"], ["PDF", "PDF"], ["목차점프", "목차 점프"]]
    }
   }
  },
