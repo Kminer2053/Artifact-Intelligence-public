@@ -1766,14 +1766,23 @@ function 편집마침() {
       { month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit' });
     localStorage.setItem(KEY, JSON.stringify(snap));
   } catch (e) { /* 화면 저장 실패해도 아래로 진행 — 창을 오류로 대체하진 않는다 */ }
+  보내기();   // 서버가 있으면 반영 시도, 없으면(플러그인) 화면 저장만 — 반영은 채팅의 Claude
   if (채팅표면) {
-    보내기();   // 서버가 있으면 반영 시도, 없으면(플러그인) 화면 저장만 — 반영은 채팅의 Claude
     toast('편집을 마쳤습니다 — 이 탭을 닫고 채팅으로 돌아가세요. 반영은 채팅이 합니다');
     window.close();   // 스크립트가 연 탭이면 닫히고, 아니면 무해한 no-op(오류페이지로 안 감)
-  } else {
-    window.close();
-    setTimeout(function () { location.replace('/workspace/app.html'); }, 350);
+    return;
   }
+  // http(s) — 웹앱이면 SPA 홈으로 돌아가고, **무서버 정적 제공(플러그인)이면 이동하지 않는다.**
+  // /workspace/app.html 이 없으면 location.replace 가 편집 화면을 404 오류페이지로 대체하기
+  // 때문(코덱스·커서가 file:// 대신 정적 HTTP 로 편집기를 열 때 실측, 2026-08-24). 먼저 도달
+  // 가능한지 HEAD 로 확인하고, 되면 이동·아니면 토스트+닫기만 한다(화면을 오류로 안 날린다).
+  var _닫기 = function () { toast('편집을 마쳤습니다 — 이 탭을 닫으세요'); window.close(); };
+  try {
+    fetch('/workspace/app.html', { method: 'HEAD' }).then(function (r) {
+      if (r && r.ok) { window.close(); setTimeout(function () { location.replace('/workspace/app.html'); }, 200); }
+      else _닫기();
+    }).catch(_닫기);
+  } catch (e) { _닫기(); }
 }
 ['btn-done', 'btn-close'].forEach(function (id) {
   const b = document.getElementById(id);

@@ -2064,10 +2064,30 @@ def 내보내기(key, 형식="hwpx"):
             return {"ok": False, "로그": "HTML 이 없습니다 — 조립을 먼저 돌리세요"}
         낼 = os.path.join(낼곳, f"{key}.pptx")
         # tohwpx 와 같은 사상 — 완성 규격을 다른 그릇에 그대로 옮긴다(전환이지 생성 아님).
-        # 크롬을 못 찾거나 도식을 못 옮기면 topptx 가 ok:False 로 돌려주고 서버는 안 죽는다.
-        ok, 말 = 자료뿌리.모듈("topptx").만들기(htm, 낼)
-        if not ok:
-            return {"ok": False, "로그": 말}
+        # **topptx 는 PIL·python-pptx 를 모듈 최상위에서 import** 하므로, MCP 서버(mcp/.venv)
+        # 에서 `자료뿌리.모듈("topptx")` 로 부르면 import 단계에서 ModuleNotFoundError(PIL/pptx)
+        # 로 죽는다 — 이 의존은 build/.hwpxenv 에만 있다(코덱스·커서·클로드코드 교차 테스트
+        # 3사 공통 실측, 2026-08-24). 그래서 tohwpx 가 _hwpx_write.py 를 .hwpxenv 로 subprocess
+        # 위임하듯, topptx 의 CLI(python topptx.py <html> <out>)도 .hwpxenv 로 돌린다.
+        _py = os.path.join(ROOT, "build", ".hwpxenv", "bin", "python")
+        if not os.path.exists(_py):
+            return {"ok": False, "로그": "PPTX 라이브러리가 없습니다 — build/.hwpxenv 를 만들고 "
+                    "python-pptx·Pillow 를 설치하세요(bin/bootstrap.sh 가 자동으로 합니다)."}
+        try:
+            r = subprocess.run([_py, os.path.join(ROOT, "build", "topptx.py"), htm, 낼],
+                               capture_output=True, text=True, timeout=180)
+        except subprocess.TimeoutExpired:
+            return {"ok": False, "로그": "PPTX 전환이 너무 오래 걸립니다"}
+        if r.returncode != 0 or not os.path.exists(낼):
+            줄 = (r.stdout or "").strip().splitlines() or (r.stderr or "").strip().splitlines()
+            return {"ok": False, "로그": "PPTX 전환 실패 — " + (줄[-1] if 줄 else "알 수 없음")}
+        말 = None       # topptx __main__ 은 "OK {json}" 를 stdout 에 낸다(되읽기 요약)
+        _out = (r.stdout or "").strip()
+        if _out.startswith("OK "):
+            try:
+                말 = json.loads(_out[3:])
+            except Exception:
+                말 = None
         return {"ok": True, "값": {"경로": f"/build/samples/{key}.pptx",
                                  "크기": os.path.getsize(낼), "되읽기": 말}}
 
