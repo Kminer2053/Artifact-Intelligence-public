@@ -94,9 +94,9 @@ def gate_check(doc):
         bad.append("제목이 없다")
     if not (doc.get("리드") or "").strip():
         bad.append("리드가 없다 — 첫 문단에 결론을 담는 것이 보도자료의 골격이다")
-    if not (doc.get("보도시점") or {}).get("값") and \
-            (doc.get("보도시점") or {}).get("방식") != "즉시":
-        bad.append("보도시점이 없다 — 실측 89%가 첫 화면에 둔다")
+    # 보도시점은 비면 '즉시'로 안전하게 기본을 준다(render 참조) — 예전엔 하드 거부해 초안·HWPX 를
+    # 막았다(코덱스·커서 교차 테스트 지적, 2026-08-24). 정확한 시점 되묻기는 에이전트(SKILL) 몫이고,
+    # 게이트는 초안이 나가게 두는 초안 도구 규범을 따른다(제목·리드 같은 내용 흠만 하드로 막는다).
     종류 = doc.get("문서종류")
     if 종류 and 종류 not in 문서종류들:
         bad.append(f"문서종류 '{종류}' — 실측에서 나온 것은 {', '.join(문서종류들)}")
@@ -131,7 +131,7 @@ def build(doc):
     PROFILE_JSON = json.dumps(load_profile("press-release"),
                               ensure_ascii=False).replace("</", "<\\/")
     시점 = doc.get("보도시점") or {}
-    방식 = 시점.get("방식", "시각지정")
+    방식 = 시점.get("방식") or ("시각지정" if 시점.get("값") else "즉시")   # 비면 '즉시'가 안전한 기본
     시점값 = 시점.get("값") or 보도방식.get(방식, "")
     parts = [f"""<!doctype html>
 <html lang="ko" data-genre="press-release">

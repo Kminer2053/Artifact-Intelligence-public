@@ -103,9 +103,25 @@ try:
     sys.exit(0 if t('$_remote') > t('$_local') else 1)
 except Exception:
     sys.exit(1)" 2>/dev/null; then
-    echo "[문서지능] 새 버전 $_remote 이 있습니다(설치본 $_local). 갱신을 권합니다 — 고친 버그가 담깁니다:" >&2
-    echo "           · Claude Code: /plugin marketplace update artifact-intelligence  →  /plugin install artifact-intelligence@artifact-intelligence" >&2
-    echo "           · Codex: codex plugin marketplace update  ·  Cursor: 클론 폴더에서 git pull" >&2
+    # ⑥ 자동 갱신(사장님 Q2) — git 클론 설치(Cursor·Codex)면 스스로 최신으로 당긴다(다음 서버
+    #    기동부터 적용). **안전 가드**: git 작업트리가 아니거나(마켓 캐시=Claude Code 는 여기서
+    #    걸려 안내로 빠진다), 로컬 변경이 있거나, fast-forward 가 안 되면 강제하지 않는다 —
+    #    force·reset·merge 를 절대 안 해 사용자의 로컬 수정을 지우지 않는다. 끄려면 문서지능_자동갱신=0.
+    _updated=""   # bash 변수명은 ASCII 만(한글 이름은 'command not found' 로 새어 조용히 오작동)
+    if [ "$(printenv '문서지능_자동갱신' 2>/dev/null || echo 1)" != "0" ] \
+       && command -v git >/dev/null 2>&1 \
+       && git rev-parse --is-inside-work-tree >/dev/null 2>&1 \
+       && git diff --quiet 2>/dev/null && git diff --cached --quiet 2>/dev/null; then
+      if git pull --ff-only --quiet 2>/dev/null; then
+        _updated=1
+        echo "[문서지능] 자동 갱신 완료 — 다음 세션부터 최신($_remote)이 적용됩니다(이 세션은 $_local)." >&2
+      fi
+    fi
+    if [ -z "$_updated" ]; then
+      echo "[문서지능] 새 버전 $_remote 이 있습니다(설치본 $_local). 갱신을 권합니다 — 고친 버그가 담깁니다:" >&2
+      echo "           · Claude Code: /plugin marketplace update artifact-intelligence  →  /plugin install artifact-intelligence@artifact-intelligence" >&2
+      echo "           · Codex: codex plugin marketplace update  ·  Cursor: 클론 폴더에서 git pull(자동 갱신이 못 미친 경우)" >&2
+    fi
   fi
 fi
 

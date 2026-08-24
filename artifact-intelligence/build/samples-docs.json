@@ -1,2168 +1,2054 @@
 [
-  {
-    "filename": "e2e-full-flow",
-    "title": "사옥 지하주차장 전기차 급속충전소 설치 검토",
-    "byline": "<스마트경영처, '26. 7. 25.>",
-    "summary": "급속충전기 6기 설치 추진과 외부 위탁 운영을 권고하며, 총사업비 3.8억원(실부담 2.6억원) 사업의 추진 여부 결정을 요청드림",
-    "sections": [
-      {
-        "heading": "검토결과",
-        "items": [
-          {
-            "level": 2,
-            "html": "지하주차장 B2 유휴부지(320㎡)에 <span class=\"accent\">급속충전기 6기 설치 추진 타당</span> 판단"
-          },
-          {
-            "level": 2,
-            "html": "운영방식은 초기 부담 경감·수익배분이 가능한 <span class=\"accent\">외부 사업자 위탁 권고</span>"
-          },
-          {
-            "level": 3,
-            "html": "총사업비 <span class=\"num\">3.8억원</span>, 정부 보조금(기기값 50%) 적용 시 실부담 <span class=\"num\">2.6억원</span>"
-          }
-        ]
-      },
-      {
-        "heading": "검토배경·쟁점",
-        "items": [
-          {
-            "level": 2,
-            "html": "정부의 공공기관 충전 인프라 구축 의무 확대에 대응 필요"
-          },
-          {
-            "level": 2,
-            "html": "임직원 전기차 '25년 40대→'26년 <span class=\"num\">90대</span> 급증, 완속 4기로 수요 초과"
-          },
-          {
-            "level": 2,
-            "html": "지하 전력용량의 급속 6기 수용 가능 여부는 한전 협의 필요"
-          },
-          {
-            "level": 3,
-            "html": "용량 미달 시 수전설비 증설로 0.5억원 추가 소요 예상"
-          }
-        ]
-      },
-      {
-        "heading": "대안검토",
-        "items": [
-          {
-            "level": 2,
-            "html": "위탁은 요금통제가 곤란하나 초기 부담 경감·수익배분 이점이 더 크다고 판단"
-          },
-          {
-            "level": 2,
-            "html": "사업비 구성: 충전기 2.4억원·전기공사 0.9억원·예비비 0.5억원"
-          }
-        ]
-      },
-      {
-        "heading": "결정요청",
-        "items": [
-          {
-            "level": 2,
-            "html": "급속충전소 설치 추진 여부 및 운영방식(위탁·직영) 결정 요청"
-          },
-          {
-            "level": 2,
-            "html": "'27년 본예산 반영을 위해 <span class=\"num\">9월</span>까지 결정 필요"
-          },
-          {
-            "level": 3,
-            "html": "결정 시 하반기 중 한전 협의·운영사업자 공모 착수"
-          }
-        ]
-      }
+ {
+  "filename": "e2e-full-flow",
+  "title": "사옥 지하주차장 전기차 급속충전소 설치 검토",
+  "byline": "<스마트경영처, '26. 7. 25.>",
+  "summary": "급속충전기 6기 설치 추진과 외부 위탁 운영을 권고하며, 총사업비 3.8억원(실부담 2.6억원) 사업의 추진 여부 결정을 요청드림",
+  "sections": [
+   {
+    "heading": "검토결과",
+    "items": [
+     {
+      "level": 2,
+      "html": "지하주차장 B2 유휴부지(320㎡)에 <span class=\"accent\">급속충전기 6기 설치 추진 타당</span> 판단"
+     },
+     {
+      "level": 2,
+      "html": "운영방식은 초기 부담 경감·수익배분이 가능한 <span class=\"accent\">외부 사업자 위탁 권고</span>"
+     },
+     {
+      "level": 3,
+      "html": "총사업비 <span class=\"num\">3.8억원</span>, 정부 보조금(기기값 50%) 적용 시 실부담 <span class=\"num\">2.6억원</span>"
+     }
+    ]
+   },
+   {
+    "heading": "검토배경·쟁점",
+    "items": [
+     {
+      "level": 2,
+      "html": "정부의 공공기관 충전 인프라 구축 의무 확대에 대응 필요"
+     },
+     {
+      "level": 2,
+      "html": "임직원 전기차 '25년 40대→'26년 <span class=\"num\">90대</span> 급증, 완속 4기로 수요 초과"
+     },
+     {
+      "level": 2,
+      "html": "지하 전력용량의 급속 6기 수용 가능 여부는 한전 협의 필요"
+     },
+     {
+      "level": 3,
+      "html": "용량 미달 시 수전설비 증설로 0.5억원 추가 소요 예상"
+     }
+    ]
+   },
+   {
+    "heading": "대안검토",
+    "items": [
+     {
+      "level": 2,
+      "html": "위탁은 요금통제가 곤란하나 초기 부담 경감·수익배분 이점이 더 크다고 판단"
+     },
+     {
+      "level": 2,
+      "html": "사업비 구성: 충전기 2.4억원·전기공사 0.9억원·예비비 0.5억원"
+     }
+    ]
+   },
+   {
+    "heading": "결정요청",
+    "items": [
+     {
+      "level": 2,
+      "html": "급속충전소 설치 추진 여부 및 운영방식(위탁·직영) 결정 요청"
+     },
+     {
+      "level": 2,
+      "html": "'27년 본예산 반영을 위해 <span class=\"num\">9월</span>까지 결정 필요"
+     },
+     {
+      "level": 3,
+      "html": "결정 시 하반기 중 한전 협의·운영사업자 공모 착수"
+     }
+    ]
+   }
+  ],
+  "table": {
+   "after_heading": "대안검토",
+   "caption": "(단위: 억원)",
+   "header": [
+    "구분",
+    "위탁 운영",
+    "직영 운영"
+   ],
+   "rows": [
+    [
+     "초기 투자",
+     "충전사업자 부담으로 경감",
+     "전액 자체 부담(실부담 2.6)"
     ],
-    "table": {
-      "after_heading": "대안검토",
-      "caption": "(단위: 억원)",
-      "header": [
-        "구분",
-        "위탁 운영",
-        "직영 운영"
-      ],
-      "rows": [
-        [
-          "초기 투자",
-          "충전사업자 부담으로 경감",
-          "전액 자체 부담(실부담 2.6)"
-        ],
-        [
-          "수익·요금",
-          "수익배분 수취, 요금통제 곤란",
-          "수익 전액 귀속, 요금 자율"
-        ],
-        [
-          "타 공기업 사례",
-          "대부분 채택",
-          "소수"
-        ]
-      ]
-    },
-    "attach": null,
-    "purpose_type": "②",
-    "_수정시각": "2026-07-31T00:39:59"
+    [
+     "수익·요금",
+     "수익배분 수취, 요금통제 곤란",
+     "수익 전액 귀속, 요금 자율"
+    ],
+    [
+     "타 공기업 사례",
+     "대부분 채택",
+     "소수"
+    ]
+   ]
   },
-  {
-    "filename": "bt01-callcenter",
-    "title": "민원콜센터 응대율 개선 방안 검토",
-    "byline": "<고객지원처, '26. 7. 25.>",
-    "summary": "AI상담 도입과 2교대 근무조 조정으로 상담인력 증원 대비 연 1.5억원 절감이 가능해 도입 여부 결정을 요청드림",
-    "sections": [
-      {
-        "heading": "검토배경",
-        "items": [
-          {
-            "level": 2,
-            "html": "월평균 인입콜 '25년 2.4만건→'26년 <span class=\"num\">3.1만건</span>, <span class=\"num\">29%</span> 증가"
-          },
-          {
-            "level": 2,
-            "html": "응대율 84%→<span class=\"num\">71%</span>(<span class=\"delta\">△13%p</span>) 하락, 포기호율 9%→<span class=\"num\">18%</span>로 급등"
-          },
-          {
-            "level": 3,
-            "html": "상담원 12명 고정, 평균대기 4.2분(목표 1.5분) 초과"
-          }
-        ]
-      },
-      {
-        "heading": "대안검토",
-        "items": [
-          {
-            "level": 2,
-            "html": "① AI상담 도입: 구축비 <span class=\"num\">1.2억원</span>, 연 운영비 <span class=\"num\">0.3억원</span>, 3개월 소요"
-          },
-          {
-            "level": 2,
-            "html": "② 인력 4명 증원: 연 인건비 <span class=\"num\">1.8억원</span> 소요"
-          },
-          {
-            "level": 3,
-            "html": "고령 민원인 AI 거부감은 0번 상담원 직결로 보완"
-          }
-        ]
-      },
-      {
-        "heading": "검토의견",
-        "items": [
-          {
-            "level": 2,
-            "html": "<span class=\"accent\">AI상담 도입과 2교대 근무조 조정이 타당</span>하다는 의견"
-          },
-          {
-            "level": 2,
-            "html": "인력 증원 대비 연 <span class=\"num\">1.5억원</span> 절감, 도입기관 평균 응대율 <span class=\"num\">91%</span> 참고"
-          }
-        ]
-      },
-      {
-        "heading": "향후계획",
-        "items": [
-          {
-            "level": 2,
-            "html": "'27년 예산안 반영 일정상 <span class=\"accent\">9월 중 방침 확정 필요</span>"
-          },
-          {
-            "level": 2,
-            "html": "방침 확정 시 <span class=\"num\">10월</span> 중 AI상담 사업자 공모 착수"
-          },
-          {
-            "level": 3,
-            "html": "구축 3개월 소요, '27년 상반기 운영 개시 가능"
-          }
-        ]
-      }
+  "attach": null,
+  "purpose_type": "②",
+  "_수정시각": "2026-07-31T00:39:59"
+ },
+ {
+  "filename": "bt01-callcenter",
+  "title": "민원콜센터 응대율 개선 방안 검토",
+  "byline": "<고객지원처, '26. 7. 25.>",
+  "summary": "AI상담 도입과 2교대 근무조 조정으로 상담인력 증원 대비 연 1.5억원 절감이 가능해 도입 여부 결정을 요청드림",
+  "sections": [
+   {
+    "heading": "검토배경",
+    "items": [
+     {
+      "level": 2,
+      "html": "월평균 인입콜 '25년 2.4만건→'26년 <span class=\"num\">3.1만건</span>, <span class=\"num\">29%</span> 증가"
+     },
+     {
+      "level": 2,
+      "html": "응대율 84%→<span class=\"num\">71%</span>(<span class=\"delta\">△13%p</span>) 하락, 포기호율 9%→<span class=\"num\">18%</span>로 급등"
+     },
+     {
+      "level": 3,
+      "html": "상담원 12명 고정, 평균대기 4.2분(목표 1.5분) 초과"
+     }
+    ]
+   },
+   {
+    "heading": "대안검토",
+    "items": [
+     {
+      "level": 2,
+      "html": "① AI상담 도입: 구축비 <span class=\"num\">1.2억원</span>, 연 운영비 <span class=\"num\">0.3억원</span>, 3개월 소요"
+     },
+     {
+      "level": 2,
+      "html": "② 인력 4명 증원: 연 인건비 <span class=\"num\">1.8억원</span> 소요"
+     },
+     {
+      "level": 3,
+      "html": "고령 민원인 AI 거부감은 0번 상담원 직결로 보완"
+     }
+    ]
+   },
+   {
+    "heading": "검토의견",
+    "items": [
+     {
+      "level": 2,
+      "html": "<span class=\"accent\">AI상담 도입과 2교대 근무조 조정이 타당</span>하다는 의견"
+     },
+     {
+      "level": 2,
+      "html": "인력 증원 대비 연 <span class=\"num\">1.5억원</span> 절감, 도입기관 평균 응대율 <span class=\"num\">91%</span> 참고"
+     }
+    ]
+   },
+   {
+    "heading": "향후계획",
+    "items": [
+     {
+      "level": 2,
+      "html": "'27년 예산안 반영 일정상 <span class=\"accent\">9월 중 방침 확정 필요</span>"
+     },
+     {
+      "level": 2,
+      "html": "방침 확정 시 <span class=\"num\">10월</span> 중 AI상담 사업자 공모 착수"
+     },
+     {
+      "level": 3,
+      "html": "구축 3개월 소요, '27년 상반기 운영 개시 가능"
+     }
+    ]
+   }
+  ],
+  "table": {
+   "after_heading": "대안검토",
+   "caption": "(단위: 억원)",
+   "header": [
+    "구분",
+    "AI상담 도입",
+    "인력 4명 증원"
+   ],
+   "rows": [
+    [
+     "구축비",
+     "1.2(1회성)",
+     "-"
     ],
-    "table": {
-      "after_heading": "대안검토",
-      "caption": "(단위: 억원)",
-      "header": [
-        "구분",
-        "AI상담 도입",
-        "인력 4명 증원"
-      ],
-      "rows": [
-        [
-          "구축비",
-          "1.2(1회성)",
-          "-"
-        ],
-        [
-          "연 소요비용",
-          "0.3",
-          "1.8"
-        ],
-        [
-          "도입기간",
-          "3개월",
-          "채용 후 즉시"
-        ],
-        [
-          "도입기관 참고",
-          "평균 응대율 91%",
-          "-"
-        ]
-      ]
-    },
-    "attach": null,
-    "purpose_type": "②",
-    "_수정시각": "2026-07-31T00:39:59"
+    [
+     "연 소요비용",
+     "0.3",
+     "1.8"
+    ],
+    [
+     "도입기간",
+     "3개월",
+     "채용 후 즉시"
+    ],
+    [
+     "도입기관 참고",
+     "평균 응대율 91%",
+     "-"
+    ]
+   ]
   },
-  {
-    "filename": "bt02-waterpipe",
-    "title": "노후 상수도관 교체사업 3년차 중간 추진현황",
-    "byline": "<상수도정비사업소, '26. 7. 25.>",
-    "summary": "노후 상수도관 교체사업 3년차 상반기까지 누적 80km(63%) 교체, 누수율 14.2%→9.8%로 개선되어 중간 추진현황을 보고드림",
-    "sections": [
-      {
-        "heading": "보고배경",
-        "items": [
-          {
-            "level": 2,
-            "html": "노후관 누수 저감을 위해 '24년부터 <span class=\"num\">128km</span> 교체 추진(총 <span class=\"num\">420억원</span>)"
-          },
-          {
-            "level": 2,
-            "html": "금년 3년차 목표 <span class=\"num\">34km</span>, 상반기 종료에 따른 중간현황 보고"
-          }
-        ]
-      },
-      {
-        "heading": "주요현황·동향",
-        "items": [
-          {
-            "level": 2,
-            "html": "상반기까지 누적 <span class=\"num\">80km</span> 교체, 진도율 <span class=\"num\">63%</span>"
-          },
-          {
-            "level": 2,
-            "html": "사업비 420억원 중 <span class=\"num\">231억원</span> 집행, 집행률 <span class=\"num\">55%</span>"
-          },
-          {
-            "level": 2,
-            "html": "누수율 14.2%→<span class=\"num\">9.8%</span>(<span class=\"delta\">△4.4%p</span>) 개선"
-          },
-          {
-            "level": 3,
-            "html": "'26년 목표 34km 중 상반기 19km 완료, 달성률 56%"
-          },
-          {
-            "level": 3,
-            "html": "우기(6~7월) 공정 8일 지연, 공사 민원 32건(도로점용 27건)"
-          }
-        ]
-      },
-      {
-        "heading": "영향·시사점",
-        "items": [
-          {
-            "level": 2,
-            "html": "주철관 자재 단가 <span class=\"num\">12%</span> 상승, <span class=\"accent\">잔여 공정 예비비 사용 검토 필요</span>"
-          },
-          {
-            "level": 2,
-            "html": "도로점용 민원 다수, 시공구간 사전 협의·안내 강화 필요"
-          }
-        ]
-      },
-      {
-        "heading": "향후관리",
-        "items": [
-          {
-            "level": 2,
-            "html": "하반기 잔여 <span class=\"num\">15km</span> 교체 완료 추진"
-          },
-          {
-            "level": 2,
-            "html": "<span class=\"accent\">교통혼잡 구간 야간시공 확대로 민원 최소화</span> 추진"
-          },
-          {
-            "level": 3,
-            "html": "차기 정례보고 시 하반기 실적·예비비 집행계획 보고 예정"
-          }
-        ]
-      }
+  "attach": null,
+  "purpose_type": "②",
+  "_수정시각": "2026-07-31T00:39:59"
+ },
+ {
+  "filename": "bt02-waterpipe",
+  "title": "노후 상수도관 교체사업 3년차 중간 추진현황",
+  "byline": "<상수도정비사업소, '26. 7. 25.>",
+  "summary": "노후 상수도관 교체사업 3년차 상반기까지 누적 80km(63%) 교체, 누수율 14.2%→9.8%로 개선되어 중간 추진현황을 보고드림",
+  "sections": [
+   {
+    "heading": "보고배경",
+    "items": [
+     {
+      "level": 2,
+      "html": "노후관 누수 저감을 위해 '24년부터 <span class=\"num\">128km</span> 교체 추진(총 <span class=\"num\">420억원</span>)"
+     },
+     {
+      "level": 2,
+      "html": "금년 3년차 목표 <span class=\"num\">34km</span>, 상반기 종료에 따른 중간현황 보고"
+     }
+    ]
+   },
+   {
+    "heading": "주요현황·동향",
+    "items": [
+     {
+      "level": 2,
+      "html": "상반기까지 누적 <span class=\"num\">80km</span> 교체, 진도율 <span class=\"num\">63%</span>"
+     },
+     {
+      "level": 2,
+      "html": "사업비 420억원 중 <span class=\"num\">231억원</span> 집행, 집행률 <span class=\"num\">55%</span>"
+     },
+     {
+      "level": 2,
+      "html": "누수율 14.2%→<span class=\"num\">9.8%</span>(<span class=\"delta\">△4.4%p</span>) 개선"
+     },
+     {
+      "level": 3,
+      "html": "'26년 목표 34km 중 상반기 19km 완료, 달성률 56%"
+     },
+     {
+      "level": 3,
+      "html": "우기(6~7월) 공정 8일 지연, 공사 민원 32건(도로점용 27건)"
+     }
+    ]
+   },
+   {
+    "heading": "영향·시사점",
+    "items": [
+     {
+      "level": 2,
+      "html": "주철관 자재 단가 <span class=\"num\">12%</span> 상승, <span class=\"accent\">잔여 공정 예비비 사용 검토 필요</span>"
+     },
+     {
+      "level": 2,
+      "html": "도로점용 민원 다수, 시공구간 사전 협의·안내 강화 필요"
+     }
+    ]
+   },
+   {
+    "heading": "향후관리",
+    "items": [
+     {
+      "level": 2,
+      "html": "하반기 잔여 <span class=\"num\">15km</span> 교체 완료 추진"
+     },
+     {
+      "level": 2,
+      "html": "<span class=\"accent\">교통혼잡 구간 야간시공 확대로 민원 최소화</span> 추진"
+     },
+     {
+      "level": 3,
+      "html": "차기 정례보고 시 하반기 실적·예비비 집행계획 보고 예정"
+     }
+    ]
+   }
+  ],
+  "table": {
+   "after_heading": "주요현황·동향",
+   "caption": "(단위: km, 억원, %)",
+   "header": [
+    "구분",
+    "목표",
+    "실적",
+    "진도율"
+   ],
+   "rows": [
+    [
+     "연장(누적)",
+     "128km",
+     "80km",
+     "63%"
     ],
-    "table": {
-      "after_heading": "주요현황·동향",
-      "caption": "(단위: km, 억원, %)",
-      "header": [
-        "구분",
-        "목표",
-        "실적",
-        "진도율"
-      ],
-      "rows": [
-        [
-          "연장(누적)",
-          "128km",
-          "80km",
-          "63%"
-        ],
-        [
-          "'26년 계획",
-          "34km",
-          "19km",
-          "56%"
-        ],
-        [
-          "사업비",
-          "420억원",
-          "231억원",
-          "55%"
-        ]
-      ]
-    },
-    "attach": null,
-    "purpose_type": "①",
-    "_수정시각": "2026-07-31T00:39:59"
+    [
+     "'26년 계획",
+     "34km",
+     "19km",
+     "56%"
+    ],
+    [
+     "사업비",
+     "420억원",
+     "231억원",
+     "55%"
+    ]
+   ]
   },
-  {
-    "filename": "bt03-energy",
-    "title": "상반기 청사 에너지 절감 추진 결과",
-    "byline": "<시설관리부, '26. 7. 25.>",
-    "summary": "상반기 청사 전기 사용량 12.4% 감축, 요금 0.9억원 절감해 정부 절감목표 10%를 초과 달성하였음을 보고드림",
-    "sections": [
-      {
-        "heading": "추진배경",
-        "items": [
-          {
-            "level": 2,
-            "html": "정부 공공기관 에너지 절감목표 <span class=\"num\">10%</span> 이행을 위한 상반기 절감대책 추진"
-          },
-          {
-            "level": 2,
-            "html": "전년 상반기 사용량 184만kWh·요금 <span class=\"num\">7.2억원</span>을 절감 기준으로 설정"
-          }
-        ]
-      },
-      {
-        "heading": "추진내용",
-        "items": [
-          {
-            "level": 2,
-            "html": "냉방 설정온도 26도에서 28도로 상향 운영"
-          },
-          {
-            "level": 2,
-            "html": "LED 조명 <span class=\"num\">1,240등</span> 교체, 계획 대비 <span class=\"num\">80%</span> 진행"
-          },
-          {
-            "level": 3,
-            "html": "잔여 310등, 전체의 20%에 해당"
-          },
-          {
-            "level": 2,
-            "html": "옥상 태양광 발전 <span class=\"num\">92MWh</span> 생산, 전체 사용량의 <span class=\"num\">5.7%</span> 충당"
-          }
-        ]
-      },
-      {
-        "heading": "추진결과",
-        "items": [
-          {
-            "level": 2,
-            "html": "전기 사용량 <span class=\"num\">161만kWh</span>, 전년 대비 <span class=\"delta\">△12.4%</span> 감축"
-          },
-          {
-            "level": 3,
-            "html": "절감량은 목표치(10%, 18.4만kWh) 대비 <span class=\"num\">4.6만kWh</span> 초과"
-          },
-          {
-            "level": 2,
-            "html": "전기요금 6.3억원, 전년 7.2억원 대비 <span class=\"delta\">△0.9억원</span> 절감"
-          },
-          {
-            "level": 2,
-            "html": "<span class=\"accent\">정부 절감목표 대비 2.4%p 초과 달성</span>"
-          },
-          {
-            "level": 2,
-            "html": "직원 에너지 만족도 <span class=\"num\">3.4점</span>(5점 만점), 사무실 더위 불만 <span class=\"num\">41%</span>"
-          }
-        ]
-      },
-      {
-        "heading": "향후계획",
-        "items": [
-          {
-            "level": 2,
-            "html": "잔여 LED 조명 <span class=\"num\">310등</span> 하반기 중 교체 완료 추진"
-          },
-          {
-            "level": 2,
-            "html": "노후 냉난방기 2대 교체, 소요예산 <span class=\"num\">0.8억원</span>"
-          },
-          {
-            "level": 3,
-            "html": "절감액 0.9억원을 교체 재원으로 활용 가능"
-          },
-          {
-            "level": 2,
-            "html": "동절기 난방 절감 실천운동 전개, <span class=\"accent\">절감과 근무환경 개선의 균형 추진</span>"
-          },
-          {
-            "level": 2,
-            "html": "하반기 성과 지속 관리, 연간 결과는 연말 정기보고 예정"
-          }
-        ]
-      }
+  "attach": null,
+  "purpose_type": "①",
+  "_수정시각": "2026-07-31T00:39:59"
+ },
+ {
+  "filename": "bt03-energy",
+  "title": "상반기 청사 에너지 절감 추진 결과",
+  "byline": "<시설관리부, '26. 7. 25.>",
+  "summary": "상반기 청사 전기 사용량 12.4% 감축, 요금 0.9억원 절감해 정부 절감목표 10%를 초과 달성하였음을 보고드림",
+  "sections": [
+   {
+    "heading": "추진배경",
+    "items": [
+     {
+      "level": 2,
+      "html": "정부 공공기관 에너지 절감목표 <span class=\"num\">10%</span> 이행을 위한 상반기 절감대책 추진"
+     },
+     {
+      "level": 2,
+      "html": "전년 상반기 사용량 184만kWh·요금 <span class=\"num\">7.2억원</span>을 절감 기준으로 설정"
+     }
+    ]
+   },
+   {
+    "heading": "추진내용",
+    "items": [
+     {
+      "level": 2,
+      "html": "냉방 설정온도 26도에서 28도로 상향 운영"
+     },
+     {
+      "level": 2,
+      "html": "LED 조명 <span class=\"num\">1,240등</span> 교체, 계획 대비 <span class=\"num\">80%</span> 진행"
+     },
+     {
+      "level": 3,
+      "html": "잔여 310등, 전체의 20%에 해당"
+     },
+     {
+      "level": 2,
+      "html": "옥상 태양광 발전 <span class=\"num\">92MWh</span> 생산, 전체 사용량의 <span class=\"num\">5.7%</span> 충당"
+     }
+    ]
+   },
+   {
+    "heading": "추진결과",
+    "items": [
+     {
+      "level": 2,
+      "html": "전기 사용량 <span class=\"num\">161만kWh</span>, 전년 대비 <span class=\"delta\">△12.4%</span> 감축"
+     },
+     {
+      "level": 3,
+      "html": "절감량은 목표치(10%, 18.4만kWh) 대비 <span class=\"num\">4.6만kWh</span> 초과"
+     },
+     {
+      "level": 2,
+      "html": "전기요금 6.3억원, 전년 7.2억원 대비 <span class=\"delta\">△0.9억원</span> 절감"
+     },
+     {
+      "level": 2,
+      "html": "<span class=\"accent\">정부 절감목표 대비 2.4%p 초과 달성</span>"
+     },
+     {
+      "level": 2,
+      "html": "직원 에너지 만족도 <span class=\"num\">3.4점</span>(5점 만점), 사무실 더위 불만 <span class=\"num\">41%</span>"
+     }
+    ]
+   },
+   {
+    "heading": "향후계획",
+    "items": [
+     {
+      "level": 2,
+      "html": "잔여 LED 조명 <span class=\"num\">310등</span> 하반기 중 교체 완료 추진"
+     },
+     {
+      "level": 2,
+      "html": "노후 냉난방기 2대 교체, 소요예산 <span class=\"num\">0.8억원</span>"
+     },
+     {
+      "level": 3,
+      "html": "절감액 0.9억원을 교체 재원으로 활용 가능"
+     },
+     {
+      "level": 2,
+      "html": "동절기 난방 절감 실천운동 전개, <span class=\"accent\">절감과 근무환경 개선의 균형 추진</span>"
+     },
+     {
+      "level": 2,
+      "html": "하반기 성과 지속 관리, 연간 결과는 연말 정기보고 예정"
+     }
+    ]
+   }
+  ],
+  "table": null,
+  "attach": null,
+  "purpose_type": "⑥",
+  "_수정시각": "2026-07-31T00:39:59"
+ },
+ {
+  "filename": "bt04-drill",
+  "title": "8월 풍수해 대비 재난대응 합동훈련 실시계획",
+  "byline": "<안전관리부, '26. 7. 25.>",
+  "summary": "8월 20일 풍수해 대비 재난대응 합동훈련을 실시하고, 전년도 미흡사항을 개선해 대응역량을 강화하고자 보고드림",
+  "sections": [
+   {
+    "heading": "훈련 개요",
+    "items": [
+     {
+      "level": 2,
+      "html": "일시: <span class=\"num\">'26. 8. 20.</span> 14:00~17:00"
+     },
+     {
+      "level": 2,
+      "html": "장소: 본사 청사 및 정수센터 일원"
+     },
+     {
+      "level": 2,
+      "html": "참여인원: <span class=\"num\">6개</span> 부서 <span class=\"num\">84명</span>"
+     },
+     {
+      "level": 2,
+      "html": "협조: 관할 소방서·구청 사전 협조 요청"
+     }
+    ]
+   },
+   {
+    "heading": "추진배경·주요내용",
+    "items": [
+     {
+      "level": 2,
+      "html": "배경: 여름철 집중호우 등 풍수해 대비 실전형 합동훈련 시행"
+     },
+     {
+      "level": 2,
+      "html": "시나리오: 집중호우로 지하 전기실 침수·정전 발생 가정"
+     },
+     {
+      "level": 2,
+      "html": "훈련단계: 4단계로 구성해 순차 진행"
+     },
+     {
+      "level": 3,
+      "html": "1단계 상황전파: 침수·정전 상황 전 부서 공유"
+     },
+     {
+      "level": 3,
+      "html": "2단계 비상소집: 유관부서 비상근무 인력 집결"
+     },
+     {
+      "level": 3,
+      "html": "3단계 배수·복구: 지하 전기실 배수·기능 복구 시행"
+     },
+     {
+      "level": 3,
+      "html": "4단계 결과보고: 훈련 결과 종합 정리"
+     }
+    ]
+   },
+   {
+    "heading": "준비사항",
+    "items": [
+     {
+      "level": 2,
+      "html": "전년도 지적사항: 비상연락망 최신화 미흡 확인"
+     },
+     {
+      "level": 3,
+      "html": "비상발전기 기동 <span class=\"num\">12분</span> 소요, 목표 대비 <span class=\"delta\">△7분</span> 초과"
+     },
+     {
+      "level": 2,
+      "html": "연락망 정비: 훈련 전 비상연락망 일제 정비"
+     },
+     {
+      "level": 2,
+      "html": "발전기 정비: 비상발전기 월 1회 시운전 정례화 추진"
+     },
+     {
+      "level": 2,
+      "html": "소요예산: 급식비·자재비 등 <span class=\"num\">350만원</span>"
+     }
+    ]
+   },
+   {
+    "heading": "향후계획",
+    "items": [
+     {
+      "level": 2,
+      "html": "훈련 결과 정리 후 부기관장 보고"
+     },
+     {
+      "level": 2,
+      "html": "<span class=\"accent\">미흡사항 재점검으로 재난대응 태세 강화</span> 추진"
+     },
+     {
+      "level": 3,
+      "html": "차기 합동훈련: 연 <span class=\"num\">2회</span> 정례 시행 검토"
+     }
+    ]
+   }
+  ],
+  "table": null,
+  "attach": "훈련 시나리오 1부",
+  "purpose_type": "⑨",
+  "_수정시각": "2026-07-31T00:39:59"
+ },
+ {
+  "filename": "bt05-incident",
+  "title": "홈페이지·민원시스템 장애 대응결과 보고",
+  "byline": "<경영정보실, '26. 7. 25.>",
+  "summary": "7. 18. 홈페이지·민원시스템 장애로 2시간 35분 서비스 중단 후 정상화, 재발방지대책 마련하여 보고드림",
+  "sections": [
+   {
+    "heading": "상황요약",
+    "items": [
+     {
+      "level": 2,
+      "html": "'26. 7. 18.(금) 09:12 홈페이지·민원시스템 대외 서비스 중단 발생"
+     },
+     {
+      "level": 2,
+      "html": "11:47 <span class=\"accent\">서비스 완전 정상화</span>, 총 <span class=\"num\">2시간 35분</span> 소요"
+     },
+     {
+      "level": 3,
+      "html": "민원 접수 지연 <span class=\"num\">214건</span> 발생"
+     },
+     {
+      "level": 3,
+      "html": "서비스 중단 기간 데이터 손실 없음"
+     }
+    ]
+   },
+   {
+    "heading": "발생원인",
+    "items": [
+     {
+      "level": 2,
+      "html": "스토리지 컨트롤러 펌웨어 결함, 제조사 합동조사로 공식 확인"
+     },
+     {
+      "level": 2,
+      "html": "이중화 자동 절체 미작동으로 수동 전환 실시"
+     },
+     {
+      "level": 3,
+      "html": "수동 전환에 <span class=\"num\">28분</span> 소요, 서비스 순차 복구"
+     }
+    ]
+   },
+   {
+    "heading": "조치내역",
+    "items": [
+     {
+      "level": 2,
+      "html": "스토리지 컨트롤러 펌웨어 긴급 패치 완료"
+     },
+     {
+      "level": 3,
+      "html": "패치 적용일: '26. 7. 20."
+     },
+     {
+      "level": 2,
+      "html": "지연 민원은 당일 중 전량 처리 완료"
+     }
+    ]
+   },
+   {
+    "heading": "향후대응",
+    "items": [
+     {
+      "level": 2,
+      "html": "자동 절체 기능 <span class=\"num\">월 1회</span> 정기 점검 시행"
+     },
+     {
+      "level": 2,
+      "html": "노후 스토리지 '27년 교체 추진, <span class=\"num\">4.5억원</span> 예산 반영"
+     },
+     {
+      "level": 2,
+      "html": "장애 대응 매뉴얼 <span class=\"num\">8월</span> 중 개정"
+     },
+     {
+      "level": 3,
+      "html": "재발방지대책 4건 <span class=\"accent\">차질 없이 이행</span>"
+     }
+    ]
+   }
+  ],
+  "table": null,
+  "attach": null,
+  "purpose_type": "⑤",
+  "_수정시각": "2026-07-31T00:39:59"
+ },
+ {
+  "filename": "fb14-broadcast-final",
+  "title": "노후 안내방송시스템 교체 방식 검토",
+  "byline": "<총무팀, '26. 7. 25.>",
+  "summary": "클라우드형으로 노후 안내방송시스템 교체가 타당, 초기비 절감·확장성 우수하며 부품 단종·고장 급증에 따라 방식 결정을 요청드림",
+  "purpose_type": "②",
+  "sections": [
+   {
+    "heading": "검토배경",
+    "items": [
+     {
+      "level": 2,
+      "html": "현행 안내방송시스템 '14년 도입, 부품 단종으로 수리 불가 통보"
+     },
+     {
+      "level": 2,
+      "html": "고장 건수 '25년 4건→'26년 상반기 <span class=\"num\">9건</span> 급증, 안내 공백 우려"
+     }
+    ]
+   },
+   {
+    "heading": "대안검토",
+    "items": [
+     {
+      "level": 2,
+      "html": "대안① 구축형: 자체 서버 구축·운영 방식"
+     },
+     {
+      "level": 2,
+      "html": "대안② 클라우드형: CSAP 인증 공공 클라우드 서비스 이용"
+     }
+    ]
+   },
+   {
+    "heading": "검토의견",
+    "items": [
+     {
+      "level": 2,
+      "html": "부서 의견: <span class=\"accent\">클라우드형 도입이 타당</span>"
+     },
+     {
+      "level": 2,
+      "html": "초기비·5년 총비용 절감, 유지보수 부담 경감 판단"
+     }
+    ]
+   },
+   {
+    "heading": "향후계획",
+    "items": [
+     {
+      "level": 2,
+      "html": "방식 결정 시 <span class=\"num\">9월</span> 조달계약 체결"
+     },
+     {
+      "level": 2,
+      "html": "연내 시스템 전환 완료"
+     }
+    ]
+   }
+  ],
+  "table": {
+   "after_heading": "대안검토",
+   "caption": "(단위: 억원)",
+   "header": [
+    "구분",
+    "구축형",
+    "클라우드형"
+   ],
+   "rows": [
+    [
+     "초기비",
+     "0.9",
+     "0.2"
     ],
-    "table": null,
-    "attach": null,
-    "purpose_type": "⑥",
-    "_수정시각": "2026-07-31T00:39:59"
+    [
+     "연 이용료",
+     "-",
+     "0.15"
+    ],
+    [
+     "5년 총비용",
+     "1.1",
+     "0.95"
+    ],
+    [
+     "보안",
+     "내부망 운영으로 우수",
+     "CSAP 인증 서비스로 충족"
+    ],
+    [
+     "유지보수",
+     "자체 부담",
+     "사업자 부담"
+    ],
+    [
+     "확장성",
+     "추가 공사 필요",
+     "지사 확장 즉시 가능"
+    ],
+    [
+     "도입기간",
+     "3개월",
+     "1개월"
+    ]
+   ]
   },
-  {
-    "filename": "bt04-drill",
-    "title": "8월 풍수해 대비 재난대응 합동훈련 실시계획",
-    "byline": "<안전관리부, '26. 7. 25.>",
-    "summary": "8월 20일 풍수해 대비 재난대응 합동훈련을 실시하고, 전년도 미흡사항을 개선해 대응역량을 강화하고자 보고드림",
-    "sections": [
-      {
-        "heading": "훈련 개요",
-        "items": [
-          {
-            "level": 2,
-            "html": "일시: <span class=\"num\">'26. 8. 20.</span> 14:00~17:00"
-          },
-          {
-            "level": 2,
-            "html": "장소: 본사 청사 및 정수센터 일원"
-          },
-          {
-            "level": 2,
-            "html": "참여인원: <span class=\"num\">6개</span> 부서 <span class=\"num\">84명</span>"
-          },
-          {
-            "level": 2,
-            "html": "협조: 관할 소방서·구청 사전 협조 요청"
-          }
-        ]
-      },
-      {
-        "heading": "추진배경·주요내용",
-        "items": [
-          {
-            "level": 2,
-            "html": "배경: 여름철 집중호우 등 풍수해 대비 실전형 합동훈련 시행"
-          },
-          {
-            "level": 2,
-            "html": "시나리오: 집중호우로 지하 전기실 침수·정전 발생 가정"
-          },
-          {
-            "level": 2,
-            "html": "훈련단계: 4단계로 구성해 순차 진행"
-          },
-          {
-            "level": 3,
-            "html": "1단계 상황전파: 침수·정전 상황 전 부서 공유"
-          },
-          {
-            "level": 3,
-            "html": "2단계 비상소집: 유관부서 비상근무 인력 집결"
-          },
-          {
-            "level": 3,
-            "html": "3단계 배수·복구: 지하 전기실 배수·기능 복구 시행"
-          },
-          {
-            "level": 3,
-            "html": "4단계 결과보고: 훈련 결과 종합 정리"
-          }
-        ]
-      },
-      {
-        "heading": "준비사항",
-        "items": [
-          {
-            "level": 2,
-            "html": "전년도 지적사항: 비상연락망 최신화 미흡 확인"
-          },
-          {
-            "level": 3,
-            "html": "비상발전기 기동 <span class=\"num\">12분</span> 소요, 목표 대비 <span class=\"delta\">△7분</span> 초과"
-          },
-          {
-            "level": 2,
-            "html": "연락망 정비: 훈련 전 비상연락망 일제 정비"
-          },
-          {
-            "level": 2,
-            "html": "발전기 정비: 비상발전기 월 1회 시운전 정례화 추진"
-          },
-          {
-            "level": 2,
-            "html": "소요예산: 급식비·자재비 등 <span class=\"num\">350만원</span>"
-          }
-        ]
-      },
-      {
-        "heading": "향후계획",
-        "items": [
-          {
-            "level": 2,
-            "html": "훈련 결과 정리 후 부기관장 보고"
-          },
-          {
-            "level": 2,
-            "html": "<span class=\"accent\">미흡사항 재점검으로 재난대응 태세 강화</span> 추진"
-          },
-          {
-            "level": 3,
-            "html": "차기 합동훈련: 연 <span class=\"num\">2회</span> 정례 시행 검토"
-          }
-        ]
-      }
+  "attach": null,
+  "_수정시각": "2026-07-31T00:39:59"
+ },
+ {
+  "filename": "ailocal-test-report",
+  "title": "AI로컬동행 앱 필드테스트 결과 및 개선 요청",
+  "byline": "<AI혁신처, '26. 7. 26.>",
+  "summary": "AI로컬동행 필드테스트 결과 개선 이슈 5건을 확인, 방문인증 체계 등 매우 중요 2건 중심의 앱 개선 반영을 요청드림",
+  "purpose_type": "④",
+  "sections": [
+   {
+    "heading": "테스트 개요",
+    "items": [
+     {
+      "level": 2,
+      "html": "'26. 7. 24. 14:40~18:30 엑스포 과학관 코스 현장 테스트 실시"
+     },
+     {
+      "level": 2,
+      "html": "iOS·안드로이드 기기 각 <span class=\"num\">1대</span>, 코스 순회 후 대전역 편의점 구매인증 수행"
+     }
+    ]
+   },
+   {
+    "heading": "발견 문제점·개선방향",
+    "items": [
+     {
+      "level": 2,
+      "html": "개선 이슈 <span class=\"num\">5건</span> 확인 — 매우 중요 <span class=\"num\">2건</span>(방문인증·홈화면) 포함"
+     }
+    ]
+   },
+   {
+    "heading": "중점 개선 요청",
+    "items": [
+     {
+      "level": 2,
+      "html": "방문인증: <span class=\"accent\">순서식 코스를 체크리스트식으로 전환</span> 요청"
+     },
+     {
+      "level": 3,
+      "html": "코스 시작과 무관하게 방문인증을 세부미션으로 반영, 정복 시 추가 보상"
+     },
+     {
+      "level": 3,
+      "html": "세부미션 완료마다 진척률과 길찾기 카드 노출"
+     },
+     {
+      "level": 2,
+      "html": "홈화면: <span class=\"accent\">캐릭터 말풍선·안내음으로 기능 사용 유도</span> 표출"
+     },
+     {
+      "level": 3,
+      "html": "미션 수행상태를 확인해 맞춤형 제안이면 더욱 효과적"
+     }
+    ]
+   },
+   {
+    "heading": "조치 요청·후속 검증",
+    "items": [
+     {
+      "level": 2,
+      "html": "이슈별 반영 방안과 적용 일정 회신 요청"
+     },
+     {
+      "level": 2,
+      "html": "영수증 인식률은 실환경 샘플 확보 후 재검증 필요"
+     },
+     {
+      "level": 3,
+      "html": "인식 오류 시 관리자 확인절차는 서비스 운영 차원 병행 검토"
+     }
+    ]
+   }
+  ],
+  "table": {
+   "after_heading": "발견 문제점·개선방향",
+   "caption": "",
+   "header": [
+    "구분",
+    "문제",
+    "개선방향",
+    "중요도"
+   ],
+   "rows": [
+    [
+     "방문지 인증",
+     "개별 인증이 코스 미션에 미반영",
+     "체크리스트식 전환·정복 보상",
+     "매우 중요"
     ],
-    "table": null,
-    "attach": "훈련 시나리오 1부",
-    "purpose_type": "⑨",
-    "_수정시각": "2026-07-31T00:39:59"
+    [
+     "홈화면",
+     "행동 유도 정보 부재",
+     "말풍선·안내음 맞춤 제안",
+     "매우 중요"
+    ],
+    [
+     "영수증 인증",
+     "금액 오인식(10,500→14,500원)",
+     "샘플 확충·인식률 재검증",
+     "중요"
+    ],
+    [
+     "길찾기",
+     "실시간 트래킹 미흡",
+     "상세 안내는 네이버지도 연동",
+     "일반"
+    ],
+    [
+     "푸시알림",
+     "안내와 실제 동작 불일치",
+     "안내문구 수정(기능 제외 검토)",
+     "일반"
+    ]
+   ]
   },
-  {
-    "filename": "bt05-incident",
-    "title": "홈페이지·민원시스템 장애 대응결과 보고",
-    "byline": "<경영정보실, '26. 7. 25.>",
-    "summary": "7. 18. 홈페이지·민원시스템 장애로 2시간 35분 서비스 중단 후 정상화, 재발방지대책 마련하여 보고드림",
-    "sections": [
-      {
-        "heading": "상황요약",
-        "items": [
-          {
-            "level": 2,
-            "html": "'26. 7. 18.(금) 09:12 홈페이지·민원시스템 대외 서비스 중단 발생"
-          },
-          {
-            "level": 2,
-            "html": "11:47 <span class=\"accent\">서비스 완전 정상화</span>, 총 <span class=\"num\">2시간 35분</span> 소요"
-          },
-          {
-            "level": 3,
-            "html": "민원 접수 지연 <span class=\"num\">214건</span> 발생"
-          },
-          {
-            "level": 3,
-            "html": "서비스 중단 기간 데이터 손실 없음"
-          }
-        ]
-      },
-      {
-        "heading": "발생원인",
-        "items": [
-          {
-            "level": 2,
-            "html": "스토리지 컨트롤러 펌웨어 결함, 제조사 합동조사로 공식 확인"
-          },
-          {
-            "level": 2,
-            "html": "이중화 자동 절체 미작동으로 수동 전환 실시"
-          },
-          {
-            "level": 3,
-            "html": "수동 전환에 <span class=\"num\">28분</span> 소요, 서비스 순차 복구"
-          }
-        ]
-      },
-      {
-        "heading": "조치내역",
-        "items": [
-          {
-            "level": 2,
-            "html": "스토리지 컨트롤러 펌웨어 긴급 패치 완료"
-          },
-          {
-            "level": 3,
-            "html": "패치 적용일: '26. 7. 20."
-          },
-          {
-            "level": 2,
-            "html": "지연 민원은 당일 중 전량 처리 완료"
-          }
-        ]
-      },
-      {
-        "heading": "향후대응",
-        "items": [
-          {
-            "level": 2,
-            "html": "자동 절체 기능 <span class=\"num\">월 1회</span> 정기 점검 시행"
-          },
-          {
-            "level": 2,
-            "html": "노후 스토리지 '27년 교체 추진, <span class=\"num\">4.5억원</span> 예산 반영"
-          },
-          {
-            "level": 2,
-            "html": "장애 대응 매뉴얼 <span class=\"num\">8월</span> 중 개정"
-          },
-          {
-            "level": 3,
-            "html": "재발방지대책 4건 <span class=\"accent\">차질 없이 이행</span>"
-          }
-        ]
-      }
+  "attach": "참고이미지 모음 1부.",
+  "plan_id": "ailocal-test-2607",
+  "_수정시각": "2026-07-31T00:39:59"
+ },
+ {
+  "filename": "task100-review-request",
+  "title": "부서 업무체계(업무체계 정비) 검토 의견조회",
+  "byline": "<AI혁신처, '26. 7. 26.>",
+  "summary": "규정에서 추출한 부서별 업무 목록의 소관·전결·근거 초안을 '26. 8. 7.까지 확인·의견 회신해 주시기를 요청드림",
+  "sections": [
+   {
+    "heading": "검토 배경",
+    "items": [
+     {
+      "level": 2,
+      "html": "직제규정·위임전결규정에서 부서별 업무를 자동 추출해 초안 구축"
+     },
+     {
+      "level": 2,
+      "html": "소관·전결·근거의 부서 확인을 거쳐 확정본으로 승격 예정"
+     },
+     {
+      "level": 3,
+      "html": "현재는 확정 전 초안 상태"
+     }
+    ]
+   },
+   {
+    "heading": "검토 대상",
+    "items": [
+     {
+      "level": 2,
+      "html": "전 부서 <span class=\"accent\">업무 목록의 소관·전결(한도)·근거 조문</span>"
+     },
+     {
+      "level": 2,
+      "html": "업무별 절차 보드(초안) — 근거 조문 기반 저작"
+     },
+     {
+      "level": 3,
+      "html": "자동 판정 표시(원문대조 확인·검토요망·AI추정) 참고"
+     },
+     {
+      "level": 3,
+      "html": "검토 페이지에서 소속 부서 선택 시 부서별 목록 확인 가능"
+     }
+    ]
+   },
+   {
+    "heading": "검토 방법·요청사항",
+    "items": [
+     {
+      "level": 2,
+      "html": "사내망 검토 페이지 접속(주소 별도 안내) 후 소속 부서 선택"
+     },
+     {
+      "level": 2,
+      "html": "업무별 소관·전결·근거가 실제와 맞으면 '맞음', 다르면 '수정필요' 선택"
+     },
+     {
+      "level": 3,
+      "html": "수정필요 선택 시 의견란에 사유·수정안 기재 요청"
+     },
+     {
+      "level": 2,
+      "html": "검토 완료 후 화면 안내에 따라 검토결과 제출"
+     }
+    ]
+   },
+   {
+    "heading": "회신 기한·활용",
+    "items": [
+     {
+      "level": 2,
+      "html": "회신 기한: <span class=\"accent\">'26. 8. 7.(금)까지</span> — 요청일부터 2주 이내"
+     },
+     {
+      "level": 2,
+      "html": "부서 의견은 확정본 승격과 절차 보드 보완에 반영"
+     },
+     {
+      "level": 2,
+      "html": "문의: AI혁신처"
+     }
+    ]
+   }
+  ],
+  "table": null,
+  "attach": null,
+  "purpose_type": "⑫",
+  "plan_id": "task100-review-2607",
+  "_수정시각": "2026-07-31T00:39:59"
+ },
+ {
+  "filename": "callcenter-ai-review",
+  "title": "민원콜센터 응대율 개선 방안 검토",
+  "byline": "<고객지원처, '26. 8. 5.>",
+  "summary": "AI상담 도입이 인력 증원보다 유리해 도입 여부 결정을 요청드림",
+  "purpose_type": "②",
+  "sections": [
+   {
+    "heading": "검토배경",
+    "items": [
+     {
+      "level": 2,
+      "html": "월평균 인입콜 '25년 2.4만건→'26년 <span class=\"num\">3.1만건</span>, 29% 증가"
+     },
+     {
+      "level": 2,
+      "html": "응대율 84%→<span class=\"delta\">△13%p</span> 하락, 상담원 12명 고정"
+     }
+    ]
+   },
+   {
+    "heading": "대안검토",
+    "items": [
+     {
+      "level": 2,
+      "html": "AI상담 도입: 구축비 <span class=\"num\">1.2억원</span>"
+     },
+     {
+      "level": 2,
+      "html": "인력 4명 증원: 연 인건비 <span class=\"num\">1.8억원</span> 소요"
+     }
+    ]
+   },
+   {
+    "heading": "검토의견",
+    "items": [
+     {
+      "level": 2,
+      "html": "연간 부담이 적은 <span class=\"accent\">AI상담 도입 권고</span>"
+     }
+    ]
+   },
+   {
+    "heading": "향후계획",
+    "items": [
+     {
+      "level": 2,
+      "html": "도입 결정 시 구축 일정·범위 협의 필요"
+     }
+    ]
+   }
+  ],
+  "table": null,
+  "attach": null,
+  "genre": "onepage",
+  "_수정시각": "2026-08-05T14:34:02"
+ },
+ {
+  "filename": "a1-01-charger",
+  "title": "사옥 주차장 전기차 충전기 설치 방안 검토",
+  "byline": "<시설관리처, '26. 8. 5.>",
+  "summary": "직접 설치가 외부 유치보다 회수 기간이 짧아 직접 설치안 결재를 요청드림",
+  "purpose_type": "②",
+  "sections": [
+   {
+    "heading": "검토배경",
+    "items": [
+     {
+      "level": 2,
+      "html": "임직원 전기차 '25년 <span class=\"num\">40대</span>→'26년 <span class=\"num\">71대</span>, 충전 대기 민원 월 12건"
+     },
+     {
+      "level": 2,
+      "html": "주차장 B2 유휴부지 <span class=\"num\">320㎡</span> 활용 가능"
+     }
+    ]
+   },
+   {
+    "heading": "대안비교",
+    "items": [
+     {
+      "level": 2,
+      "html": "직접 설치(6기): 초기 <span class=\"num\">2.4억원</span>, 연 수익 <span class=\"num\">0.5억원</span>"
+     },
+     {
+      "level": 2,
+      "html": "외부 유치: 초기 <span class=\"num\">0원</span>, 연 임대료 <span class=\"num\">0.12억원</span>"
+     },
+     {
+      "level": 3,
+      "html": "회수 기간 직접 4.8년 / 외부는 수익 자체가 작아 비교 대상 아님"
+     }
+    ]
+   },
+   {
+    "heading": "검토의견",
+    "items": [
+     {
+      "level": 2,
+      "html": "회수 기간과 민원 해소를 함께 보면 직접 설치안 권고"
+     }
+    ]
+   },
+   {
+    "heading": "향후계획",
+    "items": [
+     {
+      "level": 2,
+      "html": "결재 시 9월 설계 착수, 12월 준공 목표"
+     }
+    ]
+   }
+  ],
+  "table": null,
+  "attach": null,
+  "genre": "onepage",
+  "_수정시각": "2026-08-06T00:35:30",
+  "show_end_mark": false
+ },
+ {
+  "filename": "a2-03-plan",
+  "title": "노후 사옥 냉난방설비 3개년 교체 추진계획",
+  "byline": "<시설관리처, '26. 8. 5.>",
+  "summary": "노후 냉난방설비를 '27~'29년 3개년 24억원으로 단계 교체하여 에너지 25% 감축을 추진하고자 보고드림",
+  "purpose_type": "③",
+  "sections": [
+   {
+    "heading": "추진배경",
+    "items": [
+     {
+      "level": 2,
+      "html": "본관 냉난방설비 <span class=\"num\">25년</span> 경과, 내용연수 15년 초과"
+     },
+     {
+      "level": 3,
+      "html": "고장 최근 3년 <span class=\"delta\">12건→27건</span>, 유지보수비 연 0.6억원→<span class=\"num\">1.4억원</span>"
+     },
+     {
+      "level": 2,
+      "html": "'25년 하절기 냉방 중단 <span class=\"num\">2회</span>, 민원실 실내온도 31℃ 기록"
+     },
+     {
+      "level": 2,
+      "html": "공공부문 에너지 <span class=\"num\">20%</span> 감축 목표에 따른 고효율 교체 의무 대응"
+     }
+    ]
+   },
+   {
+    "heading": "주요내용",
+    "items": [
+     {
+      "level": 2,
+      "html": "대상은 지하기계실 냉온수기 3대·공조기 18대·배관 <span class=\"num\">1.2km</span>"
+     },
+     {
+      "level": 2,
+      "html": "<span class=\"accent\">에너지 25% 감축·운영비 연 1.8억원 절감</span>이 목표"
+     },
+     {
+      "level": 2,
+      "html": "총사업비 <span class=\"num\">24억원</span>, '27~'29년 3개년 분할 투자"
+     },
+     {
+      "level": 2,
+      "html": "고효율 기기 도입과 건물에너지관리시스템(BEMS) 연계 구축"
+     }
+    ]
+   },
+   {
+    "heading": "추진체계",
+    "items": [
+     {
+      "level": 2,
+      "html": "시설관리처 총괄, 예산 기획조정실·계약 재무처 분담"
+     },
+     {
+      "level": 2,
+      "html": "연차 예산은 본예산 편성 시 반영, 조달청 계약·경쟁입찰 병행"
+     },
+     {
+      "level": 2,
+      "html": "청사 이용 지장 최소화로 <span class=\"accent\">4~5월·10~11월 시공</span>"
+     }
+    ]
+   },
+   {
+    "heading": "향후계획",
+    "items": [
+     {
+      "level": 2,
+      "html": "'26. 9. 기본계획 확정, 10. 설계용역 발주"
+     },
+     {
+      "level": 3,
+      "html": "12. '27년 본예산 <span class=\"num\">10억원</span> 반영, '27. 3. 1차년 공사 발주"
+     },
+     {
+      "level": 2,
+      "html": "연차 준공 후 절감실적 검증, 결과는 이사회 정기 보고"
+     },
+     {
+      "level": 2,
+      "html": "연차 사업비 <span class=\"num\">24억원</span> 편성 반영에 기획조정실 협조 요청"
+     }
+    ]
+   }
+  ],
+  "table": {
+   "after_heading": "추진체계",
+   "caption": "(단위: 억원)",
+   "header": [
+    "구분",
+    "'27년",
+    "'28년",
+    "'29년"
+   ],
+   "rows": [
+    [
+     "주요 공사",
+     "냉온수기 2대 교체",
+     "공조기 18대·배관 교체",
+     "냉온수기 1대·제어설비"
     ],
-    "table": null,
-    "attach": null,
-    "purpose_type": "⑤",
-    "_수정시각": "2026-07-31T00:39:59"
+    [
+     "사업비",
+     "10",
+     "9",
+     "5"
+    ]
+   ]
   },
-  {
-    "filename": "fb14-broadcast-final",
-    "title": "노후 안내방송시스템 교체 방식 검토",
-    "byline": "<총무팀, '26. 7. 25.>",
-    "summary": "클라우드형으로 노후 안내방송시스템 교체가 타당, 초기비 절감·확장성 우수하며 부품 단종·고장 급증에 따라 방식 결정을 요청드림",
-    "purpose_type": "②",
-    "sections": [
-      {
-        "heading": "검토배경",
-        "items": [
-          {
-            "level": 2,
-            "html": "현행 안내방송시스템 '14년 도입, 부품 단종으로 수리 불가 통보"
-          },
-          {
-            "level": 2,
-            "html": "고장 건수 '25년 4건→'26년 상반기 <span class=\"num\">9건</span> 급증, 안내 공백 우려"
-          }
-        ]
-      },
-      {
-        "heading": "대안검토",
-        "items": [
-          {
-            "level": 2,
-            "html": "대안① 구축형: 자체 서버 구축·운영 방식"
-          },
-          {
-            "level": 2,
-            "html": "대안② 클라우드형: CSAP 인증 공공 클라우드 서비스 이용"
-          }
-        ]
-      },
-      {
-        "heading": "검토의견",
-        "items": [
-          {
-            "level": 2,
-            "html": "부서 의견: <span class=\"accent\">클라우드형 도입이 타당</span>"
-          },
-          {
-            "level": 2,
-            "html": "초기비·5년 총비용 절감, 유지보수 부담 경감 판단"
-          }
-        ]
-      },
-      {
-        "heading": "향후계획",
-        "items": [
-          {
-            "level": 2,
-            "html": "방식 결정 시 <span class=\"num\">9월</span> 조달계약 체결"
-          },
-          {
-            "level": 2,
-            "html": "연내 시스템 전환 완료"
-          }
-        ]
-      }
+  "attach": "냉난방설비 실태조사 결과 1부.",
+  "genre": "onepage",
+  "_수정시각": "2026-08-05T21:57:44"
+ },
+ {
+  "filename": "a2-07-agenda",
+  "title": "'27년 조직개편 기본방향 검토 안건",
+  "byline": "<기획조정실, '26. 8. 5.>",
+  "summary": "'27. 1. 1. 시행 목표 조직개편 기본방향 3개안과 통합 범위 선택지를 제8차 임원회의에 상정하여 논의·확정을 요청드림",
+  "purpose_type": "⑦",
+  "sections": [
+   {
+    "heading": "논의배경",
+    "items": [
+     {
+      "level": 2,
+      "html": "'23년 개편 이후 신설 기능 <span class=\"num\">6개</span> 추가, 정원은 <span class=\"num\">512명</span> 동결"
+     },
+     {
+      "level": 2,
+      "html": "부서 간 업무 중복 <span class=\"num\">12건</span>·소관 불명확 <span class=\"num\">8건</span> 자체진단 확인"
+     },
+     {
+      "level": 3,
+      "html": "진단 범위: 5본부 21부서, '26. 6.~7. 전수 조사"
+     },
+     {
+      "level": 2,
+      "html": "'27년 정부 공공기관 혁신계획상 조직 효율화 이행 필요"
+     }
+    ]
+   },
+   {
+    "heading": "안건 주요내용",
+    "items": [
+     {
+      "level": 2,
+      "html": "제8차 임원회의('26. 8. 12. 15:00, 본사 대회의실) 상정"
+     },
+     {
+      "level": 2,
+      "html": "기본방향 <span class=\"num\">3개</span> — 기능통합·현장강화·지원부서 슬림화"
+     },
+     {
+      "level": 3,
+      "html": "기능통합: 유사 3개부 통합, 부서 <span class=\"delta\">21 → 18개</span>"
+     },
+     {
+      "level": 3,
+      "html": "현장강화: 본사 인력 <span class=\"num\">24명</span> 사업소 재배치"
+     },
+     {
+      "level": 3,
+      "html": "지원부서 슬림화: 지원인력 비중 <span class=\"delta\">18.4 → 15%</span>"
+     },
+     {
+      "level": 2,
+      "html": "확정 시 '26. 10. 이사회 상정, '27. 1. 1. 시행"
+     }
+    ]
+   },
+   {
+    "heading": "주요쟁점",
+    "items": [
+     {
+      "level": 2,
+      "html": "통합 범위 — 전면통합안·단계통합안 <span class=\"accent\">택일 필요</span>"
+     },
+     {
+      "level": 3,
+      "html": "전면통합: 중복 즉시 해소, 초기 업무공백 우려"
+     },
+     {
+      "level": 3,
+      "html": "단계통합: 안정적이나 효율화 효과 '28년 이후 발현"
+     },
+     {
+      "level": 2,
+      "html": "재배치 <span class=\"num\">24명</span>의 전보·처우 기준 미정, 노조 협의 선행"
+     },
+     {
+      "level": 2,
+      "html": "신설 데이터관리부 소관을 정보화부서와 조정 필요"
+     }
+    ]
+   },
+   {
+    "heading": "논의사항",
+    "items": [
+     {
+      "level": 2,
+      "html": "기본방향 <span class=\"num\">3개</span> 원안 확정 여부 <span class=\"accent\">의결</span>"
+     },
+     {
+      "level": 2,
+      "html": "통합 범위는 전면·단계 두 안 중 택일 논의"
+     },
+     {
+      "level": 2,
+      "html": "재배치 기준은 인사부서 보완 후 <span class=\"num\">9월</span> 회의 재상정"
+     },
+     {
+      "level": 3,
+      "html": "정원 규정 개정안은 '26. 8. 말까지 마련"
+     }
+    ]
+   }
+  ],
+  "table": null,
+  "attach": null,
+  "genre": "onepage",
+  "_수정시각": "2026-08-05T21:57:45"
+ },
+ {
+  "filename": "a2-08-minutes",
+  "title": "안전관리 실무협의회 개최 결과",
+  "byline": "<안전관리부, '26. 8. 5.>",
+  "summary": "제3차 안전관리 실무협의회 개최 결과, 밀폐공간 작업허가제 9월 전면 시행 등 3개 안건을 확정하였음을 보고드림",
+  "purpose_type": "⑧",
+  "sections": [
+   {
+    "heading": "회의개요",
+    "items": [
+     {
+      "level": 2,
+      "html": "일시·장소: '26. 8. 1.(금) 14:00, 본관 3층 대회의실"
+     },
+     {
+      "level": 2,
+      "html": "참석: 6개 부서 실무자 <span class=\"num\">14명</span>, 협력업체 안전관리자 <span class=\"num\">3명</span>"
+     },
+     {
+      "level": 2,
+      "html": "안건: 상반기 재해현황, 밀폐공간 작업관리 등 <span class=\"num\">3건</span>"
+     }
+    ]
+   },
+   {
+    "heading": "주요논의",
+    "items": [
+     {
+      "level": 2,
+      "html": "상반기 재해 <span class=\"num\">7건</span>, 전년 동기 5건 대비 <span class=\"delta\">▲2건</span> 증가"
+     },
+     {
+      "level": 3,
+      "html": "7건 중 <span class=\"num\">4건</span>이 협력업체 근로자 사고로 확인"
+     },
+     {
+      "level": 2,
+      "html": "밀폐공간 작업허가제 시행 필요성은 이견 없음, 시기만 대립"
+     },
+     {
+      "level": 2,
+      "html": "협력업체 점검주기 월 1회 단축안에 인력 부족 이견 제기"
+     }
+    ]
+   },
+   {
+    "heading": "결정사항",
+    "items": [
+     {
+      "level": 2,
+      "html": "밀폐공간 작업허가제 <span class=\"accent\">9월 1일 전면 시행 확정</span>"
+     },
+     {
+      "level": 3,
+      "html": "8월 중 협력업체 교육 완료를 조건으로 부기, 유예 의견 철회"
+     },
+     {
+      "level": 2,
+      "html": "점검 강화안은 유보 <span class=\"num\">1건</span> 있었으나 다수 의견으로 확정"
+     }
+    ]
+   },
+   {
+    "heading": "조치계획",
+    "items": [
+     {
+      "level": 2,
+      "html": "절차서 개정·협력업체 교육, 안전관리부 8월 말까지"
+     },
+     {
+      "level": 2,
+      "html": "점검인력 <span class=\"num\">1명</span> 증원은 인사부 협의 후 9월 중 배치"
+     },
+     {
+      "level": 2,
+      "html": "이행상황은 9월 말 차기 실무협의회에 보고 예정"
+     }
+    ]
+   }
+  ],
+  "table": {
+   "after_heading": "결정사항",
+   "caption": "(협의회 확정사항 3건)",
+   "header": [
+    "안건",
+    "결정내용",
+    "이견"
+   ],
+   "rows": [
+    [
+     "작업허가제",
+     "9월 1일 전면 시행",
+     "없음"
     ],
-    "table": {
-      "after_heading": "대안검토",
-      "caption": "(단위: 억원)",
-      "header": [
-        "구분",
-        "구축형",
-        "클라우드형"
-      ],
-      "rows": [
-        [
-          "초기비",
-          "0.9",
-          "0.2"
-        ],
-        [
-          "연 이용료",
-          "-",
-          "0.15"
-        ],
-        [
-          "5년 총비용",
-          "1.1",
-          "0.95"
-        ],
-        [
-          "보안",
-          "내부망 운영으로 우수",
-          "CSAP 인증 서비스로 충족"
-        ],
-        [
-          "유지보수",
-          "자체 부담",
-          "사업자 부담"
-        ],
-        [
-          "확장성",
-          "추가 공사 필요",
-          "지사 확장 즉시 가능"
-        ],
-        [
-          "도입기간",
-          "3개월",
-          "1개월"
-        ]
-      ]
-    },
-    "attach": null,
-    "_수정시각": "2026-07-31T00:39:59"
+    [
+     "점검 강화",
+     "월 1회·인력 1명 증원",
+     "유보 1건"
+    ],
+    [
+     "위험성평가",
+     "재해 다발 3개 공정 재실시",
+     "없음"
+    ]
+   ]
   },
-  {
-    "filename": "ailocal-test-report",
-    "title": "AI로컬동행 앱 필드테스트 결과 및 개선 요청",
-    "byline": "<AI혁신처, '26. 7. 26.>",
-    "summary": "AI로컬동행 필드테스트 결과 개선 이슈 5건을 확인, 방문인증 체계 등 매우 중요 2건 중심의 앱 개선 반영을 요청드림",
-    "purpose_type": "④",
-    "sections": [
-      {
-        "heading": "테스트 개요",
-        "items": [
-          {
-            "level": 2,
-            "html": "'26. 7. 24. 14:40~18:30 엑스포 과학관 코스 현장 테스트 실시"
-          },
-          {
-            "level": 2,
-            "html": "iOS·안드로이드 기기 각 <span class=\"num\">1대</span>, 코스 순회 후 대전역 편의점 구매인증 수행"
-          }
-        ]
-      },
-      {
-        "heading": "발견 문제점·개선방향",
-        "items": [
-          {
-            "level": 2,
-            "html": "개선 이슈 <span class=\"num\">5건</span> 확인 — 매우 중요 <span class=\"num\">2건</span>(방문인증·홈화면) 포함"
-          }
-        ]
-      },
-      {
-        "heading": "중점 개선 요청",
-        "items": [
-          {
-            "level": 2,
-            "html": "방문인증: <span class=\"accent\">순서식 코스를 체크리스트식으로 전환</span> 요청"
-          },
-          {
-            "level": 3,
-            "html": "코스 시작과 무관하게 방문인증을 세부미션으로 반영, 정복 시 추가 보상"
-          },
-          {
-            "level": 3,
-            "html": "세부미션 완료마다 진척률과 길찾기 카드 노출"
-          },
-          {
-            "level": 2,
-            "html": "홈화면: <span class=\"accent\">캐릭터 말풍선·안내음으로 기능 사용 유도</span> 표출"
-          },
-          {
-            "level": 3,
-            "html": "미션 수행상태를 확인해 맞춤형 제안이면 더욱 효과적"
-          }
-        ]
-      },
-      {
-        "heading": "조치 요청·후속 검증",
-        "items": [
-          {
-            "level": 2,
-            "html": "이슈별 반영 방안과 적용 일정 회신 요청"
-          },
-          {
-            "level": 2,
-            "html": "영수증 인식률은 실환경 샘플 확보 후 재검증 필요"
-          },
-          {
-            "level": 3,
-            "html": "인식 오류 시 관리자 확인절차는 서비스 운영 차원 병행 검토"
-          }
-        ]
-      }
+  "attach": "실무협의회 회의록 1부.",
+  "genre": "onepage",
+  "_수정시각": "2026-08-05T21:57:45"
+ },
+ {
+  "filename": "a2-10-alliance",
+  "title": "한빛대학교 산학협력 협약 체결 검토",
+  "byline": "<미래전략처, '26. 8. 5.>",
+  "summary": "한빛대학교와 3년 포괄 산학협력 협약 체결을 권고하며, 연 1.2억원 규모 공동과제 4건 추진 여부 결정을 요청드림",
+  "purpose_type": "⑩",
+  "sections": [
+   {
+    "heading": "제휴배경",
+    "items": [
+     {
+      "level": 2,
+      "html": "지역인재 채용비율 <span class=\"num\">21%</span>로 의무기준 35% 하회"
+     },
+     {
+      "level": 2,
+      "html": "자체 연구인력 부족으로 스마트 계량 실증과제 3건 지연"
+     },
+     {
+      "level": 2,
+      "html": "한빛대 산학협력단 '26. 6. 공동연구 협약 제안"
+     }
+    ]
+   },
+   {
+    "heading": "협력내용",
+    "items": [
+     {
+      "level": 2,
+      "html": "공동연구·현장실습·채용연계 3개 분야 포괄 협약(3년)"
+     },
+     {
+      "level": 2,
+      "html": "기관은 실증현장·계량데이터, 대학은 연구인력·장비 제공"
+     },
+     {
+      "level": 2,
+      "html": "공동과제 4건, 연 <span class=\"num\">1.2억원</span> 분담(기관 8천만·대학 4천만)"
+     }
+    ]
+   },
+   {
+    "heading": "기대효과·리스크",
+    "items": [
+     {
+      "level": 2,
+      "html": "지역인재 채용비율 '27년 <span class=\"num\">35%</span> 달성 전망"
+     },
+     {
+      "level": 2,
+      "html": "실증기간 18→12개월 단축(<span class=\"delta\">△6개월</span>), 용역비 연 0.6억원 절감"
+     },
+     {
+      "level": 2,
+      "html": "지식재산권 귀속·성과 미달 책임 조항 미비 시 분쟁 소지"
+     }
+    ]
+   },
+   {
+    "heading": "검토의견·향후계획",
+    "items": [
+     {
+      "level": 2,
+      "html": "3개 분야 <span class=\"accent\">포괄 협약 체결 타당</span>, 과제별 세부약정 병행 조건"
+     },
+     {
+      "level": 2,
+      "html": "지재권 공동소유·성과평가·중도해지 조항 명문화 후 서명 권고"
+     },
+     {
+      "level": 3,
+      "html": "8월 법무검토, 9월 이사회 보고, <span class=\"num\">10월</span> 협약 체결"
+     }
+    ]
+   }
+  ],
+  "table": {
+   "after_heading": "협력내용",
+   "caption": "(3년 기준)",
+   "header": [
+    "구분",
+    "포괄 협약",
+    "과제한정 협약"
+   ],
+   "rows": [
+    [
+     "협력 범위",
+     "연구·실습·채용 3개 분야",
+     "개별 과제 단위"
     ],
-    "table": {
-      "after_heading": "발견 문제점·개선방향",
-      "caption": "",
-      "header": [
-        "구분",
-        "문제",
-        "개선방향",
-        "중요도"
-      ],
-      "rows": [
-        [
-          "방문지 인증",
-          "개별 인증이 코스 미션에 미반영",
-          "체크리스트식 전환·정복 보상",
-          "매우 중요"
-        ],
-        [
-          "홈화면",
-          "행동 유도 정보 부재",
-          "말풍선·안내음 맞춤 제안",
-          "매우 중요"
-        ],
-        [
-          "영수증 인증",
-          "금액 오인식(10,500→14,500원)",
-          "샘플 확충·인식률 재검증",
-          "중요"
-        ],
-        [
-          "길찾기",
-          "실시간 트래킹 미흡",
-          "상세 안내는 네이버지도 연동",
-          "일반"
-        ],
-        [
-          "푸시알림",
-          "안내와 실제 동작 불일치",
-          "안내문구 수정(기능 제외 검토)",
-          "일반"
-        ]
-      ]
-    },
-    "attach": "참고이미지 모음 1부.",
-    "plan_id": "ailocal-test-2607",
-    "_수정시각": "2026-07-31T00:39:59"
+    [
+     "소요 예산",
+     "연 1.2억원 고정",
+     "과제별 산정, 연 변동"
+    ],
+    [
+     "조정 시점",
+     "3년 만료 시 재협의",
+     "과제 종료 시마다 종료"
+    ]
+   ]
   },
-  {
-    "filename": "task100-review-request",
-    "title": "부서 업무체계(업무체계 정비) 검토 의견조회",
-    "byline": "<AI혁신처, '26. 7. 26.>",
-    "summary": "규정에서 추출한 부서별 업무 목록의 소관·전결·근거 초안을 '26. 8. 7.까지 확인·의견 회신해 주시기를 요청드림",
-    "sections": [
-      {
-        "heading": "검토 배경",
-        "items": [
-          {
-            "level": 2,
-            "html": "직제규정·위임전결규정에서 부서별 업무를 자동 추출해 초안 구축"
-          },
-          {
-            "level": 2,
-            "html": "소관·전결·근거의 부서 확인을 거쳐 확정본으로 승격 예정"
-          },
-          {
-            "level": 3,
-            "html": "현재는 확정 전 초안 상태"
-          }
-        ]
-      },
-      {
-        "heading": "검토 대상",
-        "items": [
-          {
-            "level": 2,
-            "html": "전 부서 <span class=\"accent\">업무 목록의 소관·전결(한도)·근거 조문</span>"
-          },
-          {
-            "level": 2,
-            "html": "업무별 절차 보드(초안) — 근거 조문 기반 저작"
-          },
-          {
-            "level": 3,
-            "html": "자동 판정 표시(원문대조 확인·검토요망·AI추정) 참고"
-          },
-          {
-            "level": 3,
-            "html": "검토 페이지에서 소속 부서 선택 시 부서별 목록 확인 가능"
-          }
-        ]
-      },
-      {
-        "heading": "검토 방법·요청사항",
-        "items": [
-          {
-            "level": 2,
-            "html": "사내망 검토 페이지 접속(주소 별도 안내) 후 소속 부서 선택"
-          },
-          {
-            "level": 2,
-            "html": "업무별 소관·전결·근거가 실제와 맞으면 '맞음', 다르면 '수정필요' 선택"
-          },
-          {
-            "level": 3,
-            "html": "수정필요 선택 시 의견란에 사유·수정안 기재 요청"
-          },
-          {
-            "level": 2,
-            "html": "검토 완료 후 화면 안내에 따라 검토결과 제출"
-          }
-        ]
-      },
-      {
-        "heading": "회신 기한·활용",
-        "items": [
-          {
-            "level": 2,
-            "html": "회신 기한: <span class=\"accent\">'26. 8. 7.(금)까지</span> — 요청일부터 2주 이내"
-          },
-          {
-            "level": 2,
-            "html": "부서 의견은 확정본 승격과 절차 보드 보완에 반영"
-          },
-          {
-            "level": 2,
-            "html": "문의: AI혁신처"
-          }
-        ]
-      }
+  "attach": null,
+  "genre": "onepage",
+  "_수정시각": "2026-08-05T21:57:45"
+ },
+ {
+  "filename": "a2-11-budget",
+  "title": "민원실 노후 PC 45대 교체 구매 품의",
+  "byline": "<민원지원과, '26. 8. 5.>",
+  "summary": "민원실 노후 PC 45대를 종합쇼핑몰 최저가로 일괄 교체하고자 자산취득비 5,850만원 집행 승인을 요청드림",
+  "purpose_type": "⑪",
+  "genre": "onepage",
+  "sections": [
+   {
+    "heading": "추진배경",
+    "items": [
+     {
+      "level": 2,
+      "html": "민원실 PC <span class=\"num\">45대</span> 중 <span class=\"num\">41대</span>가 '19년 도입분으로 내용연수 <span class=\"num\">5년</span> 초과"
+     },
+     {
+      "level": 2,
+      "html": "월평균 장애 <span class=\"num\">18건</span>, 창구 처리 중단 건당 평균 <span class=\"num\">12분</span> 발생"
+     },
+     {
+      "level": 3,
+      "html": "'26년 상반기 수리비 <span class=\"num\">240만원</span> 집행, 부품 단종으로 수리 지연 3건"
+     },
+     {
+      "level": 2,
+      "html": "구 운영체제 기술지원 종료로 '26년 정보보안 진단 지적사항 <span class=\"num\">2건</span> 통보"
+     }
+    ]
+   },
+   {
+    "heading": "산출근거",
+    "items": [
+     {
+      "level": 2,
+      "html": "데스크톱 45대 118만원, 모니터 45대 12만원 — 계 <span class=\"num\">5,850만원</span>"
+     },
+     {
+      "level": 2,
+      "html": "종합쇼핑몰 3개사 중 A사 <span class=\"num\">118만원</span> 최저(B사 126, C사 131)"
+     },
+     {
+      "level": 2,
+      "html": "예산과목은 자산취득비, 편성액 <span class=\"num\">6,000만원</span> 중 잔액 150만원"
+     }
+    ]
+   },
+   {
+    "heading": "추진방법·소요예산",
+    "items": [
+     {
+      "level": 2,
+      "html": "조달청 종합쇼핑몰 제3자단가계약 구매, 소요액 <span class=\"num\">5,850만원</span> 집행"
+     },
+     {
+      "level": 2,
+      "html": "승인 즉시 8월 2주 구매요청, 8월 4주 납품, 9월 1주 설치·자료 이관 완료"
+     },
+     {
+      "level": 2,
+      "html": "기존 45대는 불용 결정 후 매각, 사용 가능 4대는 예비용 재배치"
+     }
+    ]
+   },
+   {
+    "heading": "기대효과",
+    "items": [
+     {
+      "level": 2,
+      "html": "장애 월 18건→<span class=\"num\">3건</span> 이하(<span class=\"delta\">△15건</span>), 창구 중단 연 <span class=\"num\">36시간</span> 감소"
+     },
+     {
+      "level": 2,
+      "html": "수리·부품비 연 <span class=\"num\">480만원</span> 절감, 창구 처리시간 건당 4.5분→<span class=\"num\">3.8분</span> 단축"
+     }
+    ]
+   }
+  ],
+  "table": {
+   "after_heading": "산출근거",
+   "caption": "(단위: 천원)",
+   "header": [
+    "품목",
+    "규격",
+    "수량",
+    "단가",
+    "금액"
+   ],
+   "rows": [
+    [
+     "데스크톱 PC",
+     "SSD 512GB·메모리 16GB",
+     "45대",
+     "1,180",
+     "53,100"
     ],
-    "table": null,
-    "attach": null,
-    "purpose_type": "⑫",
-    "plan_id": "task100-review-2607",
-    "_수정시각": "2026-07-31T00:39:59"
+    [
+     "모니터",
+     "24형 광시야각",
+     "45대",
+     "120",
+     "5,400"
+    ],
+    [
+     "계",
+     "-",
+     "-",
+     "-",
+     "58,500"
+    ]
+   ]
   },
-  {
-    "filename": "callcenter-ai-review",
-    "title": "민원콜센터 응대율 개선 방안 검토",
-    "byline": "<고객지원처, '26. 8. 5.>",
-    "summary": "AI상담 도입이 인력 증원보다 유리해 도입 여부 결정을 요청드림",
-    "purpose_type": "②",
-    "sections": [
-      {
-        "heading": "검토배경",
-        "items": [
-          {
-            "level": 2,
-            "html": "월평균 인입콜 '25년 2.4만건→'26년 <span class=\"num\">3.1만건</span>, 29% 증가"
-          },
-          {
-            "level": 2,
-            "html": "응대율 84%→<span class=\"delta\">△13%p</span> 하락, 상담원 12명 고정"
-          }
-        ]
-      },
-      {
-        "heading": "대안검토",
-        "items": [
-          {
-            "level": 2,
-            "html": "AI상담 도입: 구축비 <span class=\"num\">1.2억원</span>"
-          },
-          {
-            "level": 2,
-            "html": "인력 4명 증원: 연 인건비 <span class=\"num\">1.8억원</span> 소요"
-          }
-        ]
-      },
-      {
-        "heading": "검토의견",
-        "items": [
-          {
-            "level": 2,
-            "html": "연간 부담이 적은 <span class=\"accent\">AI상담 도입 권고</span>"
-          }
-        ]
-      },
-      {
-        "heading": "향후계획",
-        "items": [
-          {
-            "level": 2,
-            "html": "도입 결정 시 구축 일정·범위 협의 필요"
-          }
-        ]
-      }
-    ],
-    "table": null,
-    "attach": null,
-    "genre": "onepage",
-    "_수정시각": "2026-08-05T14:34:02"
-  },
-  {
-    "filename": "a1-01-charger",
-    "title": "사옥 주차장 전기차 충전기 설치 방안 검토",
-    "byline": "<시설관리처, '26. 8. 5.>",
-    "summary": "직접 설치가 외부 유치보다 회수 기간이 짧아 직접 설치안 결재를 요청드림",
-    "purpose_type": "②",
-    "sections": [
-      {
-        "heading": "검토배경",
-        "items": [
-          {
-            "level": 2,
-            "html": "임직원 전기차 '25년 <span class=\"num\">40대</span>→'26년 <span class=\"num\">71대</span>, 충전 대기 민원 월 12건"
-          },
-          {
-            "level": 2,
-            "html": "주차장 B2 유휴부지 <span class=\"num\">320㎡</span> 활용 가능"
-          }
-        ]
-      },
-      {
-        "heading": "대안비교",
-        "items": [
-          {
-            "level": 2,
-            "html": "직접 설치(6기): 초기 <span class=\"num\">2.4억원</span>, 연 수익 <span class=\"num\">0.5억원</span>"
-          },
-          {
-            "level": 2,
-            "html": "외부 유치: 초기 <span class=\"num\">0원</span>, 연 임대료 <span class=\"num\">0.12억원</span>"
-          },
-          {
-            "level": 3,
-            "html": "회수 기간 직접 4.8년 / 외부는 수익 자체가 작아 비교 대상 아님"
-          }
-        ]
-      },
-      {
-        "heading": "검토의견",
-        "items": [
-          {
-            "level": 2,
-            "html": "회수 기간과 민원 해소를 함께 보면 직접 설치안 권고"
-          }
-        ]
-      },
-      {
-        "heading": "향후계획",
-        "items": [
-          {
-            "level": 2,
-            "html": "결재 시 9월 설계 착수, 12월 준공 목표"
-          }
-        ]
-      }
-    ],
-    "table": null,
-    "attach": null,
-    "genre": "onepage",
-    "_수정시각": "2026-08-06T00:35:30",
-    "show_end_mark": false
-  },
-  {
-    "filename": "a2-03-plan",
-    "title": "노후 사옥 냉난방설비 3개년 교체 추진계획",
-    "byline": "<시설관리처, '26. 8. 5.>",
-    "summary": "노후 냉난방설비를 '27~'29년 3개년 24억원으로 단계 교체하여 에너지 25% 감축을 추진하고자 보고드림",
-    "purpose_type": "③",
-    "sections": [
-      {
-        "heading": "추진배경",
-        "items": [
-          {
-            "level": 2,
-            "html": "본관 냉난방설비 <span class=\"num\">25년</span> 경과, 내용연수 15년 초과"
-          },
-          {
-            "level": 3,
-            "html": "고장 최근 3년 <span class=\"delta\">12건→27건</span>, 유지보수비 연 0.6억원→<span class=\"num\">1.4억원</span>"
-          },
-          {
-            "level": 2,
-            "html": "'25년 하절기 냉방 중단 <span class=\"num\">2회</span>, 민원실 실내온도 31℃ 기록"
-          },
-          {
-            "level": 2,
-            "html": "공공부문 에너지 <span class=\"num\">20%</span> 감축 목표에 따른 고효율 교체 의무 대응"
-          }
-        ]
-      },
-      {
-        "heading": "주요내용",
-        "items": [
-          {
-            "level": 2,
-            "html": "대상은 지하기계실 냉온수기 3대·공조기 18대·배관 <span class=\"num\">1.2km</span>"
-          },
-          {
-            "level": 2,
-            "html": "<span class=\"accent\">에너지 25% 감축·운영비 연 1.8억원 절감</span>이 목표"
-          },
-          {
-            "level": 2,
-            "html": "총사업비 <span class=\"num\">24억원</span>, '27~'29년 3개년 분할 투자"
-          },
-          {
-            "level": 2,
-            "html": "고효율 기기 도입과 건물에너지관리시스템(BEMS) 연계 구축"
-          }
-        ]
-      },
-      {
-        "heading": "추진체계",
-        "items": [
-          {
-            "level": 2,
-            "html": "시설관리처 총괄, 예산 기획조정실·계약 재무처 분담"
-          },
-          {
-            "level": 2,
-            "html": "연차 예산은 본예산 편성 시 반영, 조달청 계약·경쟁입찰 병행"
-          },
-          {
-            "level": 2,
-            "html": "청사 이용 지장 최소화로 <span class=\"accent\">4~5월·10~11월 시공</span>"
-          }
-        ]
-      },
-      {
-        "heading": "향후계획",
-        "items": [
-          {
-            "level": 2,
-            "html": "'26. 9. 기본계획 확정, 10. 설계용역 발주"
-          },
-          {
-            "level": 3,
-            "html": "12. '27년 본예산 <span class=\"num\">10억원</span> 반영, '27. 3. 1차년 공사 발주"
-          },
-          {
-            "level": 2,
-            "html": "연차 준공 후 절감실적 검증, 결과는 이사회 정기 보고"
-          },
-          {
-            "level": 2,
-            "html": "연차 사업비 <span class=\"num\">24억원</span> 편성 반영에 기획조정실 협조 요청"
-          }
-        ]
-      }
-    ],
-    "table": {
-      "after_heading": "추진체계",
-      "caption": "(단위: 억원)",
-      "header": [
-        "구분",
-        "'27년",
-        "'28년",
-        "'29년"
-      ],
-      "rows": [
-        [
-          "주요 공사",
-          "냉온수기 2대 교체",
-          "공조기 18대·배관 교체",
-          "냉온수기 1대·제어설비"
-        ],
-        [
-          "사업비",
-          "10",
-          "9",
-          "5"
-        ]
-      ]
-    },
-    "attach": "냉난방설비 실태조사 결과 1부.",
-    "genre": "onepage",
-    "_수정시각": "2026-08-05T21:57:44"
-  },
-  {
-    "filename": "a2-07-agenda",
-    "title": "'27년 조직개편 기본방향 검토 안건",
-    "byline": "<기획조정실, '26. 8. 5.>",
-    "summary": "'27. 1. 1. 시행 목표 조직개편 기본방향 3개안과 통합 범위 선택지를 제8차 임원회의에 상정하여 논의·확정을 요청드림",
-    "purpose_type": "⑦",
-    "sections": [
-      {
-        "heading": "논의배경",
-        "items": [
-          {
-            "level": 2,
-            "html": "'23년 개편 이후 신설 기능 <span class=\"num\">6개</span> 추가, 정원은 <span class=\"num\">512명</span> 동결"
-          },
-          {
-            "level": 2,
-            "html": "부서 간 업무 중복 <span class=\"num\">12건</span>·소관 불명확 <span class=\"num\">8건</span> 자체진단 확인"
-          },
-          {
-            "level": 3,
-            "html": "진단 범위: 5본부 21부서, '26. 6.~7. 전수 조사"
-          },
-          {
-            "level": 2,
-            "html": "'27년 정부 공공기관 혁신계획상 조직 효율화 이행 필요"
-          }
-        ]
-      },
-      {
-        "heading": "안건 주요내용",
-        "items": [
-          {
-            "level": 2,
-            "html": "제8차 임원회의('26. 8. 12. 15:00, 본사 대회의실) 상정"
-          },
-          {
-            "level": 2,
-            "html": "기본방향 <span class=\"num\">3개</span> — 기능통합·현장강화·지원부서 슬림화"
-          },
-          {
-            "level": 3,
-            "html": "기능통합: 유사 3개부 통합, 부서 <span class=\"delta\">21 → 18개</span>"
-          },
-          {
-            "level": 3,
-            "html": "현장강화: 본사 인력 <span class=\"num\">24명</span> 사업소 재배치"
-          },
-          {
-            "level": 3,
-            "html": "지원부서 슬림화: 지원인력 비중 <span class=\"delta\">18.4 → 15%</span>"
-          },
-          {
-            "level": 2,
-            "html": "확정 시 '26. 10. 이사회 상정, '27. 1. 1. 시행"
-          }
-        ]
-      },
-      {
-        "heading": "주요쟁점",
-        "items": [
-          {
-            "level": 2,
-            "html": "통합 범위 — 전면통합안·단계통합안 <span class=\"accent\">택일 필요</span>"
-          },
-          {
-            "level": 3,
-            "html": "전면통합: 중복 즉시 해소, 초기 업무공백 우려"
-          },
-          {
-            "level": 3,
-            "html": "단계통합: 안정적이나 효율화 효과 '28년 이후 발현"
-          },
-          {
-            "level": 2,
-            "html": "재배치 <span class=\"num\">24명</span>의 전보·처우 기준 미정, 노조 협의 선행"
-          },
-          {
-            "level": 2,
-            "html": "신설 데이터관리부 소관을 정보화부서와 조정 필요"
-          }
-        ]
-      },
-      {
-        "heading": "논의사항",
-        "items": [
-          {
-            "level": 2,
-            "html": "기본방향 <span class=\"num\">3개</span> 원안 확정 여부 <span class=\"accent\">의결</span>"
-          },
-          {
-            "level": 2,
-            "html": "통합 범위는 전면·단계 두 안 중 택일 논의"
-          },
-          {
-            "level": 2,
-            "html": "재배치 기준은 인사부서 보완 후 <span class=\"num\">9월</span> 회의 재상정"
-          },
-          {
-            "level": 3,
-            "html": "정원 규정 개정안은 '26. 8. 말까지 마련"
-          }
-        ]
-      }
-    ],
-    "table": null,
-    "attach": null,
-    "genre": "onepage",
-    "_수정시각": "2026-08-05T21:57:45"
-  },
-  {
-    "filename": "a2-08-minutes",
-    "title": "안전관리 실무협의회 개최 결과",
-    "byline": "<안전관리부, '26. 8. 5.>",
-    "summary": "제3차 안전관리 실무협의회 개최 결과, 밀폐공간 작업허가제 9월 전면 시행 등 3개 안건을 확정하였음을 보고드림",
-    "purpose_type": "⑧",
-    "sections": [
-      {
-        "heading": "회의개요",
-        "items": [
-          {
-            "level": 2,
-            "html": "일시·장소: '26. 8. 1.(금) 14:00, 본관 3층 대회의실"
-          },
-          {
-            "level": 2,
-            "html": "참석: 6개 부서 실무자 <span class=\"num\">14명</span>, 협력업체 안전관리자 <span class=\"num\">3명</span>"
-          },
-          {
-            "level": 2,
-            "html": "안건: 상반기 재해현황, 밀폐공간 작업관리 등 <span class=\"num\">3건</span>"
-          }
-        ]
-      },
-      {
-        "heading": "주요논의",
-        "items": [
-          {
-            "level": 2,
-            "html": "상반기 재해 <span class=\"num\">7건</span>, 전년 동기 5건 대비 <span class=\"delta\">▲2건</span> 증가"
-          },
-          {
-            "level": 3,
-            "html": "7건 중 <span class=\"num\">4건</span>이 협력업체 근로자 사고로 확인"
-          },
-          {
-            "level": 2,
-            "html": "밀폐공간 작업허가제 시행 필요성은 이견 없음, 시기만 대립"
-          },
-          {
-            "level": 2,
-            "html": "협력업체 점검주기 월 1회 단축안에 인력 부족 이견 제기"
-          }
-        ]
-      },
-      {
-        "heading": "결정사항",
-        "items": [
-          {
-            "level": 2,
-            "html": "밀폐공간 작업허가제 <span class=\"accent\">9월 1일 전면 시행 확정</span>"
-          },
-          {
-            "level": 3,
-            "html": "8월 중 협력업체 교육 완료를 조건으로 부기, 유예 의견 철회"
-          },
-          {
-            "level": 2,
-            "html": "점검 강화안은 유보 <span class=\"num\">1건</span> 있었으나 다수 의견으로 확정"
-          }
-        ]
-      },
-      {
-        "heading": "조치계획",
-        "items": [
-          {
-            "level": 2,
-            "html": "절차서 개정·협력업체 교육, 안전관리부 8월 말까지"
-          },
-          {
-            "level": 2,
-            "html": "점검인력 <span class=\"num\">1명</span> 증원은 인사부 협의 후 9월 중 배치"
-          },
-          {
-            "level": 2,
-            "html": "이행상황은 9월 말 차기 실무협의회에 보고 예정"
-          }
-        ]
-      }
-    ],
-    "table": {
-      "after_heading": "결정사항",
-      "caption": "(협의회 확정사항 3건)",
-      "header": [
-        "안건",
-        "결정내용",
-        "이견"
-      ],
-      "rows": [
-        [
-          "작업허가제",
-          "9월 1일 전면 시행",
-          "없음"
-        ],
-        [
-          "점검 강화",
-          "월 1회·인력 1명 증원",
-          "유보 1건"
-        ],
-        [
-          "위험성평가",
-          "재해 다발 3개 공정 재실시",
-          "없음"
-        ]
-      ]
-    },
-    "attach": "실무협의회 회의록 1부.",
-    "genre": "onepage",
-    "_수정시각": "2026-08-05T21:57:45"
-  },
-  {
-    "filename": "a2-10-alliance",
-    "title": "한빛대학교 산학협력 협약 체결 검토",
-    "byline": "<미래전략처, '26. 8. 5.>",
-    "summary": "한빛대학교와 3년 포괄 산학협력 협약 체결을 권고하며, 연 1.2억원 규모 공동과제 4건 추진 여부 결정을 요청드림",
-    "purpose_type": "⑩",
-    "sections": [
-      {
-        "heading": "제휴배경",
-        "items": [
-          {
-            "level": 2,
-            "html": "지역인재 채용비율 <span class=\"num\">21%</span>로 의무기준 35% 하회"
-          },
-          {
-            "level": 2,
-            "html": "자체 연구인력 부족으로 스마트 계량 실증과제 3건 지연"
-          },
-          {
-            "level": 2,
-            "html": "한빛대 산학협력단 '26. 6. 공동연구 협약 제안"
-          }
-        ]
-      },
-      {
-        "heading": "협력내용",
-        "items": [
-          {
-            "level": 2,
-            "html": "공동연구·현장실습·채용연계 3개 분야 포괄 협약(3년)"
-          },
-          {
-            "level": 2,
-            "html": "기관은 실증현장·계량데이터, 대학은 연구인력·장비 제공"
-          },
-          {
-            "level": 2,
-            "html": "공동과제 4건, 연 <span class=\"num\">1.2억원</span> 분담(기관 8천만·대학 4천만)"
-          }
-        ]
-      },
-      {
-        "heading": "기대효과·리스크",
-        "items": [
-          {
-            "level": 2,
-            "html": "지역인재 채용비율 '27년 <span class=\"num\">35%</span> 달성 전망"
-          },
-          {
-            "level": 2,
-            "html": "실증기간 18→12개월 단축(<span class=\"delta\">△6개월</span>), 용역비 연 0.6억원 절감"
-          },
-          {
-            "level": 2,
-            "html": "지식재산권 귀속·성과 미달 책임 조항 미비 시 분쟁 소지"
-          }
-        ]
-      },
-      {
-        "heading": "검토의견·향후계획",
-        "items": [
-          {
-            "level": 2,
-            "html": "3개 분야 <span class=\"accent\">포괄 협약 체결 타당</span>, 과제별 세부약정 병행 조건"
-          },
-          {
-            "level": 2,
-            "html": "지재권 공동소유·성과평가·중도해지 조항 명문화 후 서명 권고"
-          },
-          {
-            "level": 3,
-            "html": "8월 법무검토, 9월 이사회 보고, <span class=\"num\">10월</span> 협약 체결"
-          }
-        ]
-      }
-    ],
-    "table": {
-      "after_heading": "협력내용",
-      "caption": "(3년 기준)",
-      "header": [
-        "구분",
-        "포괄 협약",
-        "과제한정 협약"
-      ],
-      "rows": [
-        [
-          "협력 범위",
-          "연구·실습·채용 3개 분야",
-          "개별 과제 단위"
-        ],
-        [
-          "소요 예산",
-          "연 1.2억원 고정",
-          "과제별 산정, 연 변동"
-        ],
-        [
-          "조정 시점",
-          "3년 만료 시 재협의",
-          "과제 종료 시마다 종료"
-        ]
-      ]
-    },
-    "attach": null,
-    "genre": "onepage",
-    "_수정시각": "2026-08-05T21:57:45"
-  },
-  {
-    "filename": "a2-11-budget",
-    "title": "민원실 노후 PC 45대 교체 구매 품의",
-    "byline": "<민원지원과, '26. 8. 5.>",
-    "summary": "민원실 노후 PC 45대를 종합쇼핑몰 최저가로 일괄 교체하고자 자산취득비 5,850만원 집행 승인을 요청드림",
-    "purpose_type": "⑪",
-    "genre": "onepage",
-    "sections": [
-      {
-        "heading": "추진배경",
-        "items": [
-          {
-            "level": 2,
-            "html": "민원실 PC <span class=\"num\">45대</span> 중 <span class=\"num\">41대</span>가 '19년 도입분으로 내용연수 <span class=\"num\">5년</span> 초과"
-          },
-          {
-            "level": 2,
-            "html": "월평균 장애 <span class=\"num\">18건</span>, 창구 처리 중단 건당 평균 <span class=\"num\">12분</span> 발생"
-          },
-          {
-            "level": 3,
-            "html": "'26년 상반기 수리비 <span class=\"num\">240만원</span> 집행, 부품 단종으로 수리 지연 3건"
-          },
-          {
-            "level": 2,
-            "html": "구 운영체제 기술지원 종료로 '26년 정보보안 진단 지적사항 <span class=\"num\">2건</span> 통보"
-          }
-        ]
-      },
-      {
-        "heading": "산출근거",
-        "items": [
-          {
-            "level": 2,
-            "html": "데스크톱 45대 118만원, 모니터 45대 12만원 — 계 <span class=\"num\">5,850만원</span>"
-          },
-          {
-            "level": 2,
-            "html": "종합쇼핑몰 3개사 중 A사 <span class=\"num\">118만원</span> 최저(B사 126, C사 131)"
-          },
-          {
-            "level": 2,
-            "html": "예산과목은 자산취득비, 편성액 <span class=\"num\">6,000만원</span> 중 잔액 150만원"
-          }
-        ]
-      },
-      {
-        "heading": "추진방법·소요예산",
-        "items": [
-          {
-            "level": 2,
-            "html": "조달청 종합쇼핑몰 제3자단가계약 구매, 소요액 <span class=\"num\">5,850만원</span> 집행"
-          },
-          {
-            "level": 2,
-            "html": "승인 즉시 8월 2주 구매요청, 8월 4주 납품, 9월 1주 설치·자료 이관 완료"
-          },
-          {
-            "level": 2,
-            "html": "기존 45대는 불용 결정 후 매각, 사용 가능 4대는 예비용 재배치"
-          }
-        ]
-      },
-      {
-        "heading": "기대효과",
-        "items": [
-          {
-            "level": 2,
-            "html": "장애 월 18건→<span class=\"num\">3건</span> 이하(<span class=\"delta\">△15건</span>), 창구 중단 연 <span class=\"num\">36시간</span> 감소"
-          },
-          {
-            "level": 2,
-            "html": "수리·부품비 연 <span class=\"num\">480만원</span> 절감, 창구 처리시간 건당 4.5분→<span class=\"num\">3.8분</span> 단축"
-          }
-        ]
-      }
-    ],
-    "table": {
-      "after_heading": "산출근거",
-      "caption": "(단위: 천원)",
-      "header": [
-        "품목",
-        "규격",
-        "수량",
-        "단가",
-        "금액"
-      ],
-      "rows": [
-        [
-          "데스크톱 PC",
-          "SSD 512GB·메모리 16GB",
-          "45대",
-          "1,180",
-          "53,100"
-        ],
-        [
-          "모니터",
-          "24형 광시야각",
-          "45대",
-          "120",
-          "5,400"
-        ],
-        [
-          "계",
-          "-",
-          "-",
-          "-",
-          "58,500"
-        ]
-      ]
-    },
-    "attach": null,
-    "_수정시각": "2026-08-05T21:57:45"
-  },
-  {
-    "filename": "a3-06-fileonly",
-    "title": "2025 IP라이선싱 빌드업 오리엔테이션 결과 보고",
-    "byline": "<□□처, '25. 6. 11.>",
-    "summary": "○○기관 주최 오리엔테이션에서 중소 IP사와의 협업 과업·계약 범위를 협의한 결과를 보고드림",
-    "purpose_type": "⑧",
-    "sections": [
-      {
-        "heading": "회의개요",
-        "items": [
-          {
-            "level": 2,
-            "html": "주최·일자: 한국컨텐츠진흥원, <span class=\"num\">6월 11일</span>"
-          },
-          {
-            "level": 2,
-            "html": "참석범위: 우리사 □□처·○○처·△△처, 분야별 중소 IP사"
-          },
-          {
-            "level": 2,
-            "html": "주요내용: 플랫폼사와 중소 IP 간 협업사업 방안 논의"
-          }
-        ]
-      },
-      {
-        "heading": "주요논의",
-        "items": [
-          {
-            "level": 2,
-            "html": "주요과업은 선정 캐릭터 활용 테마카페 운영과 우산 개발"
-          },
-          {
-            "level": 3,
-            "html": "테마카페는 캐릭터 테마 조성과 대구·경북지역 연계 F&amp;B 상품 개발"
-          },
-          {
-            "level": 3,
-            "html": "우산은 캐릭터 디자인 프린팅 제작·납품 <span class=\"num\">1만개</span>"
-          },
-          {
-            "level": 2,
-            "html": "공통과업은 협업 결과물 온·오프라인 홍보와 박람회 참여(7·11월)"
-          }
-        ]
-      },
-      {
-        "heading": "결정사항",
-        "items": [
-          {
-            "level": 2,
-            "html": "테마카페는 상품계약(특약매입)과 업무수행 합의서로 체결"
-          },
-          {
-            "level": 3,
-            "html": "운영기간 9월~'26. 3월, 원재료·영업용품은 IP사 제공"
-          },
-          {
-            "level": 2,
-            "html": "상품개발은 직매입 계약, <span class=\"num\">10월</span> 중 출시"
-          },
-          {
-            "level": 3,
-            "html": "비닐 장우산·접이식 우산 각 <span class=\"num\">5천개</span> 직매입"
-          }
-        ]
-      },
-      {
-        "heading": "조치계획",
-        "items": [
-          {
-            "level": 2,
-            "html": "분야별 세부 과업사항 논의·확정(6월 3주)"
-          },
-          {
-            "level": 2,
-            "html": "디자인 확정 및 계약체결(7월 2주), 라이선싱페어 참여(7. 17.~20.)"
-          },
-          {
-            "level": 2,
-            "html": "테마카페 조성(8월 말), 캐릭터 우산 출시(10월)"
-          },
-          {
-            "level": 2,
-            "html": "콘텐츠 IP 마켓 참여(11월 중)"
-          }
-        ]
-      }
-    ],
-    "table": null,
-    "attach": "○○기관 사업연계 참여 행사 내역 1부.",
-    "genre": "onepage",
-    "_수정시각": "2026-08-06T00:11:19",
-    "show_end_mark": true
-  },
-  {
-    "filename": "a3-06b-longfile",
-    "title": "행정업무 운영 시행규칙상 기안문 작성 기준 검토",
-    "byline": "<경영기획처, '26. 8. 5.>",
-    "summary": "시행규칙이 정한 기안문 구성·수신자 표시·관인 날인 기준을 정리하여 보고드림",
-    "purpose_type": "①",
-    "sections": [
-      {
-        "heading": "보고배경",
-        "items": [
-          {
-            "level": 2,
-            "html": "우리 서식이 시행규칙 기준과 맞는지 확인할 필요"
-          },
-          {
-            "level": 2,
-            "html": "규칙은 <span class=\"num\">46개</span> 조로 구성"
-          }
-        ]
-      },
-      {
-        "heading": "주요현황·동향",
-        "items": [
-          {
-            "level": 2,
-            "html": "기안문은 별지 제1호서식이나 별지 제2호서식에 따라 작성(제4조)"
-          },
-          {
-            "level": 2,
-            "html": "본문은 제목·내용·붙임으로 구성(제4조제3항)"
-          },
-          {
-            "level": 3,
-            "html": "붙임은 다른 서식 등이 첨부되는 경우에만 해당"
-          },
-          {
-            "level": 2,
-            "html": "수신자가 없는 내부결재문서는 “내부결재”로 표시"
-          }
-        ]
-      },
-      {
-        "heading": "영향·시사점",
-        "items": [
-          {
-            "level": 2,
-            "html": "관인날인 또는 서명은 <span class=\"accent\">제11조가 정한 방식</span>을 따라야 함"
-          },
-          {
-            "level": 2,
-            "html": "생산등록번호·접수등록번호와 시행일·접수일 표기가 규칙 사항"
-          }
-        ]
-      },
-      {
-        "heading": "향후관리",
-        "items": [
-          {
-            "level": 2,
-            "html": "우리 시행문 서식을 규칙 조문과 대조하여 차이를 정리"
-          }
-        ]
-      }
-    ],
-    "table": null,
-    "attach": null,
-    "genre": "onepage",
-    "_수정시각": "2026-08-05T22:15:33"
-  },
-  {
-    "filename": "a3-08-byform",
-    "title": "역사 무인편의점 시범운영 결과 보고",
-    "byline": "<△△처, '26. 8. 5.>",
-    "summary": "3개 역사 시범운영에서 매출·인건비 지표를 확인한 결과와 확대 여부 검토안을 보고드림",
-    "purpose_type": "⑧",
-    "sections": [
-      {
-        "heading": "오리엔테이션 개요",
-        "items": [
-          {
-            "level": 2,
-            "html": "기간·대상: '26. 3.~7., 서울·대전·부산 <span class=\"num\">3개</span> 역사"
-          },
-          {
-            "level": 2,
-            "html": "운영범위: 24시간 무인, 결제는 앱·카드 전용"
-          },
-          {
-            "level": 2,
-            "html": "주요목적: 인건비 절감과 야간 매출 확보 가능성 확인"
-          }
-        ]
-      },
-      {
-        "heading": "세부 협의사항",
-        "items": [
-          {
-            "level": 2,
-            "html": "매출: 일평균 <span class=\"num\">142만원</span>, 유인 매장 대비 <span class=\"delta\">△18%</span>"
-          },
-          {
-            "level": 3,
-            "html": "야간(22~06시) 매출 비중 <span class=\"num\">31%</span>로 유인 매장의 두 배"
-          },
-          {
-            "level": 2,
-            "html": "비용: 인건비 월 <span class=\"num\">420만원</span> 절감, 설비 상각 월 180만원"
-          },
-          {
-            "level": 3,
-            "html": "순효과 월 <span class=\"num\">240만원</span> 절감"
-          },
-          {
-            "level": 2,
-            "html": "손실: 도난·오류 월 <span class=\"num\">18건</span>, 금액 월 31만원"
-          }
-        ]
-      },
-      {
-        "heading": "향후일정",
-        "items": [
-          {
-            "level": 2,
-            "html": "9월 시범 결과 최종 정산, 10월 확대 여부 결정"
-          },
-          {
-            "level": 2,
-            "html": "확대 시 '27. 상반기 <span class=\"num\">10개</span> 역사 추가"
-          }
-        ]
-      },
-      {
-        "heading": "참고자료",
-        "items": [
-          {
-            "level": 2,
-            "html": "역사별 매출·손실 내역은 붙임 참조"
-          }
-        ]
-      }
-    ],
-    "table": null,
-    "attach": "역사별 시범운영 지표 1부.",
-    "genre": "onepage",
-    "_수정시각": "2026-08-05T22:18:12"
-  },
-  {
-    "filename": "a3-09-three",
-    "title": "IP 협업사업 오리엔테이션 결과 보고",
-    "byline": "<□□처, '25. 6. 11.>",
-    "summary": "중소 IP사와 협업 과업·계약 범위를 협의하고 우산 물량과 출시 시기를 확정한 결과를 보고드림",
-    "purpose_type": "⑧",
-    "sections": [
-      {
-        "heading": "오리엔테이션 개요",
-        "items": [
-          {
-            "level": 2,
-            "html": "주최·일자: 한국컨텐츠진흥원, <span class=\"num\">6월 11일</span>"
-          },
-          {
-            "level": 2,
-            "html": "참석범위: 우리사 □□처·○○처·△△처, 분야별 중소 IP사"
-          }
-        ]
-      },
-      {
-        "heading": "세부 협의사항",
-        "items": [
-          {
-            "level": 2,
-            "html": "주요과업은 캐릭터 활용 테마카페 운영과 우산 개발"
-          },
-          {
-            "level": 3,
-            "html": "우산 납품 물량 <span class=\"num\">2만개</span>로 확정(당초 1만개에서 증량)"
-          },
-          {
-            "level": 2,
-            "html": "공통과업은 온·오프라인 홍보와 박람회 참여(7·11월)"
-          }
-        ]
-      },
-      {
-        "heading": "향후일정",
-        "items": [
-          {
-            "level": 2,
-            "html": "디자인 확정 및 계약체결(7월 2주), 라이선싱페어 참여(7. 17.~20.)"
-          },
-          {
-            "level": 2,
-            "html": "테마카페 조성(8월 말), 캐릭터 우산 출시 <span class=\"num\">11월</span>로 조정"
-          }
-        ]
-      },
-      {
-        "heading": "참고자료",
-        "items": [
-          {
-            "level": 2,
-            "html": "행사 내역은 붙임 참조"
-          }
-        ]
-      }
-    ],
-    "table": null,
-    "attach": "○○기관 사업연계 참여 행사 내역 1부.",
-    "genre": "onepage",
-    "_수정시각": "2026-08-05T22:30:38"
-  },
-  {
-    "filename": "a4-10-cli",
-    "title": "사내 통근버스 노선 조정 검토",
-    "byline": "<총무처, '26. 8. 5.>",
-    "summary": "이용률이 낮은 2개 노선을 통합해 연 3,600만원을 아끼는 안을 요청드림",
-    "purpose_type": "②",
-    "sections": [
-      {
-        "heading": "검토배경",
-        "items": [
-          {
-            "level": 2,
-            "html": "통근버스 5개 노선 중 2개 노선 탑승률 <span class=\"num\">31%</span>"
-          },
-          {
-            "level": 2,
-            "html": "운행비 연 <span class=\"num\">1.8억원</span> 중 해당 노선이 0.6억원"
-          }
-        ]
-      },
-      {
-        "heading": "대안검토",
-        "items": [
-          {
-            "level": 2,
-            "html": "통합 운행: 연 <span class=\"num\">3,600만원</span> 절감, 평균 대기 6분 증가"
-          },
-          {
-            "level": 2,
-            "html": "현행 유지: 절감 없음"
-          }
-        ]
-      },
-      {
-        "heading": "검토의견",
-        "items": [
-          {
-            "level": 2,
-            "html": "대기 증가가 크지 않아 <span class=\"accent\">통합 운행 권고</span>"
-          }
-        ]
-      },
-      {
-        "heading": "향후계획",
-        "items": [
-          {
-            "level": 2,
-            "html": "승인 시 9월 시범 운행, 11월 전면 적용"
-          }
-        ]
-      }
-    ],
-    "table": null,
-    "attach": null,
-    "genre": "onepage",
-    "_수정시각": "2026-08-05T22:34:47"
-  },
-  {
-    "filename": "a4-11-mcp",
-    "title": "사내 문서보관실 이전 검토",
-    "byline": "<총무처, '26. 8. 5.>",
-    "summary": "이용률이 낮은 2개 노선을 통합해 연 3,600만원을 아끼는 안을 요청드림",
-    "purpose_type": "②",
-    "sections": [
-      {
-        "heading": "검토배경",
-        "items": [
-          {
-            "level": 2,
-            "html": "통근버스 5개 노선 중 2개 노선 탑승률 <span class=\"num\">31%</span>"
-          },
-          {
-            "level": 2,
-            "html": "운행비 연 <span class=\"num\">1.8억원</span> 중 해당 노선이 0.6억원"
-          }
-        ]
-      },
-      {
-        "heading": "대안검토",
-        "items": [
-          {
-            "level": 2,
-            "html": "통합 운행: 연 <span class=\"num\">3,600만원</span> 절감, 평균 대기 6분 증가"
-          },
-          {
-            "level": 2,
-            "html": "현행 유지: 절감 없음"
-          }
-        ]
-      },
-      {
-        "heading": "검토의견",
-        "items": [
-          {
-            "level": 2,
-            "html": "대기 증가가 크지 않아 <span class=\"accent\">통합 운행 권고</span>"
-          }
-        ]
-      },
-      {
-        "heading": "향후계획",
-        "items": [
-          {
-            "level": 2,
-            "html": "승인 시 9월 시범 운행, 11월 전면 적용"
-          }
-        ]
-      }
-    ],
-    "table": null,
-    "attach": null,
-    "genre": "onepage",
-    "_수정시각": "2026-08-05T22:38:53"
-  },
-  {
-    "filename": "a5-13-thin",
-    "title": "충전기 검토",
-    "byline": "<시설처, '26. 8. 5.>",
-    "summary": "충전기 설치 여부를 검토한 결과 판단에 필요한 자료가 더 있어야 해 확인을 요청드림",
-    "purpose_type": "②",
-    "sections": [
-      {
-        "heading": "검토배경",
-        "items": [
-          {
-            "level": 2,
-            "html": "충전기 설치 검토 필요"
-          }
-        ]
-      },
-      {
-        "heading": "검토의견",
-        "items": [
-          {
-            "level": 2,
-            "html": "자료 보완 후 재검토"
-          }
-        ]
-      }
-    ],
-    "table": null,
-    "attach": null,
-    "genre": "onepage",
-    "_수정시각": "2026-08-05T22:46:05"
-  },
-  {
-    "filename": "a5-14-overflow",
-    "title": "업무체계 구축·확산 추진계획",
-    "byline": "<경영기획처, '26. 8. 5.>",
-    "summary": "부서 업무의 소관·전결·근거를 한 화면에서 확인하는 체계를 3개년에 걸쳐 구축하는 계획을 요청드림",
-    "purpose_type": "③",
-    "sections": [
-      {
-        "heading": "추진배경",
-        "items": [
-          {
-            "level": 2,
-            "html": "세부 과제 1: 부서별 소관 업무를 정리하고 근거 조문을 대조하여 절차 보드에 반영"
-          },
-          {
-            "level": 2,
-            "html": "세부 과제 2: 부서별 소관 업무를 정리하고 근거 조문을 대조하여 절차 보드에 반영"
-          },
-          {
-            "level": 2,
-            "html": "세부 과제 3: 부서별 소관 업무를 정리하고 근거 조문을 대조하여 절차 보드에 반영"
-          },
-          {
-            "level": 2,
-            "html": "세부 과제 4: 부서별 소관 업무를 정리하고 근거 조문을 대조하여 절차 보드에 반영"
-          }
-        ]
-      },
-      {
-        "heading": "주요내용",
-        "items": [
-          {
-            "level": 2,
-            "html": "세부 과제 6: 부서별 소관 업무를 정리하고 근거 조문을 대조하여 절차 보드에 반영"
-          },
-          {
-            "level": 2,
-            "html": "세부 과제 7: 부서별 소관 업무를 정리하고 근거 조문을 대조하여 절차 보드에 반영"
-          },
-          {
-            "level": 2,
-            "html": "세부 과제 8: 부서별 소관 업무를 정리하고 근거 조문을 대조하여 절차 보드에 반영"
-          },
-          {
-            "level": 2,
-            "html": "세부 과제 9: 부서별 소관 업무를 정리하고 근거 조문을 대조하여 절차 보드에 반영"
-          }
-        ]
-      },
-      {
-        "heading": "추진체계",
-        "items": [
-          {
-            "level": 2,
-            "html": "세부 과제 11: 부서별 소관 업무를 정리하고 근거 조문을 대조하여 절차 보드에 반영"
-          },
-          {
-            "level": 2,
-            "html": "세부 과제 12: 부서별 소관 업무를 정리하고 근거 조문을 대조하여 절차 보드에 반영"
-          },
-          {
-            "level": 2,
-            "html": "세부 과제 13: 부서별 소관 업무를 정리하고 근거 조문을 대조하여 절차 보드에 반영"
-          },
-          {
-            "level": 2,
-            "html": "세부 과제 14: 부서별 소관 업무를 정리하고 근거 조문을 대조하여 절차 보드에 반영"
-          }
-        ]
-      },
-      {
-        "heading": "향후계획",
-        "items": [
-          {
-            "level": 2,
-            "html": "9월 착수, 12월 1차 확정, '27년 전면 확산"
-          }
-        ]
-      }
-    ],
-    "table": null,
-    "attach": null,
-    "genre": "onepage",
-    "_수정시각": "2026-08-05T22:52:35"
-  },
-  {
-    "filename": "mcp-test",
-    "title": "MCP 생성 검증 보고",
-    "byline": "<검증, '26. 8. 17.>",
-    "summary": "MCP 플러그인으로 문서 생성이 되는지 확인",
-    "purpose_type": "②",
-    "sections": [
-      {
-        "heading": "검토결과",
-        "items": [
-          {
-            "level": 2,
-            "html": "MCP 도구로 <span class=\"accent\">전체 파이프라인 작동</span> 확인"
-          }
-        ]
-      },
-      {
-        "heading": "결정요청",
-        "items": [
-          {
-            "level": 2,
-            "html": "플러그인 정식 등록 여부 결정"
-          }
-        ]
-      }
-    ],
-    "genre": "onepage",
-    "_수정시각": "2026-08-17T23:48:39.494763"
-  }
+  "attach": null,
+  "_수정시각": "2026-08-05T21:57:45"
+ },
+ {
+  "filename": "a3-06-fileonly",
+  "title": "2025 IP라이선싱 빌드업 오리엔테이션 결과 보고",
+  "byline": "<□□처, '25. 6. 11.>",
+  "summary": "○○기관 주최 오리엔테이션에서 중소 IP사와의 협업 과업·계약 범위를 협의한 결과를 보고드림",
+  "purpose_type": "⑧",
+  "sections": [
+   {
+    "heading": "회의개요",
+    "items": [
+     {
+      "level": 2,
+      "html": "주최·일자: 한국컨텐츠진흥원, <span class=\"num\">6월 11일</span>"
+     },
+     {
+      "level": 2,
+      "html": "참석범위: 우리사 □□처·○○처·△△처, 분야별 중소 IP사"
+     },
+     {
+      "level": 2,
+      "html": "주요내용: 플랫폼사와 중소 IP 간 협업사업 방안 논의"
+     }
+    ]
+   },
+   {
+    "heading": "주요논의",
+    "items": [
+     {
+      "level": 2,
+      "html": "주요과업은 선정 캐릭터 활용 테마카페 운영과 우산 개발"
+     },
+     {
+      "level": 3,
+      "html": "테마카페는 캐릭터 테마 조성과 대구·경북지역 연계 F&amp;B 상품 개발"
+     },
+     {
+      "level": 3,
+      "html": "우산은 캐릭터 디자인 프린팅 제작·납품 <span class=\"num\">1만개</span>"
+     },
+     {
+      "level": 2,
+      "html": "공통과업은 협업 결과물 온·오프라인 홍보와 박람회 참여(7·11월)"
+     }
+    ]
+   },
+   {
+    "heading": "결정사항",
+    "items": [
+     {
+      "level": 2,
+      "html": "테마카페는 상품계약(특약매입)과 업무수행 합의서로 체결"
+     },
+     {
+      "level": 3,
+      "html": "운영기간 9월~'26. 3월, 원재료·영업용품은 IP사 제공"
+     },
+     {
+      "level": 2,
+      "html": "상품개발은 직매입 계약, <span class=\"num\">10월</span> 중 출시"
+     },
+     {
+      "level": 3,
+      "html": "비닐 장우산·접이식 우산 각 <span class=\"num\">5천개</span> 직매입"
+     }
+    ]
+   },
+   {
+    "heading": "조치계획",
+    "items": [
+     {
+      "level": 2,
+      "html": "분야별 세부 과업사항 논의·확정(6월 3주)"
+     },
+     {
+      "level": 2,
+      "html": "디자인 확정 및 계약체결(7월 2주), 라이선싱페어 참여(7. 17.~20.)"
+     },
+     {
+      "level": 2,
+      "html": "테마카페 조성(8월 말), 캐릭터 우산 출시(10월)"
+     },
+     {
+      "level": 2,
+      "html": "콘텐츠 IP 마켓 참여(11월 중)"
+     }
+    ]
+   }
+  ],
+  "table": null,
+  "attach": "○○기관 사업연계 참여 행사 내역 1부.",
+  "genre": "onepage",
+  "_수정시각": "2026-08-06T00:11:19",
+  "show_end_mark": true
+ },
+ {
+  "filename": "a3-06b-longfile",
+  "title": "행정업무 운영 시행규칙상 기안문 작성 기준 검토",
+  "byline": "<경영기획처, '26. 8. 5.>",
+  "summary": "시행규칙이 정한 기안문 구성·수신자 표시·관인 날인 기준을 정리하여 보고드림",
+  "purpose_type": "①",
+  "sections": [
+   {
+    "heading": "보고배경",
+    "items": [
+     {
+      "level": 2,
+      "html": "우리 서식이 시행규칙 기준과 맞는지 확인할 필요"
+     },
+     {
+      "level": 2,
+      "html": "규칙은 <span class=\"num\">46개</span> 조로 구성"
+     }
+    ]
+   },
+   {
+    "heading": "주요현황·동향",
+    "items": [
+     {
+      "level": 2,
+      "html": "기안문은 별지 제1호서식이나 별지 제2호서식에 따라 작성(제4조)"
+     },
+     {
+      "level": 2,
+      "html": "본문은 제목·내용·붙임으로 구성(제4조제3항)"
+     },
+     {
+      "level": 3,
+      "html": "붙임은 다른 서식 등이 첨부되는 경우에만 해당"
+     },
+     {
+      "level": 2,
+      "html": "수신자가 없는 내부결재문서는 “내부결재”로 표시"
+     }
+    ]
+   },
+   {
+    "heading": "영향·시사점",
+    "items": [
+     {
+      "level": 2,
+      "html": "관인날인 또는 서명은 <span class=\"accent\">제11조가 정한 방식</span>을 따라야 함"
+     },
+     {
+      "level": 2,
+      "html": "생산등록번호·접수등록번호와 시행일·접수일 표기가 규칙 사항"
+     }
+    ]
+   },
+   {
+    "heading": "향후관리",
+    "items": [
+     {
+      "level": 2,
+      "html": "우리 시행문 서식을 규칙 조문과 대조하여 차이를 정리"
+     }
+    ]
+   }
+  ],
+  "table": null,
+  "attach": null,
+  "genre": "onepage",
+  "_수정시각": "2026-08-05T22:15:33"
+ },
+ {
+  "filename": "a3-08-byform",
+  "title": "역사 무인편의점 시범운영 결과 보고",
+  "byline": "<△△처, '26. 8. 5.>",
+  "summary": "3개 역사 시범운영에서 매출·인건비 지표를 확인한 결과와 확대 여부 검토안을 보고드림",
+  "purpose_type": "⑧",
+  "sections": [
+   {
+    "heading": "오리엔테이션 개요",
+    "items": [
+     {
+      "level": 2,
+      "html": "기간·대상: '26. 3.~7., 서울·대전·부산 <span class=\"num\">3개</span> 역사"
+     },
+     {
+      "level": 2,
+      "html": "운영범위: 24시간 무인, 결제는 앱·카드 전용"
+     },
+     {
+      "level": 2,
+      "html": "주요목적: 인건비 절감과 야간 매출 확보 가능성 확인"
+     }
+    ]
+   },
+   {
+    "heading": "세부 협의사항",
+    "items": [
+     {
+      "level": 2,
+      "html": "매출: 일평균 <span class=\"num\">142만원</span>, 유인 매장 대비 <span class=\"delta\">△18%</span>"
+     },
+     {
+      "level": 3,
+      "html": "야간(22~06시) 매출 비중 <span class=\"num\">31%</span>로 유인 매장의 두 배"
+     },
+     {
+      "level": 2,
+      "html": "비용: 인건비 월 <span class=\"num\">420만원</span> 절감, 설비 상각 월 180만원"
+     },
+     {
+      "level": 3,
+      "html": "순효과 월 <span class=\"num\">240만원</span> 절감"
+     },
+     {
+      "level": 2,
+      "html": "손실: 도난·오류 월 <span class=\"num\">18건</span>, 금액 월 31만원"
+     }
+    ]
+   },
+   {
+    "heading": "향후일정",
+    "items": [
+     {
+      "level": 2,
+      "html": "9월 시범 결과 최종 정산, 10월 확대 여부 결정"
+     },
+     {
+      "level": 2,
+      "html": "확대 시 '27. 상반기 <span class=\"num\">10개</span> 역사 추가"
+     }
+    ]
+   },
+   {
+    "heading": "참고자료",
+    "items": [
+     {
+      "level": 2,
+      "html": "역사별 매출·손실 내역은 붙임 참조"
+     }
+    ]
+   }
+  ],
+  "table": null,
+  "attach": "역사별 시범운영 지표 1부.",
+  "genre": "onepage",
+  "_수정시각": "2026-08-05T22:18:12"
+ },
+ {
+  "filename": "a3-09-three",
+  "title": "IP 협업사업 오리엔테이션 결과 보고",
+  "byline": "<□□처, '25. 6. 11.>",
+  "summary": "중소 IP사와 협업 과업·계약 범위를 협의하고 우산 물량과 출시 시기를 확정한 결과를 보고드림",
+  "purpose_type": "⑧",
+  "sections": [
+   {
+    "heading": "오리엔테이션 개요",
+    "items": [
+     {
+      "level": 2,
+      "html": "주최·일자: 한국컨텐츠진흥원, <span class=\"num\">6월 11일</span>"
+     },
+     {
+      "level": 2,
+      "html": "참석범위: 우리사 □□처·○○처·△△처, 분야별 중소 IP사"
+     }
+    ]
+   },
+   {
+    "heading": "세부 협의사항",
+    "items": [
+     {
+      "level": 2,
+      "html": "주요과업은 캐릭터 활용 테마카페 운영과 우산 개발"
+     },
+     {
+      "level": 3,
+      "html": "우산 납품 물량 <span class=\"num\">2만개</span>로 확정(당초 1만개에서 증량)"
+     },
+     {
+      "level": 2,
+      "html": "공통과업은 온·오프라인 홍보와 박람회 참여(7·11월)"
+     }
+    ]
+   },
+   {
+    "heading": "향후일정",
+    "items": [
+     {
+      "level": 2,
+      "html": "디자인 확정 및 계약체결(7월 2주), 라이선싱페어 참여(7. 17.~20.)"
+     },
+     {
+      "level": 2,
+      "html": "테마카페 조성(8월 말), 캐릭터 우산 출시 <span class=\"num\">11월</span>로 조정"
+     }
+    ]
+   },
+   {
+    "heading": "참고자료",
+    "items": [
+     {
+      "level": 2,
+      "html": "행사 내역은 붙임 참조"
+     }
+    ]
+   }
+  ],
+  "table": null,
+  "attach": "○○기관 사업연계 참여 행사 내역 1부.",
+  "genre": "onepage",
+  "_수정시각": "2026-08-05T22:30:38"
+ },
+ {
+  "filename": "a4-10-cli",
+  "title": "사내 통근버스 노선 조정 검토",
+  "byline": "<총무처, '26. 8. 5.>",
+  "summary": "이용률이 낮은 2개 노선을 통합해 연 3,600만원을 아끼는 안을 요청드림",
+  "purpose_type": "②",
+  "sections": [
+   {
+    "heading": "검토배경",
+    "items": [
+     {
+      "level": 2,
+      "html": "통근버스 5개 노선 중 2개 노선 탑승률 <span class=\"num\">31%</span>"
+     },
+     {
+      "level": 2,
+      "html": "운행비 연 <span class=\"num\">1.8억원</span> 중 해당 노선이 0.6억원"
+     }
+    ]
+   },
+   {
+    "heading": "대안검토",
+    "items": [
+     {
+      "level": 2,
+      "html": "통합 운행: 연 <span class=\"num\">3,600만원</span> 절감, 평균 대기 6분 증가"
+     },
+     {
+      "level": 2,
+      "html": "현행 유지: 절감 없음"
+     }
+    ]
+   },
+   {
+    "heading": "검토의견",
+    "items": [
+     {
+      "level": 2,
+      "html": "대기 증가가 크지 않아 <span class=\"accent\">통합 운행 권고</span>"
+     }
+    ]
+   },
+   {
+    "heading": "향후계획",
+    "items": [
+     {
+      "level": 2,
+      "html": "승인 시 9월 시범 운행, 11월 전면 적용"
+     }
+    ]
+   }
+  ],
+  "table": null,
+  "attach": null,
+  "genre": "onepage",
+  "_수정시각": "2026-08-05T22:34:47"
+ },
+ {
+  "filename": "a4-11-mcp",
+  "title": "사내 문서보관실 이전 검토",
+  "byline": "<총무처, '26. 8. 5.>",
+  "summary": "이용률이 낮은 2개 노선을 통합해 연 3,600만원을 아끼는 안을 요청드림",
+  "purpose_type": "②",
+  "sections": [
+   {
+    "heading": "검토배경",
+    "items": [
+     {
+      "level": 2,
+      "html": "통근버스 5개 노선 중 2개 노선 탑승률 <span class=\"num\">31%</span>"
+     },
+     {
+      "level": 2,
+      "html": "운행비 연 <span class=\"num\">1.8억원</span> 중 해당 노선이 0.6억원"
+     }
+    ]
+   },
+   {
+    "heading": "대안검토",
+    "items": [
+     {
+      "level": 2,
+      "html": "통합 운행: 연 <span class=\"num\">3,600만원</span> 절감, 평균 대기 6분 증가"
+     },
+     {
+      "level": 2,
+      "html": "현행 유지: 절감 없음"
+     }
+    ]
+   },
+   {
+    "heading": "검토의견",
+    "items": [
+     {
+      "level": 2,
+      "html": "대기 증가가 크지 않아 <span class=\"accent\">통합 운행 권고</span>"
+     }
+    ]
+   },
+   {
+    "heading": "향후계획",
+    "items": [
+     {
+      "level": 2,
+      "html": "승인 시 9월 시범 운행, 11월 전면 적용"
+     }
+    ]
+   }
+  ],
+  "table": null,
+  "attach": null,
+  "genre": "onepage",
+  "_수정시각": "2026-08-05T22:38:53"
+ },
+ {
+  "filename": "a5-13-thin",
+  "title": "충전기 검토",
+  "byline": "<시설처, '26. 8. 5.>",
+  "summary": "충전기 설치 여부를 검토한 결과 판단에 필요한 자료가 더 있어야 해 확인을 요청드림",
+  "purpose_type": "②",
+  "sections": [
+   {
+    "heading": "검토배경",
+    "items": [
+     {
+      "level": 2,
+      "html": "충전기 설치 검토 필요"
+     }
+    ]
+   },
+   {
+    "heading": "검토의견",
+    "items": [
+     {
+      "level": 2,
+      "html": "자료 보완 후 재검토"
+     }
+    ]
+   }
+  ],
+  "table": null,
+  "attach": null,
+  "genre": "onepage",
+  "_수정시각": "2026-08-05T22:46:05"
+ }
 ]

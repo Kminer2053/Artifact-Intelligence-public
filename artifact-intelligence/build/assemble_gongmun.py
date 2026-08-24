@@ -85,8 +85,11 @@ POLITE_END = re.compile(r"(다\.)\s*$")
 def gate_check(doc):
     """시행문 게이트 — 위반 목록 반환(하드)."""
     bad = []
-    if not (doc.get("발신명의") or "").strip():
-        bad.append("발신명의 누락 — 형식상 흠 있는 공문서(편람 표-53)")
+    # 발신명의는 서명 때 한글에서 채우는 자리라 **초안에서 비어 있는 게 정상**이다(워크셋도
+    # '빈자리로'). 예전엔 여기서 하드 거부해 초안·HWPX 를 통째로 막았다(코덱스·커서 교차
+    # 테스트 지적, 2026-08-24). 이제 막지 않고 render 가 '(발신 명의 — 서명 시 기입)' 자리표시자를
+    # 넣는다 — 필수 입력 되묻기는 에이전트(SKILL)의 몫이고, 게이트는 형식상 흠을 막기보다
+    # 초안이 나가게 두는 초안 도구의 규범을 따른다.
     # 급을 밝힌 문서만 검사한다. 안 밝히면 '하시기 바랍니다'가 기본이라 따로 볼 것이 없다.
     급 = doc.get("수신기관급")
     if 급 in 급별_종결:
@@ -253,7 +256,7 @@ def build(doc):
     recipients = html.escape(doc.get("수신자란", ""))
     parts.append(f"""  </div>
   <div class="gm-foot">
-    <div class="gm-sign"><span class="gm-name" data-ent="두문결문" data-gf="발신명의" data-path="발신명의">{html.escape(doc.get("발신명의",""))}</span>{stamp}</div>
+    <div class="gm-sign"><span class="gm-name" data-ent="두문결문" data-gf="발신명의" data-path="발신명의">{html.escape((doc.get("발신명의") or "").strip()) or "(발신 명의 — 서명 시 기입)"}</span>{stamp}</div>
     <div class="gm-recipients">{('수신자 ' + recipients) if recipients else ''}</div>
     <div class="gm-band"></div>
     <div class="gm-approvers"><div class="cell">기안자 {html.escape(m.get("기안자",""))}</div>

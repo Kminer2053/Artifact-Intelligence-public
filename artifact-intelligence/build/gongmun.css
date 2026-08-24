@@ -67,7 +67,8 @@
   transform: translate(-50%, -50%); }
 
 .gm-seal.right { left: auto; right: -2mm; transform: translate(0, -50%); }
-.gm-recipients { font-size: 10.5pt; min-height: 6mm; }
+
+.gm-recipients { font-size: 10pt; min-height: 6mm; }
 .gm-band { height: 1.3mm; background: #CCCCCC; margin: 1mm 0; }
 .gm-approvers { display: flex; gap: 0; font-size: 9pt; min-height: 8mm; align-items: flex-end; }
 .gm-approvers .cell { flex: 1; padding: 1mm; }
