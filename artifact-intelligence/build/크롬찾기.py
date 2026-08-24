@@ -27,6 +27,9 @@ from __future__ import annotations
 
 import os
 import shutil
+import subprocess
+import tempfile
+import time
 
 환경변수 = "문서지능_크롬"
 
@@ -92,6 +95,83 @@ def 크롬() -> str:
         " (예: brew install --cask google-chrome, apt-get install -y chromium), 또는\n"
         f"  · 이미 있는 실행 파일 경로를 알려 주십시오: {환경변수}=/path/to/chrome"
     )
+
+
+# ── 헤들리스 실행(격리 프로필 + '다 쓰면 회수') ─────────────────────────────
+# 왜 여기 있나(WP-S8 의 짝): 크롬을 **찾는** 눈이 하나여야 하듯 **돌리는** 손도 하나여야
+# 한다. 헤들리스 크롬은 사용자의 실행 중 Chrome 과 겹치면 산출물을 다 쓰고도 종료하지
+# 않는다(macOS 실측 '26-08-24: --headless·--headless=new 동일 — PDF 를 2초에 쓰고 무한
+# 대기). 컨테이너 배포엔 경쟁 Chrome 이 없어 스스로 끝난다. 그래서 ① 격리 프로필로 시작
+# 락을 피하고 ② 산출물의 끝표시가 보이면 kill 로 회수한다. 이 손이 하나가 아니면
+# render_verify.sh 만 고치고 api.py·observe.py 는 옛 방식으로 남아 데스크톱에서 3분씩 행한다.
+
+def _돌려서_회수(args, 감시파일, 끝표시, 최대초, stdout_path=None):
+    """헤들리스 크롬을 격리 프로필로 띄우고, 감시파일 꼬리에 끝표시가 보이면(또는 스스로
+    종료하면) kill 로 회수한다. stdout_path 를 주면 크롬 stdout 을 그 파일로 받는다."""
+    prof = tempfile.mkdtemp(prefix="munseo-chrome.")
+    out = open(stdout_path, "wb") if stdout_path else subprocess.DEVNULL
+    try:
+        p = subprocess.Popen(
+            args + ["--user-data-dir=" + prof, "--no-first-run", "--no-default-browser-check"],
+            stdout=out, stderr=subprocess.DEVNULL)
+        기한 = time.monotonic() + 최대초
+        while time.monotonic() < 기한:
+            if p.poll() is not None:          # 스스로 종료(컨테이너: 경쟁 Chrome 없음)
+                break
+            try:
+                if os.path.exists(감시파일) and os.path.getsize(감시파일) > 0:
+                    with open(감시파일, "rb") as f:
+                        f.seek(max(0, os.path.getsize(감시파일) - 600))
+                        if 끝표시 in f.read():
+                            break
+            except OSError:
+                pass
+            time.sleep(0.4)
+        if p.poll() is None:
+            p.kill()
+        try:
+            p.wait(timeout=5)
+        except Exception:
+            pass
+    finally:
+        if stdout_path:
+            try:
+                out.close()
+            except Exception:
+                pass
+        shutil.rmtree(prof, ignore_errors=True)
+
+
+def 인쇄(씀, url, 출력pdf, 예산=8000, 최대초=25):
+    """헤들리스 크롬으로 url 을 출력pdf 로 인쇄한다(격리 프로필 + %%EOF 회수). 만들어졌으면 True."""
+    # **옛 산출물을 먼저 지운다** — 안 지우면 이전 PDF 의 꼬리 %%EOF 를 폴링이 즉시 보고
+    # 크롬이 새로 쓰기도 전에 kill 해 옛 파일을 돌려준다(레이스). 지워야 이번 렌더만 잡는다.
+    try:
+        os.remove(출력pdf)
+    except OSError:
+        pass
+    args = [씀, "--headless", "--disable-gpu", "--no-pdf-header-footer",
+            f"--virtual-time-budget={예산}", f"--print-to-pdf={출력pdf}", url]
+    _돌려서_회수(args, 출력pdf, b"%%EOF", 최대초)
+    return os.path.exists(출력pdf)
+
+
+def 덤프(씀, url, 예산=6000, 최대초=25):
+    """헤들리스 크롬으로 url 의 렌더된 DOM 을 돌려준다(--dump-dom, 격리 프로필 + </html> 회수).
+    못 얻으면 None."""
+    fd, tmp = tempfile.mkstemp(suffix=".dom")
+    os.close(fd)
+    args = [씀, "--headless", "--disable-gpu", f"--virtual-time-budget={예산}", "--dump-dom", url]
+    try:
+        _돌려서_회수(args, tmp, b"</html>", 최대초, stdout_path=tmp)
+        with open(tmp, encoding="utf-8", errors="replace") as f:
+            s = f.read()
+        return s or None
+    finally:
+        try:
+            os.remove(tmp)
+        except OSError:
+            pass
 
 
 if __name__ == "__main__":

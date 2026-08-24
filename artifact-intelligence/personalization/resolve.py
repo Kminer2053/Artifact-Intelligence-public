@@ -40,7 +40,13 @@ def _스크럽(node):
 
 
 def load(profile_name):
-    onto = json.load(open(ROOT / "ontology" / "ontology.json", encoding="utf-8"))
+    onto_path = ROOT / "ontology" / "ontology.json"
+    if not onto_path.exists():
+        # 정책만-로컬 배포본엔 온톨로지 로컬 정본이 없다(크라운주얼). 지식()처럼 부재를
+        # 우아하게 알리고 끝낸다 — FileNotFoundError 트레이스백·설치 절대경로가 로그로 새지 않게.
+        sys.exit("개인화는 온톨로지 로컬 정본이 있어야 합니다 — 정책만-로컬 배포본에는 없습니다"
+                 " (개인화는 웹앱/개발 환경에서 쓰세요).")
+    onto = json.load(open(onto_path, encoding="utf-8"))
     pf = PROFILES / f"{profile_name}.json"
     if not pf.exists():
         sys.exit(f"프로파일 없음: {pf.name} (profiles/ 안에 생성 필요)")

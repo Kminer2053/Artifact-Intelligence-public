@@ -36,7 +36,13 @@ import version as V  # noqa: E402
 # 파급표·조립기·CSS 는 코드라 ROOT(코드뿌리) 그대로 연다.
 자료뿌리 = V.자료뿌리  # noqa: E402  (version 이 이미 불러 둔 그 모듈 — 두 벌 들 이유가 없다)
 
-파급 = json.load(open(os.path.join(ROOT, "ontology", "파급표.json"), encoding="utf-8"))
+try:
+    파급 = json.load(open(os.path.join(ROOT, "ontology", "파급표.json"), encoding="utf-8"))
+except FileNotFoundError:
+    # 파급표.json 은 크라운주얼 — 정책만-로컬 배포본엔 없다. 모듈 최상위에서 죽으면
+    # 6개 조립기의 기준도장()이 매번 import 예외를 삼킨다. 부재 시 빈 표로 두어 import 는
+    # 늘 성공시키고, 배포본은 <meta name="기준"> 지문을 생략한다(파급표 미동봉의 설계상 결과).
+    파급 = {}
 장르목록 = [g for g in 파급 if not g.startswith("_") and g != "규칙파일"]
 
 # (조립기 = 코드뿌리 기준 상대 경로, 등록부 이름 = 자료뿌리에서 찾을 것)

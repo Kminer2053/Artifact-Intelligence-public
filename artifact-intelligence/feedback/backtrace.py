@@ -95,7 +95,7 @@ def extract(src):
         elif m.group("tbl") is not None:
             t = m.group("tbl")
             caption = plain(_first(r'class="doc-table-caption"[^>]*>(.*?)</div>', t))
-            trs = re.findall(r"<tr>(.*?)</tr>", t, re.S)
+            trs = re.findall(r"<tr[^>]*>(.*?)</tr>", t, re.S)
             header, rows = [], []
             for tr in trs:
                 ths = re.findall(r"<th[^>]*>(.*?)</th>", tr, re.S)
@@ -233,6 +233,8 @@ def adopt(doc, act):
     doc["title"] = act["title"]
     if act["byline"]:
         doc["byline"] = f"<{act['byline']}>" if not act["byline"].startswith("<") else act["byline"]
+    else:
+        doc["byline"] = ""   # 삭제 대칭 — title/summary/table/attach 처럼 빈 편집도 반영(안 그러면 지운 작성자가 되살아난다)
     doc["summary"] = act["summary"]
     for k in ("title_fs", "summary_fs"):
         if act.get(k):

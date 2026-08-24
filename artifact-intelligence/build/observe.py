@@ -39,7 +39,7 @@ import genres as _genres
 # 크롬 찾는 눈도 하나뿐이어야 한다(build/크롬찾기.py, WP-S8) — CHROME 절대경로를
 # 여기 또 박으면 다섯 곳 중 이 한 곳만 컨테이너 배포에서 조용히 갈라진다.
 # 여기는 관측(귀납 재료 수집)이라 브라우저가 없으면 죽지 않고 건너뛴다 — `찾기()`(비파괴)를 쓴다.
-from 크롬찾기 import 찾기
+from 크롬찾기 import 찾기, 덤프, 인쇄
 
 SRC = [(g["길"], g["키"]) for g in _genres.등록부()]
 
@@ -69,14 +69,9 @@ def dump_dom(path):
     크롬 = 찾기()
     if not 크롬:
         return None
-    try:
-        r = subprocess.run(
-            [크롬, "--headless", "--disable-gpu", "--virtual-time-budget=6000",
-             "--dump-dom", "file://" + path],
-            capture_output=True, text=True, timeout=90)
-        return r.stdout or None
-    except Exception:
-        return None
+    # 헤들리스 실행·회수는 크롬찾기.덤프() 한 손(WP-S8 짝) — 격리 프로필 + </html> 회수로
+    # 사용자 Chrome 이 떠 있어도 '다 쓰고 행'을 90초 기다리지 않고 수 초에 끝낸다.
+    return 덤프(크롬, "file://" + path)
 
 
 def pdf_pages(path):
@@ -86,10 +81,8 @@ def pdf_pages(path):
         return None
     tmp = os.path.join(OUT, "_tmp.pdf")
     try:
-        subprocess.run(
-            [크롬, "--headless", "--disable-gpu", "--no-pdf-header-footer",
-             "--virtual-time-budget=6000", f"--print-to-pdf={tmp}", "file://" + path],
-            capture_output=True, timeout=120)
+        if not 인쇄(크롬, "file://" + path, tmp):   # 격리 프로필 + %%EOF 회수(WP-S8 짝)
+            return None
         r = subprocess.run(["pdfinfo", tmp], capture_output=True, text=True)
         m = re.search(r"Pages:\s*(\d+)", r.stdout)
         return int(m.group(1)) if m else None

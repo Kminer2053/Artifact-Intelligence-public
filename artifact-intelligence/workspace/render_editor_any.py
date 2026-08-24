@@ -1754,6 +1754,32 @@ async function 지점지우기(n, 다시그리기) {
 const bk = document.getElementById('btn-keep');
 if (bk) bk.onclick = () => 되돌림지점열기();
 
+// 완료·닫기 — /workspace/app.html 로의 이동은 **웹앱에서만** 유효하다. 플러그인(file://)엔
+// 그 서버·파일이 없어 location.replace 하면 방금까지 편집하던 화면이 브라우저 오류페이지
+// (ERR_FILE_NOT_FOUND)로 대체된다. 그래서 채팅표면이면 이동하지 않고, 마지막 편집을 잃지
+// 않게 화면을 **즉시** 저장(400ms 디바운스 건너뜀)한 뒤 반영을 시도하고 탭만 닫는다.
+function 편집마침() {
+  try {
+    clearTimeout(sT);
+    const snap = serialize();
+    snap._저장때 = new Date().toLocaleString('ko-KR',
+      { month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit' });
+    localStorage.setItem(KEY, JSON.stringify(snap));
+  } catch (e) { /* 화면 저장 실패해도 아래로 진행 — 창을 오류로 대체하진 않는다 */ }
+  if (채팅표면) {
+    보내기();   // 서버가 있으면 반영 시도, 없으면(플러그인) 화면 저장만 — 반영은 채팅의 Claude
+    toast('편집을 마쳤습니다 — 이 탭을 닫고 채팅으로 돌아가세요. 반영은 채팅이 합니다');
+    window.close();   // 스크립트가 연 탭이면 닫히고, 아니면 무해한 no-op(오류페이지로 안 감)
+  } else {
+    window.close();
+    setTimeout(function () { location.replace('/workspace/app.html'); }, 350);
+  }
+}
+['btn-done', 'btn-close'].forEach(function (id) {
+  const b = document.getElementById(id);
+  if (b) b.addEventListener('click', 편집마침);
+});
+
 // ── 이어서 하기 ─────────────────────────────────────────────────────
 // 고치다 만 것이 이 화면에만 남아 있다가 창을 닫으면 사라진다.
 // 그런데 복구를 그냥 붙이면 **새 손실 경로**가 열린다 — 그 사이 문서가 다시
@@ -1918,10 +1944,8 @@ def gen(fn, out_prefix="editor-", src_dir=None):
         '<span class="st">아직 수정 없음</span>'
         '<span style="width:10px"></span>'
         '<button id="btn-done" title="편집을 마칩니다 — 수정은 자동 저장됩니다" '
-        'style="background:var(--ai-color-signal);color:var(--ai-color-white);font-weight:700" '
-        'onclick="window.close();setTimeout(function(){location.replace(\'/workspace/app.html\')},350)">완료</button>'
-        '<button id="btn-close" title="편집 탭을 닫습니다 (수정은 자동 저장됨)" '
-        'onclick="window.close();setTimeout(function(){location.replace(\'/workspace/app.html\')},350)">닫기</button>'
+        'style="background:var(--ai-color-signal);color:var(--ai-color-white);font-weight:700">완료</button>'
+        '<button id="btn-close" title="편집 탭을 닫습니다 (수정은 자동 저장됨)">닫기</button>'
         '</span></div>'
         '<div class="copy-note" data-editor></div>'
         + (f'<!-- 자동 산출(편집 대상 아님): {auto} -->' if auto else ''))

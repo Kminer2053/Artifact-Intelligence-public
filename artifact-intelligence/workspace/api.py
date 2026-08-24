@@ -529,6 +529,24 @@ def 원장(무엇=""):
 @등록("역추적", ["key", "무엇"], 읽기=False,
     설명="사람이 HTML을 직접 고친 흔적을 찾고(scan) 정본에 수용한다(adopt)", en="backtrace")
 def 역추적(key="", 무엇="scan"):
+    if key:
+        # 역추적(HTML 손편집 수용)은 1페이지 조립기·스키마 전용이다 — feedback/backtrace.py 는
+        # samples 등록부(assemble.py)만 쓴다. 다른 장르 key 를 넘기면 옛 코드는 samples 에서
+        # 못 찾아 '정본에 없는 문서'라 **틀린** 실패를 냈다(문서는 다른 등록부에 있는데). 어느
+        # 등록부에 있는지 먼저 가려, 비-samples 면 정확히 안내하고 편집기 저장(장르 인식) 경로로
+        # 돌린다(1p 스키마로 다른 장르를 파괴하는 잠재 위험도 여기서 차단).
+        for _p in 등록부들():
+            try:
+                _docs = json.load(open(_p, encoding="utf-8"))
+            except Exception:
+                continue
+            if any(isinstance(d, dict) and d.get("filename") == key for d in _docs):
+                if os.path.basename(_p) != "samples-docs.json":
+                    _장르 = os.path.basename(_p).replace("-docs.json", "")
+                    return {"ok": False, "로그":
+                            f"'{key}'는 {_장르} 문서입니다 — 역추적(HTML 직접 수정 수용)은 현재 "
+                            "1페이지 보고서만 지원합니다. 다른 장르는 편집기 저장(save)으로 반영하세요."}
+                break   # samples 에 있으니 정상 진행
     if 무엇 == "adopt":
         if not key:
             return {"ok": False, "로그": "adopt 는 문서 이름이 있어야 합니다"}
@@ -2010,36 +2028,19 @@ def 내보내기(key, 형식="hwpx"):
         씀 = 자료뿌리.모듈("크롬찾기").찾기()
         if not 씀:
             return {"ok": False, "로그": "크롬을 찾지 못해 PDF 를 뽑을 수 없습니다"}
-        try:
-            subprocess.run([씀, "--headless", "--disable-gpu", "--no-pdf-header-footer",
-                            "--virtual-time-budget=8000", f"--print-to-pdf={p}",
-                            "file://" + htm], capture_output=True, timeout=180)
-        except subprocess.TimeoutExpired:
-            # 타임아웃 ≠ 산출물 없음. 실측('26-08-14, 사장님 Chrome 이 떠 있는 상태):
-            # 헤들리스 크롬이 PDF 를 **다 써 놓고 프로세스만 안 죽는** 행이 있다.
-            # 파일이 이번에 새로 쓰였고(신선도 잣대는 위 캐시 검사와 동일 — 여기까지
-            # 왔으면 기존 pdf 는 전부 htm 보다 낡았으므로 옛 파일은 못 통과한다)
-            # 온전하면 성공으로 돌려준다. 온전함 두 겹: ① 꼬리 %%EOF — 크롬이 마지막에
-            # 쓰는 표식이라 부분 쓰기를 결정적으로 거른다(poppler 는 깨진 xref 를
-            # 수선해 읽어 주므로 pdfinfo 하나로는 반쪽을 놓칠 수 있다) ② pdfinfo
-            # 쪽수 ≥ 1. pdfinfo 가 없거나 고장이면 검증 못 한 것 — 성공으로 안 돌린다.
-            온전 = False
-            if os.path.exists(p) and os.path.getmtime(p) >= os.path.getmtime(htm):
-                with open(p, "rb") as f:
-                    f.seek(max(0, os.path.getsize(p) - 1024))
-                    꼬리있음 = b"%%EOF" in f.read()
-                if 꼬리있음:
-                    try:
-                        r = subprocess.run(["pdfinfo", p], capture_output=True,
-                                           text=True, timeout=30)
-                        m = re.search(r"Pages:\s*(\d+)", r.stdout)
-                        온전 = bool(m) and int(m.group(1)) >= 1
-                    except Exception:
-                        온전 = False
-            if not 온전:
-                return {"ok": False, "로그": "PDF 뽑기가 너무 오래 걸립니다"}
-        if not os.path.exists(p):
+        # 헤들리스 크롬 실행·회수는 크롬찾기.인쇄() 한 손이 맡는다(WP-S8 짝). 격리 프로필로
+        # 사용자의 실행 중 Chrome 과의 프로필 락을 피하고, PDF 꼬리 %%EOF 가 보이면 kill 로
+        # 회수한다 — 데스크톱에서 '다 쓰고 행'을 180초 기다리지 않고 수 초에 끝낸다.
+        자료뿌리.모듈("크롬찾기").인쇄(씀, "file://" + htm, p)
+        # 온전함: 이번에 새로 쓰였고(캐시 검사와 같은 신선도 잣대) 꼬리 %%EOF 가 있어야 한다.
+        # %%EOF 는 크롬이 마지막에 쓰는 표식이라 부분 쓰기를 결정적으로 거른다(poppler 는
+        # 깨진 xref 를 수선해 읽어 주므로 pdfinfo 하나로는 반쪽을 놓칠 수 있다).
+        if not (os.path.exists(p) and os.path.getmtime(p) >= os.path.getmtime(htm)):
             return {"ok": False, "로그": "PDF 를 뽑지 못했습니다"}
+        with open(p, "rb") as f:
+            f.seek(max(0, os.path.getsize(p) - 1024))
+            if b"%%EOF" not in f.read():
+                return {"ok": False, "로그": "PDF 가 온전하지 않습니다 (크롬 렌더 실패)"}
         # 원본 지문을 PDF 메타에 심는다 — verify_all 의 PDF 낡음 검사가 "이 pdf 가 어느
         # html 에서 나왔나"를 대조할 근거다(hwpx zip 코멘트와 대칭, build/pdf낡음.py).
         # 스탬프는 부가 정보라 실패해도 내보내기는 세운다(try/except 로 삼킨다).
