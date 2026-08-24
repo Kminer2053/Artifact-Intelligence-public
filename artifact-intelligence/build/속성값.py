@@ -115,3 +115,24 @@ def 색(값, 자리, 기본):
         return s
     _거부(자리, 값, "#RGB·#RRGGBB 꼴 16진 색만 받습니다")
     return 기본
+
+
+_간격프리셋 = {"좁게": "0.4mm", "보통": "1.5mm", "넓게": "5mm"}
+
+
+def 간격스타일(doc):
+    """#3 개체 위/아래 간격(문서 전역) → <style> 한 조각을 낸다. 값이 없으면 빈 문자열.
+
+    왜 여기 있나 — da8cd37 이 assemble_full.py·assemble_slides.py 에 이 호출을 넣고 함수
+    구현을 **빠뜨려**, 풀버전·슬라이드 조립이 `AttributeError: … has no attribute '간격스타일'`
+    로 통째로 크래시했다(코덱스·커서 교차 테스트 실측, 2026-08-24). per-개체 간격(좁게/넓게)은
+    조립기의 `_정렬속성` 이 이미 인라인으로 처리하므로, 여기서는 **문서 전역 프리셋**
+    (doc['개체간격'] = 좁게/보통/넓게)만 본다. 필드가 없거나 미허용이면 무주입(빈 문자열) —
+    da8cd37 이전의 `return "".join(parts)` 와 같은 결과라 기존 문서에는 변화가 없다."""
+    if not isinstance(doc, dict):
+        return ""
+    mm = _간격프리셋.get(doc.get("개체간격"))
+    if not mm:
+        return ""
+    return (f'<style>.fr-page [class^="i-l"],.fr-page p{{'
+            f'margin-top:{mm};margin-bottom:{mm}}}</style>')

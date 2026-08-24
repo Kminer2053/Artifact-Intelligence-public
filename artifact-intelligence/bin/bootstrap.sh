@@ -83,4 +83,30 @@ except Exception:
   fi
 fi
 
+# ⑤ 버전 안내 — 설치본이 최신인지 공개 마켓 버전과 대조해, 뒤처지면 한 줄로 알린다(강제 아님).
+#    **같은 버전 재릴리스는 캐시가 안 바뀌므로 버전만이 갱신 신호다** — 사용자가 구버전에
+#    묶여 고친 버그를 못 받는 일을 막는다. 네트워크 실패·오프라인이면 조용히 넘긴다(본류 무영향).
+if command -v curl >/dev/null 2>&1; then
+  _local="$("$PY" -c 'import json;print(json.load(open(".claude-plugin/plugin.json"))["version"])' 2>/dev/null || echo "")"
+  _remote="$(curl -fsS -m 8 -A 'artifact-intelligence-policy/0.1' \
+      https://raw.githubusercontent.com/Kminer2053/Artifact-Intelligence-public/main/.claude-plugin/marketplace.json 2>/dev/null \
+      | "$PY" -c 'import json,sys
+try:
+    print(json.load(sys.stdin)["plugins"][0]["version"])
+except Exception:
+    pass' 2>/dev/null || echo "")"
+  if [ -n "$_local" ] && [ -n "$_remote" ] && [ "$_local" != "$_remote" ] \
+     && "$PY" -c "import sys
+def t(v):
+    return tuple(int(x) for x in v.split('.'))
+try:
+    sys.exit(0 if t('$_remote') > t('$_local') else 1)
+except Exception:
+    sys.exit(1)" 2>/dev/null; then
+    echo "[문서지능] 새 버전 $_remote 이 있습니다(설치본 $_local). 갱신을 권합니다 — 고친 버그가 담깁니다:" >&2
+    echo "           · Claude Code: /plugin marketplace update artifact-intelligence  →  /plugin install artifact-intelligence@artifact-intelligence" >&2
+    echo "           · Codex: codex plugin marketplace update  ·  Cursor: 클론 폴더에서 git pull" >&2
+  fi
+fi
+
 echo "[문서지능] 준비 완료." >&2
