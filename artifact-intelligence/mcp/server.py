@@ -93,15 +93,15 @@ _형이름 = {dict: "dict", list: "list", bool: "bool", int: "int", str: "str"}
 def _펴기(r):
     """작업 결과를 사람이 읽을 글로 편다. MCP 도구는 글을 돌려준다."""
     if not isinstance(r, dict):
-        return json.dumps(r, ensure_ascii=False, indent=1)[:20000]
+        return json.dumps(r, ensure_ascii=False, indent=1)[:120000]
     # `물음` — 되묻기 관문의 막힘 응답(WP-S3)에는 값이 없고 물음·필요한것이 있다.
     # `[✗]+로그` 로만 펴면 물음의 구조(id·값들)가 MCP 문에서만 떨어져 나가 세 문이
     # 같지 않게 된다 — 클라이언트가 id 를 몰라 어긋남답을 못 만든다.
     if "값" in r or "키" in r or "물음" in r:
         본 = {k: v for k, v in r.items() if k != "함수"}
-        return json.dumps(본, ensure_ascii=False, indent=1)[:20000]
+        return json.dumps(본, ensure_ascii=False, indent=1)[:120000]
     표 = "✓" if r.get("ok") else "✗"
-    return f"[{표}]\n{(r.get('로그') or '').strip()}"[:20000]
+    return f"[{표}]\n{(r.get('로그') or '').strip()}"[:120000]
 
 
 def _도구만들기(작):

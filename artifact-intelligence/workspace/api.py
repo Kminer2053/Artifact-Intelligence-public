@@ -3324,4 +3324,7 @@ if __name__ == "__main__":
         sys.exit(0)
     이름 = sys.argv[1]
     인자 = json.loads(sys.argv[2]) if len(sys.argv) > 2 else {}
-    print(json.dumps(부르기(이름, 인자), ensure_ascii=False, indent=1)[:4000])
+    # **절단하지 않는다.** 예전 [:4000] 은 `프롬프트조립`(compose) 의 지시문(7천자↑)을 4001자에서
+    # 잘라 JSON 을 깨뜨렸다 — CLI 경로로 부른 Codex 가 1~6 전 시나리오에서 막혔다(2026-08-24).
+    # 결과를 소비하는 쪽이 필요하면 스스로 자른다(silent 절단이 JSON 을 망치는 게 더 나쁘다).
+    print(json.dumps(부르기(이름, 인자), ensure_ascii=False, indent=1))
