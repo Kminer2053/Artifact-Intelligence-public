@@ -11,6 +11,41 @@ OBSERVED=$(python3 "$DIR/자료뿌리.py" 관측) || exit 1
 # 다섯 곳 중 이 한 곳만 컨테이너 배포에서 조용히 "크롬 없음"으로 갈라진다.
 # 못 찾으면 크롬찾기.py 가 안내 문구와 함께 죽는다(build/.hwpxenv/bin/python 을 쓴다 — 규칙: hwpxenv 는 안 건드리되 실행에는 쓴다).
 CHROME=$("$DIR/.hwpxenv/bin/python" "$DIR/크롬찾기.py") || exit 1
+# 헤들리스 크롬이 사용자의 **실행 중 Chrome 과 겹치면**, 산출물을 다 쓰고도 종료하지
+# 않는다(macOS 실측 2026-08-24: --headless·--headless=new 둘 다 PDF 를 2초에 쓰고 무한
+# 대기). 컨테이너 배포(A1)엔 경쟁 Chrome 이 없어 스스로 끝나므로 영향 없다. 데스크톱
+# (플러그인) 사용자를 위해 ① 격리 프로필로 시작 락을 피하고 ② **산출물이 완성되면(끝표시)
+# 죽여 회수**한다(WP: 헤들리스-크롬-행 — "다 쓰고 행"은 %%EOF 확인 후 kill 로 회복).
+CHROME_PROFILE=$(mktemp -d "${TMPDIR:-/tmp}/munseo-chrome.XXXXXX")
+trap 'rm -rf "$CHROME_PROFILE"' EXIT
+_CF="--headless --disable-gpu --virtual-time-budget=5000 --user-data-dir=$CHROME_PROFILE --no-first-run --no-default-browser-check"
+
+_render_pdf() {   # _render_pdf OUT URL — PDF 를 쓰고 %%EOF 가 보이면 크롬을 죽인다
+  local out="$1" url="$2" pid i
+  rm -f "$out"
+  "$CHROME" $_CF --no-pdf-header-footer --print-to-pdf="$out" "$url" >/dev/null 2>&1 &
+  pid=$!
+  for i in $(seq 1 40); do                       # 최대 20s
+    kill -0 "$pid" 2>/dev/null || break          # 스스로 종료(A1: 경쟁 Chrome 없음)
+    [ -s "$out" ] && tail -c 600 "$out" 2>/dev/null | grep -qa '%%EOF' && break
+    sleep 0.5
+  done
+  kill "$pid" 2>/dev/null; wait "$pid" 2>/dev/null
+}
+
+_dump_dom() {     # _dump_dom URL — DOM 을 stdout 으로 내고 </html> 보이면 죽인다
+  local url="$1" tmp pid i
+  tmp="$CHROME_PROFILE/dom.$$"
+  "$CHROME" $_CF --dump-dom "$url" >"$tmp" 2>/dev/null &
+  pid=$!
+  for i in $(seq 1 40); do
+    kill -0 "$pid" 2>/dev/null || break
+    grep -qa '</html>' "$tmp" 2>/dev/null && break
+    sleep 0.5
+  done
+  kill "$pid" 2>/dev/null; wait "$pid" 2>/dev/null
+  cat "$tmp"; rm -f "$tmp"
+}
 cd "$SAMPLES" || exit 1
 echo "== 문체 게이트 (stylelint) =="
 # 등록부를 세어서 전 장르를 건다 — samples-docs.json 만 걸던 판은 규정·보도자료를
@@ -26,13 +61,11 @@ echo "== 조판 게이트 =="
 echo "file,pages,audit"
 for f in *.html; do
   base="${f%.html}"
-  "$CHROME" --headless --disable-gpu --no-pdf-header-footer --virtual-time-budget=5000 \
-    --print-to-pdf="$base.pdf" "file://$SAMPLES/$f" 2>/dev/null
+  _render_pdf "$base.pdf" "file://$SAMPLES/$f"
   # 원본 지문을 PDF 메타에 심는다(hwpx zip 코멘트와 대칭) — verify_all 의 PDF 낡음 검사 근거.
   "$DIR/.hwpxenv/bin/python" "$DIR/pdf낡음.py" 찍기 "$base.pdf" "$SAMPLES/$f" 2>/dev/null
   pages=$(pdfinfo "$base.pdf" 2>/dev/null | awk '/^Pages/{print $2}')
-  audit=$("$CHROME" --headless --disable-gpu --virtual-time-budget=5000 --dump-dom \
-    "file://$SAMPLES/$f" 2>/dev/null | grep -o 'data-audit="[^"]*"' | sed 's/^data-audit="//; s/"$//; s/&quot;/"/g')
+  audit=$(_dump_dom "file://$SAMPLES/$f" | grep -o 'data-audit="[^"]*"' | sed 's/^data-audit="//; s/"$//; s/&quot;/"/g')
   echo "$f,$pages,\"$audit\""
 done
 

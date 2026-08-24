@@ -53,10 +53,10 @@ def plain(s):
 #    .doc-summary / h2.h-l1 / p.i-lN / .doc-table-wrap / .doc-attach) ──
 
 STREAM_RE = re.compile(
-    r'<h2 class="h-l1">(?P<head>.*?)</h2>'
+    r'<h2 class="h-l1"[^>]*>(?P<head>.*?)</h2>'
     r'|<p class="(?P<lv>i-l\d)"(?P<iat>[^>]*)>(?P<item>.*?)</p>'
-    r'|<div class="doc-table-wrap">(?P<tbl>.*?)</table>\s*</div>'
-    r'|<p class="doc-attach">(?P<attach>.*?)</p>', re.S)
+    r'|<div class="doc-table-wrap"[^>]*>(?P<tbl>.*?)</table>\s*</div>'
+    r'|<p class="doc-attach"[^>]*>(?P<attach>.*?)</p>', re.S)
 
 
 def _first(pattern, src):

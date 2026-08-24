@@ -11,7 +11,7 @@
       "name": "artifact-intelligence",
       "source": "./artifact-intelligence",
       "description": "의도와 자료만 받아 대한민국 공공기관 보고서·발표 슬라이드를 결재 가능한 시각 품질의 HTML·인쇄 PDF·HWPX·PPTX로 생성합니다. 문서 3요소 온톨로지에 근거해 거의 완성된 초안을 만들고 사람은 리터칭만 합니다. 스킬 + MCP 도구 46종.",
-      "version": "0.1.2",
+      "version": "0.1.3",
       "author": {
         "name": "문서지능 | Artifact Intelligence",
         "email": "park2053@gmail.com",
