@@ -2,7 +2,7 @@
   "name": "artifact-intelligence",
   "displayName": "문서지능 · Artifact Intelligence",
   "description": "의도와 자료만 받아 대한민국 공공기관 문서(1페이지·풀버전 보고서·시행문·규정·보도자료·발표 슬라이드)를 결재 가능한 시각 품질의 HTML·PDF·한글(HWPX)·발표(PPTX)로 생성합니다. 실물 보고서 1만 6천여 건에서 뽑은 규칙(구성·문체·디자인)으로 거의 완성된 초안을 만들고 사람은 리터칭만 합니다. 판정·조립·문체검사·렌더를 로컬에서 처리해 문서가 이 컴퓨터를 떠나지 않고, 작성 규칙 조각만 정책 서버에서 받아 씁니다.",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "keywords": [
     "korean",
     "government",

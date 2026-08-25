@@ -624,7 +624,12 @@ def 새문서(doc, 장르="samples"):
         return {"ok": False, "로그": 말 + ("" if not 고아 else f" · 고아 산출물 {고아}개 치움")
                 + "\n" + r["로그"]}
     돌리기([sys.executable, "workspace/render_editor_any.py", 키])
-    return {"ok": True, "로그": f"'{키}' 를 만들었습니다\n" + r["로그"], "key": 키}
+    return {"ok": True, "key": 키, "편집화면": f"workspace/editors/editor-{키}.html",
+            "로그": f"'{키}' 를 만들었습니다\n" + r["로그"]
+            + f"\n\n▸ 다음(협업): 검사(문체·조판·지어냈나)를 통과시킨 뒤, **편집 화면"
+            + f"(workspace/editors/editor-{키}.html)을 사용자에게 열어 리터칭을 받으세요.** "
+            + "사용자가 '이대로 좋다'고 확인하기 전에는 내보내기(export) 하지 마세요 — "
+            + "이 플러그인은 사람이 단계마다 확인하는 협업 도구입니다."}
 
 
 def _등록부에서한줄빼기(등록, 키):
