@@ -58,31 +58,36 @@
 
 ## 설치
 
+> **진입은 클라이언트마다 자리가 다릅니다**(스킬·MCP 노출 방식이 달라서 — 고장이 아닙니다). 어디서든 **"문서지능 도와줘"** 라고 치면 됩니다. `/` 로 부르려면: Claude Code = `/문서지능`, Codex = `/skills` → artifact-intelligence, Cursor = `/문서지능`(아래 `.cursor/commands/` 복사 후).
+
 **Claude Code** — 마켓플레이스로:
 ```
 /plugin marketplace add Kminer2053/Artifact-Intelligence-public
 /plugin install artifact-intelligence@artifact-intelligence
 ```
+진입: `/문서지능` 또는 "문서지능 도와줘".
 
 **Codex** — 플러그인 마켓플레이스로(클론 불필요):
 ```bash
 codex plugin marketplace add Kminer2053/Artifact-Intelligence-public
 codex plugin add artifact-intelligence@artifact-intelligence
 ```
-Python 3.10+ 필요. 한글(HWPX)·업로드·규칙 조회까지 쓰려면 설치된 플러그인 폴더(`codex plugin list` 로 경로 확인)에서 `bash bin/bootstrap.sh` 를 한 번 실행하세요.
+Python 3.10+ 필요. 한글(HWPX)·업로드·규칙 조회까지 쓰려면 설치된 플러그인 폴더(`codex plugin list` 로 경로 확인)에서 `bash bin/bootstrap.sh` 를 한 번 실행하세요. 진입: **새 세션**에서 `/skills` → artifact-intelligence(설치 직후엔 스킬 목록 갱신에 새 세션이 필요), 또는 "문서지능 도와줘". (Codex `/` 상단 메뉴는 `/plugins`·`/skills`·`/mcp` 내장 명령만 보입니다.)
 
 **Cursor** — MCP 서버 + 규칙으로 붙입니다:
 ```bash
 git clone https://github.com/Kminer2053/Artifact-Intelligence-public
 cd Artifact-Intelligence-public/artifact-intelligence
 bash bin/bootstrap.sh
-cp .cursor/rules/artifact-intelligence.mdc ~/.cursor/rules/   # 작업 안내 규칙(선택)
+mkdir -p ~/.cursor/rules ~/.cursor/commands
+cp .cursor/rules/artifact-intelligence.mdc ~/.cursor/rules/   # 작업 안내 규칙(자동 적용)
+cp .cursor/commands/문서지능.md ~/.cursor/commands/           # /문서지능 슬래시 명령(Cursor 1.6+)
 ```
 그다음 `~/.cursor/mcp.json` 의 `mcpServers` 에 아래를 추가하고 Cursor를 재시작하세요(`<경로>` 는 위 폴더의 절대경로):
 ```json
 "artifact-intelligence": { "command": "<경로>/mcp/run.sh" }
 ```
-Cursor는 MCP **도구**(판정·조립·게이트·내보내기)로 동작하고, 위 규칙 파일을 두면 작업 절차까지 안내됩니다.
+Cursor는 MCP **도구**(판정·조립·게이트·내보내기)로 동작합니다. **진입**: `/` 를 치면 `/문서지능` 명령이 뜨거나(위 `.cursor/commands/` 복사 후, Cursor 1.6+), 그냥 **"문서지능 도와줘"** 라고 쳐도 됩니다 — 이후 규칙이 단계별 절차를 안내합니다.
 
 **웹앱** — 설치 없이 https://artifact-intelligence.app 에서 바로 씁니다.
 
