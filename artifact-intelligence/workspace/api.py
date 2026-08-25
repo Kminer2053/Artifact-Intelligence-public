@@ -2005,7 +2005,10 @@ def 내보내기(key, 형식="hwpx"):
     # 쓰게. 슬라이드는 HTML·PDF·PPTX, 그 외 세로 A4 장르는 HTML·PDF·HWPX. 각 형식은 아래
     # 형식별 경로를 그대로 재사용한다(전환이지 재생성 아님).
     if 형식 in ("전부", "all", "모두"):
-        형식들 = ["html", "pdf", "pptx"] if doc.get("genre") == "slides" else ["html", "pdf", "hwpx"]
+        # 이 문서에 맞는 **모든 형식**: 편집형(HWPX/PPTX)·인쇄(PDF)·웹(HTML)·본문(MD)·원천(JSON).
+        # 슬라이드는 세로 A4 가 아니라 HWPX 대신 PPTX. 순서는 주 산출물 먼저, md·json 은 끝에.
+        형식들 = (["html", "pdf", "pptx", "md", "json"] if doc.get("genre") == "slides"
+                else ["html", "pdf", "hwpx", "md", "json"])
         낸것, 실패 = [], []
         for _f in 형식들:
             rr = 내보내기(key, _f)
