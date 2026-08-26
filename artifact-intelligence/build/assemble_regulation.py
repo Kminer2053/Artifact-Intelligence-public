@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """규정(내규·사규) 조립기 — JSON → 규정 HTML. 조문 번호 자동 부여.
 
-정본: ontology document_types.regulation (실물 23건 전수 실측, 2026-08-01)
-  구성  제명 — (제N장) — 제N조(조제목) — 부칙. 제1조 100% · 부칙 100% · 제1장 78%
-  문체  jomun(조문체) — 한다체 85% + 형용사 종결 13% = 98%. 합니다체 금지
+정본: ontology document_types.regulation (실물 사례, 2026-08-01)
+  구성  제명 — (제N장) — 제N조(조제목) — 부칙. 제1조· 부칙· 제1장
+  문체  jomun(조문체) — 한다체+ 형용사 종결=. 합니다체 금지
   디자인 전 위계 같은 크기(14pt) · 위계는 굵게로만 가른다
-        (제N장 96% · 제N조 90% · 제N절 78% 굵게 / 항·호·목 0~5%)
+        (제N장· 제N조· 제N절굵게 / 항·호·목
 
 문서 JSON 스키마(build/regulation-docs.json — 배열):
 {
@@ -34,9 +34,9 @@
       다 맞게 나온다.
 
 게이트(gate_check)
-  · 제1조가 있어야 한다(실측 100%)
-  · 부칙이 있어야 한다(실측 100%)
-  · 합니다체 금지(조문체 규범, 실측 0.1%)
+  · 제1조가 있어야 한다(실측)
+  · 부칙이 있어야 한다(실측)
+  · 합니다체 금지(조문체 규범,(실측)
 
 사용: python3 build/assemble_regulation.py build/regulation-docs.json
 """
@@ -97,9 +97,9 @@ def gate_check(doc):
     bad = []
     items = doc.get("본문", [])
     if not any(it.get("level") == "조" for it in items):
-        bad.append("조가 하나도 없다 — 규정은 조로 이루어진다(실측 100%)")
+        bad.append("조가 하나도 없다 — 규정은 조로 이루어진다(실측)")
     if not doc.get("부칙"):
-        bad.append("부칙이 없다 — 시행일을 정하는 자리다(실측 23/23건)")
+        bad.append("부칙이 없다 — 시행일을 정하는 자리다(실측 일부)")
     # 조문체 — 합니다체는 규정이 아니라 보고서·공문의 말투다
     for it in items:
         t = (it.get("text") or "").strip()
@@ -256,7 +256,7 @@ def build(doc):
                          f'<span class="tx" data-path="{p}.text">{e(it.get("text", ""))}</span>'
                          f'</p>\n')
 
-    # ── 부칙 — 실측 100%. 시행일을 정하는 자리라 규정의 필수 부분이다
+    # ── 부칙 —(실측). 시행일을 정하는 자리라 규정의 필수 부분이다
     for bi, b in enumerate(doc.get("부칙", [])):
         꼬리 = " ".join(x for x in (b.get("호", ""), b.get("일자", "")) if x)
         머리 = '<h2 class="rg-부칙" data-ent="부칙">부칙'

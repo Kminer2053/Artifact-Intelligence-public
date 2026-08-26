@@ -206,7 +206,18 @@ const KEY = 'ws-edit-' + FN;
 // (세션이 자동 유지되고 편집이 /save 로 서버 정본에 확실히 저장·보관된다), 스킬·MCP 는
 // 편집기를 파일로 열어(file://) 서버가 없다 — 저장·보관·반영이 채팅의 Claude 를 거쳐야 한다.
 // 그래서 '채팅에 알려 주세요' 류는 스킬·MCP 에서만 옳다. 웹앱에선 감추거나 사실대로 바꾼다.
-const 채팅표면 = location.protocol === 'file:';
+// 두 축을 가른다(예전엔 file:// 하나로 뭉쳐 있었다).
+//   ① 서버있음 — /save·/api 로 정본에 바로 반영·이력 조회가 되는가. http(s) 면 참.
+//   ② 플러그인 — 곁에 채팅 Claude(코딩에이전트)가 있는가. 「AI에게 고쳐달라」는 이 Claude 가
+//      대기 지시를 읽어 반영하므로, 이게 있어야 산다. file:// 이거나 로컬 편집기 서버(127.0.0.1)
+//      면 참 — 후자는 플러그인이 편집 단계에 잠깐 띄운 serve.py 다(사용자 실제 브라우저로 연다).
+//      공개 웹앱(artifact-intelligence.app)엔 채팅 Claude 가 없어 거짓 — 거기선 감춘다.
+const 서버있음 = location.protocol !== 'file:';
+const 로컬서버 = 서버있음 && /^(127\.0\.0\.1|localhost|\[?::1\]?|0\.0\.0\.0)$/.test(location.hostname);
+const 플러그인 = !서버있음 || 로컬서버;
+// 채팅표면 — (기존 의미 그대로) 저장·반영을 채팅이 중개해야 하는가 = 서버가 없는가.
+// 로컬 서버면 거짓이라 /save·되돌림지점패널(이력)·재조립이 웹앱과 똑같이 동작한다.
+const 채팅표면 = !서버있음;
 // 문서 글자를 HTML 로 넣기 전에 잠근다 (WP-S2 ③). 이 화면에 실리는 label·붙임 본문·
 // 도식 라벨·대기 작업은 **문서에서 온 글**이라 태그가 섞여 있을 수 있다. 이 화면은
 // 세션 쿠키와 같은 출처에서 도니, 한 곳만 새도 그 세션 전체가 남의 것이 된다.
@@ -671,7 +682,7 @@ function renderPanel() {
   if (has('emphasis')) {
     const spans = [...el.querySelectorAll('span.num, span.accent, span.delta')];
     panel.insertAdjacentHTML('beforeend',
-      `<div class="hint">강조 — 숫자(검정 굵게) · 핵심(남색, 문서 2회까지) · 증감(빨강, △ 필요)</div>`);
+      `<div class="hint">강조 — 숫자(검정 굵게) · 핵심(남색, 문서 까지) · 증감(빨강, △ 필요)</div>`);
     spans.forEach((sp, i) => {
       const kind = sp.classList.contains('accent') ? '핵심'
                  : sp.classList.contains('delta') ? '증감' : '숫자';
@@ -854,7 +865,7 @@ function renderPanel() {
   }
   // 남긴 지시는 apply_edit_any 가 '대기'로 기록만 하고 채팅의 Claude 가 읽어 반영한다.
   // 웹앱엔 그 Claude 가 없어 눌러도 아무 일도 안 일어나므로(죽은 기능) 감춘다.
-  if (채팅표면 && has('ai')) A('✍ AI에게 고쳐달라 하기 — ' + info.spec['라벨'], () => addNote(el, info));
+  if (플러그인 && has('ai')) A('✍ AI에게 고쳐달라 하기 — ' + info.spec['라벨'], () => addNote(el, info));
   if (has('delSection')) A('🗑 절 전체 삭제', () => {
     const gid = el.dataset.group; const kill = [el];
     document.querySelectorAll(`.blk[data-group="${gid}"]`).forEach(n => { if (n !== el) kill.push(n); });
@@ -872,9 +883,13 @@ function appendPending() {
   panel.insertAdjacentHTML('beforeend', '<div class="notes"><b>대기 중 작업</b><ul>' +
     keys.map(k => `<li>📌 ${esc(k)}: ${esc(state.notes[k])}</li>`).join('') +
     state.ops.slice(-6).map(o => `<li>· ${esc(o.action)}${o.to ? ' → ' + esc(o.to) : ''} ${esc(o.target || '')}</li>`).join('') +
-    '</ul><div class="hint">' + (채팅표면
-      ? '채팅에 "고쳐놨어"라고 하시면 반영해 다시 만듭니다'
-      : '고친 내용은 저장하는 즉시 문서에 반영됩니다') + '</div></div>');
+    '</ul><div class="hint">' + (keys.length
+      // 「AI에게 고쳐달라」 지시는 곁의 채팅 Claude 가 대기 목록을 읽어 반영한다 — 로컬 서버라도
+      // 저장(/save)은 지시를 정본에 얹어 둘 뿐, 실제 고쳐 쓰기는 채팅이 한다.
+      ? '「AI에게 고쳐달라」 요청은 채팅에 "고쳐놨어"라고 하시면 반영합니다'
+      : (채팅표면
+          ? '채팅에 "고쳐놨어"라고 하시면 반영해 다시 만듭니다'
+          : '고친 내용은 저장하는 즉시 문서에 반영됩니다')) + '</div></div>');
 }
 
 // ── 직렬화: 원본 모델을 복제해 '경로(data-path)'로 패치 ──

@@ -247,7 +247,7 @@ def find_target(key):
 
 def diff_keys(old, new, path=""):
     """[낡음] 목록을 위치로 비교한다 — 항목을 하나 끼워 넣으면 뒤가 전부 바뀐 것으로
-    나온다(실측: 장 하나 추가에 51건, 실제 1건). history/diff.py 로 갈아탔고,
+    나온다(실측: 장 하나 추가에 사례, 실제 사례). history/diff.py 로 갈아탔고,
     이 함수는 회귀 시험이 '예전엔 이랬다'를 보여주기 위해 남겨 둔다."""
     out = []
     if isinstance(old, dict) and isinstance(new, dict):

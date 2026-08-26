@@ -83,6 +83,8 @@ _사양.loader.exec_module(자료뿌리)
     "메모": "memo", "지문": "fingerprint", "켜기": "enable", "라벨": "label",
     # 2층 빌드플랜 op(플랜승인) — 한글 인자 키는 MCP 에서 400 을 내므로 별칭 필수.
     "코멘트": "comment",
+    # 편집기열기(로컬 편집기 서버) — 포트 인자.
+    "포트": "port",
 }
 
 
@@ -626,7 +628,7 @@ def 새문서(doc, 장르="samples"):
         # 조립이 안 되면 등록부를 되돌린다 — 반쯤 들어간 문서가 남으면 다음이 다 걸린다.
         # **되돌리기는 되돌리기여야 한다**(적대리뷰 ③): 예전에는 조립 전에 떠 둔
         # 스냅샷(`cur[:-1]`)을 통째로 덮어썼다. 조립은 수백 ms~수 초라 그 사이에 남이
-        # 성공시킨 문서까지 같이 되감겼다 — 동시 2건이면 등록부가 빈다. 이제 다시
+        # 성공시킨 문서까지 같이 되감겼다 — 동시 사례이면 등록부가 빈다. 이제 다시
         # 읽어서 **내가 넣은 줄 하나만** 뺀다.
         뺀수, 사고 = _등록부에서한줄빼기(등록, 키)
         고아 = _고아산출물치우기(키)
@@ -906,7 +908,7 @@ def 본(장르="samples"):
     모양 = 깎기({k: v for k, v in 본문서.items()
                if not k.startswith("_") and k != "genre"})
     # 시각요소(표·도식·이미지)는 특정 절에만 있어 깎기(절[0]만 남김)가 놓친다 → 모델이 **구조**를
-    # 못 봐 시각자료를 거의 안 만든다(2026-08-11 실측, E4B/31B 풀버전 0건). 절 예시에 심어
+    # 못 봐 시각자료를 거의 안 만든다(2026-08-11 실측, E4B/31B 풀버전 사례). 절 예시에 심어
     # 키·중첩을 보여 준다. **넣을지 말지는 지시문의 시각자료 트리거가 정한다**(여기선 모양만).
     _시각요소예시(장르, 모양)
     return {"ok": True, "값": {"장르": 장르, "모양": 모양,
@@ -2139,7 +2141,7 @@ def 내보내기(key, 형식="hwpx"):
         return {"ok": False, "로그": f"모르는 형식: {형식} (json·md·html·pdf·hwpx·pptx)"}
 
     # **kordoc generate 를 쓰지 않는다.** 그것은 자기 프리셋으로 문서를 다시 만든다 —
-    # 우리가 실물 16,199건을 재서 세운 규칙이 남의 규칙으로 덮인다(2026-08-05 사장님 지적).
+    # 우리가 실물 사례 재서 세운 규칙이 남의 규칙으로 덮인다(2026-08-05 사장님 지적).
     # 여기서 하는 것은 생성이 아니라 **전환**이다: 완성된 규격을 HWPX 그릇에 그대로 옮긴다.
     tohwpx = 자료뿌리.모듈("tohwpx")
     낼 = os.path.join(낼곳, f"{key}.hwpx")
@@ -2226,7 +2228,7 @@ def _fr문서뽑기(글):
                       '(안에 <script type="application/json" id="fr-doc"> JSON 섬이 '
                       '있는 것)만 받습니다. 다른 문서로 시작하려면 서식분석·새문서 쪽입니다')
     if len(조각들) > 1:
-        # 우리 산출물엔 정확히 하나다(2026-08-08 실측: 38건 전부 1개). 둘 이상이면
+        # 우리 산출물엔 정확히 하나다(2026-08-08 실측: 사례 전부 1개). 둘 이상이면
         # 손을 탄 파일이다 — 어느 것이 진짜인지 여기서 고르면 고른 쪽이 뚫린다.
         return None, (f"fr-doc 이 {len(조각들)}개 있습니다 — 우리가 낸 HTML 에는 정확히 "
                       f"하나입니다. 손대지 않은 원본 파일로 다시 넣어 주세요")
@@ -2250,7 +2252,7 @@ def _장르찾기(doc, 글=""):
     """fr-doc 의 genre(조립기가 심는 data-genre 값)를 등록부 이름으로 되돌린다.
 
     fr-doc 에 genre 가 없으면 `<html data-genre>` 속성을 본다 — 등록부에 genre 가
-    없던 옛 문서가 실재해서다(2026-08-08 실측: 1p 정본 24건 중 9건. 그 문서의 낸
+    없던 옛 문서가 실재해서다(2026-08-08 실측: 1p 정본 사례 중 사례. 그 문서의 낸
     HTML 은 fr-doc 에도 genre 가 없다). 조립기 다섯이 전부 이 속성을 심으므로
     (산출물 41/41 실측) 우리 파일이면 반드시 한쪽에는 있다. **둘 다 있는데 서로
     다르면 고르지 않고 거절한다** — 손탄 파일에서 어느 쪽을 고르든 고른 쪽이 뚫린다.
@@ -2279,12 +2281,102 @@ def _장르찾기(doc, 글=""):
     return 이름, ""
 
 
+@등록("편집기열기", ["key", "포트"], 읽기=False,
+    설명="로컬 편집기 서버(127.0.0.1)를 잠깐 띄우고 편집기를 사용자의 기본 브라우저에서 연다 — "
+        "저장·이력(되돌림 지점)·재조립이 웹앱처럼 정본에 바로 반영된다(편집 단계 협업용). "
+        "이미 떠 있으면 재사용한다",
+    en="editor")
+def 편집기열기(key, 포트=8642):
+    """편집 단계에서 부른다. serve.py 를 **단일세션**(쿠키 격리 없이 이 세션 뿌리)으로 127.0.0.1 에
+    띄우고 editor-<key>.html 을 OS 기본 브라우저로 연다.
+
+    왜 서버인가 — file:// 로 열면 코딩에이전트의 내장 브라우저가 JS·저장을 제대로 못 돌리고(정적
+    스냅샷), 저장·이력이 채팅 중개라 UI 에 안 뜬다. http://127.0.0.1 이면 편집기의 서버 경로가 살아
+    저장→정본 반영·이력(되돌림 지점)·재조립이 웹앱과 똑같이 돈다. 데이터는 localhost 를 안 떠난다
+    (기본 127.0.0.1 바인드, 관리자 면은 열쇠 없으면 잠김)."""
+    import urllib.request
+    import urllib.error
+    import webbrowser
+    import shutil
+    try:
+        포트 = int(포트)
+    except Exception:
+        포트 = 8642
+    편집기 = os.path.join(ROOT, "workspace", "editors", f"editor-{key}.html")
+    if not os.path.exists(편집기):
+        return {"ok": False, "로그": f"편집기 파일이 없습니다: workspace/editors/editor-{key}.html "
+                "— 먼저 새문서(new)로 문서를 만들어 편집기를 구우세요"}
+    url = f"http://127.0.0.1:{포트}/workspace/editors/editor-{key}.html"
+    베이스 = f"http://127.0.0.1:{포트}/"
+
+    def _받나(u, timeout=0.6):
+        try:
+            with urllib.request.urlopen(u, timeout=timeout) as r:
+                return r.status
+        except urllib.error.HTTPError as e:
+            return e.code
+        except Exception:
+            return None
+
+    떠있음 = _받나(url) == 200
+    if not 떠있음:
+        # 포트에 남의 서버가 있으면(우리 편집기 URL 이 200 이 아닌데 뭔가 응답) 막지 말고 알린다.
+        if _받나(베이스) is not None:
+            return {"ok": False, "로그": f"{포트} 포트에 이미 다른 서버가 있습니다 — 다른 포트를 "
+                    f"주세요(예: 편집기열기 key={key} 포트={포트 + 1})"}
+        # serve.py 를 단일세션으로 백그라운드 기동. env 는 현재 것을 복사해(자료뿌리·PATH·세션 보존)
+        # 문서지능_단일세션만 얹는다 — 이 세션 뿌리를 그대로 봐 /save 가 방금 만든 문서를 찾는다.
+        환경 = dict(os.environ)
+        환경["문서지능_단일세션"] = "1"
+        srv = os.path.join(ROOT, "workspace", "serve.py")
+        try:
+            _로그 = open(os.path.join(자료뿌리.기본뿌리(), ".편집서버.log"), "ab")
+        except Exception:
+            _로그 = subprocess.DEVNULL
+        try:
+            subprocess.Popen([sys.executable, srv, str(포트)], cwd=ROOT, env=환경,
+                             stdout=_로그, stderr=_로그, start_new_session=True)
+        except Exception as e:
+            return {"ok": False, "로그": f"편집기 서버를 띄우지 못했습니다: {e}"}
+        for _ in range(30):                    # 뜰 때까지 대기(최대 ~6초)
+            if _받나(url) == 200:
+                떠있음 = True
+                break
+            time.sleep(0.2)
+        if not 떠있음:
+            return {"ok": False, "로그": f"편집기 서버가 {포트} 포트에서 뜨지 않았습니다 — "
+                    "잠시 후 다시 시도하거나, 로그(.편집서버.log)를 확인하세요"}
+    # 사용자의 기본 브라우저로 연다. 원격·헤드리스면 실패할 수 있으니 URL 은 늘 돌려준다.
+    열림 = False
+    try:
+        열림 = bool(webbrowser.open(url))
+    except Exception:
+        열림 = False
+    if not 열림:
+        for 명령 in (["open", url], ["xdg-open", url]):
+            if shutil.which(명령[0]):
+                try:
+                    subprocess.Popen(명령, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                    열림 = True
+                    break
+                except Exception:
+                    pass
+    return {"ok": True, "값": {"url": url, "브라우저열림": 열림},
+            "로그": (f"편집기를 브라우저에서 열었습니다 — {url}\n"
+                    "▸ 사용자가 직접 리터칭하도록 두세요. 저장·이력(되돌림 지점)·재조립이 정본에 "
+                    "바로 반영됩니다. 손편집은 역추적(backtrace)으로 정본에 반영하고, "
+                    "'이대로 좋다' 확인 전엔 내보내지 마세요."
+                    if 열림 else
+                    "서버는 떴지만 브라우저 자동 열기에 실패했습니다(원격·헤드리스일 수 있음) — "
+                    f"이 주소를 사용자에게 전해 직접 여시게 하세요: {url}")}
+
+
 @등록("이어받기", ["html"], 읽기=False,
     설명="낸 HTML 을 다시 넣어 이어 고친다 — fr-doc JSON 을 꺼내 새문서로 세운다",
     en="resume")
 def 이어받기(html):
     """최초 입력 4갈래 중 ②(출시계획 1-4). 장르별 분기가 **없다** — 조립기 다섯이
-    전부 같은 fr-doc id 로 심는 것을 2026-08-08 실측으로 확인했다(산출물 38건 전부
+    전부 같은 fr-doc id 로 심는 것을 2026-08-08 실측으로 확인했다(산출물 사례 전부
     정확히 1개·JSON 파싱 성공). 장르는 fr-doc 안의 genre 값으로 되돌린다.
     """
     doc, 탈 = _fr문서뽑기(html)
