@@ -15,6 +15,7 @@
   python mcp/server.py                 stdio     — 각자 자기 컴퓨터(로컬 스킬과 함께)
   python mcp/server.py --http [포트]    HTTP      — 한 곳에 올려 여럿이 붙는다(공유 MCP)
 """
+import inspect
 import json
 import re
 import sys
@@ -124,22 +125,35 @@ def _도구만들기(작):
                              f"없습니다('{e}') — workspace/api.py 인자영문 에 추가하세요")
     if len(set(영문.values())) != len(영문):
         raise SystemExit(f"도구 {이름} 의 영문 인자 이름이 겹칩니다: {영문}")
-    파라 = ", ".join(
-        f"{영문[k]}: {_형이름.get(모양.get(k, str), 'str')} = "
-        f"{chr(39)*2 if 모양.get(k, str) is str else 'None'}"
-        for k in 받는것)
-    넘김 = ", ".join(f"{k!r}: {영문[k]}" for k in 받는것)
+    # exec 없이 만든다 — 정부망 GitLab 보안 훅(Semgrep exec-detected)이 push 를 막았다(2026-09-07).
+    # 도구 함수는 **kw 를 받는 클로저이고, FastMCP 가 스키마를 뽑는 inspect.signature 에는
+    # __signature__(영문 인자명·형·기본값)를 심는다 — 생성 소스를 exec 하던 때와 스키마가 같다
+    # (스냅샷 diff 로 확인). 형 주석은 _형이름과 같은 파이썬 형 객체 그대로.
     설명 = 작["설명"] + (f"  (한국어 이름: {작['이름']})" if 작.get("en") else "")
     번역 = [f"{e}={k}" for k, e in 영문.items() if e != k]
     if 번역:
         설명 += f"  [인자 대응: {', '.join(번역)}]"
-    소스 = (f"def {이름}({파라}) -> str:\n"
-           f"    인자 = {{{넘김}}}\n"
-           f"    인자 = {{k: v for k, v in 인자.items() if v not in ('', None)}}\n"
-           f"    return _펴기(api.부르기({작['이름']!r}, 인자))\n")
-    ns = {"api": api, "_펴기": _펴기}
-    exec(소스, ns)
-    fn = ns[이름]
+    작이름 = 작["이름"]
+    받는순 = list(받는것)
+
+    def fn(**kw):
+        인자 = {k: kw.get(영문[k]) for k in 받는순}
+        인자 = {k: v for k, v in 인자.items() if v not in ("", None)}
+        return _펴기(api.부르기(작이름, 인자))
+
+    매개 = []
+    주석 = {}
+    for k in 받는순:
+        형 = 모양.get(k, str) if 모양.get(k, str) in _형이름 else str
+        기본 = "" if 형 is str else None
+        매개.append(inspect.Parameter(영문[k], inspect.Parameter.POSITIONAL_OR_KEYWORD,
+                                     default=기본, annotation=형))
+        주석[영문[k]] = 형
+    주석["return"] = str
+    fn.__signature__ = inspect.Signature(매개, return_annotation=str)
+    fn.__annotations__ = 주석
+    fn.__name__ = 이름
+    fn.__qualname__ = 이름
     fn.__doc__ = 설명
     mcp.add_tool(fn, name=이름, description=설명)
     return 이름

@@ -26,6 +26,28 @@ import threading
 import time
 import uuid
 
+import urllib.error
+import urllib.request
+
+
+def _http전용열기():
+    """urllib 열기를 http/https 로만 — file:// 등 다른 스킴 핸들러를 아예 싣지 않는다.
+    urlopen 기본 opener 는 FileHandler·FTPHandler·DataHandler 까지 갖고 있어 동적 URL 이
+    들어오면 로컬 파일을 읽을 수 있다(정부망 GitLab Semgrep 'dynamic-urllib-use' 지적, 2026-09-07).
+    프록시·리다이렉트·HTTP 오류(HTTPError) 동작은 기본 opener 와 같다. 알 수 없는 스킴은
+    UnknownHandler 가 URLError 로 거부한다."""
+    od = urllib.request.OpenerDirector()
+    for h in (urllib.request.ProxyHandler(), urllib.request.UnknownHandler(),
+              urllib.request.HTTPHandler(), urllib.request.HTTPSHandler(),
+              urllib.request.HTTPDefaultErrorHandler(), urllib.request.HTTPRedirectHandler(),
+              urllib.request.HTTPErrorProcessor()):
+        od.add_handler(h)
+    return od
+
+
+_HTTP열기 = _http전용열기()
+
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # ROOT 는 **코드뿌리**다(조립기·온톨로지·node_modules 가 여기 있다).
@@ -1436,7 +1458,7 @@ def _LLM호출_실제(지시문, 자료, 예시=None, 장르=None):
     req = urllib.request.Request(url, data=json.dumps(몸).encode("utf-8"),
                                  headers=헤더, method="POST")
     try:
-        with urllib.request.urlopen(req, timeout=180) as r:
+        with _HTTP열기.open(req, timeout=180) as r:
             답 = json.load(r)
     except urllib.error.HTTPError as e:
         # 제공자 응답 본문(왜 막혔나 — 모델 없음·권한 등)을 진단에 싣는다. **키는 요청
@@ -2603,7 +2625,7 @@ def 편집기열기(key, 포트=8642):
 
     def _받나(u, timeout=0.6):
         try:
-            with urllib.request.urlopen(u, timeout=timeout) as r:
+            with _HTTP열기.open(u, timeout=timeout) as r:
                 return r.status
         except urllib.error.HTTPError as e:
             return e.code
@@ -2759,7 +2781,7 @@ def _원격(서버, 이름, 인자):
     요청 = urllib.request.Request(길, data=본, method="POST", headers=머리)
     try:
         # 조판게이트(최대 900초, §3 WP-S4)까지 기다려야 하니 넉넉히 잡는다.
-        with urllib.request.urlopen(요청, timeout=920) as resp:
+        with _HTTP열기.open(요청, timeout=920) as resp:
             return json.loads(resp.read().decode("utf-8"))
     except urllib.error.HTTPError as e:
         본문 = e.read()
