@@ -44,7 +44,12 @@ function arrow(x1, y1, x2, y2, label = "", both = false) {
                 + `fill="#333" text-anchor="middle">${esc(label)}</text>`;
   return a;
 }
-const lab = s => (s && typeof s === "object") ? (s["라벨"] ?? "") : (s ?? "");
+// 원소 라벨 폴백 — 라벨 ?? label ?? name ?? 이름 ?? 제목 ?? text ?? title. 서버 정규화(assemble_slides.py
+// _도식정규화)가 놓친 원소가 편집기 remount·클라 재렌더로 넘어와도 빈 박스로 안 보이게 여기서도 넓게 받는다
+// (실측 2026-09-06: 타입-배열키 불일치로 나온 도식은 여기서 한 번 더 걸러야 편집기에서도 라벨이 산다).
+const lab = s => (s && typeof s === "object")
+  ? (s["라벨"] ?? s.label ?? s.name ?? s["이름"] ?? s["제목"] ?? s.text ?? s.title ?? "")
+  : (s ?? "");
 
 const R = {};
 R.process = sp => {

@@ -264,9 +264,16 @@ def 폴더훑기(폴더=None, 미리보기=True):
 
 def _gen_openai(prompt, size, out):
     key = os.environ["OPENAI_API_KEY"]
+    # 엔드포인트는 env 로 지향을 바꾼다 — OpenAI 호환이면 하사 Qwen-Image 등도 그대로 붙는다
+    # (IMAGEGEN_OPENAI_BASE=https://open.hasa.re.kr/v1 · IMAGEGEN_OPENAI_MODEL=Qwen-Image).
+    base = os.environ.get("IMAGEGEN_OPENAI_BASE", "https://api.openai.com/v1").rstrip("/")
+    # 래스터는 **글자 없는 삽화**용이다(글자·라벨·도식은 SVG — 이미지 생성 모델은 한글 자모를
+    # 흩뜨린다. 실측 2026-09-02 Qwen-Image "문서지능"→"문누지앙"). 글자 억제를 프롬프트에 붙인다.
+    프 = prompt + " (no text, no letters, no words rendered in the image)"
     body = json.dumps({"model": os.environ.get("IMAGEGEN_OPENAI_MODEL", "gpt-image-1"),
-                       "prompt": prompt, "size": size, "n": 1}).encode()
-    req = urllib.request.Request("https://api.openai.com/v1/images/generations", data=body,
+                       "prompt": 프, "size": size, "n": 1,
+                       "response_format": "b64_json"}).encode()
+    req = urllib.request.Request(f"{base}/images/generations", data=body,
                                  headers={"Authorization": f"Bearer {key}",
                                           "Content-Type": "application/json"})
     with urllib.request.urlopen(req, timeout=180) as r:

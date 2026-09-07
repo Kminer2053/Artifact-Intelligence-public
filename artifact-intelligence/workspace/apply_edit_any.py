@@ -317,6 +317,15 @@ def main():
     cur = json.load(open(tgt["path"], encoding="utf-8"))
     old = cur[tgt["index"]] if tgt["kind"] == "doc" else cur
     changes = 바뀐것(old, doc)
+    # 편집기가 doc 최상위에 **밑줄 키로 쓰는 '내용' 오버레이**(정렬 등)는 diff.py 가 "내부 표기"로
+    # 통째로 건너뛴다(diff_doc: startswith("_") → continue). 그래서 정렬만 바꾸면 '변화 없음'으로
+    # 판정돼 아래에서 **쓰지도 않고 조기 리턴**해 편집이 새로고침에 사라지고 이력에도 안 남았다
+    # (2026-09-06 사장님 지적: 오른쪽엔 쌓이는데 왼쪽 이력은 빈 채). 밑줄 스킵은 _수정시각 같은
+    # 메타 때문이니 diff.py 는 두고, 여기서 '내용 오버레이'만 이름을 붙여 변화로 센다 —
+    # 쓰기 판단에도 들어가고 사람이 볼 이력에도 '정렬'로 실린다.
+    for _ov, _이름 in (("_정렬", "정렬"),):
+        if old.get(_ov) != doc.get(_ov):
+            changes.append((_이름, old.get(_ov) or "", doc.get(_ov) or ""))   # 빈값은 ""(이력에 None 안 찍게)
 
     print(f"■ {tgt['label']} — {key}")
     

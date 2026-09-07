@@ -89,7 +89,7 @@ window.addEventListener('load', () => {
       if (어절이갈렸나(g.map, s, e)) { splits++; splitWords.push(m[0]); }
     }
   });
-  if (spec.다지면) {                  // 슬라이드 — 장별로 넘침·장수를 재고 여기서 끝낸다
+  if (spec.다지면) {                  // 슬라이드 — 장별로 넘침·장수·구성지표를 재고 여기서 끝낸다
     const pages = [...document.querySelectorAll(spec.지면)];
     if (!pages.length) {
       document.body.dataset.audit = JSON.stringify({ _못잼: '지면(' + spec.지면 + ')을 찾지 못했다' });
@@ -98,9 +98,41 @@ window.addEventListener('load', () => {
     const overflows = pages
       .map((p, i) => ({ n: i + 1, over: Math.round(p.scrollHeight - p.clientHeight) }))
       .filter(x => x.over > 4);       /* 허용 4px — 반올림 잡음 아래(스텁 실측) */
+
+    /* [P3계약 신설] 비교·큰숫자·매트릭스·인용·타임라인 도입에 맞춘 구성 지표 7종.
+       data-layout(신설 속성)과 DOM 프리미티브(.sl-fig/svg/table/img/.sl-picto/.sl-kpi)로만
+       센다 — JSON 3층을 다시 훑지 않는 이유는 렌더 결과가 실제로 무엇을 보여주는지가
+       중요해서다(자료가 시각이어도 조립이 글머리로 눌러 그렸으면 그게 사실이다).
+       data-layout이 없는 장(옛 조립기 산출물)은 '?'로 묶어 종류 수를 거짓으로 부풀리지 않는다. */
+    const 시각선택자 = '.sl-fig, svg, table, img, .sl-picto, .sl-kpi';
+    const 레이아웃들 = pages.map(p => p.dataset.layout || '?');
+    const 레이아웃종류 = new Set(레이아웃들).size;
+    let 최대연속 = 0, 연속 = 0, 이전 = null;
+    레이아웃들.forEach(l => { 연속 = (l === 이전) ? 연속 + 1 : 1; if (연속 > 최대연속) 최대연속 = 연속; 이전 = l; });
+
+    let 글머리만장수 = 0, 시각합 = 0, 헤드길이최대 = 0, 항목최대 = 0, 백지장수 = 0;
+    pages.forEach(p => {
+      const 시각수 = p.querySelectorAll(시각선택자).length;
+      시각합 += 시각수;
+      const 글머리수 = p.querySelectorAll('.sl-l1, .sl-l2, .sl-l3, .sl-l4, .sl-agenda-i, [data-ent="항목"]').length;
+      if (글머리수 > 0 && 시각수 === 0) 글머리만장수++;
+      const 헤드 = p.querySelector('.sl-head');
+      if (헤드) 헤드길이최대 = Math.max(헤드길이최대, (헤드.textContent || '').trim().length);
+      const 항목수 = p.querySelectorAll('[data-ent="항목"]').length;
+      if (항목수 > 항목최대) 항목최대 = 항목수;
+      if (((p.textContent || '').replace(/\s+/g, '')).length === 0) 백지장수++;
+    });
+
     document.body.dataset.audit = JSON.stringify(
       { 장르: genre, splits, splitWords, slides: pages.length, overflows,
-        compressed: document.querySelectorAll('.jachigan-run').length });
+        compressed: document.querySelectorAll('.jachigan-run').length,
+        bullet_only_ratio: +(글머리만장수 / pages.length).toFixed(2),
+        layout_variety: 레이아웃종류,
+        max_same_run: 최대연속,
+        visuals_per_slide: +(시각합 / pages.length).toFixed(2),
+        head_len_max: 헤드길이최대,
+        items_max: 항목최대,
+        blank_slides: 백지장수 });
     return;
   }
   const sheet = document.querySelector(spec.지면);

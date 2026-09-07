@@ -878,6 +878,12 @@ class 손잡이(SimpleHTTPRequestHandler):
         self._세션으로(self._post)
 
     def _get(self):
+        # 접속통계 — 앱 화면(app.html)이 열릴 때 방문 한 번(정적 서빙 전에 센다).
+        try:
+            if self.path.split("?")[0].endswith("/app.html"):
+                api.접속기록("방문")
+        except Exception:
+            pass
         if self.path in ("/", "/index.html"):        # 뿌리는 웹앱으로
             self.send_response(302)
             self.send_header("Location", "/promo/landing.html")
@@ -1007,6 +1013,12 @@ class 손잡이(SimpleHTTPRequestHandler):
             self._json(500, {"ok": False,
                              "로그": "처리하다 오류가 났습니다 — 서버 기록을 봐 주세요"})
             return
+        # 접속통계 — 문서를 실제로 만들거나 내보낼 때만 센다(방문과 구분).
+        try:
+            if r.get("ok") and 이름 in ("새문서", "내보내기"):
+                api.접속기록("생성" if 이름 == "새문서" else "내보내기")
+        except Exception:
+            pass
         self._json(200 if r.get("ok") else 400, r)
 
     def send_error(self, code, message=None, explain=None):

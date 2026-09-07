@@ -42,7 +42,44 @@ EDITORS = Path(자료뿌리.편집화면뿌리())
 CHROME = """
 <link rel="stylesheet" href="@@TOKENS_HREF@@" data-editor>
 <style data-editor>
-  body { padding-top: 46px !important; margin-right: 268px !important; }
+  body { padding-top: 46px !important; margin-left: 260px !important; margin-right: 268px !important; }
+  /* ── 좌측 편집이력 레일 — 3단(좌 이력 / 가운데 뷰어 / 우 옵션)의 왼쪽 기둥.
+     history 부르기의 판(버전)을 최신순으로 상시 표출한다(서버 있을 때만; file:// 면 안내). */
+  .hist-panel { position: fixed; top: 46px; left: 0; bottom: 0; width: 260px; z-index: 98;
+    overflow-y: auto; background: var(--ai-color-white); border-right: 1px solid var(--ai-color-line);
+    padding: 13px; font: 13px/1.5 var(--ai-font-sans); box-sizing: border-box; }
+  .hist-panel h3 { font-size: 12px; color: var(--ai-color-muted); margin: 0 0 8px; font-weight: 600; }
+  .hist-panel .hrow { padding: 7px 0; border-top: 1px solid var(--ai-color-line); }
+  .hist-panel .hrow:first-of-type { border-top: none; }
+  .hist-panel .hrow.now { background: var(--ai-color-signal-tint); margin: 0 -6px; padding: 7px 6px; border-radius: var(--ai-radius-sm); }
+  .hist-panel .hrow .hwhen { font-size: 11px; color: var(--ai-color-muted); }
+  .hist-panel .hrow .hwhy { font-size: 12px; }
+  .hist-panel .hrow button { margin-top: 4px; border: none; border-radius: var(--ai-radius-sm);
+    padding: 3px 9px; font: 12px var(--ai-font-sans); background: var(--ai-color-signal);
+    color: var(--ai-color-white); cursor: pointer; }
+  .hist-panel .hmark { font-size: 10.5px; color: var(--ai-color-muted); text-transform: uppercase; letter-spacing: .04em; }
+  /* 슬라이드 줌 — 16:9(960pt) 가 3단 중앙에 안 들어가 잘리던 것을 맞춤/확대·축소(사장님 지적 0904).
+     zoom 은 레이아웃까지 스케일해 넘침·빈틈이 없다(크로미움). 자유배치 좌표는 rect 비율이라 무영향. */
+  .sl-page { zoom: var(--sl-zoom, 1); }
+  .sl-zoomctl { position: fixed; bottom: 16px; left: calc(260px + 16px); z-index: 96;
+    display: flex; align-items: center; gap: 2px; background: var(--ai-color-white);
+    border: 1px solid var(--ai-color-line); border-radius: 999px; padding: 3px 5px;
+    box-shadow: 0 3px 12px color-mix(in srgb, var(--ai-color-ink) 12%, transparent); font: 12px var(--ai-font-sans); }
+  .sl-zoomctl button { border: none; background: none; cursor: pointer; width: 26px; height: 24px;
+    border-radius: 6px; font-size: 15px; color: var(--ai-color-ink); }
+  .sl-zoomctl button:hover { background: var(--ai-color-signal-tint); }
+  .sl-zoomctl .sl-zval { min-width: 44px; text-align: center; font-variant-numeric: tabular-nums;
+    color: var(--ai-color-muted); cursor: pointer; }
+  /* AI 재작성 잠금 — 그 동안 편집기를 덮어 다른 조작을 막는다(사장님 지적 0904). */
+  .ai-lock { position: fixed; inset: 0; z-index: 200; display: none; align-items: center;
+    justify-content: center; background: color-mix(in srgb, var(--ai-color-ink) 30%, transparent); cursor: wait; }
+  .ai-lock-box { background: var(--ai-color-white); border-radius: 14px; padding: 18px 24px;
+    display: flex; gap: 13px; align-items: center; box-shadow: 0 12px 40px color-mix(in srgb, var(--ai-color-ink) 28%, transparent);
+    font: 14px var(--ai-font-sans); color: var(--ai-color-ink); max-width: 80vw; }
+  .ai-lock-spin { width: 18px; height: 18px; flex: none; border-radius: 50%;
+    border: 2.5px solid var(--ai-color-line); border-top-color: var(--ai-color-signal);
+    animation: ai-lock-rot .8s linear infinite; }
+  @keyframes ai-lock-rot { to { transform: rotate(360deg); } }
   .fr-page { margin-left: auto !important; margin-right: auto !important; }   /* 문서를 편집 영역 가운데로 */
   .edit-bar { position: fixed; top: 0; left: 0; right: 0; z-index: 99; background: var(--ai-color-ink);
     color: var(--ai-color-white); font: 13px/1.4 var(--ai-font-sans);
@@ -61,7 +98,7 @@ CHROME = """
   .crop-sel { pointer-events: none; }
   /* 이어서 하기 / 판 보관 — 화면 맨 위에 붙는 알림 띠. 색은 알림.기다림/나쁨 과 같은
      토큰 쌍(review/issue tint·line·ink)을 쓴다 — app.html 의 같은 뜻 알림과 통일. */
-  .resume-bar { position: fixed; top: 46px; left: 0; right: 268px; z-index: 97;
+  .resume-bar { position: fixed; top: 46px; left: 260px; right: 268px; z-index: 97;
     background: var(--ai-color-review-tint); border-bottom: 1px solid var(--ai-color-review-line);
     color: var(--ai-color-review-ink); padding: 9px 14px; font: 13px/1.5 var(--ai-font-sans); }
   .resume-bar.danger { background: var(--ai-color-issue-tint); border-bottom-color: var(--ai-color-issue-line);
@@ -248,7 +285,8 @@ const note = document.querySelector('.copy-note');
 const state = { sel: null, notes: {}, ops: [], noteFor: null, editing: null };
 const BOXES = ['핵심메시지','총괄목표','결론전환','통계근거','참고사례','절차나열','현황참고'];
 const FIGS  = {process:'절차도', cycle:'순환도', converge:'수렴형',
-               strategy:'전략체계도', relation:'구조도', stack:'스택막대'};
+               strategy:'전략체계도', relation:'구조도', stack:'스택막대',
+               bar:'막대', hbar:'가로막대', line:'꺾은선', donut:'도넛'};
 const LVSPEC = ((PROFILE0 => (PROFILE0['개체'] || {})['항목'])(
   (() => { try { return JSON.parse(document.getElementById('fr-profile').textContent); }
            catch (e) { return {}; } })()) || {})['레벨'] || [['i-l2','○'],['i-l3','-'],['i-l4','※']];
@@ -386,6 +424,14 @@ function editText(el, after) {
 // **같아야 한다**. 여기 손으로 적었다가 '전략'(전략체계도)을 빠뜨려, 그 도식에서는
 // 단계 추가·삭제가 아무 일도 안 했다(2026-08-06 B-1 시험에서 걸림).
 const 도식배열이름 = ['단계', '요건', '노드', '전략', '항목', '계열'];
+// 배열마다 '라벨'이 담긴 필드가 svgfig.js 렌더러별로 다르다 — 전략체계도=제목, 막대(계열)=이름,
+// 나머지=라벨. 이걸 모른 채 '라벨' 필드만 읽으면 전략·계열의 라벨이 전부 빈 것으로 판정돼
+// AI 재작성이 대상을 못 찾고 fetch 전에 조용히 끝난다(2026-09-04 aside '도식 네트워크 0건'의 뿌리).
+const 도식라벨필드 = { 단계: '라벨', 요건: '라벨', 노드: '라벨', 전략: '제목', 항목: '라벨', 계열: '이름' };
+function 도식배열키(sp) {
+  for (const k of 도식배열이름) if (Array.isArray(sp[k])) return k;
+  return null;
+}
 function 도식배열(sp) {
   for (const k of 도식배열이름) if (Array.isArray(sp[k])) return sp[k];
   return null;
@@ -506,8 +552,249 @@ function addFig(host) {
 
 // ── 패널 ──
 const panel = document.createElement('div'); panel.className = 'panel'; document.body.appendChild(panel);
+// ── 좌측 편집이력 레일 (3단의 왼쪽 기둥) — history 부르기의 판(버전)을 최신순 상시 표출.
+// 되돌림 지점 패널(상단 띠)이 '직접' 잡은 것만 보였다면, 이 레일은 저장마다 쌓이는 전(全) 이력을
+// 늘 왼쪽에 보여 준다(가운데 뷰어·우측 옵션과 3단). 서버가 있어야 이력이 있다(file:// 면 안내). ──
+const histPanel = document.createElement('div'); histPanel.className = 'hist-panel'; document.body.appendChild(histPanel);
+let 이력그리는중 = false;
+async function 이력그리기() {
+  if (!서버있음) {
+    histPanel.innerHTML = '<h3>편집 이력</h3><div style="opacity:.7;font-size:12px">저장 서버가 없어 이력을 불러올 수 없습니다.</div>';
+    return;
+  }
+  if (이력그리는중) return; 이력그리는중 = true;
+  try {
+    let r = null; try { r = await 부르기('history', { key: FN }); } catch (e) {}
+    const 판 = (r && r.ok && r['값'] && r['값']['판']) || [];
+    let h = '<h3>편집 이력</h3>';
+    if (!판.length) {
+      h += '<div style="opacity:.7;font-size:12px">아직 이력이 없습니다. 고치면 여기 쌓입니다.</div>';
+    } else {
+      판.slice().reverse().forEach((v, i) => {           // 최신이 위로
+        const 사유 = v['고친 이유'] || v['메모'] || ('버전 ' + (v['버전'] != null ? v['버전'] : ''));
+        const 직접 = v['종류'] === '직접';
+        h += '<div class="hrow' + (i === 0 ? ' now' : '') + '">'
+          + (i === 0 ? '<div class="hmark">지금</div>' : (직접 ? '<div class="hmark">되돌림 지점</div>' : ''))
+          + '<div class="hwhy">' + esc(사유) + '</div>'
+          + '<div class="hwhen">' + esc(v['때'] || '') + '</div>'
+          + (i === 0 ? '' : '<button data-v="' + esc(String(v['버전'])) + '" data-n="' + esc(사유) + '">되돌리기</button>')
+          + '</div>';
+      });
+    }
+    histPanel.innerHTML = h;
+    histPanel.querySelectorAll('button[data-v]').forEach(b =>
+      b.onclick = () => 지점되돌리기(+b.dataset.v, b.dataset.n));
+  } finally { 이력그리는중 = false; }
+}
 function btn(t, f, c) { const b = document.createElement('button'); b.textContent = t; b.onclick = f;
   if (c) b.className = c; return b; }
+// ── 개체별 AI 편집(BYOK) — 웹앱 전용 ─────────────────────────────────────────
+// 고른 개체 하나를 **사용자 브라우저에서 직접** LLM 에 보내 고쳐 받아 그 자리에 넣는다.
+// 키·내용은 서버를 안 거친다(app.html 내설정·모델부르기와 같은 규칙·같은 localStorage 칸).
+// 플러그인/파일 표면은 곁의 채팅 Claude 가 '메모(addNote)'로 반영하므로 여기 안 온다(renderPanel 분기).
+function _llm설정() {
+  let llm = {}; try { llm = JSON.parse(localStorage.getItem('ai-llm')) || {}; } catch (e) {}
+  return { 제공자: llm.제공자 || 'anthropic', 베이스: llm.베이스 || '', 모델: llm.모델 || '',
+           키: localStorage.getItem('ai-api-key') || '' };
+}
+function _키준비(c) { c = c || _llm설정(); return c.제공자 === 'ollama' ? true : !!c.키; }
+const 문체규칙 = { slides: '개조식 명사형(완결 주장 문장), 군더더기 없이 짧게',
+  'onepage-report': '개조식 명사형', fullreport: '개조식 명사형',
+  gongmun: '서술어 완결 + 공손체(~하시기 바랍니다)', press: '보도자료 서술형', regulation: '조문체' };
+// 편집기 AI 재작성이 참고할 '이 문서의 배경'(최초 의도·자료). BYOK 는 서버를 안 거치므로,
+// 편집기에 이미 실린 문서(SRCDOC._맥락 — app.html 이 새문서 때 심음)에서 직접 읽어 프롬프트에
+// 싣는다. 서버 경로의 문서키→_맥락 주입과 **같은 맥락·같은 동작**(모델만 다르다). 원자료는
+// 내 키(BYOK)로만 나가고 우리 서버는 안 거친다 — 자기 데이터를 자기 모델에 주는 셈.
+function _편집맥락() {
+  try {
+    const m = SRCDOC && SRCDOC['_맥락'];
+    const 의도 = m && String(m['의도'] || '').trim();
+    return 의도 ? ('\n\n[이 문서의 배경 — 이 맥락에 맞게 다듬되, 배경 자체를 출력하지는 마라]\n의도·자료: '
+      + 의도.slice(0, 1200) + '\n') : '';
+  } catch (e) { return ''; }
+}
+async function _llm다시쓰기(c, info, 원문, 지시) {
+  const 문체 = 문체규칙[PROFILE.genre] || '이 문서 종류의 문체를 그대로';
+  const sys = '너는 대한민국 공공문서 편집자다. 아래 「' + (info.spec['라벨'] || info.type)
+    + '」 문구 하나를 고쳐 쓴다. 규칙: ' + 문체 + '. 번호·마커(□○-·①·제N조 등)는 붙이지 마라(시스템이 붙인다).'
+    + ' 없는 사실·수치를 지어내지 마라.' + _편집맥락()
+    + ' **고친 문구 한 편만 출력** — 설명·따옴표·머리말 없이 본문만.';
+  const usr = 원문 + (지시 ? ('\n\n[고칠 방향] ' + 지시) : '\n\n[고칠 방향] 더 또렷하고 간결하게 다듬어라.');
+  let 글 = '';
+  if (c.제공자 === 'anthropic') {
+    const r = await fetch('https://api.anthropic.com/v1/messages', { method: 'POST',
+      headers: { 'content-type': 'application/json', 'x-api-key': c.키,
+        'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
+      body: JSON.stringify({ model: c.모델 || 'claude-sonnet-5', max_tokens: 1200,
+        system: sys, messages: [{ role: 'user', content: usr }] }) });
+    if (!r.ok) throw new Error('(' + r.status + ') ' + (await r.text()).slice(0, 160));
+    const j = await r.json(); 글 = (j.content || []).map(x => x.text || '').join('');
+  } else {
+    let base = (c.베이스 || '').trim().replace(/\/+$/, '');
+    if (!base) base = c.제공자 === 'ollama' ? 'http://localhost:11434/v1' : 'https://api.featherless.ai/v1';
+    const 헤더 = { 'content-type': 'application/json' };
+    if (c.키) 헤더['authorization'] = 'Bearer ' + c.키;
+    const r = await fetch(base + '/chat/completions', { method: 'POST', headers: 헤더,
+      body: JSON.stringify({ model: c.모델 || '', max_tokens: 1200,
+        messages: [{ role: 'system', content: sys }, { role: 'user', content: usr }] }) });
+    if (!r.ok) throw new Error('(' + r.status + ') ' + (await r.text()).slice(0, 160));
+    const j = await r.json(); const m = (((j.choices || [])[0] || {}).message || {});
+    글 = m.content || m.reasoning_content || m.reasoning || '';
+  }
+  글 = String(글).trim().replace(/^```[a-z]*\n?|\n?```$/g, '').trim();     // 코드펜스 제거
+  글 = 글.replace(/^["'「『]+|["'」』]+$/g, '').trim();                       // 감싼 따옴표 제거
+  return 글;
+}
+function _ai대상(el, info) {              // {el, apply} 또는 {table} — 없으면 null
+  const t = info.type;
+  if (t === '표') { const tb = el.querySelector('table') || (el.matches && el.matches('table') ? el : null);
+    return tb ? { table: tb } : null; }   // 표 = 셀 단위 재작성(구조 유지, 위치로 되박음)
+  if (t === '도식') {                       // 도식 = 라벨(단계·노드 등) 리스트 재작성 — 구조 보존
+    // 원소는 문자열이거나 객체({라벨, 주체/전이/id/연결…})다(svgfig lab 과 같은 규칙). 라벨만
+    // 뽑아 고치고, 객체면 라벨 필드만 되쓴다(String(obj)="[object Object]" 로 구조를 깨뜨리던 버그).
+    const sp0 = figSpec(el), 키0 = 도식배열키(sp0), lf = 도식라벨필드[키0] || '라벨';
+    const _lab = s => (s && typeof s === 'object')
+      ? String(s[lf] ?? s['라벨'] ?? s['제목'] ?? s['이름'] ?? '') : String(s ?? '');
+    const arr = 키0 ? sp0[키0] : null;
+    if (Array.isArray(arr) && arr.length && arr.some(x => _lab(x).trim()))
+      return { 리스트: arr.map(x => _lab(x)), 되박기: (고친) => {
+        const s2 = figSpec(el), a2 = 키0 ? s2[키0] : null;
+        고친.forEach((v, i) => {
+          if (v == null || !a2 || a2[i] === undefined) return;
+          if (a2[i] && typeof a2[i] === 'object') a2[i][lf] = String(v);   // 유형별 라벨 필드에 되쓴다
+          else a2[i] = String(v);
+        });
+        setFigSpec(el, s2); window.SVGFIG.mount(el); } };
+    const c = el.querySelector('.cap');   // 라벨 배열이 없으면 캡션만
+    return c ? { el: c, apply: () => { syncFigSpec(el); window.SVGFIG.mount(el); } } : null;
+  }
+  if (t === '장' || t === '절') { const tx = el.querySelector('.tx') || el;
+    return { el: tx, apply: () => { el.dataset.title = tx.textContent.trim(); } }; }
+  if (t === '픽토그램') { const l = el.querySelector('.sl-picto-l .tx') || el.querySelector('.tx');
+    return l ? { el: l, apply: null } : null; }   // 픽토 카드 → 라벨 문구
+  if (t === '슬라이드') { const h = el.querySelector('.sl-head');   // 슬라이드(장) → 헤드메시지를 고친다
+    return h ? { el: h, apply: null } : null; }
+  return { el: el, apply: null };         // 일반 leaf(헤드메시지·항목·요약·리드·제목·출처…)
+}
+async function _서버다시쓰기(info, 원문, 지시) {   // 키 없는 웹앱(기본키) — 서버 모델(EXAONE)이 고친다
+  const r = await 부르기('airewrite',
+    { 원문, 라벨: info.spec['라벨'] || info.type, 장르: PROFILE.genre, 지시, 문서키: PROFILE.key || '' }, true);
+  if (!r || !r.ok) throw new Error((r && r['로그']) || '서버 호출에 실패했습니다');
+  return ((r['값'] || {}).고친글) || '';
+}
+async function _서버표다시쓰기(원셀, 지시) {        // 표 셀 재작성 — 서버 모델(같은 op, 셀들 모드)
+  const r = await 부르기('airewrite', { 셀들: 원셀, 장르: PROFILE.genre, 지시, 문서키: PROFILE.key || '' }, true);
+  if (!r || !r.ok) throw new Error((r && r['로그']) || '서버 호출에 실패했습니다');
+  return (r['값'] || {}).고친셀들 || [];
+}
+async function _llm표다시쓰기(원셀, 지시) {          // 표 셀 재작성 — BYOK(브라우저가 내 키로)
+  const c = _llm설정();
+  const 문체 = 문체규칙[PROFILE.genre] || '이 문서 종류의 문체를 그대로';
+  const sys = '너는 대한민국 공공문서 편집자다. 아래 표의 각 셀 문구를 고쳐 쓴다. 규칙: ' + 문체
+    + '. **셀 개수와 순서를 그대로 유지**하고 없는 사실·수치는 지어내지 마라.' + _편집맥락()
+    + ' 반드시 {"고친셀들":["…",…]} JSON 하나만 출력 — 입력과 같은 길이 배열.';
+  const usr = JSON.stringify({ 셀들: 원셀 }) + (지시 ? ('\n\n[고칠 방향] ' + 지시) : '');
+  let 글 = '';
+  if (c.제공자 === 'anthropic') {
+    const r = await fetch('https://api.anthropic.com/v1/messages', { method: 'POST',
+      headers: { 'content-type': 'application/json', 'x-api-key': c.키,
+        'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
+      body: JSON.stringify({ model: c.모델 || 'claude-sonnet-5', max_tokens: 2000,
+        system: sys, messages: [{ role: 'user', content: usr }] }) });
+    if (!r.ok) throw new Error('(' + r.status + ') ' + (await r.text()).slice(0, 160));
+    const j = await r.json(); 글 = (j.content || []).map(x => x.text || '').join('');
+  } else {
+    let base = (c.베이스 || '').trim().replace(/\/+$/, '');
+    if (!base) base = c.제공자 === 'ollama' ? 'http://localhost:11434/v1' : 'https://api.featherless.ai/v1';
+    const 헤더 = { 'content-type': 'application/json' };
+    if (c.키) 헤더['authorization'] = 'Bearer ' + c.키;
+    const 몸 = jm => JSON.stringify(Object.assign({ model: c.모델 || '', max_tokens: 2000,
+      messages: [{ role: 'system', content: sys }, { role: 'user', content: usr }] },
+      jm ? { response_format: { type: 'json_object' } } : {}));
+    // JSON 모드를 거부하는 제공자·모델(OpenRouter 의 claude 등)이면 그 항목만 빼고 한 번 더(app.html 모델부르기와 같은 폴백).
+    let r = await fetch(base + '/chat/completions', { method: 'POST', headers: 헤더, body: 몸(true) });
+    if (!r.ok) {
+      const t = await r.text();
+      if (/response_format|json[_\s-]?object|schema|not supported|unsupported/i.test(t))
+        r = await fetch(base + '/chat/completions', { method: 'POST', headers: 헤더, body: 몸(false) });
+      else throw new Error('(' + r.status + ') ' + t.slice(0, 160));
+    }
+    if (!r.ok) throw new Error('(' + r.status + ') ' + (await r.text()).slice(0, 160));
+    const j = await r.json(); const m = (((j.choices || [])[0] || {}).message || {});
+    글 = m.content || m.reasoning_content || '';
+  }
+  try { const o = JSON.parse(String(글).replace(/^```[a-z]*\n?|\n?```$/g, '').trim());
+    return Array.isArray(o) ? o : (o.고친셀들 || []); } catch (e) { return []; }
+}
+async function ai다시쓰기(el, info) {
+  const c = _llm설정();
+  const byok = _키준비(c);
+  // 키 있으면 브라우저가 직접(BYOK), 키 없어도 서버가 있으면 서버 모델로 고친다(기본키 웹앱).
+  if (!byok && !서버있음) { alert('AI로 고치려면 앱 화면에서 내 LLM(API 키)을 설정하세요 — '
+    + '키는 이 브라우저에만 저장되고 서버로 가지 않습니다.'); return; }
+  const tgt = _ai대상(el, info);
+  if (!tgt) { alert('이 개체는 안쪽 글(헤드메시지·항목·캡션)을 골라 AI로 고쳐 주세요.'); return; }
+  const 지시 = prompt('AI에게 어떻게 고칠지 적어 주세요 (비우면 더 또렷·간결하게 다듬습니다):', '');
+  if (지시 === null) return;
+  st.textContent = 'AI가 고치는 중…'; st.classList.add('on');
+  const 풀기 = _편집잠금('AI가 「' + (info.spec['라벨'] || info.type) + '」을(를) 고쳐 쓰는 중…');
+  try {
+    if (tgt.table || tgt.리스트) {             // 표 셀·도식 라벨 = 리스트 재작성(개수·순서 유지)
+      let cells = null, 원 = tgt.리스트;
+      if (tgt.table) { cells = [...tgt.table.querySelectorAll('th,td')]; 원 = cells.map(x => (x.innerText || '').trim()); }
+      if (!원 || !원.some(x => x)) throw new Error('고칠 글이 없습니다');
+      const 고친 = byok ? await _llm표다시쓰기(원, 지시) : await _서버표다시쓰기(원, 지시);
+      if (!Array.isArray(고친) || !고친.length) throw new Error('고쳐 받지 못했습니다');
+      if (cells) cells.forEach((x, i) => { if (고친[i] != null && String(고친[i]).trim()) x.textContent = String(고친[i]); });
+      else tgt.되박기(고친);
+    } else {
+      const 원문 = (tgt.el.innerText || '').trim();
+      if (!원문) throw new Error('고칠 글이 비어 있습니다');
+      const 결과 = byok ? await _llm다시쓰기(c, info, 원문, 지시)
+                        : await _서버다시쓰기(info, 원문, 지시);   // 키 없으면 서버 모델
+      if (!결과) throw new Error('빈 응답을 받았습니다');
+      tgt.el.textContent = 결과;
+      if (tgt.apply) tgt.apply();
+    }
+    state.ops.push({ action: 'AI 다시쓰기', target: info.spec['라벨'] || info.type });
+    st.classList.remove('on');
+    repaginate(); save(); select(el);
+  } catch (e) {
+    st.textContent = '';
+    alert('AI 호출에 실패했습니다: ' + (e.message || e) + '\n앱에서 키·모델·주소를 확인해 주세요.');
+    renderPanel();
+  } finally { 풀기(); }
+}
+// AI 재작성 동안 편집기 전체를 덮어 다른 조작을 막는다(사장님 지적 0904 — 재작성 중 잠금).
+function _편집잠금(msg) {
+  let o = document.querySelector('.ai-lock');
+  if (!o) {
+    o = document.createElement('div'); o.className = 'ai-lock';
+    o.innerHTML = '<div class="ai-lock-box"><span class="ai-lock-spin"></span>'
+      + '<span class="ai-lock-msg"></span></div>';
+    document.body.appendChild(o);
+  }
+  o.querySelector('.ai-lock-msg').textContent = msg || 'AI가 고치는 중…';
+  o.style.display = 'flex';
+  return () => { o.style.display = 'none'; };
+}
+
+// ── 정렬(좌/가운데/우) — 경로별 오버레이 state.정렬 을 왕복(조립기 _정렬st 와 짝). 텍스트는
+// 문자열이라 개체 필드를 못 달아, 안쪽 .tx 의 data-path 를 키로 삼는다. 좌측=기본은 키를 안 남긴다.
+const _ALIGN_JS = { '좌측': 'left', '가운데': 'center', '우측': 'right' };
+function _정렬키(el) {
+  const t = el.querySelector && el.querySelector('.tx');
+  return (t && t.dataset.path) || el.dataset.path || '';
+}
+function _정렬현(el) { return (state.정렬 && state.정렬[_정렬키(el)]) || '좌측'; }
+function 정렬설정(el, v) {
+  const k = _정렬키(el); if (!k) return;
+  state.정렬 = state.정렬 || {};
+  if (v && v !== '좌측') { state.정렬[k] = v; el.style.textAlign = _ALIGN_JS[v]; }
+  else { delete state.정렬[k]; el.style.textAlign = ''; }   // 좌측=기본 → 키 안 남김(왕복 불변식)
+  state.ops.push({ action: '정렬', to: v }); save(); renderPanel();
+}
+
 function renderPanel() {
   panel.innerHTML = '<h3>선택한 부분</h3>';
   const A = (t, f, c) => panel.appendChild(btn(t, f, c));
@@ -565,6 +852,18 @@ function renderPanel() {
       window.SVGFIG.mount(el); state.ops.push({ action: '도식 유형', to: v });
       repaginate(); select(el);
     }, sp.type === k ? 'sel' : ''));
+  }
+  if (has('figsize')) {                     // 도식 크기 — 기본이 작게 나오던 것을 크게/가득으로
+    panel.insertAdjacentHTML('beforeend', '<div class="hint">도식 크기 — 페이지에 맞게</div>');
+    const cur = el.dataset.크기 || '보통';
+    const r = document.createElement('div'); r.className = 'row';
+    [['보통', ''], ['크게', '크게'], ['가득', '가득']].forEach(([라벨, v]) =>
+      r.appendChild(btn(라벨, () => {
+        const s2 = figSpec(el); if (v) s2['크기'] = v; else delete s2['크기']; setFigSpec(el, s2);
+        if (v) el.dataset.크기 = v; else delete el.dataset.크기;
+        state.ops.push({ action: '도식 크기', to: 라벨 }); save(); repaginate(); select(el);
+      }, cur === (v || '보통') ? 'sel' : '')));
+    panel.appendChild(r);
   }
   if (has('edit')) {
     if (info.type === '도식') {
@@ -624,6 +923,14 @@ function renderPanel() {
     panel.appendChild(r);
     panel.insertAdjacentHTML('beforeend',
       `<div class="hint">${info.spec['레벨'].map(x => x[1]).join(' → ')}</div>`);
+  }
+  if (has('align')) {
+    panel.insertAdjacentHTML('beforeend', '<div class="hint">정렬</div>');
+    const r = document.createElement('div'); r.className = 'row';
+    const 현 = _정렬현(el);
+    [['좌측', '좌'], ['가운데', '가운데'], ['우측', '우']].forEach(([v, 라벨]) =>
+      r.appendChild(btn(라벨, () => 정렬설정(el, v), 현 === v ? 'sel' : '')));
+    panel.appendChild(r);
   }
   if (has('mk2') && info.spec['2단마커']) {
     // 2단 마커는 문서 한 벌이 같아야 한다 — 항목 하나만 바꾸면 뒤죽박죽이 된다.
@@ -865,7 +1172,10 @@ function renderPanel() {
   }
   // 남긴 지시는 apply_edit_any 가 '대기'로 기록만 하고 채팅의 Claude 가 읽어 반영한다.
   // 웹앱엔 그 Claude 가 없어 눌러도 아무 일도 안 일어나므로(죽은 기능) 감춘다.
+  // 플러그인/파일 표면 — 곁의 채팅 Claude 가 메모를 읽어 반영(웹앱엔 그 Claude 가 없어 감춘다).
   if (플러그인 && has('ai')) A('✍ AI에게 고쳐달라 하기 — ' + info.spec['라벨'], () => addNote(el, info));
+  // 웹앱 — 곁 채팅이 없으니 브라우저에서 사용자 키로 직접 고쳐 그 자리에 넣는다(BYOK, 서버 미경유).
+  else if (서버있음 && has('ai')) A('✍ AI로 다시 써줘 — ' + info.spec['라벨'], () => ai다시쓰기(el, info));
   if (has('delSection')) A('🗑 절 전체 삭제', () => {
     const gid = el.dataset.group; const kill = [el];
     document.querySelectorAll(`.blk[data-group="${gid}"]`).forEach(n => { if (n !== el) kill.push(n); });
@@ -880,7 +1190,10 @@ function appendPending() {
   const keys = Object.keys(state.notes);
   if (!keys.length && !state.ops.length) return;
   // 열쇠는 개체 라벨(문서 글자), 값은 **사람이 적어 넣은 요청**이다 — 둘 다 잠근다
-  panel.insertAdjacentHTML('beforeend', '<div class="notes"><b>대기 중 작업</b><ul>' +
+  // 제목: 「AI에게 고쳐달라」 요청(notes)이 있어야 진짜 '대기'다. 웹앱의 ops 는 이미 적용·저장된
+  // 편집 로그인데 '대기 중 작업'이라 적혀 "수정이 안 되는 거냐"는 오해를 불렀다(2026-09-06).
+  const 제목 = keys.length ? '대기 중 작업' : '이번에 고친 것';
+  panel.insertAdjacentHTML('beforeend', '<div class="notes"><b>' + 제목 + '</b><ul>' +
     keys.map(k => `<li>📌 ${esc(k)}: ${esc(state.notes[k])}</li>`).join('') +
     state.ops.slice(-6).map(o => `<li>· ${esc(o.action)}${o.to ? ' → ' + esc(o.to) : ''} ${esc(o.target || '')}</li>`).join('') +
     '</ul><div class="hint">' + (keys.length
@@ -896,6 +1209,7 @@ function appendPending() {
 // DOM 순서 워크 + 커서 방식은 절 제목을 지우면 항목이 유실되고, jachigan 잔해까지
 // 되살리는 구조적 결함이 있었다(적대 검증 확정). 원본을 신뢰하고 델타만 얹는다.
 const SRCDOC = JSON.parse(document.getElementById('fr-doc').textContent);
+state.정렬 = (SRCDOC['_정렬'] && JSON.parse(JSON.stringify(SRCDOC['_정렬']))) || {};   // 경로별 정렬 오버레이(왕복)
 
 // ── WP-S10 2차-B: 문체 동의 카드 — "리터칭"(사람이 직접 다듬는 것) 흐름의 훅 ──────
 // 저장마다(아래 보내기()) 마지막 진단 기준(문체기준)과 지금 막 고친 내용을 backtrace
@@ -1397,6 +1711,8 @@ function serialize() {
   if (state.테마 !== undefined) { if (state.테마 && state.테마 !== '네이비') doc['테마'] = state.테마; else delete doc['테마']; }
   if (state.효과 !== undefined) { if (state.효과 && state.효과 !== '페이드') doc['효과'] = state.효과; else delete doc['효과']; }
   if (state.화면 !== undefined) doc['화면'] = state.화면;
+  // ⑦-b 정렬 오버레이 — 경로별 정렬(state.정렬). 비면 키를 안 남긴다(왕복 불변식).
+  if (state.정렬 !== undefined) { if (Object.keys(state.정렬).length) doc['_정렬'] = state.정렬; else delete doc['_정렬']; }
   // ⑧ 슬라이드 자유배치 — 각 슬라이드의 배치모드(자유 여부)와 개체 절대좌표(배치)를 되쓴다.
   //    좌표는 sl-placed 의 inline %(left/top/width/height)를 읽는다. 흐름이면 배치모드·배치를
   //    지운다(기본값 불변식). 슬라이드 아닌 장르엔 .sl-page[data-slide-idx]가 없어 무해하다.
@@ -1445,6 +1761,14 @@ function 보내기() { clearTimeout(sT2); sT2 = setTimeout(async () => {
   try {
     const snap = JSON.parse(localStorage.getItem(KEY) || '{}');
     if (!snap.doc) { 보내는중 = false; return; }
+    // 자기 탭의 순차 저장 경합 방지 — 연달아 고치면(예: 개체 여럿을 빠르게 AI 재작성) 뒤 저장이
+    // **직렬화 시점에 얼어붙은 옛 _수정시각**을 실어, 앞 저장 응답이 갱신한 최신 시각과 어긋나
+    // 낙관적 잠금 400('문서에 반영하지 못했습니다')으로 편집이 유실됐다. 전송은 보내는중 가드로
+    // 이미 직렬(앞 응답이 SRCDOC._수정시각 을 갱신한 뒤에 다음이 나감)이므로, **전송 시점의**
+    // 최신 확인 시각으로 다시 찍는다. 타 편집자 감지는 유지된다(SRCDOC._수정시각 은 내 저장
+    // 성공 응답으로만 갱신되므로, 남이 정본을 바꾸면 그 값과 어긋나 여전히 잠금에 걸린다).
+    if (SRCDOC && SRCDOC._수정시각) { snap.doc._수정시각 = SRCDOC._수정시각;
+      localStorage.setItem(KEY, JSON.stringify(snap)); }
     // WP-S10 2차-B — 문체 진단은 반영(/save)과 **따로** 흐른다(await 안 한다). 카드를
     // 띄우는 일이 반영을 늦추거나, 반영 실패가 진단을 막으면 안 된다 — 둘은 별개 관심사다.
     문체동의진단(snap.doc);
@@ -1459,8 +1783,16 @@ function 보내기() { clearTimeout(sT2); sT2 = setTimeout(async () => {
                      localStorage.setItem(KEY, JSON.stringify(snap)); }
       const 몇 = (j.로그.match(/바뀐 곳 (\d+)군데/) || [])[1];
       st.textContent = 몇 ? `문서에 반영했습니다 — ${몇}군데` : '문서에 반영했습니다';
+      이력그리기();                     // 저장으로 새 판이 쌓였으니 좌측 이력 갱신
+
     } else if (/이 화면을 연 뒤에/.test(j.로그 || '')) {
       st.textContent = '다른 곳에서 이 문서가 바뀌었습니다 — 새로고침한 뒤 다시 고쳐 주세요';
+    } else if (/찾지 못했습니다|사라졌습니다|세션/.test(j.로그 || '')) {
+      // 정본(등록부)에서 문서 자체가 사라졌다는 응답 — "잠시 후 다시 시도"는 헛수고이므로
+      // 표면별로 실제 복귀 동선을 알려준다(로컬서버=편집기열기 재실행, 공개 웹앱=앱 화면).
+      st.textContent = 로컬서버
+        ? '세션이 끝나 저장할 곳이 없습니다 — 편집기열기(editor)로 다시 열어 주세요'
+        : '세션이 만료되었습니다 — 앱 화면에서 이 문서를 다시 열어 주세요';
     } else {
       st.textContent = 채팅표면
         ? '화면에만 저장했습니다 — 문서 반영은 채팅으로 알려 주세요'
@@ -1475,6 +1807,36 @@ function 보내기() { clearTimeout(sT2); sT2 = setTimeout(async () => {
   } finally { 보내는중 = false; }
 }, 1500); }
 document.addEventListener('input', save);
+
+// ── 무입력 10분 → 미저장분 확정(save) + 만료 안내 ─────────────────────────────
+// 웹앱 편집기는 별도 탭이라 앱 화면을 첫 화면으로 되돌릴 수는 없다. 대신 앱과 같은 무입력
+// 기준(600s, 서버 세션.py 기본만료초와 맞춤)으로 미저장분을 서버에 확정하고 만료를 알린다 —
+// 편집 중 유실 방지가 우선이라 화면을 파괴하지 않는다. 채팅표면(file://)엔 만료가 없다 —
+// 로컬서버(플러그인 편집기)는 서버가 있으니 이 타이머도 돈다, 다만 안내 문구·복귀 동선이 다르다.
+if (서버있음) (function () {
+  const 만료ms = 600000; let 타이머 = null, 끝남 = false;
+  function 되감기() { if (끝남) return; clearTimeout(타이머); 타이머 = setTimeout(만료, 만료ms); }
+  function 만료() {
+    끝남 = true;
+    try { clearTimeout(sT); save(); } catch (e) {}          // 미저장분 즉시 확정
+    const ov = document.createElement('div'); ov.className = 'ai-lock'; ov.style.display = 'flex';
+    const 문구 = 로컬서버
+      ? '10분 동안 입력이 없어 저장을 확정했습니다.<br>이 편집 화면을 새로고침하면 이어서 고칠 수 있습니다.'
+      : '10분 동안 입력이 없어 세션이 만료되었습니다.<br>수정한 내용은 저장했습니다 — 이어서 작업하시려면 앱 화면에서 이 문서를 다시 열어 주세요.';
+    const 새로고침버튼 = 로컬서버
+      ? '<div style="margin-top:14px"><button onclick="location.reload()" '
+        + 'style="padding:8px 18px;border:0;border-radius:8px;background:var(--ai-color-ink);'
+        + 'color:var(--ai-color-white);font-size:14px;cursor:pointer">새로고침</button></div>'
+      : '';
+    ov.innerHTML = '<div style="max-width:420px;padding:18px 22px;background:var(--ai-color-white);'
+      + 'border-radius:10px;color:var(--ai-color-ink);font-size:14px;line-height:1.7;text-align:center;'
+      + 'box-shadow:0 8px 30px color-mix(in srgb, var(--ai-color-ink) 25%, transparent)">' + 문구 + 새로고침버튼 + '</div>';
+    document.body.appendChild(ov);
+  }
+  ['pointerdown', 'keydown', 'input', 'change', 'wheel'].forEach(ev =>
+    document.addEventListener(ev, 되감기, { passive: true, capture: true }));
+  되감기();
+})();
 
 // ── 슬라이드 자유배치 — 개체(헤드·본문)를 그립으로 옮기고 8방향 핸들로 크기를 바꾼다 ──
 // 픽토 자르기의 포인터 패턴과 같은 이치: inline left/top/width/height(%) 를 갱신하고 save()
@@ -1871,6 +2233,41 @@ function 되살리기(buf) {
                     : '고치신 글자는 없고, 남기신 요청만 되살렸습니다');
 }
 if (location.search.indexOf('selfcheck=1') < 0) 이어서하기();
+이력그리기();                          // 좌측 편집이력 레일 최초 채우기(3단 왼쪽 기둥)
+// ── 슬라이드 줌 — 3단 중앙에 16:9 를 맞춘다(맞춤=폭, ±로 조절). 슬라이드 문서만(.sl-page 있을 때). ──
+(function 슬라이드줌초기() {
+  const page = document.querySelector('.sl-page');
+  if (!page) return;
+  let z = 1, 수동 = false;
+  const 폭px = () => {
+    const cur = document.documentElement.style.getPropertyValue('--sl-zoom');
+    document.documentElement.style.setProperty('--sl-zoom', '1');
+    const w = page.getBoundingClientRect().width;      // 줌 1 기준 실제 폭
+    document.documentElement.style.setProperty('--sl-zoom', cur || '1');
+    return w;
+  };
+  const 적용 = () => {
+    document.documentElement.style.setProperty('--sl-zoom', String(z));
+    const v = document.querySelector('.sl-zval'); if (v) v.textContent = Math.round(z * 100) + '%';
+  };
+  const 맞춤 = () => {
+    수동 = false;
+    const 좌 = document.querySelector('.hist-panel') ? 260 : 0;
+    const avail = window.innerWidth - 좌 - 268 - 48;
+    const w = 폭px();
+    z = Math.max(0.3, Math.min(1, avail / (w || 1280))); 적용();
+  };
+  const 줌 = d => { 수동 = true; z = Math.max(0.3, Math.min(2, +(z + d).toFixed(2))); 적용(); };
+  const ctl = document.createElement('div'); ctl.className = 'sl-zoomctl';
+  const b = (t, f) => { const x = document.createElement('button'); x.textContent = t; x.onclick = f; return x; };
+  ctl.appendChild(b('－', () => 줌(-0.1)));
+  const val = document.createElement('span'); val.className = 'sl-zval'; val.textContent = '100%';
+  val.title = '눌러서 폭에 맞춤'; val.onclick = 맞춤; ctl.appendChild(val);
+  ctl.appendChild(b('＋', () => 줌(0.1)));
+  document.body.appendChild(ctl);
+  맞춤();
+  window.addEventListener('resize', () => { if (!수동) 맞춤(); });
+})();
 
 renderPanel();
 pendingBar();
@@ -1908,6 +2305,13 @@ def gen(fn, out_prefix="editor-", src_dir=None):
             prof = json.loads(m.group(1))
         except Exception:
             prof = {}
+    # 편집기 AI 재작성(개체고쳐)이 서버에서 이 문서의 배경(최초 의도·자료)을 되찾을 수 있게
+    # 문서키(파일명)를 프로파일에 심는다 — 서버가 자기 등록부에서 조회하므로 원자료는 안 실린다.
+    if m:
+        prof["key"] = fn
+        src = src.replace(m.group(0),
+            '<script type="application/json" id="fr-profile">'
+            + json.dumps(prof, ensure_ascii=False) + '</script>', 1)
     bar_spec = prof.get("상단바", {})
     gov = 'data-style="gov"' in src
     # 슬라이드 디자인 영역 초기 상태 — 현재 doc 의 테마·효과·화면(없으면 기본값)

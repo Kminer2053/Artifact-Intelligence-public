@@ -139,6 +139,26 @@ def load_profile():
     return p
 
 
+def _구성dict(spec):
+    """적용방법론.<host>.구성 자리는 정상 스키마에서 dict다 — 문자열·빈값으로
+    뭉쳐 들어온 옛 산출물(예전 실험 플랜)을 만나도 죽지 않게 방어한다."""
+    if not isinstance(spec, dict):
+        return {}
+    g = spec.get("구성", {})
+    return g if isinstance(g, dict) else {}
+
+
+def _comp_list(plan):
+    """개체구성은 정상 스키마에서 dict의 배열이다 — 슬롯 하나를 통짜 dict로 남기거나
+    원소가 문자열인 옛 산출물을 만나도 죽지 않게 방어한다(_구성dict와 같은 이유)."""
+    comp = plan.get("개체구성", [])
+    if isinstance(comp, dict):
+        comp = [comp]
+    elif not isinstance(comp, list):
+        comp = []
+    return [o if isinstance(o, dict) else {"개체": str(o)} for o in comp]
+
+
 def seq_path(plan):
     """구성 순서가 들어있는 개체를 찾는다 — 장르마다 그 개체가 다르다.
 
@@ -149,7 +169,9 @@ def seq_path(plan):
     for host, spec in m.items():
         if host.startswith("_") or not isinstance(spec, dict):
             continue
-        pat = spec.get("구성", {}).get("목차패턴", {})
+        pat = _구성dict(spec).get("목차패턴", {})
+        if not isinstance(pat, dict):
+            continue
         if "표준시퀀스" in pat:
             return f"적용방법론.{host}.구성.목차패턴.표준시퀀스", pat, host
     return None, {}, None
@@ -165,6 +187,8 @@ DOC_EST = {
 def estimate(plan, nsec):
     """예상 분량 — 승인 판단에 필요한 최소 근거만. 확정이 아니라 범위로 말한다."""
     budget = plan.get("제약", {}).get("분량예산", {})
+    if not isinstance(budget, dict):     # 문자열로 뭉친 옛 산출물 방어(위 seq_path와 같은 이유)
+        budget = {}
     doctype = plan.get("판정", {}).get("문서유형", "onepage-report")
     fixed, default_n = DOC_EST.get(doctype, (None, None))
     if fixed:
@@ -186,9 +210,9 @@ def estimate(plan, nsec):
     lines = chapters * (2 + per_sec * (1 + per_item * 1.5))
     body = max(chapters, round(lines / 30))     # 장 새 쪽 규칙이 바닥
     front = 2 + (1 if any(o.get("개체") == "요약" and o.get("포함", True)
-                          for o in plan.get("개체구성", [])) else 0)   # 표지·목차(+요약)
+                          for o in _comp_list(plan)) else 0)   # 표지·목차(+요약)
     annex = 1 if any(o.get("개체") in ("참고자료", "붙임") and o.get("포함", True)
-                     for o in plan.get("개체구성", [])) else 0
+                     for o in _comp_list(plan)) else 0
     return (f"본문 약 {body}~{body + 1}쪽",
             f"장 {chapters}개(장마다 새 쪽에서 시작) · 앞부분 {front}쪽 · 참고자료 {annex}쪽 "
             f"→ 전체 {body + front + annex}쪽 내외")
@@ -301,8 +325,8 @@ def build(plan):
     # 고칠 때 엉뚱한 항목을 덮어쓴다(반영된 것이 하나 있으면 통째로 한 칸씩 밀린다).
     # 처리한 것(반영·보류·해소)은 화면에서 뺀다 — 화이트리스트라 상태가 늘어도 안전하다.
     # 상태 키가 없는 옛 항목은 '대기'로 본다.
-    back = [(i, b) for i, b in enumerate(plan.get("되돌림", []))
-            if b.get("상태", "확인 전") == "확인 전"]
+    back = [(i, b) for i, b in enumerate(plan.get("되돌림") or [])
+            if isinstance(b, dict) and b.get("상태", "확인 전") == "확인 전"]
     if back:
         P.append('  <div class="sk-sect-h">확인할 것</div>\n'
                  '  <div class="sk-note">문서를 만들어 보니 구성 설계와 다른 곳입니다. '
@@ -342,7 +366,7 @@ def build(plan):
 
     # 문서 구성 요소 — 제목·요약 상자·본문·붙임을 나란히. 본문 안에 순서가 중첩된다.
     # 클릭 한 번이면 구성 전체, 다시 누르면 요소 하나, 또 누르면 본문 안 항목이 잡힌다.
-    comp = plan.get("개체구성", [])
+    comp = _comp_list(plan)
     bi = next((i for i, o in enumerate(comp) if o.get("개체") == (seq_host or "본문")), None)
     P.append('  <div class="sk-sect-h">문서 구성 요소</div>\n'
              '  <div class="sk-note">클릭하면 구성 전체가 잡힙니다. 한 번 더 누르면 요소 하나, '
@@ -357,8 +381,8 @@ def build(plan):
             P.append(f'    <div class="sk-slot sk-slot-body" data-ent="본문슬롯">\n'
                      f'      <div class="nm">{e(name)}</div>\n'
                      f'      <div class="how"{bt}>{e(bdisp)}</div>\n')
-            meth = (plan.get("적용방법론", {}).get(seq_host or "본문", {})
-                    .get("구성", {}).get("방법론", ""))
+            meth = _구성dict(plan.get("적용방법론", {}).get(seq_host or "본문", {})
+                            ).get("방법론", "")
             if meth:
                 mt, mdisp = shown(f"적용방법론.{seq_host}.구성.방법론", meth)
                 P.append(f'      <div class="sk-lock"><b>쓰는 방식</b> '
@@ -399,6 +423,8 @@ def build(plan):
     # 분량·게이트
     con = plan.get("제약", {})
     bud = con.get("분량예산", {})
+    if not isinstance(bud, dict):        # 문자열로 뭉친 옛 산출물 방어(estimate()와 같은 이유)
+        bud = {}
     if bud:
         P.append('  <div class="sk-sect-h">분량 기준</div>\n  <div class="sk-budget">\n')
         for k, v in bud.items():

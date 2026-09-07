@@ -34,7 +34,9 @@
   "delSection": "이 절 삭제",
   "mk2": "2단 마커(○↔◦) 전환",
   "tablestyle": "표 모양 바꾸기",
-  "addFig": "도식 넣기"
+  "addFig": "도식 넣기",
+  "align": "정렬(좌·가운데·우)",
+  "figsize": "도식 크기"
  },
  "장르": {
   "fullreport": {
@@ -315,7 +317,8 @@
      "액션": [
       "edit",
       "tablerow",
-      "del"
+      "del",
+      "ai"
      ]
     },
     "이미지": {
@@ -871,7 +874,8 @@
      "액션": [
       "edit",
       "tablerow",
-      "del"
+      "del",
+      "ai"
      ]
     }
    }
@@ -950,7 +954,8 @@
      "액션": [
       "edit",
       "tablerow",
-      "del"
+      "del",
+      "ai"
      ]
     },
     "붙임": {
@@ -994,6 +999,7 @@
      "액션": [
       "edit",
       "level",
+      "align",
       "addBelow",
       "del",
       "ai"
@@ -1019,7 +1025,8 @@
      "액션": [
       "edit",
       "tablerow",
-      "del"
+      "del",
+      "ai"
      ]
     },
     "도식": {
@@ -1028,6 +1035,7 @@
       "figtype",
       "figlabel",
       "figstep",
+      "figsize",
       "edit",
       "del",
       "ai"
@@ -1065,7 +1073,8 @@
       "picto",
       "edit",
       "addBelow",
-      "del"
+      "del",
+      "ai"
      ],
      "힌트": "의미 아이콘 + 라벨(+설명) 카드 줄. 아이콘은 라이브러리에서 고릅니다. 벡터라 색은 강조색을 따릅니다.",
      "아이콘군": ["report-doc", "document", "checklist", "folder", "briefcase", "approval-stamp", "signature", "policy-law", "person", "team", "collaboration", "presentation", "customer", "dialogue", "education", "notification", "budget", "cost-save", "growth-up", "goal-flag", "schedule", "bar-chart", "data", "location", "safety-shield", "warning", "check-done", "settings", "ai-chip", "network", "search", "environment"]
@@ -1074,13 +1083,61 @@
      "라벨": "출처",
      "액션": [
       "edit",
+      "ai",
+      "align",
       "del"
      ],
-     "힌트": "정량 주장이 있는 장에 답니다"
+     "힌트": "정량 주장이 있는 장, 인용 장에 답니다"
+    },
+    "비교제목": {
+     "라벨": "비교 카드 제목",
+     "액션": ["edit", "ai", "align"],
+     "힌트": "좌·우 카드 각각의 제목입니다"
+    },
+    "지표값": {
+     "라벨": "지표 값",
+     "액션": ["edit", "ai", "align"],
+     "힌트": "큰숫자 장의 핵심 수치. 시기·출처를 함께 적습니다"
+    },
+    "지표라벨": {
+     "라벨": "지표 라벨",
+     "액션": ["edit", "ai", "align"],
+     "힌트": "지표값이 무엇을 뜻하는지 짧게 설명합니다"
+    },
+    "지표변화": {
+     "라벨": "지표 변화",
+     "액션": ["edit", "ai", "align"],
+     "힌트": "전년 대비·목표 대비 등 증감을 적습니다(선택)"
+    },
+    "사분면제목": {
+     "라벨": "사분면 제목",
+     "액션": ["edit", "ai", "align"],
+     "힌트": "매트릭스 2×2 각 칸의 제목입니다"
+    },
+    "축라벨": {
+     "라벨": "축 라벨",
+     "액션": ["edit", "ai", "align"],
+     "힌트": "매트릭스 가로·세로 축이 뜻하는 기준입니다"
+    },
+    "인용문": {
+     "라벨": "인용문",
+     "액션": ["edit", "ai", "align"],
+     "힌트": "선언·증언·원칙을 그대로 옮깁니다. 짧고 단정하게"
+    },
+    "시점": {
+     "라벨": "시점",
+     "액션": ["edit", "ai", "align"],
+     "힌트": "타임라인 각 단계의 날짜·시기입니다"
+    },
+    "단계라벨": {
+     "라벨": "단계 라벨",
+     "액션": ["edit", "ai", "align"],
+     "힌트": "타임라인 각 단계의 제목입니다"
     },
     "슬라이드": {
      "라벨": "슬라이드(장)",
      "액션": [
+      "ai",
       "del"
      ],
      "힌트": "장 = 고정 지면. 넘치면 항목을 줄이거나 장을 나눕니다"
