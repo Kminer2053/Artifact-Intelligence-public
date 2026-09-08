@@ -1581,6 +1581,77 @@ def _아이콘목록():
     return _아이콘목록캐시
 
 
+# 지시문에 싣기 전 정본 정리 — 출처·판정·실측 같은 **메타 키**와 "사장님 판정 …" 조각은 모델에게 규칙이
+# 아니라 기록이다(BYOK 경로에선 사용자 화면에도 보인다). 규칙 키(_원칙 등)는 남긴다. 2026-09-07.
+_메타키말 = ("전거", "등재사유", "판정", "실측", "노트", "한계", "보류", "로그", "근거", "뜻", "출처", "이력", "왜_", "status")
+
+
+def _메타키인가(k):
+    ks = str(k)
+    if ks == "_원칙":
+        return False
+    if ks.startswith("_"):
+        return any(t in ks for t in _메타키말)
+    return ks.endswith("근거") or ks in ("지위", "판정이력", "전거", "출처")   # 밑줄 없는 출처성 키
+_출처조각 = re.compile(r"\s*[—(\-]?\s*사장님(\s*판정)?[^\n\",.)]*[.)]?")
+
+
+def _프롬프트용정리(node):
+    if isinstance(node, dict):
+        out = {}
+        for k, v in node.items():
+            if _메타키인가(k):
+                continue
+            out[k] = _프롬프트용정리(v)
+        return out
+    if isinstance(node, list):
+        return [_프롬프트용정리(x) for x in node if not (isinstance(x, str) and _메타키인가(x))]
+    if isinstance(node, str):
+        return _출처조각.sub("", node)
+    return node
+
+
+
+def _슬라이드목적분량(자료, 유형id=None):
+    """슬라이드 지시문의 [목적·분량] 블록 — 정본(문체.헤드_목적별·헤드메시지·분량예산.장수)을 그대로 싣고,
+    판정된 1p 유형(유형id 또는 판별)이 있으면 유형→목적 매핑으로 이 덱의 목적을 정해 최상위 "목적" 키로
+    선언하게 한다. 정본이 없으면(정책서버 미연결) 빈 목록 — 조립기가 목적을 추정한다."""
+    줄 = []
+    목적별 = (지식("document_types.slides.문체.헤드_목적별").get("값")) or {}
+    헤드규칙 = (지식("document_types.slides.문체.헤드메시지").get("값")) or ""
+    장수 = (지식("document_types.slides.분량예산.장수").get("값")) or ""
+    if not isinstance(목적별, dict):
+        return 줄
+    매핑 = 목적별.get("유형_매핑") or {}
+    선택 = None
+    try:
+        _ts = 지식("document_types.onepage-report.구성.목차로직.types").get("값") or []
+        if 유형id:
+            선택 = next((t for t in _ts if t.get("id") == 유형id), None)
+        선택 = 선택 or _유형판정(자료)
+    except Exception:
+        선택 = None
+    목적 = None
+    if isinstance(선택, dict) and isinstance(매핑, dict):
+        sid = str(선택.get("id") or "")
+        목적 = next((k for k, ids in 매핑.items() if isinstance(ids, list) and sid in ids), None)
+    줄 += ["", "[목적·분량 — 정본]"]
+    if isinstance(헤드규칙, str) and 헤드규칙:
+        줄.append("· 헤드메시지 문체: " + 헤드규칙)
+    if 목적별.get("_원칙"):
+        줄.append("· " + str(목적별["_원칙"]))
+    if 목적:
+        줄.append(f"· 이 덱의 목적은 **{목적}**(판정 유형 {선택.get('id')} {선택.get('label') or ''}) — "
+                  f"최상위에 \"목적\": \"{목적}\" 를 적고, 헤드메시지는 그 목적의 문체로 써라")
+    else:
+        값들 = 목적별.get("값") or ["설득", "보고"]
+        줄.append("· 최상위에 \"목적\" 키를 " + "|".join(str(v) for v in 값들)
+                  + " 중 하나로 적어라 — 결정·승인·예산·협조를 구하면 설득, 알리는 덱이면 보고")
+    if isinstance(장수, str) and 장수:
+        줄.append("· 장수: " + 장수)
+    return 줄
+
+
 def _슬라이드카탈로그():
     """슬라이드 프롬프트에 실을 **정본 카탈로그** — 레이아웃·도식 type·아이콘의 유효값을 명시한다.
     조립 게이트가 '모르는 이름을 조용히 본문으로 떨어뜨리지 않는' 하드 검사라, 모델이 카탈로그
@@ -1639,7 +1710,7 @@ def _슬라이드카탈로그():
                 줄.append("· [서사] " + " ".join(문))
         문체 = (지식("document_types.slides.문체").get("값")) or {}
         if isinstance(문체, dict):
-            문 = [문체[k] for k in ("애매수식어_금지", "수치_표기", "차트_제목") if isinstance(문체.get(k), str)]
+            문 = [문체[k] for k in ("헤드메시지", "애매수식어_금지", "수치_표기", "차트_제목") if isinstance(문체.get(k), str)]
             if 문:
                 줄.append("· [문체] " + " ".join(문))
         줄.append("· [다양성] 10장이 넘으면 레이아웃 원형을 5종 이상 섞어라. 같은 원형(예: 본문만, 도식만)을 "
@@ -1654,7 +1725,7 @@ def _슬라이드카탈로그():
     # EXAONE 등 약한 모델 최적화(2026-09-02) — 규칙 '나열'보다 유효값을 그대로 쓴 **완결 본보기**를
     # 모방하게 한다. 이름 환각(없는 레이아웃·도식 type·아이콘)이 여기서 크게 준다. 출력 지점 바로 앞.
     본보기 = (
-        '{"filename":"digital-twin-station","genre":"slides",\n'
+        '{"filename":"digital-twin-station","genre":"slides","목적":"설득",\n'
         ' "표지":{"제목":"…","부제":"…","발표정보":"기관 · \'26. 9. 2. · 내부 회의"},\n'
         ' "슬라이드":[\n'
         '  {"레이아웃":"어젠다","항목":["배경","방안","기대효과"]},\n'
@@ -1696,18 +1767,18 @@ def _지시문조립(자료, 장르="samples", 예시=None, 추가지시="", 유
     부 = ["너는 대한민국 공공기관 문서를 만드는 도구다. 아래 **정본 규칙만** 따른다.",
          "지금 만드는 것: " + str(정본), "",
          "[이 문서 종류의 규칙]",
-         json.dumps(장르값, ensure_ascii=False, indent=1)[:6000]]
+         json.dumps(_프롬프트용정리(장르값), ensure_ascii=False, indent=1)[:6000]]
     if 한장:
         if 선택:
             부 += ["",
                   "[보고목적 유형과 목차 — 이 자료에 맞게 판정된 유형이다. 이 □ 시퀀스 순서를 따르라]",
-                  json.dumps({"id": 선택.get("id"), "이름": 선택.get("label"),
+                  json.dumps(_프롬프트용정리({"id": 선택.get("id"), "이름": 선택.get("label"),
                               "표준시퀀스": 선택.get("표준시퀀스"),
-                              "압축시퀀스": 선택.get("압축시퀀스")}, ensure_ascii=False, indent=1)]
+                              "압축시퀀스": 선택.get("압축시퀀스")}), ensure_ascii=False, indent=1)]
         부 += ["", "[요약박스]",
-              json.dumps(지식("entities.요약박스").get("값"), ensure_ascii=False, indent=1),
+              json.dumps(_프롬프트용정리(지식("entities.요약박스").get("값")), ensure_ascii=False, indent=1),
               "", "[본문]",
-              json.dumps(지식("entities.본문").get("값"), ensure_ascii=False, indent=1)]
+              json.dumps(_프롬프트용정리(지식("entities.본문").get("값")), ensure_ascii=False, indent=1)]
     if 예시:
         뼈대 = 예시.get("뼈대") or {}
         부 += ["",
@@ -1718,6 +1789,10 @@ def _지시문조립(자료, 장르="samples", 예시=None, 추가지시="", 유
               "**이 절 이름과 차례를 그대로 따라라.** 내용은 사용자가 준 자료로 채우되,",
               "자료에 없는 절은 빼고, 자료에 있는데 예시에 없는 것은 가장 가까운 절에 넣어라.",
               "예시의 **문구를 베끼지 마라** — 가져오는 것은 구성뿐이다."]
+    # 슬라이드 목적·분량 — 사장님 판정 2026-09-07: 헤드 문체는 목적(설득|보고)에 따라 다르고, 기본 장수는
+    # 10±6. 규칙 문장은 정본(지식)에서 받는다 — 코드에 복제하지 않는다(적대감사 2026-09-06 교훈).
+    if 정본 == "slides":
+        부 += _슬라이드목적분량(자료, 유형id)
     # 슬라이드만 시각 우선으로 뒤집는다(다른 장르 문구는 그대로) — 사장님 지침(P3 계약 0906):
     # 1p·풀버전 등은 여전히 "기본은 텍스트"지만, 슬라이드는 장마다 시각 프리미티브를 먼저 고르게 한다.
     시각헤더 = ("[슬라이드는 시각 우선 — 장마다 먼저 시각 프리미티브(큰숫자·차트·비교·매트릭스·타임라인·"
@@ -1730,7 +1805,7 @@ def _지시문조립(자료, 장르="samples", 예시=None, 추가지시="", 유
           "  보도자료는 서술형, 규정은 조문체다. 섞지 마라.",
           "",
           시각헤더,
-          (json.dumps(시각의미, ensure_ascii=False, indent=1)[:1500] if 시각의미 else ""),
+          (json.dumps(_프롬프트용정리(시각의미), ensure_ascii=False, indent=1)[:1500] if 시각의미 else ""),
           "· 넣는 자리: 절 안에 \"표\"·\"도식\"·\"이미지\" 키로(돌려줄 모양의 예시 구조 그대로). 1p 는 top 의 \"table\".",
           "· 도식 type: 절차=process, 되돌아오면 cycle, 수렴 converge, 관계·구조 strategy/relation, 차트 line/bar/donut/hbar/stack.",
           "· 도식·표는 반드시 그 절의 \"도식\"·\"표\" 키에 위 예시 구조(스펙)로 넣어라. 본문 항목 text 에 \"[도식] …\"·\"[표] …\"·\"[그림] …\" 처럼 자리표시 설명만 쓰지 마라 — 시스템이 그리지 못한다. 도식으로 만들 수 없으면 그 내용을 대괄호 없는 평범한 설명 문장으로 풀어 써라.",
