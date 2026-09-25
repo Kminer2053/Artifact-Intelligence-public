@@ -2,9 +2,9 @@
 """무엇이 달라졌나 — 두 버전을 맞대어 사람이 읽을 수 있게 냅니다.
 
 왜 새로 만들었나: 예전 계산기는 목록을 **위치로** 비교했습니다. 장 하나를 맨 앞에 넣으면
-그 뒤가 전부 한 칸씩 밀려 51곳이 바뀐 것처럼 나왔습니다(실제로는 1곳). 실제로 재봤습니다:
+그 뒤가 전부 한 칸씩 밀려 수십 곳이 바뀐 것처럼 나왔습니다(실제로는 1곳). 실제로 재봤습니다:
 
-    장 하나를 맨 앞에 넣었을 때 → 51건 (허위 50건)
+    장 하나를 맨 앞에 넣었을 때 → 수십 건(거의 전부 허위)
     같은 입력을 이 계산기로     →  1건
 
 그래서 목록은 위치가 아니라 **정체**로 맞춥니다. 항목마다 이름표(제목·표 제목 따위)를
@@ -134,7 +134,7 @@ def 시험():
     sys.path.insert(0, os.path.join(ROOT, "workspace"))
     from apply_edit_any import diff_keys
     d = [x for x in json.load(open(자료뿌리.등록부("fullreport"), encoding="utf-8"))
-         if x["filename"] == "fr-task100-plan"][0]
+         if x["filename"] == "rc-fullreport-energy"][0]
     새 = copy.deepcopy(d)
     새["장"].insert(0, {"제목": "추진 배경", "절": [{"제목": "왜", "항목": [{"text": "배경", "level": 2}]}]})
     옛수, 새수 = len(diff_keys(d, 새)), len(diff_doc(d, 새))

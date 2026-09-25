@@ -316,7 +316,7 @@ document.querySelector('.font-switcher').addEventListener('click', e => {{
         # 결재란 직함 — 조직마다 다르므로 편집 가능하게 왕복(표지.결재[]). 값 없으면 표준 3칸.
         _결재 = cv.get("결재")
         if not isinstance(_결재, list) or not _결재:
-            _결재 = ["처장", "본부장", "대표이사"]
+            _결재 = ["팀장", "부서장", "기관장"]
         _결재 = [str(x) for x in _결재][:6]
         _결재셀 = "".join(
             f'<td data-ent="표지필드" data-frf="결재칸{i + 1}" data-path="표지.결재.{i}">{e(x)}</td>'
@@ -590,7 +590,7 @@ function paginate() {
   const inOrder = [cover, tocWanted ? tocEl : null, summary, ...kept].filter(Boolean);
   const numbered = mode === '본문재시작' ? kept : inOrder;
   const hideDefault = new Set([cover, tocEl].filter(Boolean));
-  // 간지에는 쪽번호를 찍지 않는 것이 기본이다(경영평가편람 제2절 2.가(2)).
+  // 간지에는 쪽번호를 찍지 않는 것이 기본이다(경영평가 보고서 관행).
   // 번호는 세되 표시만 생략하며, 쪽마다 바꿀 수 있다.
   document.querySelectorAll('.fr-divider').forEach(d => {
     const pg = d.closest('.fr-page');

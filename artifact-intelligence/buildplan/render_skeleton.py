@@ -203,7 +203,7 @@ def estimate(plan, nsec):
             return fixed, (f"본문에 들어갈 항목은 모두 {n}개, 큰 항목 {nsec}개로 나누면 "
                            f"하나당 {round(n / max(nsec, 1), 1)}개씩입니다")
         return fixed, f"본문에 들어갈 항목은 모두 {n}개"
-    # 여러 장 보고서 — 장마다 새 쪽에서 시작하므로 장 수가 쪽수의 바닥이다(실측 fr-task100-plan 9쪽)
+    # 여러 장 보고서 — 장마다 새 쪽에서 시작하므로 장 수가 쪽수의 바닥이다(실측 풀버전 표본 9쪽)
     chapters = nsec                       # 본문 시퀀스 = 장
     per_sec = 2.5                         # 장당 큰 항목(관측)
     per_item = 4.0                        # 큰 항목당 세부 항목(관측)

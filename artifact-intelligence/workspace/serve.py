@@ -208,6 +208,13 @@ def 관리자열쇠설정됨():
 GET_화이트리스트 = [
     ("코드", re.compile(r"^/workspace/app\.html$")),
     ("코드", re.compile(r"^/promo/landing\.html$")),   # 홍보 랜딩(자체완결) — 루트('/')가 여기로 온다
+    # 규칙마당(Rules Commons, '26-09-25) — 규칙 카드를 사람 언어로 펼친 **공개** 페이지와 그 자산.
+    # 카드·사례 데이터(json)·카드별 예시(svg)·경량 규칙 스킬(zip)은 rules/build.py 가 굽는 **코드**다
+    # (세션마다 달라지지 않는다). 의견·제안은 이 경로가 아니라 /api/commons* 로 오간다.
+    ("코드", re.compile(r"^/rules/index\.html$")),
+    ("코드", re.compile(r"^/rules/(cards|cases)\.json$")),
+    ("코드", re.compile(r"^/rules/img/[A-Za-z0-9_-]+\.svg$")),
+    ("코드", re.compile(r"^/rules/artifact-intelligence-rules\.zip$")),
 
     # WP-F1 — 앱 셸 토큰·아이콘. app.html·편집기(workspace/editors/ 와
     # buildplan/skeletons/edit/ 양쪽)가 모두 이 두 파일을 상대경로로 참조한다(어느
@@ -270,6 +277,30 @@ def _레이트초과(열쇠):
                       if not v or 지금 - v[-1] > _레이트창초]:
                 _레이트기록.pop(k, None)
         return len(기록) > _레이트상한
+
+
+# ── 공개 쓰기 IP 상한 (규칙마당 의견·제안 — 등록부 '공개쓰기' 플래그) ─────────────
+# 로그인 없는 공개 게시판은 세션 쿠키를 버리면 매번 새 세션이 나와 세션 상한이 무력하다
+# ('26-09-25 검토 재현). 그래서 **IP 당** 10분 창 상한을 따로 둔다. IP 는 _클라ip() 가
+# Cloudflare 의 CF-Connecting-IP 를 우선 쓴다(터널 뒤라 client_address 는 늘 127.0.0.1).
+_공개쓰기락 = threading.Lock()
+_공개쓰기기록 = {}                     # IP → [최근 쓰기 시각들]
+_공개쓰기창초 = 600
+_공개쓰기상한 = int(os.environ.get("문서지능_공개쓰기상한") or 12)
+
+
+def _공개쓰기초과(ip):
+    지금 = time.time()
+    with _공개쓰기락:
+        기록 = [t for t in _공개쓰기기록.get(ip, []) if 지금 - t < _공개쓰기창초]
+        넘음 = len(기록) >= _공개쓰기상한
+        if not 넘음:
+            기록.append(지금)
+        _공개쓰기기록[ip] = 기록
+        if len(_공개쓰기기록) > 4096:          # 창을 벗어난 IP 는 버린다(메모리 무한 누적 방지)
+            for k in [k for k, v in _공개쓰기기록.items() if not v or 지금 - v[-1] > _공개쓰기창초]:
+                _공개쓰기기록.pop(k, None)
+        return 넘음
 
 
 # ── 관리자 인증 실패 잠금 (IP별 — 무차별 대입 속도 제한) ────────────────────
@@ -780,6 +811,43 @@ class 손잡이(SimpleHTTPRequestHandler):
             return self._정책거절(429, "설치 토큰 발급이 너무 잦습니다 — 잠시 후 다시 시도해 주세요")
         return True
 
+    def _규칙마당호스트(self):
+        """이 요청이 규칙마당 서브도메인(rules.…)으로 왔나. 같은 서버·같은 파일을 쓰고 뿌리('/')만
+        규칙마당으로 보낸다 — 나머지 경로(/workspace·/api·/rules)는 본 도메인과 똑같이 연다."""
+        h = (self.headers.get("X-Forwarded-Host") or self.headers.get("Host") or "").lower()
+        return h.split(":")[0].startswith("rules.")
+
+    def _공개쓰기통과(self):
+        """공개 게시 문 — 세 가지를 본다. 통과하면 True, 아니면 응답을 내고 False.
+
+        ① 본문이 JSON 이라고 밝혔는가 — 남의 사이트가 `<form enctype="text/plain">` 으로 방문자
+           브라우저를 시켜 글을 올리는 CSRF 는 Content-Type 을 application/json 으로 못 바꾼다
+           (바꾸려면 교차출처 사전요청이 필요하고 우리는 그걸 허락하지 않는다).
+        ② Origin 이 실려 왔다면 우리 Host 와 같은가(브라우저가 보내는 출처 — curl 은 안 보낸다).
+        ③ IP 당 10분 상한.
+        """
+        종류 = (self.headers.get("Content-Type") or "").split(";")[0].strip().lower()
+        if 종류 != "application/json":
+            self._json(415, {"ok": False, "로그": "JSON 으로 보내 주세요 (Content-Type: application/json)"})
+            return False
+        출처 = self.headers.get("Origin")
+        if 출처 and 출처 != "null":
+            # 우리 출처로 인정하는 호스트 — 요청의 Host·X-Forwarded-Host 와 서비스 도메인 목록.
+            # 터널이 Host 를 localhost 로 바꿔 넘기는 설정이어도 실제 도메인 글이 막히지 않게 한다.
+            허용 = {(self.headers.get("Host") or "").lower(), (self.headers.get("X-Forwarded-Host") or "").lower()}
+            허용 |= {h.strip().lower() for h in (os.environ.get("문서지능_허용출처")
+                     or "artifact-intelligence.app,www.artifact-intelligence.app,rules.artifact-intelligence.app").split(",") if h.strip()}
+            if urllib.parse.urlsplit(출처).netloc.lower() not in (허용 - {""}):
+                self._json(403, {"ok": False, "로그": "다른 사이트에서 보낸 요청은 받지 않습니다"})
+                return False
+        elif 출처 == "null":
+            self._json(403, {"ok": False, "로그": "출처를 알 수 없는 요청은 받지 않습니다"})
+            return False
+        if _공개쓰기초과(self._클라ip()):
+            self._json(429, {"ok": False, "로그": "잠시 뒤에 다시 남겨 주세요 — 짧은 시간에 너무 많이 남기셨습니다"})
+            return False
+        return True
+
     def _길(self):
         """경로를 유니코드로 되돌린 **후보들**. 브라우저는 퍼센트 인코딩, curl 은 날바이트."""
         생 = self.path.split("?")[0]
@@ -884,9 +952,19 @@ class 손잡이(SimpleHTTPRequestHandler):
                 api.접속기록("방문")
         except Exception:
             pass
+        if self.path in ("/", "/index.html") and self._규칙마당호스트():   # rules.… 서브도메인의 뿌리
+            self.send_response(302)
+            self.send_header("Location", "/rules/index.html")
+            self.end_headers()
+            return
         if self.path in ("/", "/index.html"):        # 뿌리는 웹앱으로
             self.send_response(302)
             self.send_header("Location", "/promo/landing.html")
+            self.end_headers()
+            return
+        if self.path.split("?")[0] in ("/rules", "/rules/"):   # 규칙마당 짧은 주소
+            self.send_response(302)
+            self.send_header("Location", "/rules/index.html")
             self.end_headers()
             return
         # 관리자 화면 껍데기 — **폼 마크업뿐이라 열쇠 없이 연다**(사장님 판정 2026-08-10:
@@ -932,9 +1010,19 @@ class 손잡이(SimpleHTTPRequestHandler):
         # send_head() 로 간다 — 화이트리스트를 여기서도 따로 걸지 않으면 HEAD 로
         # 우회해 화이트리스트 밖 파일의 존재·크기·타입을 캘 수 있었다
         # (2026-08-07 WP-X1 에서 발견 — B-1 과 같은 구멍의 다른 문).
+        if self.path in ("/", "/index.html") and self._규칙마당호스트():
+            self.send_response(302)
+            self.send_header("Location", "/rules/index.html")
+            self.end_headers()
+            return
         if self.path in ("/", "/index.html"):
             self.send_response(302)
             self.send_header("Location", "/promo/landing.html")
+            self.end_headers()
+            return
+        if self.path.split("?")[0] in ("/rules", "/rules/"):
+            self.send_response(302)
+            self.send_header("Location", "/rules/index.html")
             self.end_headers()
             return
         # 관리자 화면 껍데기는 공개다(GET 과 같은 판정) — HEAD 도 그대로 연다.
@@ -998,6 +1086,9 @@ class 손잡이(SimpleHTTPRequestHandler):
             return
         # 자동 등록(enroll)은 열린 문이지만 IP당 시간당 발급 상한을 건다(WP-S6).
         if 작.get("공개발급") and not self._등록통과():
+            return
+        # 공개 쓰기(규칙마당 게시) — JSON 본문·같은 출처·IP 상한(등록부 '공개쓰기' 플래그에서 파생).
+        if 작.get("공개쓰기") and not self._공개쓰기통과():
             return
         # 옛 URL 이면 본문을 통째로 인자로 옮기고, `/api/<작업>` 이면 등록부가 받는
         # 인자만 골라 넘긴다. **여기가 저장·올리기·게이트에 공통인 유일한 길이다.**

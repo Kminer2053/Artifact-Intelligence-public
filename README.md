@@ -17,13 +17,11 @@
 ---
 
 <!-- DEMO-VIDEO -->
-### 시연 영상
+[![문서지능](docs/promo/poster.png)](https://artifact-intelligence.app)
 
 의도와 자료만 넣으면 → AI가 문서 구조를 설계하고 → 완성 문서를 → 도식·문구까지 항목별로 손쉽게 편집하고 → 한글(HWPX)로 내려받습니다.
 
-[![문서지능 시연 영상](docs/promo/preview.gif)](docs/promo/promo.mp4)
-
-▶ **[전체 영상 보기 (41초)](docs/promo/promo.mp4)** · 설치 없이 먼저 써 보기 — **https://artifact-intelligence.app**
+설치 없이 먼저 써 보기 — **https://artifact-intelligence.app**
 
 ---
 
@@ -55,6 +53,19 @@
 ## 문서는 이 컴퓨터를 떠나지 않습니다
 
 판정·작성·조립·검사·한글 변환까지, 문서를 만드는 일은 전부 설치한 컴퓨터에서 처리합니다. 넘긴 자료도, 만든 초안도, 완성한 문서도 서버로 올라가지 않습니다. 서버에서 받아 오는 것은 작성 규칙 조각뿐이고, 그마저 작업에 필요한 만큼만 그때그때 받습니다.
+
+## 작성 규칙은 모두 공개합니다
+
+문서지능이 따르는 작성 규칙 227장을 **[규칙마당](https://rules.artifact-intelligence.app)** 에 펼쳐 두었습니다. 규칙마다 표본 문서의 어느 자리에 적용되는지 보여 드리고, 현장 관행과 다르면 의견을 받아 규칙에 반영합니다.
+
+규칙만 필요하면 경량 스킬을 받아 쓰면 됩니다. 마크다운 파일 열네 개로 된 묶음이라 플러그인 없이 평소 쓰는 AI에 바로 붙일 수 있습니다.
+
+- **내려받기**: [`rules-skill/artifact-intelligence-rules.zip`](rules-skill/artifact-intelligence-rules.zip) — 규칙마당에서 받는 것과 같은 파일입니다.
+- **Claude Code**: 압축을 풀어 나온 `artifact-intelligence-rules` 폴더를 `~/.claude/skills/` 아래에 둡니다.
+- **claude.ai**: 사용자 지정(Customize) → 스킬(Skills)에서 zip 파일을 풀지 않고 그대로 올립니다.
+- **Codex·OpenClaw**: 압축을 풀어 나온 폴더를 `~/.agents/skills/` 아래에 둡니다.
+
+규칙 원본(온톨로지)과 규칙마당을 만드는 코드는 소스 리포 [Artifact-Intelligence-source](https://github.com/Kminer2053/Artifact-Intelligence-source)에 있습니다.
 
 ## 설치
 

@@ -24,6 +24,7 @@ import subprocess
 import sys
 import threading
 import time
+import unicodedata
 import uuid
 
 import urllib.error
@@ -33,7 +34,7 @@ import urllib.request
 def _http전용열기():
     """urllib 열기를 http/https 로만 — file:// 등 다른 스킴 핸들러를 아예 싣지 않는다.
     urlopen 기본 opener 는 FileHandler·FTPHandler·DataHandler 까지 갖고 있어 동적 URL 이
-    들어오면 로컬 파일을 읽을 수 있다(정부망 GitLab Semgrep 'dynamic-urllib-use' 지적, 2026-09-07).
+    들어오면 로컬 파일을 읽을 수 있다(정적 보안검사 Semgrep 'dynamic-urllib-use' 규칙 대응).
     프록시·리다이렉트·HTTP 오류(HTTPError) 동작은 기본 opener 와 같다. 알 수 없는 스킴은
     UnknownHandler 가 URLError 로 거부한다."""
     od = urllib.request.OpenerDirector()
@@ -138,11 +139,13 @@ def 접속기록(종류):
     "포트": "port",
     # 개체고쳐(편집기 AI 재작성, 서버맥락주입) — 표 셀 배열·문서 맥락 조회 키.
     "셀들": "cells", "문서키": "doc_key",
+    # 규칙마당(공개 규칙 카드 의견·제안) — 웹앱 전용(숨김)이나 별칭은 한 곳에 다 둔다.
+    "종류": "kind",
 }
 
 
 def 등록(이름, 받는것=(), 읽기=True, 설명="", en=None, 비동기=True, 승인필요=False,
-       관리자=False, 정책=False, 공개발급=False, 숨김=False, 토큰필수=False):
+       관리자=False, 정책=False, 공개발급=False, 숨김=False, 토큰필수=False, 공개쓰기=False):
     """작업 하나를 등록부에 적는다.
 
     `비동기` — 이 작업을 `작업시작` 으로 뒤에 걸 수 있는가. 기본은 **된다**이고,
@@ -171,6 +174,12 @@ def 등록(이름, 받는것=(), 읽기=True, 설명="", en=None, 비동기=True
     새어 나간다. 그래서 이 작업만 하드모드와 무관하게 토큰을 요구한다(설치본은 부트스트랩
     enroll 로 자동 발급받으니 조회 가능, 캐주얼 익명 덤프는 401). serve.py `_정책통과`
     가 이 플래그를 보고 건다 — 이름별 분기 없이 등록부 한 곳에서 파생.
+
+    `공개쓰기` — 로그인 없는 **공개 게시**(누구나 쓰고 누구나 본다, 규칙마당 의견·제안).
+    serve.py `_post` 가 이 플래그를 보고 ① 본문이 JSON(Content-Type application/json)이 아니면
+    거절하고(남의 사이트 폼이 text/plain 으로 대신 올리는 CSRF 차단) ② Origin 이 있으면 우리
+    Host 와 같아야 하며 ③ IP 당 10분 상한을 건다(세션 쿠키는 버리면 새로 나오므로 세션 상한만으론
+    못 막는다). 이름별 분기 없이 등록부 한 곳에서 파생.
     """
     def 감싸기(fn):
         받는 = tuple(받는것)
@@ -184,7 +193,7 @@ def 등록(이름, 받는것=(), 읽기=True, 설명="", en=None, 비동기=True
                     "모양": {k: 인자모양.get(k, str) for k in 받는},
                     "비동기": 비동기, "승인필요": bool(승인필요),
                     "관리자": bool(관리자), "정책": bool(정책), "공개발급": bool(공개발급),
-                    "숨김": bool(숨김), "토큰필수": bool(토큰필수),
+                    "숨김": bool(숨김), "토큰필수": bool(토큰필수), "공개쓰기": bool(공개쓰기),
                     "설명": 설명 or (fn.__doc__ or "").strip().splitlines()[0], "함수": fn}
         if en:
             별칭[en] = 이름
@@ -981,8 +990,14 @@ def 본(장르="samples"):
             return (v[:40] + "…") if len(v) > 40 else v
         return v
 
-    # 가장 채워진 문서를 본으로 삼는다 — 빈 문서를 본으로 주면 키가 빠진다
-    본문서 = max(문서들, key=lambda d: len(json.dumps(d, ensure_ascii=False)))
+    # 본보기는 장르마다 **합성 표본으로 고정**한다 — 등록부에 문서가 더해져도 모양 응답이
+    # 흔들리지 않게. 고정 본보기가 없는 장르만 가장 채워진 문서로 둔다(빈 문서를 본으로 주면
+    # 키가 빠진다).
+    _본보기 = {"samples": "a2-11-budget", "gongmun": "rc-gongmun-energy",
+              "fullreport": "rc-fullreport-energy", "press": "rc-press-aidoc",
+              "regulation": "reg-ai-usage", "slides": "sl-charger-brief"}
+    본문서 = next((d for d in 문서들 if d.get("filename") == _본보기.get(장르)), None) \
+        or max(문서들, key=lambda d: len(json.dumps(d, ensure_ascii=False)))
     모양 = 깎기({k: v for k, v in 본문서.items()
                if not k.startswith("_") and k != "genre"})
     # 시각요소(표·도식·이미지)는 특정 절에만 있어 깎기(절[0]만 남김)가 놓친다 → 모델이 **구조**를
@@ -1128,10 +1143,10 @@ def _되묻기관문(인자):
             답 = json.loads(답)
         except ValueError:
             return {"ok": False, "로그": "어긋남답을 JSON 으로 읽지 못했습니다 — "
-                                      '예: {"우산|개": "10000"}'}
+                                      '예: {"충전기|기": "6"}'}
     if 답 is not None and not isinstance(답, dict):
         return {"ok": False, "로그": "어긋남답은 객체여야 합니다 — "
-                                  '예: {"우산|개": "10000"} (열쇠는 물음의 id)'}
+                                  '예: {"충전기|기": "6"} (열쇠는 물음의 id)'}
     길 = 자료뿌리.미결어긋남길()
     if 답:
         with 자료뿌리.빗장(길):
@@ -1725,7 +1740,7 @@ def _슬라이드카탈로그():
     # EXAONE 등 약한 모델 최적화(2026-09-02) — 규칙 '나열'보다 유효값을 그대로 쓴 **완결 본보기**를
     # 모방하게 한다. 이름 환각(없는 레이아웃·도식 type·아이콘)이 여기서 크게 준다. 출력 지점 바로 앞.
     본보기 = (
-        '{"filename":"digital-twin-station","genre":"slides","목적":"설득",\n'
+        '{"filename":"sl-sample-deck","genre":"slides","목적":"설득",\n'
         ' "표지":{"제목":"…","부제":"…","발표정보":"기관 · \'26. 9. 2. · 내부 회의"},\n'
         ' "슬라이드":[\n'
         '  {"레이아웃":"어젠다","항목":["배경","방안","기대효과"]},\n'
@@ -2246,6 +2261,10 @@ def 작업시작(이름, 인자=None):
     # 작업은 빨라 뒤에 걸 이유가 없으니 여기서 거부하고, 게이트 통과 경로(serve.py 가
     # 열쇠 확인 후 부르기()로 직접 부르는 길)만 남긴다. 부르기()에 관리자 블랭킷
     # 거부를 넣지 않는 까닭 — 그 정당한 경로까지 깨진다. 게이트는 경계에, 거부는 이 길목.
+    # 공개 쓰기(규칙마당 게시)도 못 건다 — serve.py 의 공개쓰기 문(JSON 본문·출처·IP 상한)이 이 작업의
+    # 게이트인데, 작업시작{이름:규칙마당남기기} 로 태우면 그 문을 통째로 건너뛴다('26-09-25 점검).
+    if 작.get("공개쓰기"):
+        return {"ok": False, "로그": f"'{작['이름']}' 은 공개 게시라 작업시작으로 못 겁니다 — 직접 부르세요"}
     if 작.get("관리자"):
         return {"ok": False, "로그": f"'{작['이름']}' 은 관리자 작업이라 작업시작으로 못 겁니다 — "
                                   f"관리자 면에서 직접 부르세요"}
@@ -3536,6 +3555,49 @@ def 관리자관측요약():
         "산것초": _통계(), "규칙종수": len(규칙셈), "규칙상위": 규칙상위}}
 
 
+@등록("관리자생성통계", 읽기=True, en="admingen", 관리자=True,
+    설명="일자별 생성 세션 수(익명 후보 파일 = 지나간 세션) — 최근 60일. 테스트·자동 실행 포함")
+def 관리자생성통계():
+    """생성 추이 — 익명 후보 파일을 날짜별로 센다(대시보드 카드용).
+
+    후보 파일 한 개 = 지나간 세션 하나(1-6 A안, `관리자관측요약`과 같은 근거). 여기는
+    "얼마나 자주 만들었나"를 **일자별로** 세어 막대 차트로 보여 주기 위한 집계다.
+    대기·채택·기각 셋을 다 세어(같은 glob 세 자리) 세션이 어디로 갔든 분모가 맞다.
+
+    날짜는 **파일 내용을 열지 않고** 얻는다 — 후보 파일 이름이 `YYYYMMDD-<익명id>.json`
+    으로 그날 날짜를 이미 품고 있어(세션.py 후보뽑기, 파일 안 `때`의 날짜부와 같다),
+    이름 앞 8자리를 날짜로 쓴다. 이름이 그 꼴이 아니면(예외) 파일 mtime 으로 접는다.
+    수천 개가 쌓여도 stat 한 번씩만 하고 json 파싱은 안 한다.
+
+    정직성 — 이 셈에는 우리 E2E·자동 실행이 섞여 있다(실사용자만이 아니다). 화면이
+    그 주석을 단다(admin.html 생성 추이 카드).
+    """
+    import glob as _glob
+    뿌리 = 자료뿌리.후보뿌리()
+    파일들 = _glob.glob(os.path.join(뿌리, "*.json"))
+    파일들 += _glob.glob(os.path.join(뿌리, "adopted", "*.json"))
+    파일들 += _glob.glob(os.path.join(뿌리, "rejected", "*.json"))
+    # 최근 60일만 — 그 밖은 합계에는 넣되 일자별 목록에서는 접는다.
+    자름 = time.strftime("%Y-%m-%d", time.localtime(time.time() - 60 * 86400))
+    일자별 = {}
+    합계 = 0
+    _이름꼴 = re.compile(r"(\d{4})(\d{2})(\d{2})-")
+    for p in 파일들:
+        m = _이름꼴.match(os.path.basename(p))
+        if m:
+            날 = f"{m.group(1)}-{m.group(2)}-{m.group(3)}"
+        else:
+            try:
+                날 = time.strftime("%Y-%m-%d", time.localtime(os.path.getmtime(p)))
+            except OSError:
+                continue
+        합계 += 1
+        if 날 >= 자름:
+            일자별[날] = 일자별.get(날, 0) + 1
+    목록 = [{"날": k, "건수": v} for k, v in sorted(일자별.items())]
+    return {"ok": True, "값": {"합계": 합계, "일자별": 목록}}
+
+
 # ── 동의 코퍼스 (WP-S10 1차) ─────────────────────────────────────────────
 # 피드백 엔진의 프라이버시 심장 — "동의 없이는 아무것도 안 남는다"·"비식별이 진짜
 # 지운다". 관문·비식별·저장은 feedback/corpus.py 한 곳에 있고, 여기는 그 문을 세 껍데기
@@ -3854,6 +3916,256 @@ def 규칙시사점():
     if 잘린 > 0:
         값["안내"] = f"규칙 그룹이 많아 상위 40갈래만 AI 에 넣었습니다(생략 {잘린}갈래) — 취합 전체는 위에 있습니다"
     return {"ok": True, "값": 값}
+
+
+# ── 규칙마당(Rules Commons) — 공개 규칙 카드에 남기는 의견·노하우 제안 ─────────────
+# 규칙마당(/rules/)은 규칙 카드 227장을 사람 언어로 펼쳐 둔 **공개** 페이지다(사장님 결정
+# '26-09-16: 퍼블릭·몽땅 공개·실명 표기). 그 위에서 사람들이 남기는 것은 두 가지뿐이다 —
+#   · 의견: 카드 하나에 동의 / 조건부 / 반대(현장은 다릅니다) + 사유 한 줄
+#   · 제안: 규칙에 없는 '이럴 때 이렇게 합니다' 노하우 한 조각(문서·부분·요령·왜·전후)
+# 저장은 무DB 파일(JSONL, 한 줄 한 건)이다. 세션 방(sessions/)에 두지 않는다 — 세션은 문서
+# 한 건이 끝나면 지워지는 자리이고, 이것은 모두가 보는 공용 게시판이라 오래 남아야 한다.
+# feedback/commons/ 는 배포 rsync 가 건드리지 않는 운영 경로다(deploy/deploy-ncp.sh 제외 목록).
+# 남긴 글은 **공개된다**(이름·소속은 적은 그대로 표기). 그래서 연락처처럼 보이는 글은 받지
+# 않고, 길이를 자르고, 세션·하루 상한을 둔다. 숨길 글은 운영자가 그 줄에 "숨김": true 를 단다.
+_마당경로 = os.environ.get("문서지능_규칙마당경로") or os.path.join(ROOT, "feedback", "commons")
+_마당판정 = ("동의", "조건부", "반대")
+_마당문서 = ("한 장 보고서", "풀버전 보고서", "시행문(공문)", "규정·내규", "보도자료", "발표 슬라이드")
+_마당부분 = ("제목·표지", "요약(두괄)", "본문 글머리·위계", "표", "그림·도식·차트", "글꼴·크기",
+          "여백·판면", "붙임·별첨", "수신·발신·결재선", "문장 표현", "문서 전체 구성", "판정·유형")
+# 관리자 처리 상태 — 규칙마당에 그대로 공개된다. '반영 예정'은 개발 흐름(온톨로지 수정)으로 넘길 것,
+# '반영 완료'는 온톨로지·규칙 카드에 실제로 옮긴 것. 관리 화면은 정본을 고치지 않는다(출시계획 1-7).
+_마당상태 = ("수집", "검토 중", "반영 예정", "반영 완료", "보류", "반영 안 함")
+_마당채택 = ("반영 예정", "반영 완료")          # 노하우 제안이 이 상태면 규칙마당에 '현장 노하우'로 게시
+_마당상황 = ("결재 상신", "상급기관 보고", "국감·감사 대응", "예산 요구", "보도·홍보", "회의·협의",
+          "민원 회신", "대외 공문", "발표·브리핑")
+# 연락처로 보이는 글 — 이메일·전화번호. 공개 게시판이라 받지 않고 되돌려 보낸다.
+_마당연락처 = re.compile(r"[\w.+-]+@[\w-]+\.[\w.]+|(?<!\d)0\d{1,2}[-.\s]?\d{3,4}[-.\s]?\d{4}(?!\d)")
+_마당제어문자 = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]")
+_마당락 = threading.Lock()
+_마당하루 = {"날": "", "수": 0}         # 하루 전체 상한(IP 당 10분 상한은 serve.py 공개쓰기 문)
+_마당하루상한 = int(os.environ.get("문서지능_규칙마당하루상한") or 2000)
+_마당카드캐시 = {"때": 0.0, "ids": frozenset()}
+
+
+def _마당카드들():
+    """규칙 카드 id 집합 — 의견은 실재하는 카드에만 단다(rules/cards.json 이 정본 사본)."""
+    f = os.path.join(ROOT, "rules", "cards.json")
+    try:
+        때 = os.path.getmtime(f)
+    except OSError:
+        return frozenset()
+    if 때 != _마당카드캐시["때"]:
+        try:
+            ids = frozenset(str(c.get("card_id")) for c in json.load(open(f, encoding="utf-8")))
+        except Exception:
+            ids = frozenset()
+        _마당카드캐시.update({"때": 때, "ids": ids})
+    return _마당카드캐시["ids"]
+
+
+def _마당글(v, 최대):
+    """사람이 적은 한 칸 — 제어문자를 걷고 앞뒤 공백을 자르고 길이를 넘기면 자른다."""
+    v = _마당제어문자.sub("", str(v or ""))
+    # 눈에 안 보이는 서식 문자(제로폭 공백·결합자·BOM 등, 유니코드 Cf)도 걷는다 — 이것을 끼워
+    # 넣으면 '010\u200b-1234…' 가 화면엔 전화번호로 보이면서 연락처 검사를 빠져나간다.
+    v = "".join(ch for ch in v if unicodedata.category(ch) != "Cf").strip()
+    return v[:최대]
+
+
+def _마당파일(종류):
+    return os.path.join(_마당경로, "의견.jsonl" if 종류 == "의견" else "제안.jsonl")
+
+
+def _마당줄들(f):
+    if not os.path.exists(f):
+        return []
+    out = []
+    with open(f, encoding="utf-8") as fh:
+        for 줄 in fh:
+            try:
+                x = json.loads(줄)
+            except Exception:
+                continue
+            if isinstance(x, dict):
+                out.append(x)
+    return out
+
+
+def _마당처리들():
+    """관리자 처리 기록(처리.jsonl, 한 줄 한 번) — 글 id 마다 **마지막 처리**가 이긴다(지난 처리는 감사용으로 남는다)."""
+    끝 = {}
+    for x in _마당줄들(os.path.join(_마당경로, "처리.jsonl")):
+        if x.get("id"):
+            끝[x["id"]] = x
+    return 끝
+
+
+def _마당읽기(종류, 숨김포함=False):
+    """글 목록 — 관리자 처리(상태·답변·숨김)를 얹어 돌려준다. 공개 쪽은 숨긴 글을 뺀다."""
+    처리 = _마당처리들()
+    out = []
+    for x in _마당줄들(_마당파일(종류)):
+        c = 처리.get(x.get("id"), {})
+        x = dict(x)
+        x["상태"] = c.get("상태") or x.get("상태") or "수집"
+        x["답변"] = c.get("답변", "")
+        x["숨김"] = bool(c["숨김"]) if "숨김" in c else bool(x.get("숨김"))
+        x["처리일"] = c.get("시각", "")[:10]
+        if 숨김포함 or not x["숨김"]:
+            out.append(x)
+    return out
+
+
+def _마당상한초과():
+    """하루 전체 상한 — 넘으면 사람말 한 줄, 아니면 None(그리고 한 건 센다).
+    IP 당 10분 상한은 serve.py 의 공개쓰기 문이 먼저 건다(세션 쿠키는 버리면 새로 나와서
+    세션 기준 상한은 도배를 못 막는다 — '26-09-25 검토에서 재현)."""
+    오늘 = time.strftime("%Y-%m-%d")
+    with _마당락:
+        if _마당하루["날"] != 오늘:
+            _마당하루.update({"날": 오늘, "수": 0})
+        if _마당하루["수"] >= _마당하루상한:
+            return "오늘 받을 수 있는 양을 채웠습니다 — 내일 다시 남겨 주세요"
+        _마당하루["수"] += 1
+    return None
+
+
+@등록("규칙마당보기", 설명="규칙마당 — 카드별 의견 집계와 최근 노하우 제안(공개)", en="commons", 숨김=True)
+def 규칙마당보기():
+    순서 = {"검토 중": 1, "반영 예정": 2, "반영 완료": 3}
+    의견 = {}
+    for x in _마당읽기("의견"):
+        c = 의견.setdefault(x.get("카드"), {"동의": 0, "조건부": 0, "반대": 0, "최근": [], "반영": ""})
+        if x.get("판정") in _마당판정:
+            c[x["판정"]] += 1
+        c["최근"].append({k: x.get(k, "") for k in ("판정", "사유", "이름", "소속", "날짜", "상태", "답변")})
+        if 순서.get(x["상태"], 0) > 순서.get(c["반영"], 0):
+            c["반영"] = x["상태"]          # 카드에 걸린 의견 중 가장 앞선 처리(검토 중 < 반영 예정 < 반영 완료)
+    for c in 의견.values():
+        c["최근"] = c["최근"][-5:]
+    칸 = ("id", "문서", "부분", "상황", "요령", "왜", "전", "후", "이름", "소속", "날짜", "상태", "답변", "처리일")
+    모든제안 = [{k: x.get(k, "") for k in 칸} for x in _마당읽기("제안")]
+    return {"ok": True, "값": {"의견": 의견, "제안": 모든제안[-60:],
+                             "노하우": [p for p in 모든제안 if p["상태"] in _마당채택],
+                             "합계": {"의견": sum(c["동의"] + c["조건부"] + c["반대"] for c in 의견.values()),
+                                    "제안": len(모든제안)}}}
+
+
+@등록("규칙마당남기기", ["종류", "항목"], 읽기=False,
+      설명="규칙마당 — 카드 의견(동의·조건부·반대) 또는 노하우 제안 한 건을 남긴다(공개 게시)",
+      en="commons_post", 숨김=True, 공개쓰기=True, 비동기=False)
+def 규칙마당남기기(종류="", 항목=None):
+    항목 = 항목 if isinstance(항목, dict) else {}
+    if 종류 not in ("의견", "제안"):
+        return {"ok": False, "로그": "종류는 '의견' 또는 '제안'이어야 합니다"}
+    이름 = _마당글(항목.get("이름"), 30)
+    소속 = _마당글(항목.get("소속"), 40)
+    if 종류 == "의견":
+        카드 = _마당글(항목.get("카드"), 40)
+        판정 = _마당글(항목.get("판정"), 4)
+        사유 = _마당글(항목.get("사유"), 300)
+        if 카드 not in _마당카드들():
+            return {"ok": False, "로그": "그런 규칙 카드가 없습니다"}
+        if 판정 not in _마당판정:
+            return {"ok": False, "로그": "판정은 동의·조건부·반대 가운데 하나여야 합니다"}
+        if not 사유:
+            return {"ok": False, "로그": "사유를 한 줄 적어 주세요"}
+        글들 = (사유, 이름, 소속)
+        기록 = {"카드": 카드, "판정": 판정, "사유": 사유}
+    else:
+        문서 = _마당글(항목.get("문서"), 20)
+        부분 = _마당글(항목.get("부분"), 20)
+        상황 = _마당글(항목.get("상황"), 20)
+        요령 = _마당글(항목.get("요령"), 120)
+        왜 = _마당글(항목.get("왜"), 400)
+        전 = _마당글(항목.get("전"), 300)
+        후 = _마당글(항목.get("후"), 300)
+        if 문서 not in _마당문서 or 부분 not in _마당부분 or (상황 and 상황 not in _마당상황):
+            return {"ok": False, "로그": "문서·부분·상황은 목록에 있는 것으로 골라 주세요"}
+        if not 요령:
+            return {"ok": False, "로그": "한 줄 요령을 적어 주세요"}
+        if 항목.get("동의") is not True:
+            return {"ok": False, "로그": "공개에 동의하셔야 올릴 수 있습니다"}
+        글들 = (요령, 왜, 전, 후, 이름, 소속)
+        기록 = {"문서": 문서, "부분": 부분, "상황": 상황, "요령": 요령, "왜": 왜, "전": 전, "후": 후,
+              "상태": "수집"}
+    if any(_마당연락처.search(g) for g in 글들 if g):
+        return {"ok": False, "로그": "연락처(이메일·전화번호)는 빼고 남겨 주세요 — 이 페이지는 누구나 봅니다"}
+    막힘 = _마당상한초과()
+    if 막힘:
+        return {"ok": False, "로그": 막힘}
+    기록.update({"이름": 이름, "소속": 소속, "날짜": time.strftime("%Y-%m-%d"), "id": uuid.uuid4().hex[:12]})
+    f = _마당파일(종류)
+    try:
+        os.makedirs(_마당경로, exist_ok=True)
+        with 자료뿌리.빗장(f):
+            with open(f, "a", encoding="utf-8") as fh:
+                fh.write(json.dumps(기록, ensure_ascii=False) + "\n")
+    except Exception as e:
+        sys.stderr.write(f"[규칙마당] 저장 실패: {type(e).__name__}\n")
+        return {"ok": False, "로그": "저장하지 못했습니다 — 잠시 뒤 다시 시도해 주세요"}
+    return {"ok": True, "값": {"종류": 종류, "id": 기록["id"]}}
+
+
+@등록("규칙마당관리", 설명="규칙마당 검토 — 올라온 의견·노하우 전부(숨긴 글 포함)와 처리 상태", en="commons_admin",
+      관리자=True)
+def 규칙마당관리():
+    제목 = {}
+    try:
+        for c in json.load(open(os.path.join(ROOT, "rules", "cards.json"), encoding="utf-8")):
+            제목[str(c.get("card_id"))] = c.get("title", "")
+    except Exception:
+        pass
+    글 = []
+    for 종류 in ("제안", "의견"):
+        for x in _마당읽기(종류, 숨김포함=True):
+            x["종류"] = 종류
+            if 종류 == "의견":
+                x["카드제목"] = 제목.get(x.get("카드"), "")
+            글.append(x)
+    글.sort(key=lambda x: (x.get("날짜", ""), x.get("id", "")), reverse=True)
+    셈 = {"전체": len(글), "처리 안 함": 0, "반영 예정": 0, "반영 완료": 0, "숨김": 0}
+    for x in 글:
+        if x["숨김"]:
+            셈["숨김"] += 1
+        elif x["상태"] == "수집":
+            셈["처리 안 함"] += 1
+        if x["상태"] in ("반영 예정", "반영 완료") and not x["숨김"]:
+            셈[x["상태"]] += 1
+    return {"ok": True, "값": {"글": 글, "셈": 셈, "상태들": list(_마당상태)}}
+
+
+@등록("규칙마당처리", ["항목"], 읽기=False, 설명="규칙마당 검토 — 글 하나의 상태·공개 답변·숨김을 정한다",
+      en="commons_moderate", 관리자=True)
+def 규칙마당처리(항목=None):
+    항목 = 항목 if isinstance(항목, dict) else {}
+    글id = _마당글(항목.get("id"), 20)
+    있는 = {x.get("id") for 종류 in ("의견", "제안") for x in _마당줄들(_마당파일(종류))}
+    if not 글id or 글id not in 있는:
+        return {"ok": False, "로그": "그런 글이 없습니다"}
+    이전 = _마당처리들().get(글id, {})
+    새 = {k: 이전[k] for k in ("상태", "답변", "숨김") if k in 이전}
+    if "상태" in 항목:
+        if 항목["상태"] not in _마당상태:
+            return {"ok": False, "로그": "상태는 " + "·".join(_마당상태) + " 가운데 하나여야 합니다"}
+        새["상태"] = 항목["상태"]
+    if "답변" in 항목:
+        새["답변"] = _마당글(항목.get("답변"), 300)
+    if "숨김" in 항목:
+        새["숨김"] = bool(항목.get("숨김") is True)
+    새.update({"id": 글id, "시각": time.strftime("%Y-%m-%dT%H:%M:%S")})
+    f = os.path.join(_마당경로, "처리.jsonl")
+    try:
+        os.makedirs(_마당경로, exist_ok=True)
+        with 자료뿌리.빗장(f):
+            with open(f, "a", encoding="utf-8") as fh:
+                fh.write(json.dumps(새, ensure_ascii=False) + "\n")
+    except Exception as e:
+        sys.stderr.write(f"[규칙마당] 처리 저장 실패: {type(e).__name__}\n")
+        return {"ok": False, "로그": "저장하지 못했습니다"}
+    return {"ok": True, "값": {k: 새.get(k) for k in ("id", "상태", "답변", "숨김")},
+            "로그": "처리했습니다 — 규칙마당에 바로 보입니다"}
 
 
 if __name__ == "__main__":

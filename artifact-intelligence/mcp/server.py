@@ -125,7 +125,7 @@ def _도구만들기(작):
                              f"없습니다('{e}') — workspace/api.py 인자영문 에 추가하세요")
     if len(set(영문.values())) != len(영문):
         raise SystemExit(f"도구 {이름} 의 영문 인자 이름이 겹칩니다: {영문}")
-    # exec 없이 만든다 — 정부망 GitLab 보안 훅(Semgrep exec-detected)이 push 를 막았다(2026-09-07).
+    # exec 없이 만든다 — 정적 보안검사(Semgrep exec-detected) 규칙을 통과하도록.
     # 도구 함수는 **kw 를 받는 클로저이고, FastMCP 가 스키마를 뽑는 inspect.signature 에는
     # __signature__(영문 인자명·형·기본값)를 심는다 — 생성 소스를 exec 하던 때와 스키마가 같다
     # (스냅샷 diff 로 확인). 형 주석은 _형이름과 같은 파이썬 형 객체 그대로.
