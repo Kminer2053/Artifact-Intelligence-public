@@ -931,7 +931,16 @@ def _kordoc(경로, 형식="markdown", 쪽=""):
     try:
         r = subprocess.run(cmd, capture_output=True, text=True, timeout=600)
         if not os.path.exists(낼곳) or os.path.getsize(낼곳) == 0:
-            return None, (r.stdout or "") + (r.stderr or "") or "읽지 못했습니다"
+            탈 = (r.stdout or "") + (r.stderr or "")
+            # kordoc 4.10+ 는 실패를 stdout 에 JSON({success:false, error, code})으로 낸다 —
+            # 사용자에게는 그 안의 오류 문장만 보인다(JSON 덩어리를 그대로 내보내지 않는다).
+            try:
+                j = json.loads((r.stdout or "").strip() or "null")
+                if isinstance(j, dict) and j.get("error"):
+                    탈 = str(j["error"]) + (f" ({j['code']})" if j.get("code") else "")
+            except ValueError:
+                pass
+            return None, 탈 or "읽지 못했습니다"
         본 = open(낼곳, encoding="utf-8", errors="replace").read()
         return (json.loads(본) if 형식 in ("json", "chunks") else 본), ""
     except subprocess.TimeoutExpired:
@@ -1245,7 +1254,12 @@ def 서식분석(경로):
     청크 = r["값"] if isinstance(r["값"], list) else (r["값"] or {}).get("chunks") or []
 
     상위 = _re.compile(r"^\s*([□■◇◆▣])\s*(.+)$")
-    하위 = _re.compile(r"^\s*([○●◦・·ㅇ])\s*(.+)$")
+    # '○○공사'·'ㅇㅇ' 같은 익명 표기는 마커가 아니다 — 같은 글자가 곧바로 이어지면 뺀다.
+    하위 = _re.compile(r"^\s*([○●◦・·ㅇ])(?!\1)\s*(.+)$")
+    # kordoc 4.8+ 는 PDF 에서 제목에 '#', 목록에 '- '·'* ' 를 붙여 내보낸다. 그 뒤에 한국식
+    # 마커(□○-*※·가.·1.)가 또 오면 마크다운 기호는 떼고 읽는다 — 안 떼면 '- 가. …' 가
+    # 3단 항목(-)으로 잘못 세진다(4.15.4 올림 시 비공개표본.pdf 에서 확인).
+    마크다운 = _re.compile(r"^\s*(?:#{1,6}\s+|[-*]\s+(?=[□■◇◆▣○●◦・·ㅇ\-–*※]|[가-하]\.|\d+\s*\.))")
     셋째 = _re.compile(r"^\s*[-–]\s*(.+)$")
     넷째 = _re.compile(r"^\s*[*※]\s*(.+)$")
     조 = _re.compile(r"^\s*제\s*\d+\s*조")
@@ -1257,7 +1271,7 @@ def 서식분석(경로):
         if (c.get("type") or "") == "table":
             표수 += 1
         for 줄 in str(c.get("text") or "").split("\n"):
-            줄 = 줄.strip()
+            줄 = 마크다운.sub("", 줄.strip()).strip()
             if not 줄:
                 continue
             if 조.match(줄):
