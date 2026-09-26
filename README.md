@@ -17,11 +17,13 @@
 ---
 
 <!-- DEMO-VIDEO -->
-[![문서지능](docs/promo/poster.png)](https://artifact-intelligence.app)
+### 시연 영상
 
 의도와 자료만 넣으면 → AI가 문서 구조를 설계하고 → 완성 문서를 → 도식·문구까지 항목별로 손쉽게 편집하고 → 한글(HWPX)로 내려받습니다.
 
-설치 없이 먼저 써 보기 — **https://artifact-intelligence.app**
+[![문서지능 시연 영상](docs/promo/preview.gif)](docs/promo/promo.mp4)
+
+▶ **[전체 영상 보기 (41초)](docs/promo/promo.mp4)** · 설치 없이 먼저 써 보기 — **https://artifact-intelligence.app**
 
 ---
 
