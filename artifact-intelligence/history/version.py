@@ -86,7 +86,13 @@ def now():
     return time.strftime("%Y-%m-%dT%H:%M:%S")
 
 
+_키꼴 = re.compile(r"[0-9A-Za-z가-힣_][0-9A-Za-z가-힣_.\-]{0,159}")
+
+
 def 문서방(key):
+    # 보안('26-10-01): 키는 파일 이름 한 조각 — '../<남의 세션>' 로 남의 이력을 읽고 되돌리지 않게
+    if not isinstance(key, str) or not _키꼴.fullmatch(key) or ".." in key:
+        raise ValueError("문서 이름(key) 꼴이 맞지 않습니다")
     return os.path.join(이력뿌리(), key)
 
 
@@ -311,6 +317,12 @@ def 목록(key):
     return out
 
 
+def _로(n):
+    """숫자 뒤 조사 '로/으로' — 끝자리 읽기가 받침(ㄹ 빼고)으로 끝나면 '으로'(3삼·6육·0십/영). '버전 2으로'였다."""
+    s = str(n)
+    return "으로" if s and s[-1] in "360" else "로"
+
+
 def 되돌리기(key, n, 고친이유=""):
     """옛 버전 내용으로 지금 문서를 바꾼다. 되돌리기 전 상태도 버전으로 남기므로
     지금 내용이 없어지지 않는다."""
@@ -321,7 +333,7 @@ def 되돌리기(key, n, 고친이유=""):
     src, idx, cur, genre = 문서찾기(key)
     if cur is None:
         return None, "그런 문서가 없습니다"
-    직전 = 보관(key, "자동", 고친이유=f"버전 {n}으로 되돌리기 전 상태", 누가="사람")
+    직전 = 보관(key, "자동", 고친이유=f"버전 {n}{_로(n)} 되돌리기 전 상태", 누가="사람")
     old = json.load(open(dp, encoding="utf-8"))
     # 등록부도 **읽고-고치고-쓰는** 자리다 — 빗장 안에서 다시 읽고 자리도 다시 찾는다.
     # (`보관()` 은 위에서 이미 끝났다 — 색인 빗장과 등록부 빗장을 겹쳐 쥐지 않는다)
@@ -502,7 +514,7 @@ def main():
         return 0
     if cmd == "--보관":
         n = 보관(key, "직접", opt("--이유"), opt("--메모"))
-        print(f"버전 {n}으로 보관했습니다" if n else "그런 문서가 없습니다")
+        print(f"버전 {n}{_로(n)} 보관했습니다" if n else "그런 문서가 없습니다")
         return 0 if n else 1
     if cmd == "--되돌리기":
         n, err = 되돌리기(key, int(opt("--버전", "0")), opt("--이유"))

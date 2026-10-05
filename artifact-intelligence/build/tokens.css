@@ -99,3 +99,72 @@
   size: A4;
   margin: var(--doc-margin-top) var(--doc-margin-right) var(--doc-margin-bottom) var(--doc-margin-left);
 }
+
+
+:root {
+  --fig-accent: #1F3864; --fig-on-accent: #FFFFFF; --fig-mid: #B1B9C9; --fig-soft: #E4E7EC;
+  --fig-chart: #1F3864; --fig-chart-mid: #A1ABBE;
+  --fig-cat1-mid: #B1D6CD; --fig-cat1-soft: #E2F0EC; --fig-cat2-mid: #ECCEB4; --fig-cat2-soft: #F8EDE3;
+  --fig-gray: #F2F2F2; --fig-line: #6E6E6E; --fig-ink: #111111; --fig-sub: #444444;
+  --fig-frame: #B8B8B8; --fig-bg: #FFFFFF;
+  --fig-pt-flow: 11; --fig-pt-sys: 13; --fig-pt-chart: 10.5; --fig-pt-sub: 10.5; --fig-pt-min: 10.5;
+  --fig-slot-mm: 170; --fig-max-h-mm: 222;
+  --fig-chart-h-mm: 58; --fig-chart-big-h-mm: 82; --fig-chart-half-h-mm: 44;
+}
+
+.fr-fig.fig-pair { display: inline-block; vertical-align: top; width: 48%; }
+.fr-fig.fig-pair-l { margin-right: 3.5%; }
+
+
+:root { --doc-table-first-bg: var(--doc-p-gray-soft); --doc-table-hl-bg: #FFF2CC; }
+:is(table.doc-table, table.fr-table, table.gm-table, table.pr-table, table.pr-overview,
+    table.rg-table, table.sl-table) :is(td, th).l { text-align: left; }
+:is(table.doc-table, table.fr-table, table.gm-table, table.pr-table, table.pr-overview,
+    table.rg-table, table.sl-table) :is(td, th).r { text-align: right; font-variant-numeric: tabular-nums; }
+:is(table.doc-table, table.fr-table, table.gm-table, table.pr-table, table.pr-overview,
+    table.rg-table, table.sl-table) td.c1 { background: var(--doc-table-first-bg); }
+:is(table.doc-table, table.fr-table, table.gm-table, table.pr-table, table.pr-overview,
+    table.rg-table, table.sl-table) td[data-강조="강조"] { font-weight: 700; }
+:is(table.doc-table, table.fr-table, table.gm-table, table.pr-table, table.pr-overview,
+    table.rg-table, table.sl-table) td[data-강조="강조"] { background: var(--doc-table-hl-bg); }
+:is(table.doc-table, table.fr-table, table.gm-table, table.pr-table, table.pr-overview,
+    table.rg-table, table.sl-table) td[data-강조="회색"] { background: var(--doc-p-gray-soft); }
+:is(table.doc-table, table.fr-table, table.gm-table, table.pr-table, table.pr-overview,
+    table.rg-table, table.sl-table)[data-머리="파랑"] th { background: var(--doc-table-head-bg); }
+:is(table.doc-table, table.fr-table, table.gm-table, table.pr-table, table.pr-overview,
+    table.rg-table, table.sl-table)[data-머리="회색"] th { background: var(--doc-p-gray-head); }
+:is(table.doc-table, table.fr-table, table.gm-table, table.pr-table, table.pr-overview,
+    table.rg-table, table.sl-table)[data-머리="없음"] th { background: none; }
+
+:is(table.doc-table, table.fr-table, table.gm-table, table.pr-table, table.pr-overview,
+    table.rg-table)[data-크기="작게"] :is(th, td) { font-size: max(min(1em, 10.5pt), calc(1em - 1pt)); }
+:is(table.doc-table, table.fr-table, table.gm-table, table.pr-table, table.pr-overview,
+    table.rg-table)[data-크기="크게"] :is(th, td) { font-size: calc(1em + 1pt); }
+
+:is(table.fr-table, table.gm-table, table.pr-table, table.pr-overview, table.rg-table)[data-style]
+  :is(th, td) { border: none; }
+:is(table.fr-table, table.gm-table, table.pr-table, table.pr-overview, table.rg-table)[data-style="기본표"] {
+  border: 0.12mm solid var(--doc-p-black); }
+:is(table.fr-table, table.gm-table, table.pr-table, table.pr-overview, table.rg-table)[data-style="겉바속촉"] {
+  border: 0.4mm solid var(--doc-p-black); }
+:is(table.fr-table, table.gm-table, table.pr-table, table.pr-overview, table.rg-table):is([data-style="기본표"], [data-style="겉바속촉"])
+  :is(th, td) { border-right: 0.12mm solid var(--doc-p-black); border-bottom: 0.12mm solid var(--doc-p-black); }
+:is(table.fr-table, table.gm-table, table.pr-table, table.pr-overview, table.rg-table):is([data-style="샌드위치"], [data-style="하단두줄"]) {
+  border: none; border-top: 0.4mm solid var(--doc-p-black); border-bottom: 0.4mm solid var(--doc-p-black); }
+:is(table.fr-table, table.gm-table, table.pr-table, table.pr-overview, table.rg-table)[data-style="하단두줄"] {
+  border-bottom: 0.9mm double var(--doc-p-black); }
+:is(table.fr-table, table.gm-table, table.pr-table, table.pr-overview, table.rg-table):is([data-style="샌드위치"], [data-style="하단두줄"])
+  :is(th, td) { border-bottom: 0.12mm solid var(--doc-p-black); }
+:is(table.fr-table, table.gm-table, table.pr-table, table.pr-overview, table.rg-table)[data-style="투명표"] { border: none; }
+:is(table.fr-table, table.gm-table, table.pr-table, table.pr-overview, table.rg-table)[data-style="투명표"]
+  :is(th, td) { background: none; }
+:is(table.fr-table, table.gm-table, table.pr-table, table.pr-overview, table.rg-table)[data-style="테두리점선"] {
+  border: 0.12mm dashed var(--doc-p-black); }
+:is(table.fr-table, table.gm-table, table.pr-table, table.pr-overview, table.rg-table)[data-style="테두리점선"]
+  th { border-bottom: 0.3mm dashed var(--doc-p-black); }
+:is(table.fr-table, table.gm-table, table.pr-table, table.pr-overview, table.rg-table)[data-style="테두리점선"]
+  td { border-bottom: 0.12mm dashed var(--doc-p-black); }
+:is(table.fr-table, table.gm-table, table.pr-table, table.pr-overview, table.rg-table)[data-style]
+  :is(th, td):last-child { border-right: none; }
+:is(table.fr-table, table.gm-table, table.pr-table, table.pr-overview, table.rg-table)[data-style]
+  tr:last-child td { border-bottom: none; }

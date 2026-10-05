@@ -93,6 +93,7 @@
 .fr-infobox .cell b { display: block; color: var(--fr-navy); margin-bottom: 1mm; }
 
 
+:root[data-genre="fullreport"] { --fr-ind2: 2.6mm; --fr-ind3: 7.9mm; --fr-ind4: 10.6mm; }
 .fr-chapter { background: #EFEFEF; border-top: 0.4mm solid var(--fr-black);
   border-bottom: 0.4mm solid var(--fr-black); text-align: center;
   font-size: 17pt; font-weight: 800; padding: 2.6mm 2mm; margin: 0 0 6mm; }
@@ -100,15 +101,16 @@
   margin: calc(5mm * var(--lhs, 1)) 0 calc(2.5mm * var(--lhs, 1));
   padding-left: 1.35em; word-break: keep-all; }
 [data-genre="fullreport"] .fr-sec::before { content: "□"; display: inline-block; width: 1.35em; margin-left: -1.35em; }
-[data-genre="fullreport"] .i-l2 { font-size: 14pt; line-height: calc(1.7 * var(--lhs, 1)); margin: 0 0 calc(1.6mm * var(--lhs, 1)) 5mm;
+[data-genre="fullreport"] .i-l2 { font-size: 14pt; line-height: calc(1.7 * var(--lhs, 1)); margin: 0 0 calc(1.6mm * var(--lhs, 1)) var(--fr-ind2, 2.6mm);
   padding-left: 1.35em;                       
   font-family: var(--fr-body-font); word-break: keep-all; overflow-wrap: break-word; }
-[data-genre="fullreport"] .i-l2::before { content: "○"; display: inline-block; width: 1.35em; margin-left: -1.35em; }
-[data-genre="fullreport"] .i-l3 { font-size: 14pt; line-height: calc(1.65 * var(--lhs, 1)); margin: 0 0 calc(1.4mm * var(--lhs, 1)) 10mm;
+
+[data-genre="fullreport"] .i-l2::before { content: var(--doc-mk2, "○"); display: inline-block; width: 1.35em; margin-left: -1.35em; }
+[data-genre="fullreport"] .i-l3 { font-size: 14pt; line-height: calc(1.65 * var(--lhs, 1)); margin: 0 0 calc(1.4mm * var(--lhs, 1)) var(--fr-ind3, 7.9mm);
   padding-left: 0.8em;
   font-family: var(--fr-body-font); word-break: keep-all; overflow-wrap: break-word; }
 [data-genre="fullreport"] .i-l3::before { content: "-"; display: inline-block; width: 0.8em; margin-left: -0.8em; }
-[data-genre="fullreport"] .i-l4 { font-family: var(--fr-note); font-size: 11pt; line-height: calc(1.6 * var(--lhs, 1)); margin: 0 0 1.4mm 15mm;
+[data-genre="fullreport"] .i-l4 { font-family: var(--fr-note); font-size: 11pt; line-height: calc(1.6 * var(--lhs, 1)); margin: 0 0 1.4mm var(--fr-ind4, 10.6mm);
   padding-left: 1.35em; color: #333; word-break: keep-all; }
 [data-genre="fullreport"] .i-l4::before { content: "※"; display: inline-block; width: 1.35em; margin-left: -1.35em; }
 
@@ -117,7 +119,8 @@
 .fr-tbl-caption { font-size: 10.5pt; color: #444; text-align: right; margin-bottom: 1mm; }
 table.fr-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 12pt;
   border-top: 0.4mm solid var(--fr-black); border-bottom: 0.4mm solid var(--fr-black); }
-table.fr-table th { background: #F2F2F2; font-weight: 700; border-bottom: 0.15mm solid var(--fr-black); }
+
+table.fr-table th { background: var(--doc-table-head-bg); font-weight: 700; border-bottom: 0.15mm solid var(--fr-black); }
 table.fr-table th, table.fr-table td { padding: 1.6mm 2.5mm; text-align: center; line-height: 1.5; }
 table.fr-table td.r { text-align: right; }
 table.fr-table tr + tr td { border-top: 0.1mm solid #999; }
@@ -164,18 +167,19 @@ table.fr-table tr + tr td { border-top: 0.1mm solid #999; }
 [data-style="gov"] .fr-toc-row .dots { border-bottom-width: 0.45mm; }
 
 
-[data-style="gov"] .fr-chapter { text-align: left; font-size: 16pt; padding: 2.2mm 4mm;
-  border: none; border-top: 1.1mm solid var(--pt); border-bottom: 0.3mm solid var(--pt);
-  background: linear-gradient(90deg, color-mix(in srgb, var(--pt) 16%, #fff), #fff 88%); }
+[data-style="gov"] .fr-chapter { text-align: left; font-size: 17pt; padding: 1.4mm 3mm;
+  border: none; border-top: 0.8mm double var(--pt); border-bottom: 0.8mm double var(--pt);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--pt) 16%, #fff), #fff 50%,
+    color-mix(in srgb, var(--pt) 16%, #fff)); }
 
 
 .fr-sec .no { display: none; }
-[data-style="gov"] .fr-sec { padding: 0 0 1.8mm; margin: 6.5mm 0 3mm;
-  border-bottom: 0.4mm solid var(--pt); font-size: 15pt; }
+[data-style="gov"] .fr-sec { padding: 0; margin: 6.5mm 0 3mm;
+  border-bottom: 0.5mm solid #000; font-size: 15pt; }
 [data-style="gov"] .fr-sec::before { content: none; }
 [data-style="gov"] .fr-sec .no { display: inline-block; background: var(--pt); color: #fff;
-  font-weight: 800; min-width: 6.5mm; text-align: center; padding: 0.5mm 1.8mm;
-  margin-right: 3mm; font-size: 13.5pt; }
+  font-weight: 800; min-width: 9.8mm; text-align: center; padding: 0.6mm 1.5mm;
+  margin-right: 2.5mm; font-size: 14pt; box-sizing: border-box; }
 
 
 .fr-keybox { border: 0.45mm solid #555; box-shadow: 0 0 0 0.8mm #fff, 0 0 0 0.95mm #999;
@@ -273,9 +277,11 @@ table.fr-table tr + tr td { border-top: 0.1mm solid #999; }
 .fr-img img { display: block; margin: 0 auto; border: 0.2mm solid #BBB; }
 
 .fr-img .ai-gen { display: inline-block; margin: 1.2mm auto 0; padding: 0.3mm 2mm;
-  font-size: 9pt; color: #555; background: #EEE; border: 0.15mm solid #CCC;
+  font-size: 10.5pt; color: #555; background: #EEE; border: 0.15mm solid #CCC;
   border-radius: 2mm; font-family: var(--fr-sans); text-align: center; }
 .fr-img { text-align: center; }
+
+.fr-img[data-miss] { display: none !important; }
 .fr-img .ph { border: 0.3mm dashed #C05050; color: #A03030; background: #FDF6F6;
   padding: 6mm 4mm; font-size: 11pt; text-align: center; font-family: var(--fr-sans); }
 
@@ -335,3 +341,106 @@ table.fr-table tr + tr td { border-top: 0.1mm solid #999; }
 
 [data-margin="rule"] .fr-page { padding: 30mm 25mm 25mm 30mm; }
 [data-margin="rule"] .fr-content { height: 242mm; }
+
+
+
+
+:root[data-제목모양="겹줄"]:not([data-mk2]) { --doc-mk2: "ㅇ"; }
+
+:root[data-제목모양="연한띠"] { --tm-c: #0070C0; }
+
+
+.fr-tt-bar { display: none; }
+:root[data-제목틀="두청색띠"] .fr-tt-bar,
+:is(:root[data-제목틀="두색띠"], :root[data-제목모양="겹줄"]:not([data-제목틀])) .fr-tt-bar {
+  display: block; align-self: stretch; }
+:root[data-제목틀="두청색띠"] :is(.fr-tt-bar, .gov-bar) { height: 2.1mm; background: #0080C0; }
+:root[data-제목틀="두청색띠"] :is(.fr-tt-bar.bottom, .gov-bar.thin) { height: 1.9mm; }
+
+:is(:root[data-제목틀="두색띠"], :root[data-제목모양="겹줄"]:not([data-제목틀])) :is(.fr-tt-bar, .gov-bar) {
+  height: 4mm; background: #0080C0; }
+:is(:root[data-제목틀="두색띠"], :root[data-제목모양="겹줄"]:not([data-제목틀])) :is(.fr-tt-bar.bottom, .gov-bar.thin) {
+  height: 3.9mm; background: linear-gradient(90deg, #0080C0, #3CBFFF); }
+
+:is(:root[data-제목틀="굵은줄"], :root[data-제목틀="가는줄"], :root[data-제목틀="연한띠"],
+    :root[data-제목틀="짙은띠"], :root[data-제목틀="없음"],
+    :root:not([data-제목틀]):is([data-제목모양="연한띠"], [data-제목모양="짙은띠"],
+                             [data-제목모양="회색띠"], [data-제목모양="줄만"])) .gov-bar { display: none; }
+:is(:root[data-제목틀="굵은줄"], :root[data-제목모양="줄만"]:not([data-제목틀])) .fr-cover .fr-title {
+  border-top: 0.4mm solid #000; border-bottom: 0.4mm solid #000; padding: 3mm 4mm; align-self: stretch; }
+:is(:root[data-제목틀="가는줄"], :root[data-제목모양="회색띠"]:not([data-제목틀])) .fr-cover .fr-title {
+  border-top: 0.12mm solid #000; border-bottom: 0.12mm solid #000; padding: 3mm 4mm; align-self: stretch; }
+:is(:root[data-제목틀="연한띠"], :root[data-제목모양="연한띠"]:not([data-제목틀])) .fr-cover .fr-title {
+  background: #E3EEF9; padding: 4mm 5mm; align-self: stretch; }
+:is(:root[data-제목틀="짙은띠"], :root[data-제목모양="짙은띠"]:not([data-제목틀])) .fr-cover .fr-title {
+  background: #1F3864; color: #fff; padding: 4mm 5mm; align-self: stretch; }
+
+
+
+:root[data-장모양="회색띠굵은줄"] :is(.fr-chapter, .fr-annex-title) {
+  background: #EFEFEF; border: none; border-top: 0.4mm solid #000; border-bottom: 0.4mm solid #000; color: #000; }
+:root[data-장모양="회색띠굵은줄"] .fr-chapter { text-align: center; font-size: 17pt; padding: 2.6mm 2mm; }
+
+:is(:root[data-장모양="겹줄"], :root[data-제목모양="겹줄"]:not([data-장모양])) :is(.fr-chapter, .fr-annex-title) {
+  border: none; border-top: 0.8mm double #0000FF; border-bottom: 0.8mm double #0000FF; color: #000;
+  background: linear-gradient(180deg, #D6EAFE, #FFFFFF 50%, #D6EAFE); }
+:is(:root[data-장모양="겹줄"], :root[data-제목모양="겹줄"]:not([data-장모양])) .fr-chapter {
+  text-align: left; font-size: 17pt; padding: 1.4mm 3mm; }
+
+:is(:root[data-장모양="연한띠"], :root[data-제목모양="연한띠"]:not([data-장모양])) :is(.fr-chapter, .fr-annex-title) {
+  background: #E3EEF9; border: none; color: #000; }
+
+:is(:root[data-장모양="회색띠"], :root[data-제목모양="회색띠"]:not([data-장모양])) :is(.fr-chapter, .fr-annex-title) {
+  background: #F2F2F2; border: none; color: #000; }
+
+:is(:root[data-장모양="짙은띠"], :root[data-제목모양="짙은띠"]:not([data-장모양])) :is(.fr-chapter, .fr-annex-title) {
+  background: #1F3864; border: none; color: #fff; }
+
+:is(:root[data-장모양="굵은줄"], :root[data-제목모양="줄만"]:not([data-장모양])) :is(.fr-chapter, .fr-annex-title) {
+  background: none; border: none; border-top: 0.4mm solid #000; border-bottom: 0.4mm solid #000; color: #000; }
+:is(:root[data-장모양="연한띠"], :root[data-장모양="회색띠"], :root[data-장모양="짙은띠"], :root[data-장모양="굵은줄"],
+    :root:not([data-장모양]):is([data-제목모양="연한띠"], [data-제목모양="회색띠"], [data-제목모양="짙은띠"],
+                             [data-제목모양="줄만"])) .fr-chapter {
+  text-align: left; font-size: 16pt; padding: 2.4mm 4mm; }
+
+:root[data-장모양="윗줄"] .fr-chapter { text-align: left; font-size: 16pt; padding: 2.2mm 4mm; color: #000;
+  border: none; border-top: 1.1mm solid var(--pt, #0070C0); border-bottom: 0.3mm solid var(--pt, #0070C0);
+  background: linear-gradient(90deg, color-mix(in srgb, var(--pt, #0070C0) 16%, #fff), #fff 88%); }
+
+
+
+:is(:root[data-절모양="글머리"], :root[data-절모양="밑줄"], :root[data-절모양="회색띠"], :root[data-절모양="연한띠"],
+    :root:not([data-절모양]):is([data-제목모양="연한띠"], [data-제목모양="짙은띠"], [data-제목모양="회색띠"],
+                             [data-제목모양="줄만"])) .fr-sec {
+  padding: 0 0 0 1.35em; margin: calc(5mm * var(--lhs, 1)) 0 calc(2.5mm * var(--lhs, 1));
+  border: none; background: none; font-size: 15pt; }
+:is(:root[data-절모양="글머리"], :root[data-절모양="밑줄"], :root[data-절모양="회색띠"], :root[data-절모양="연한띠"],
+    :root:not([data-절모양]):is([data-제목모양="연한띠"], [data-제목모양="짙은띠"], [data-제목모양="회색띠"],
+                             [data-제목모양="줄만"])) .fr-sec .no { display: none; }
+:root[data-style="gov"]:not([data-hier]):is([data-절모양="글머리"], [data-절모양="밑줄"], [data-절모양="회색띠"],
+    [data-절모양="연한띠"], :not([data-절모양]):is([data-제목모양="연한띠"], [data-제목모양="짙은띠"],
+    [data-제목모양="회색띠"], [data-제목모양="줄만"])) .fr-sec::before { content: "□"; }
+
+:is(:root[data-절모양="밑줄"], :root:not([data-절모양]):is([data-제목모양="연한띠"], [data-제목모양="줄만"])) .fr-sec {
+  border-bottom: 0.4mm solid var(--tm-c, #000); padding-bottom: 1mm; }
+
+:is(:root[data-절모양="회색띠"], :root[data-제목모양="회색띠"]:not([data-절모양])) .fr-sec {
+  background: #F2F2F2; padding-top: 1mm; padding-bottom: 1mm; }
+:is(:root[data-절모양="연한띠"], :root[data-제목모양="짙은띠"]:not([data-절모양])) .fr-sec {
+  background: #E3EEF9; padding-top: 1mm; padding-bottom: 1mm; }
+
+:is(:root[data-절모양="숫자칸"], :root[data-절모양="번호칩"], :root[data-제목모양="겹줄"]:not([data-절모양])) .fr-sec {
+  padding: 0; margin: 6.5mm 0 3mm; background: none; border: none; font-size: 15pt; }
+:is(:root[data-절모양="숫자칸"], :root[data-절모양="번호칩"], :root[data-제목모양="겹줄"]:not([data-절모양])) .fr-sec::before {
+  content: none; }
+
+:is(:root[data-절모양="숫자칸"], :root[data-제목모양="겹줄"]:not([data-절모양])) .fr-sec {
+  border-bottom: 0.5mm solid #000; }
+:is(:root[data-절모양="숫자칸"], :root[data-제목모양="겹줄"]:not([data-절모양])) .fr-sec .no {
+  display: inline-block; background: #203A7B; color: #fff; font-weight: 800; min-width: 9.8mm;
+  text-align: center; padding: 0.6mm 1.5mm; margin-right: 2.5mm; font-size: 14pt; box-sizing: border-box; }
+
+:root[data-절모양="번호칩"][data-절모양] .fr-sec { padding: 0 0 1.8mm; border-bottom: 0.4mm solid var(--pt, #0070C0); }
+:root[data-절모양="번호칩"][data-절모양] .fr-sec .no { display: inline-block; background: var(--pt, #0070C0); color: #fff;
+  font-weight: 800; min-width: 6.5mm; text-align: center; padding: 0.5mm 1.8mm;
+  margin-right: 3mm; font-size: 13.5pt; box-sizing: content-box; }

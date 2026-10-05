@@ -39,9 +39,10 @@ import version as V  # noqa: E402
 try:
     파급 = json.load(open(os.path.join(ROOT, "ontology", "파급표.json"), encoding="utf-8"))
 except FileNotFoundError:
-    # 파급표.json 은 크라운주얼 — 정책만-로컬 배포본엔 없다. 모듈 최상위에서 죽으면
-    # 6개 조립기의 기준도장()이 매번 import 예외를 삼킨다. 부재 시 빈 표로 두어 import 는
-    # 늘 성공시키고, 배포본은 <meta name="기준"> 지문을 생략한다(파급표 미동봉의 설계상 결과).
+    # 파급표.json 이 빠진 설치(옛 0.3.x 배포본 — 그땐 '크라운주얼'로 빼고 냈다). '26-10-01 부터 공개
+    # 플러그인도 이 파일을 싣으므로 설치본도 <meta name="기준"> 지문을 찍는다. 모듈 최상위에서 죽으면
+    # 6개 조립기의 기준도장()이 매번 import 예외를 삼키니, 부재 시 빈 표로 두어 import 는 늘 성공시키고
+    # 지문만 생략한다.
     파급 = {}
 장르목록 = [g for g in 파급 if not g.startswith("_") and g != "규칙파일"]
 

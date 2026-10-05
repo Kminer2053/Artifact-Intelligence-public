@@ -39,6 +39,16 @@ def 이름표(v):
         for k in 이름표키:
             if v.get(k):
                 return re.sub(r"<[^>]+>", "", str(v[k]))[:60]
+        # 판형 v2 슬라이드 장은 제목이 없다 — 머리 메시지(간지·마무리는 그 제목·문구)로 알아본다.
+        # JSON 앞 60자로 알아보면 장마다 '{"머리": {"라벨"…' 로 같아 복제한 장을 지웠는데 원본을
+        # 지웠다고 적었다('26-09-28 적대 검토 ⑦-2).
+        if "유형" in v:
+            for 칸, 키 in (("머리", "메시지"), ("간지", "제목"), ("마무리", "문구"), ("표지", "부제")):
+                x = v.get(칸)
+                if isinstance(x, dict) and x.get(키):
+                    t = x[키]
+                    t = "".join(str(r.get("t", "")) for r in t if isinstance(r, dict)) if isinstance(t, list) else str(t)
+                    return f"{v.get('유형', '')} {t}"[:60]
         return json.dumps(v, ensure_ascii=False, sort_keys=True)[:60]
     return str(v)[:60]
 

@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # 문서지능 플러그인 의존성 부트스트랩 — 멱등(idempotent).
 # SessionStart hook(hooks/hooks.json)과 mcp/run.sh 가 이걸 부른다. 셋(mcp/.venv·
-# build/.hwpxenv·node_modules)이 다 있으면 즉시 no-op 이라 첫 세션 외엔 0초.
+# build/.hwpxenv·node_modules)이 다 있고 mcp/requirements.txt 가 깐 때와 같으면(해시 기록) 즉시 no-op 이라 첫 세션 외엔
+# 거의 0초(해시 한 번, 수십 ms). 설치가 실패했으면 같은 요구로는 하루에 한 번만 다시 해 본다.
 # 첫 1회만: 파이썬 venv 2개 생성 + pip + npm install. 재생성물이라 git 에 없다.
 #
 # 설계: HTML 초안 생성 경로는 순수 stdlib 라 venv 없이도 돈다. 그래서 여기서 무엇이
@@ -22,8 +23,56 @@ fi
 if [ ! -x mcp/.venv/bin/python ]; then
   echo "[문서지능] MCP 도구 의존성 설치 중(첫 1회)…" >&2
   if "$PY" -m venv mcp/.venv; then
-    mcp/.venv/bin/python -m pip install --quiet --disable-pip-version-check -r mcp/requirements.txt \
-      || echo "[문서지능] ⚠ mcp 설치 실패 — MCP 도구만 영향(초안 생성은 정상)." >&2
+    if mcp/.venv/bin/python -m pip install --quiet --disable-pip-version-check -r mcp/requirements.txt; then
+      mcp/.venv/bin/python -c 'import hashlib,sys;print(hashlib.sha256(open(sys.argv[1],"rb").read()).hexdigest())' \
+        mcp/requirements.txt > mcp/.venv/.requirements.sha256 2>/dev/null || true
+    else
+      echo "[문서지능] ⚠ mcp 설치 실패 — MCP 도구만 영향(초안 생성은 정상)." >&2
+    fi
+  fi
+fi
+# ①-b requirements 가 바뀌면 있는 venv 에도 다시 깐다('26-10-01 주관 판정 R2, verify_fixup5_ux B1) — 깐 때의
+#     mcp/requirements.txt 해시를 mcp/.venv/.requirements.sha256 에 적어 두고, 지금 해시와 다르면 다시 깐다. 전에는
+#     venv 가 **없을 때만** 깔아, 뒤에 requirements 에 들어간 Pillow 가 이미 있는 venv(git pull 로 갱신한 클론 설치)에는
+#     들어가지 않았다. 해시가 같아도 requirements 가 pillow 를 적었는데 import 가 안 되면 다시 깐다.
+#     실패하면 그 해시를 표지에 적고, **같은 요구로는** 하루 동안 다시 돌지 않는다('26-09-30 fixup — 닿지 않는 색인에서
+#     실패 한 번에 9초가 걸려 기동마다 늦어졌다, review_impl2 L4). 요구가 또 바뀌면 곧바로 다시 해 본다. 동시에 뜬
+#     SessionStart·run.sh 가 겹쳐 깔지 않게 빗장 폴더를 둔다(10분 넘은 빗장은 죽은 것으로 본다).
+#     못 깔아도 imageasset 이 그림 자르기·카드·짝 셈을 build/.hwpxenv 로 넘긴다.
+REQ=mcp/requirements.txt
+REQ_REC=mcp/.venv/.requirements.sha256
+REQ_FAIL=mcp/.venv/.requirements-failed
+REQ_LOCK=mcp/.venv/.requirements.lock
+if [ -x mcp/.venv/bin/python ] && [ -f "$REQ" ]; then
+  _want="$(mcp/.venv/bin/python -c 'import hashlib,sys;print(hashlib.sha256(open(sys.argv[1],"rb").read()).hexdigest())' "$REQ" 2>/dev/null)"
+  _have="$(cat "$REQ_REC" 2>/dev/null)"
+  _need=""
+  if [ -n "$_want" ] && [ "$_want" != "$_have" ]; then
+    _need=1
+  elif grep -qiE '^[[:space:]]*pillow' "$REQ" && ! mcp/.venv/bin/python -c 'import PIL' >/dev/null 2>&1; then
+    _need=1
+  fi
+  if [ -n "$_need" ]; then
+    if [ -f "$REQ_FAIL" ] && [ "$(cat "$REQ_FAIL" 2>/dev/null)" = "$_want" ] \
+       && [ -n "$(find "$REQ_FAIL" -mmin -1440 2>/dev/null)" ]; then
+      :   # 같은 요구로 하루 안에 실패했다 — 기동을 늦추지 않는다
+    else
+      if [ -d "$REQ_LOCK" ] && [ -n "$(find "$REQ_LOCK" -maxdepth 0 -mmin +10 2>/dev/null)" ]; then
+        rmdir "$REQ_LOCK" 2>/dev/null
+      fi
+      if mkdir "$REQ_LOCK" 2>/dev/null; then
+        if mcp/.venv/bin/python -m pip install --quiet --disable-pip-version-check -r "$REQ" >/dev/null 2>&1; then
+          printf '%s\n' "$_want" > "$REQ_REC"
+          rm -f "$REQ_FAIL" mcp/.venv/.pillow-install-failed
+        else
+          printf '%s\n' "$_want" > "$REQ_FAIL"
+          echo "[문서지능] ⚠ MCP 도구 의존성(mcp/requirements.txt)을 설치하지 못했습니다. 첨부 그림은 HWPX 내보내기용 파이썬으로 자르고, 하루 뒤(또는 요구가 바뀌면) 다시 설치해 봅니다." >&2
+        fi
+        rmdir "$REQ_LOCK" 2>/dev/null
+      fi
+    fi
+  elif [ -f "$REQ_FAIL" ]; then
+    rm -f "$REQ_FAIL"   # 요구가 깐 것과 같아졌다 — 옛 실패 표지는 뜻이 없다
   fi
 fi
 
@@ -43,7 +92,8 @@ if [ ! -f 서버.conf ]; then
   if [ ! -e node_modules/.bin/kordoc ]; then
     if command -v npm >/dev/null 2>&1; then
       echo "[문서지능] 파일 업로드 파서(kordoc) 설치 중(첫 1회)…" >&2
-      npm install --no-audit --no-fund --silent >/dev/null 2>&1 \
+      # ONNXRUNTIME_NODE_INSTALL=skip (kordoc #99) — CUDA 바이너리 받기가 막혀 실패하면 npm 이 sharp 까지 뺀다
+      ONNXRUNTIME_NODE_INSTALL="${ONNXRUNTIME_NODE_INSTALL:-skip}" npm install --no-audit --no-fund --silent >/dev/null 2>&1 \
         || echo "[문서지능] ⚠ npm install 실패 — 파일 업로드 파싱만 영향." >&2
     else
       echo "[문서지능] ⚠ npm 이 없어 업로드 파서를 건너뜀 — 파일 업로드 파싱만 영향." >&2
@@ -53,7 +103,10 @@ fi
 
 # ④ 정책 토큰 자동 등록(WP-S6) — 설치본이 자기 토큰을 한 번 받아 온다(즉시 활성).
 #    이미 있으면(env 문서지능_정책토큰 또는 conf 의 주석 아닌 줄) 건너뛴다(멱등). 정책서버가
-#    없으면(개발/전체 트리) 조용히 넘긴다. urllib 은 Cloudflare 봇차단에 막히니 curl + 제품
+#    없으면(개발/전체 트리) 조용히 넘긴다. ('26-10-01 부터 작성 규칙은 설치본의 ontology/ 에 함께
+#    실려 토큰 없이도 문서 작업이 돈다. 토큰은 정책서버를 쓰는 예비 길 — 키 없는 'AI로 고치기'(서버
+#    모델)와 온톨로지 파일이 빠진 옛 설치의 조각 조회 — 에만 실린다. 이 단계를 남길지는 따로 정한다.)
+#    urllib 은 Cloudflare 봇차단에 막히니 curl + 제품
 #    UA 로 부른다. 실패해도(오프라인 등) 본류는 산다 — 다음 기동에 다시 시도한다.
 # 선로 위의 이름은 ASCII — bash 는 한글 변수·함수명을 못 쓰고, 한글 env 는 $-치환이
 # 안 돼 printenv(인자)로 읽는다(구현계획.md 규칙 8 의 셸판). 파일명(정책서버*.conf)은

@@ -105,15 +105,152 @@ def 크롬() -> str:
 # 락을 피하고 ② 산출물의 끝표시가 보이면 kill 로 회수한다. 이 손이 하나가 아니면
 # render_verify.sh 만 고치고 api.py·observe.py 는 옛 방식으로 남아 데스크톱에서 3분씩 행한다.
 
+# ── 부모와 함께 죽는 크롬('26-10-01 주관 판정 R3, verify_fixup5_ux B2) ─────────────────────────────────────
+# 크롬은 부모(serve.py·MCP 서버·tohwpx 자식)가 SIGKILL 로 죽어도 스스로 끝나지 않는다 — 부모 쪽 지키미(serve.py
+# _크롬지키기)는 1초마다 자손을 적어서, 적은 뒤 1초 안에 뜬 인쇄 크롬(PDF 는 1초 안팎만 산다)을 놓쳤다(무작위 10번 중
+# 2번 고아, 20분 넘게 살아 있었다). 그래서 **자식 쪽**에서 지킨다:
+#   ① 부모가 파이프를 하나 만들어 쓰는 끝을 쥔 채 감시자(작은 파이썬)를 띄운다 — 파이프는 감시자·크롬이 뜨기 **전에**
+#      있으므로 떠오르는 동안의 틈이 없다. 부모가 어떤 신호로 죽든 커널이 쓰는 끝을 닫아, 감시자의 읽는 끝이 끝(EOF)을
+#      본다(맥·리눅스 모두 — prctl(PR_SET_PDEATHSIG) 는 리눅스뿐이라 쓰지 않는다).
+#   ② 감시자는 크롬을 **새 프로세스 그룹**(start_new_session)으로 띄우고, 파이프 끝·SIGTERM·SIGHUP·SIGINT 를 받으면 그 그룹
+#      (크롬과 도우미 프로세스)을 통째로 끈다(SIGTERM → 2초 뒤 SIGKILL). 크롬이 먼저 뜨기 전에 파이프가 닫혔으면 띄우지 않는다.
+#   ③ 크롬이 스스로 끝나면 감시자도 그 끝남 코드로 끝난다(남은 도우미는 그룹째 끈다).
+# 이 손을 모든 헤들리스 크롬(인쇄·덤프·HWPX 화면읽기·PPTX 수확)이 쓴다. serve.py 의 지키미는 곁 방어로 둔다.
+_감시코드 = r"""
+import os, select, signal, subprocess, sys, time
+fd = int(sys.argv[1]); 치울 = sys.argv[2]; args = sys.argv[3:]
+p = None; 멈춤 = []; 부모 = os.getppid()
+def 끄기(급히):
+    # 급히(파이프 끝 — 부모가 죽었거나 kill) = 곧바로 SIGKILL, 아니면(SIGTERM 등) SIGTERM 뒤 2초 안에 안 끝나면 SIGKILL
+    if p is not None:
+        if not 급히:
+            try:
+                os.killpg(p.pid, signal.SIGTERM)
+            except OSError:
+                pass
+            끝 = time.monotonic() + 2
+            while time.monotonic() < 끝 and p.poll() is None:
+                time.sleep(0.05)
+        try:
+            os.killpg(p.pid, signal.SIGKILL)
+        except OSError:
+            pass
+        try:
+            p.wait(timeout=5)
+        except Exception:
+            pass
+    if 치울 and os.getppid() != 부모:
+        # 부모가 죽었을 때만 임시 프로필을 지운다(살아 있으면 부모가 지운다 — 둘이 함께 지우다 부딪히지 않게)
+        import shutil
+        shutil.rmtree(치울, ignore_errors=True)
+def 받음(n, f):
+    멈춤.append(n)
+    if p is not None:
+        끄기(False)
+        os._exit(128 + n)
+for s in (signal.SIGTERM, signal.SIGHUP, signal.SIGINT):
+    signal.signal(s, 받음)
+def 닫혔나(초):
+    r, _, _ = select.select([fd], [], [], 초)
+    if not r:
+        return False
+    try:
+        return os.read(fd, 512) == b""
+    except OSError:
+        return True
+if 닫혔나(0):
+    p = None; 끄기(True); os._exit(137)
+p = subprocess.Popen(args, start_new_session=True, stdin=subprocess.DEVNULL)
+if 멈춤:
+    끄기(False); os._exit(128 + 멈춤[0])
+while True:
+    if 닫혔나(0.2):
+        끄기(True); os._exit(137)
+    rc = p.poll()
+    if rc is not None:
+        try:
+            os.killpg(p.pid, signal.SIGKILL)
+        except OSError:
+            pass
+        os._exit(rc if rc >= 0 else 128 - rc)
+"""
+
+
+class 크롬프로세스:
+    """띄우기() 가 돌려주는 Popen 닮은 손잡이 — poll·wait·terminate·kill·pid(감시자). kill 도 감시자를 통해 크롬 그룹째 끈다."""
+
+    def __init__(self, p, 쓰는끝):
+        self._p = p
+        self._w = 쓰는끝
+        self.pid = p.pid
+
+    def _닫기(self):
+        if self._w is not None:
+            try:
+                os.close(self._w)
+            except OSError:
+                pass
+            self._w = None
+
+    def poll(self):
+        rc = self._p.poll()
+        if rc is not None:
+            self._닫기()
+        return rc
+
+    @property
+    def returncode(self):
+        return self._p.returncode
+
+    def wait(self, timeout=None):
+        rc = self._p.wait(timeout=timeout)
+        self._닫기()
+        return rc
+
+    def terminate(self):
+        try:
+            self._p.terminate()        # 감시자가 SIGTERM 을 받아 크롬 그룹을 끄고 끝난다
+        except OSError:
+            pass
+
+    def kill(self):
+        # 감시자를 SIGKILL 하면 크롬이 고아가 된다 — 파이프를 닫아(=부모가 죽은 것과 같다) 감시자가 그룹째 곧바로 끄게 하고,
+        # 그래도 안 끝나면 그때 감시자를 죽인다
+        self._닫기()
+        try:
+            self._p.wait(timeout=6)
+        except Exception:
+            try:
+                self._p.kill()
+            except OSError:
+                pass
+
+
+def 띄우기(args, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, 치울=""):
+    """헤들리스 크롬을 **부모와 함께 죽게** 띄운다(위 ①~③). args 는 크롬 명령줄 그대로. 치울 = 부모가 죽었을 때 감시자가 지울
+    임시 프로필 폴더(부모가 살아 있으면 부모가 지운다). 돌려주는 값은 Popen 닮은 크롬프로세스."""
+    import sys as _sys
+    r, w = os.pipe()                 # 둘 다 이어받지 않는 fd(PEP 446) — 감시자에게만 r 을 넘긴다
+    try:
+        p = subprocess.Popen([_sys.executable, "-c", _감시코드, str(r), 치울 or ""] + list(args),
+                             stdin=subprocess.DEVNULL, stdout=stdout, stderr=stderr, pass_fds=(r,))
+    except Exception:
+        os.close(w)
+        raise
+    finally:
+        os.close(r)
+    return 크롬프로세스(p, w)
+
+
 def _돌려서_회수(args, 감시파일, 끝표시, 최대초, stdout_path=None):
     """헤들리스 크롬을 격리 프로필로 띄우고, 감시파일 꼬리에 끝표시가 보이면(또는 스스로
     종료하면) kill 로 회수한다. stdout_path 를 주면 크롬 stdout 을 그 파일로 받는다."""
     prof = tempfile.mkdtemp(prefix="munseo-chrome.")
     out = open(stdout_path, "wb") if stdout_path else subprocess.DEVNULL
     try:
-        p = subprocess.Popen(
+        p = 띄우기(
             args + ["--user-data-dir=" + prof, "--no-first-run", "--no-default-browser-check"],
-            stdout=out, stderr=subprocess.DEVNULL)
+            stdout=out, stderr=subprocess.DEVNULL, 치울=prof)
         기한 = time.monotonic() + 최대초
         while time.monotonic() < 기한:
             if p.poll() is not None:          # 스스로 종료(컨테이너: 경쟁 Chrome 없음)

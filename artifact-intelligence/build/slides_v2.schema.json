@@ -1,0 +1,3029 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "https://artifact-intelligence.app/schema/slides-v2.json",
+ "title": "슬라이드 v2 문서(부품 트리)",
+ "description": "판형 'v2' 표지가 있는 슬라이드 문서. 모델은 이 JSON만 쓰고 조립기가 부품 라이브러리로 그린다. 판형 키가 없으면 이 스키마 대상이 아니다(옛 레이아웃 13종 경로). 설명서: SCHEMA.md",
+ "type": "object",
+ "properties": {
+  "판형": {
+   "const": "v2"
+  },
+  "프리셋": {
+   "enum": [
+    "data",
+    "briefing",
+    "keynote"
+   ],
+   "default": "data"
+  },
+  "밀도": {
+   "enum": [
+    "발표",
+    "보고",
+    "배포"
+   ],
+   "default": "보고"
+  },
+  "목적": {
+   "enum": [
+    "보고",
+    "설득",
+    "설명"
+   ]
+  },
+  "제목": {
+   "type": "string",
+   "minLength": 1,
+   "maxLength": 40
+  },
+  "부제": {
+   "type": "string",
+   "minLength": 1,
+   "maxLength": 40
+  },
+  "발표정보": {
+   "type": "object",
+   "properties": {
+    "기관": {
+     "type": "string",
+     "minLength": 1,
+     "maxLength": 30
+    },
+    "부서": {
+     "type": "string",
+     "minLength": 1,
+     "maxLength": 20
+    },
+    "회의": {
+     "type": "string",
+     "minLength": 1,
+     "maxLength": 20
+    },
+    "일자": {
+     "type": "string",
+     "minLength": 1,
+     "maxLength": 16
+    },
+    "발표자": {
+     "type": "string",
+     "minLength": 1,
+     "maxLength": 20
+    }
+   },
+   "additionalProperties": false,
+   "description": "자료에 있는 것만. 날짜가 자료에 없으면 비운다."
+  },
+  "머리변형": {
+   "enum": [
+    "머리띠",
+    "번호사각",
+    "눈썹라벨",
+    "좌측막대",
+    "무장식"
+   ],
+   "description": "기관 선호. 빼면 프리셋 기본(data=눈썹라벨, briefing=머리띠, keynote=눈썹라벨·번호 숨김)."
+  },
+  "테마": {
+   "type": "string",
+   "description": "기존 강조색 테마 6종(프리셋과 별 축)"
+  },
+  "장": {
+   "type": "array",
+   "items": {
+    "$ref": "#/$defs/장"
+   },
+   "minItems": 3,
+   "maxItems": 17
+  },
+  "filename": {
+   "type": "string"
+  },
+  "genre": {
+   "type": "string",
+   "description": "시스템 칸 — 새문서가 등록부 이름으로 채운다(모델은 쓰지 않는다)"
+  },
+  "plan_id": {
+   "type": "string",
+   "description": "승인된 빌드플랜 id — 플러그인·MCP 새문서가 요구한다(웹앱 면제)"
+  },
+  "purpose_type": {
+   "type": "string",
+   "description": "시스템 칸 — 빌드플랜 판정에서 채운다"
+  },
+  "효과": {
+   "enum": [
+    "없음",
+    "페이드",
+    "상승",
+    "순차"
+   ],
+   "description": "발표 보기 진입 효과(옛 문서와 같은 칸 — 편집기 상단바가 고른다)"
+  },
+  "화면": {
+   "type": "object",
+   "description": "발표 보기 화면 기능 켜고 끄기(옛 문서와 같은 칸 — 편집기 상단바가 고른다)"
+  }
+ },
+ "patternProperties": {
+  "^_": {}
+ },
+ "required": [
+  "판형",
+  "목적",
+  "제목",
+  "장"
+ ],
+ "additionalProperties": false,
+ "$defs": {
+  "런배열": {
+   "type": "array",
+   "minItems": 1,
+   "maxItems": 8,
+   "items": {
+    "type": "object",
+    "properties": {
+     "t": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 60
+     },
+     "역할": {
+      "enum": [
+       "강조",
+       "수치",
+       "단위",
+       "약하게"
+      ]
+     }
+    },
+    "additionalProperties": false,
+    "required": [
+     "t"
+    ]
+   },
+   "description": "런은 적힌 그대로 이어 붙인다. 조립기는 런 사이에 빈칸을 넣지 않는다 — 띄어쓰기는 t 안에 적는다. 강조 뒤 조사는 붙여 쓴다: [{t:'세 유형 '},{t:'가구',역할:'강조'},{t:'가 신청'}]."
+  },
+  "머리": {
+   "type": "object",
+   "properties": {
+    "라벨": {
+     "type": "string",
+     "minLength": 1,
+     "maxLength": 16,
+     "description": "주제어·번호 자리. 목표 14자 이하"
+    },
+    "메시지": {
+     "type": "string",
+     "minLength": 1,
+     "maxLength": 40,
+     "description": "목적별 형태. 목표 30자 이하, 라벨+메시지 50자 이하(게이트)"
+    },
+    "강조": {
+     "type": "array",
+     "items": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 20
+     },
+     "minItems": 1,
+     "maxItems": 2
+    }
+   },
+   "additionalProperties": false,
+   "required": [
+    "라벨"
+   ],
+   "description": "헤드 2층 '라벨 : 메시지'. 번호·구분자는 조립기가 붙인다. 강조는 메시지 안에 그대로 있는 부분 문자열(2곳까지)."
+  },
+  "요지띠": {
+   "type": "object",
+   "properties": {
+    "라벨": {
+     "type": "string",
+     "minLength": 2,
+     "maxLength": 5,
+     "description": "요지·기대효과·목표·협조 등 2~5자"
+    },
+    "메시지": {
+     "oneOf": [
+      {
+       "type": "string",
+       "minLength": 1,
+       "maxLength": 40
+      },
+      {
+       "$ref": "#/$defs/런배열"
+      }
+     ],
+     "x-글자상한": 40
+    }
+   },
+   "additionalProperties": false,
+   "required": [
+    "메시지"
+   ]
+  },
+  "리드": {
+   "oneOf": [
+    {
+     "type": "string",
+     "minLength": 1,
+     "maxLength": 40
+    },
+    {
+     "type": "object",
+     "properties": {
+      "앞": {
+       "type": "string",
+       "minLength": 1,
+       "maxLength": 24
+      },
+      "뒤": {
+       "type": "string",
+       "minLength": 1,
+       "maxLength": 20
+      }
+     },
+     "additionalProperties": false,
+     "required": [
+      "앞",
+      "뒤"
+     ],
+     "description": "'앞 → 뒤' 한 줄. 화살표는 조립기가 넣는다(앞·뒤 글에 → 금지)."
+    }
+   ]
+  },
+  "노트": {
+   "oneOf": [
+    {
+     "type": "string",
+     "minLength": 1,
+     "maxLength": 800
+    },
+    {
+     "type": "object",
+     "properties": {
+      "말": {
+       "type": "string",
+       "minLength": 1,
+       "maxLength": 800
+      },
+      "메모": {
+       "type": "array",
+       "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 120
+       },
+       "minItems": 1,
+       "maxItems": 6
+      }
+     },
+     "additionalProperties": false,
+     "description": "말 = 발표자가 할 말. 메모 = 작성 과정 메모(짝 배치 근거·자료에 없어 뺀 것·상태 판정 근거). 화면에 안 찍히고 PPTX 노트 칸으로 간다."
+    }
+   ]
+  },
+  "산출": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "properties": {
+     "값": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 12,
+      "description": "화면에 보이는 계산값 그대로. 예: '38%'"
+     },
+     "식": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 40,
+      "description": "계산식. 예: '(42−26)÷42'"
+     }
+    },
+    "additionalProperties": false,
+    "required": [
+     "값",
+     "식"
+    ]
+   },
+   "minItems": 1,
+   "maxItems": 8
+  },
+  "짝칸": {
+   "type": "object",
+   "properties": {
+    "글": {
+     "type": "string",
+     "minLength": 1,
+     "maxLength": 20
+    },
+    "보조": {
+     "type": "string",
+     "minLength": 1,
+     "maxLength": 20
+    },
+    "아이콘": {
+     "enum": [
+      "야간",
+      "고령층",
+      "상담",
+      "시설",
+      "완료",
+      "문서",
+      "안전",
+      "전화",
+      "일정",
+      "사람",
+      "돈",
+      "누리집",
+      "가족",
+      "도구",
+      "목표",
+      "차트"
+     ]
+    }
+   },
+   "additionalProperties": false,
+   "required": [
+    "글"
+   ]
+  },
+  "장": {
+   "type": "object",
+   "additionalProperties": false,
+   "properties": {
+    "유형": {
+     "enum": [
+      "표지",
+      "목차",
+      "간지",
+      "한눈에보기",
+      "카드열",
+      "데이터",
+      "비교",
+      "일정",
+      "체계도",
+      "분야표",
+      "표",
+      "요청",
+      "인용",
+      "배포글",
+      "자유",
+      "마무리"
+     ]
+    },
+    "머리": {
+     "$ref": "#/$defs/머리"
+    },
+    "리드": {
+     "$ref": "#/$defs/리드"
+    },
+    "칸": {
+     "type": "array",
+     "items": {
+      "$ref": "#/$defs/칸"
+     },
+     "minItems": 1,
+     "maxItems": 6
+    },
+    "요지띠": {
+     "$ref": "#/$defs/요지띠"
+    },
+    "출처": {
+     "type": "string",
+     "minLength": 1,
+     "maxLength": 60,
+     "description": "자료·기준 시점 한 줄. 작성 과정 메모 금지(노트.메모로)."
+    },
+    "산출": {
+     "$ref": "#/$defs/산출"
+    },
+    "노트": {
+     "$ref": "#/$defs/노트"
+    },
+    "밀도": {
+     "enum": [
+      "발표",
+      "보고",
+      "배포"
+     ]
+    },
+    "표지": {
+     "type": "object",
+     "properties": {
+      "태그": {
+       "type": "string",
+       "minLength": 1,
+       "maxLength": 12,
+       "description": "보고 종류. 예: '경영회의 보고'. 발표정보.회의와 같은 말이면 빼라"
+      },
+      "부제": {
+       "type": "string",
+       "minLength": 1,
+       "maxLength": 40
+      },
+      "수치": {
+       "type": "object",
+       "properties": {
+        "라벨": {
+         "type": "string",
+         "minLength": 1,
+         "maxLength": 15
+        },
+        "값": {
+         "type": "string",
+         "minLength": 1,
+         "maxLength": 10
+        },
+        "단위": {
+         "type": "string",
+         "minLength": 1,
+         "maxLength": 8
+        },
+        "맥락": {
+         "type": "string",
+         "minLength": 1,
+         "maxLength": 24
+        }
+       },
+       "additionalProperties": false,
+       "required": [
+        "라벨",
+        "값"
+       ],
+       "description": "표지 오른쪽 큰 숫자 하나(선택). 한눈에보기의 주인공 수치와 같은 값이면 빼라."
+      }
+     },
+     "additionalProperties": false
+    },
+    "간지": {
+     "type": "object",
+     "properties": {
+      "번호": {
+       "type": "string",
+       "minLength": 1,
+       "maxLength": 4
+      },
+      "제목": {
+       "type": "string",
+       "minLength": 1,
+       "maxLength": 20
+      },
+      "목록": {
+       "type": "array",
+       "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 20
+       },
+       "minItems": 1,
+       "maxItems": 6
+      }
+     },
+     "additionalProperties": false,
+     "required": [
+      "제목"
+     ]
+    },
+    "마무리": {
+     "type": "object",
+     "properties": {
+      "문구": {
+       "oneOf": [
+        {
+         "type": "string",
+         "minLength": 1,
+         "maxLength": 40
+        },
+        {
+         "$ref": "#/$defs/런배열"
+        }
+       ],
+       "x-글자상한": 40
+      },
+      "부문구": {
+       "type": "string",
+       "minLength": 1,
+       "maxLength": 40
+      },
+      "문의": {
+       "type": "object",
+       "properties": {
+        "부서": {
+         "type": "string",
+         "minLength": 1,
+         "maxLength": 20
+        },
+        "연락처": {
+         "type": "string",
+         "minLength": 1,
+         "maxLength": 20
+        }
+       },
+       "additionalProperties": false,
+       "required": [
+        "부서"
+       ]
+      }
+     },
+     "additionalProperties": false,
+     "required": [
+      "문구"
+     ],
+     "description": "마무리는 요청을 되풀이하지 않는다(요청은 덱에서 한 번). 비전·행동·문의만."
+    },
+    "목차": {
+     "type": "object",
+     "properties": {
+      "항목": {
+       "type": "array",
+       "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 20
+       },
+       "minItems": 3,
+       "maxItems": 7
+      }
+     },
+     "additionalProperties": false,
+     "required": [
+      "항목"
+     ]
+    }
+   },
+   "required": [
+    "유형"
+   ],
+   "allOf": [
+    {
+     "if": {
+      "properties": {
+       "유형": {
+        "enum": [
+         "한눈에보기",
+         "카드열",
+         "데이터",
+         "비교",
+         "일정",
+         "체계도",
+         "분야표",
+         "표",
+         "요청",
+         "배포글",
+         "자유"
+        ]
+       }
+      }
+     },
+     "then": {
+      "required": [
+       "머리",
+       "칸"
+      ],
+      "properties": {
+       "머리": {
+        "required": [
+         "라벨",
+         "메시지"
+        ]
+       }
+      },
+      "not": {
+       "anyOf": [
+        {
+         "required": [
+          "표지"
+         ]
+        },
+        {
+         "required": [
+          "간지"
+         ]
+        },
+        {
+         "required": [
+          "마무리"
+         ]
+        },
+        {
+         "required": [
+          "목차"
+         ]
+        }
+       ]
+      }
+     }
+    },
+    {
+     "if": {
+      "properties": {
+       "유형": {
+        "const": "인용"
+       }
+      }
+     },
+     "then": {
+      "required": [
+       "칸"
+      ]
+     }
+    },
+    {
+     "if": {
+      "properties": {
+       "유형": {
+        "const": "간지"
+       }
+      }
+     },
+     "then": {
+      "required": [
+       "간지"
+      ]
+     }
+    },
+    {
+     "if": {
+      "properties": {
+       "유형": {
+        "const": "마무리"
+       }
+      }
+     },
+     "then": {
+      "required": [
+       "마무리"
+      ]
+     }
+    },
+    {
+     "if": {
+      "properties": {
+       "유형": {
+        "const": "목차"
+       }
+      }
+     },
+     "then": {
+      "required": [
+       "목차"
+      ]
+     }
+    },
+    {
+     "if": {
+      "properties": {
+       "유형": {
+        "enum": [
+         "표지",
+         "목차",
+         "간지",
+         "마무리"
+        ]
+       }
+      }
+     },
+     "then": {
+      "not": {
+       "anyOf": [
+        {
+         "required": [
+          "칸"
+         ]
+        },
+        {
+         "required": [
+          "리드"
+         ]
+        },
+        {
+         "required": [
+          "요지띠"
+         ]
+        }
+       ]
+      }
+     }
+    }
+   ]
+  },
+  "칸": {
+   "oneOf": [
+    {
+     "$ref": "#/$defs/부품"
+    },
+    {
+     "$ref": "#/$defs/세로묶음"
+    }
+   ]
+  },
+  "세로묶음": {
+   "type": "object",
+   "properties": {
+    "부품": {
+     "const": "세로묶음"
+    },
+    "폭": {
+     "type": "integer",
+     "minimum": 2,
+     "maximum": 12,
+     "description": "12열 중 차지할 칸 수. 빼면 조립기가 장 유형의 기본 배치로 정한다(약한 모델은 늘 뺀다)."
+    },
+    "칸": {
+     "type": "array",
+     "items": {
+      "$ref": "#/$defs/부품"
+     },
+     "minItems": 2,
+     "maxItems": 3
+    }
+   },
+   "additionalProperties": false,
+   "required": [
+    "부품",
+    "칸"
+   ],
+   "title": "세로묶음",
+   "description": "한 열 안에 부품 2~3개를 위아래로 쌓는다(높이는 똑같이 나눔). 한 겹만 — 세로묶음 안 세로묶음 금지.",
+   "x-언제": "왼쪽 큰 차트 + 오른쪽 작은 부품 두 개 같은 배치.",
+   "x-금지": [
+    "세로묶음 중첩",
+    "안에 폭 적기(바깥 폭을 따른다)"
+   ]
+  },
+  "부품": {
+   "oneOf": [
+    {
+     "$ref": "#/$defs/부품_지표타일"
+    },
+    {
+     "$ref": "#/$defs/부품_카드"
+    },
+    {
+     "$ref": "#/$defs/부품_항목타일"
+    },
+    {
+     "$ref": "#/$defs/부품_수량목록"
+    },
+    {
+     "$ref": "#/$defs/부품_진행막대"
+    },
+    {
+     "$ref": "#/$defs/부품_가로막대"
+    },
+    {
+     "$ref": "#/$defs/부품_점눈금"
+    },
+    {
+     "$ref": "#/$defs/부품_선차트"
+    },
+    {
+     "$ref": "#/$defs/부품_비율링"
+    },
+    {
+     "$ref": "#/$defs/부품_구성띠"
+    },
+    {
+     "$ref": "#/$defs/부품_전후숫자"
+    },
+    {
+     "$ref": "#/$defs/부품_짝카드"
+    },
+    {
+     "$ref": "#/$defs/부품_타임라인"
+    },
+    {
+     "$ref": "#/$defs/부품_세로타임라인"
+    },
+    {
+     "$ref": "#/$defs/부품_요청상자"
+    },
+    {
+     "$ref": "#/$defs/부품_인용"
+    },
+    {
+     "$ref": "#/$defs/부품_표"
+    },
+    {
+     "$ref": "#/$defs/부품_체계도"
+    },
+    {
+     "$ref": "#/$defs/부품_색띠행"
+    },
+    {
+     "$ref": "#/$defs/부품_아이콘목록"
+    },
+    {
+     "$ref": "#/$defs/부품_글머리"
+    }
+   ]
+  },
+  "부품_지표타일": {
+   "type": "object",
+   "properties": {
+    "부품": {
+     "const": "지표타일"
+    },
+    "폭": {
+     "type": "integer",
+     "minimum": 2,
+     "maximum": 12,
+     "description": "12열 중 차지할 칸 수. 빼면 조립기가 장 유형의 기본 배치로 정한다(약한 모델은 늘 뺀다)."
+    },
+    "라벨": {
+     "type": "string",
+     "minLength": 1,
+     "maxLength": 15
+    },
+    "값": {
+     "type": "string",
+     "minLength": 1,
+     "maxLength": 10,
+     "description": "숫자만(쉼표 포함). 단위는 단위 슬롯에 따로 둔다."
+    },
+    "단위": {
+     "type": "string",
+     "minLength": 1,
+     "maxLength": 8
+    },
+    "맥락": {
+     "type": "object",
+     "properties": {
+      "종류": {
+       "enum": [
+        "전년",
+        "이전",
+        "평균",
+        "목표",
+        "합계",
+        "기간",
+        "대상"
+       ]
+      },
+      "글": {
+       "type": "string",
+       "minLength": 1,
+       "maxLength": 24
+      }
+     },
+     "additionalProperties": false,
+     "required": [
+      "종류",
+      "글"
+     ],
+     "description": "큰 숫자의 비교 기준 한 줄. 전년·이전·평균·목표가 진짜 맥락이고, 자료에 비교 기준이 없을 때만 합계·기간·대상을 쓴다."
+    },
+    "증감": {
+     "type": "object",
+     "properties": {
+      "값": {
+       "type": "string",
+       "minLength": 1,
+       "maxLength": 10,
+       "description": "보이는 증감 크기. 예: '25건', '16시간', '38%'. 기호(▲▼)는 쓰지 않는다 — 조립기가 방향에서 붙인다."
+      },
+      "방향": {
+       "enum": [
+        "증가",
+        "감소",
+        "유지"
+       ]
+      },
+      "판정": {
+       "enum": [
+        "좋음",
+        "나쁨",
+        "중립"
+       ],
+       "default": "중립"
+      }
+     },
+     "additionalProperties": false,
+     "required": [
+      "방향",
+      "판정"
+     ],
+     "description": "증감 칩. 색은 방향이 아니라 판정(좋음/나쁨)으로 칠하고 ▲▼ 기호를 늘 같이 찍는다."
+    },
+    "변형": {
+     "enum": [
+      "기본",
+      "강조",
+      "옅게",
+      "반전",
+      "목표"
+     ],
+     "default": "기본"
+    }
+   },
+   "additionalProperties": false,
+   "required": [
+    "부품",
+    "라벨",
+    "값",
+    "맥락"
+   ],
+   "title": "지표타일",
+   "x-언제": "핵심 수치 1~3개를 크게. 목표·계획값 타일은 변형 '목표'(주황).",
+   "x-금지": [
+    "맥락 없는 큰 숫자(맥락 슬롯 필수)",
+    "막대 2개짜리 차트 대신이 아니라면 같은 수치를 차트와 타일에 겹쳐 싣기",
+    "값 안에 단위·말 섞기('26시간', '38% 감소' → 값 '38', 단위 '%', 증감 방향 감소)"
+   ],
+   "x-클래스": "kpi(+kpi--tint/soft/inv) · num/num__v/num__u · kpi__ctx · delta",
+   "x-기본폭": 4,
+   "x-최소폭": 3,
+   "x-pptx": "네이티브 글상자(값·단위 다중 런)",
+   "x-약한모델": true
+  },
+  "부품_카드": {
+   "type": "object",
+   "properties": {
+    "부품": {
+     "const": "카드"
+    },
+    "폭": {
+     "type": "integer",
+     "minimum": 2,
+     "maximum": 12,
+     "description": "12열 중 차지할 칸 수. 빼면 조립기가 장 유형의 기본 배치로 정한다(약한 모델은 늘 뺀다)."
+    },
+    "제목": {
+     "type": "string",
+     "minLength": 1,
+     "maxLength": 16
+    },
+    "제목모양": {
+     "enum": [
+      "알약",
+      "막대",
+      "글"
+     ],
+     "default": "알약"
+    },
+    "분류": {
+     "type": "string",
+     "minLength": 1,
+     "maxLength": 10,
+     "description": "카드 위 작은 분류 글. 예: '과제 1'"
+    },
+    "상태": {
+     "enum": [
+      "완료",
+      "진행",
+      "운영",
+      "주의",
+      "지연",
+      "예정",
+      "목표"
+     ]
+    },
+    "아이콘": {
+     "enum": [
+      "야간",
+      "고령층",
+      "상담",
+      "시설",
+      "완료",
+      "문서",
+      "안전",
+      "전화",
+      "일정",
+      "사람",
+      "돈",
+      "누리집",
+      "가족",
+      "도구",
+      "목표",
+      "차트"
+     ]
+    },
+    "항목": {
+     "type": "array",
+     "items": {
+      "oneOf": [
+       {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 30
+       },
+       {
+        "type": "object",
+        "properties": {
+         "글": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 30
+         },
+         "하위": {
+          "type": "array",
+          "items": {
+           "type": "string",
+           "minLength": 1,
+           "maxLength": 24
+          },
+          "minItems": 1,
+          "maxItems": 2
+         }
+        },
+        "additionalProperties": false,
+        "required": [
+         "글"
+        ]
+       }
+      ]
+     },
+     "minItems": 2,
+     "maxItems": 5
+    },
+    "아래줄": {
+     "type": "string",
+     "minLength": 1,
+     "maxLength": 24
+    },
+    "바탕": {
+     "enum": [
+      "기본",
+      "틴트",
+      "주황",
+      "옅게",
+      "반전"
+     ],
+     "default": "기본"
+    }
+   },
+   "additionalProperties": false,
+   "required": [
+    "부품",
+    "제목",
+    "항목"
+   ],
+   "title": "카드",
+   "x-언제": "과제·분야 2~4개를 나란히. 카드 하나 = 제목 1 + 항목 2~5.",
+   "x-금지": [
+    "항목 0~1개인 빈 카드(항목이 모자라면 항목타일·아이콘목록·수량목록으로 바꾸거나 카드를 합친다)",
+    "카드 안 카드",
+    "카드 수를 채우려고 항목을 쪼개거나 지어내기",
+    "반전 바탕은 장당 1개"
+   ],
+   "x-클래스": "card(+card--tint/accent/soft/inv) · card__pill/bar/title · card__kicker · badge · checks · card__foot",
+   "x-기본폭": 4,
+   "x-최소폭": 3,
+   "x-pptx": "네이티브 도형 + 글상자",
+   "x-약한모델": true
+  },
+  "부품_항목타일": {
+   "type": "object",
+   "properties": {
+    "부품": {
+     "const": "항목타일"
+    },
+    "폭": {
+     "type": "integer",
+     "minimum": 2,
+     "maximum": 12,
+     "description": "12열 중 차지할 칸 수. 빼면 조립기가 장 유형의 기본 배치로 정한다(약한 모델은 늘 뺀다)."
+    },
+    "아이콘": {
+     "enum": [
+      "야간",
+      "고령층",
+      "상담",
+      "시설",
+      "완료",
+      "문서",
+      "안전",
+      "전화",
+      "일정",
+      "사람",
+      "돈",
+      "누리집",
+      "가족",
+      "도구",
+      "목표",
+      "차트"
+     ]
+    },
+    "제목": {
+     "type": "string",
+     "minLength": 1,
+     "maxLength": 14
+    },
+    "글": {
+     "type": "string",
+     "minLength": 1,
+     "maxLength": 30
+    },
+    "근거": {
+     "type": "string",
+     "minLength": 1,
+     "maxLength": 16,
+     "description": "근거 꼬리표(규정·출처 이름). 산출 표시에 쓰지 않는다."
+    }
+   },
+   "additionalProperties": false,
+   "required": [
+    "부품",
+    "제목",
+    "글"
+   ],
+   "title": "항목타일",
+   "x-언제": "숫자 없는 정성 항목(효과·위험·문제)을 지표타일 옆에 같은 무게로.",
+   "x-금지": [
+    "제목만 있는 타일(글 필수)",
+    "숫자가 주인공이면 지표타일"
+   ],
+   "x-클래스": "(신설) card--tint card--center + ico + card__title + card__text + tag",
+   "x-기본폭": 4,
+   "x-최소폭": 3,
+   "x-pptx": "네이티브 도형 + 글상자 + 아이콘 그림",
+   "x-약한모델": true,
+   "x-신설": "시제품 ds 에 없던 부품(시제품 노트의 '모자랐던 점'에서 뽑음) — 조립기·CSS 신규 구현 필요"
+  },
+  "부품_수량목록": {
+   "type": "object",
+   "properties": {
+    "부품": {
+     "const": "수량목록"
+    },
+    "폭": {
+     "type": "integer",
+     "minimum": 2,
+     "maximum": 12,
+     "description": "12열 중 차지할 칸 수. 빼면 조립기가 장 유형의 기본 배치로 정한다(약한 모델은 늘 뺀다)."
+    },
+    "제목": {
+     "type": "string",
+     "minLength": 1,
+     "maxLength": 20
+    },
+    "항목": {
+     "type": "array",
+     "items": {
+      "type": "object",
+      "properties": {
+       "라벨": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 14
+       },
+       "값": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 10
+       },
+       "단위": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 8
+       },
+       "보조": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 16
+       }
+      },
+      "additionalProperties": false,
+      "required": [
+       "라벨",
+       "값"
+      ]
+     },
+     "minItems": 2,
+     "maxItems": 6
+    }
+   },
+   "additionalProperties": false,
+   "required": [
+    "부품",
+    "항목"
+   ],
+   "title": "수량목록",
+   "x-언제": "계획 수량처럼 비교 기준이 없는 '할 일의 양'을 목록으로(라벨 왼쪽 · 숫자 오른쪽 정렬 · 줄 구분선).",
+   "x-금지": [
+    "비교 기준이 있는 수치(그건 지표타일)",
+    "7개 이상(표로)"
+   ],
+   "x-클래스": "(신설) qty-list",
+   "x-기본폭": 5,
+   "x-최소폭": 4,
+   "x-pptx": "네이티브 글상자",
+   "x-약한모델": false,
+   "x-신설": "시제품 ds 에 없던 부품(시제품 노트의 '모자랐던 점'에서 뽑음) — 조립기·CSS 신규 구현 필요"
+  },
+  "부품_진행막대": {
+   "type": "object",
+   "properties": {
+    "부품": {
+     "const": "진행막대"
+    },
+    "폭": {
+     "type": "integer",
+     "minimum": 2,
+     "maximum": 12,
+     "description": "12열 중 차지할 칸 수. 빼면 조립기가 장 유형의 기본 배치로 정한다(약한 모델은 늘 뺀다)."
+    },
+    "라벨": {
+     "type": "string",
+     "minLength": 1,
+     "maxLength": 16
+    },
+    "값": {
+     "type": "number"
+    },
+    "목표": {
+     "type": "number"
+    },
+    "단위": {
+     "type": "string",
+     "minLength": 1,
+     "maxLength": 8
+    },
+    "표시": {
+     "type": "string",
+     "minLength": 1,
+     "maxLength": 24,
+     "description": "막대 옆 글. 빼면 조립기가 '값단위 / 목표 목표단위 · 비율%' 로 만든다."
+    },
+    "목표선": {
+     "type": "number",
+     "description": "0~목표 사이 기준선 값(선택)"
+    }
+   },
+   "additionalProperties": false,
+   "required": [
+    "부품",
+    "라벨",
+    "값",
+    "목표"
+   ],
+   "title": "진행막대",
+   "x-언제": "목표 대비 달성 하나. 비율은 조립기가 값÷목표로 계산해 그린다(모델이 %를 계산하지 않는다).",
+   "x-금지": [
+    "점수·비율처럼 0이 아닌 축에서 격차가 작은 목표(적중률 84→87%)는 점눈금",
+    "막대 길이 비율(--v)을 글로 쓰기"
+   ],
+   "x-클래스": "progress(+progress--lg) · progress__track/fill/target · progress__legend",
+   "x-기본폭": 5,
+   "x-최소폭": 4,
+   "x-pptx": "네이티브 도형",
+   "x-약한모델": true
+  },
+  "부품_가로막대": {
+   "type": "object",
+   "properties": {
+    "부품": {
+     "const": "가로막대"
+    },
+    "폭": {
+     "type": "integer",
+     "minimum": 2,
+     "maximum": 12,
+     "description": "12열 중 차지할 칸 수. 빼면 조립기가 장 유형의 기본 배치로 정한다(약한 모델은 늘 뺀다)."
+    },
+    "제목": {
+     "type": "string",
+     "minLength": 1,
+     "maxLength": 24,
+     "description": "단위는 괄호로 제목에. 예: '설비군별 감소율(%)'"
+    },
+    "행": {
+     "type": "array",
+     "items": {
+      "type": "object",
+      "properties": {
+       "라벨": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 10
+       },
+       "값": {
+        "type": "number"
+       },
+       "표시": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 12,
+        "description": "막대 끝 글. 빼면 값+단위"
+       },
+       "역할": {
+        "enum": [
+         "기본",
+         "강조",
+         "목표"
+        ],
+        "default": "기본"
+       }
+      },
+      "additionalProperties": false,
+      "required": [
+       "라벨",
+       "값"
+      ]
+     },
+     "minItems": 2,
+     "maxItems": 6
+    },
+    "단위": {
+     "type": "string",
+     "minLength": 1,
+     "maxLength": 6
+    },
+    "정렬": {
+     "enum": [
+      "값순",
+      "입력순"
+     ],
+     "default": "값순"
+    },
+    "척도": {
+     "enum": [
+      "최댓값",
+      "백분율"
+     ],
+     "default": "최댓값"
+    },
+    "변형": {
+     "enum": [
+      "기본",
+      "전후"
+     ],
+     "default": "기본"
+    },
+    "전후종류": {
+     "enum": [
+      "실적",
+      "계획"
+     ],
+     "default": "실적"
+    },
+    "요지": {
+     "oneOf": [
+      {
+       "type": "string",
+       "minLength": 1,
+       "maxLength": 40
+      },
+      {
+       "$ref": "#/$defs/런배열"
+      }
+     ],
+     "x-글자상한": 40
+    }
+   },
+   "additionalProperties": false,
+   "required": [
+    "부품",
+    "제목",
+    "행"
+   ],
+   "title": "가로막대",
+   "x-언제": "크기 비교·순위 3~6개(0 기준). 전/후 한 쌍은 변형 '전후'.",
+   "x-금지": [
+    "행이 시점(연도·월·차수)인데 정렬 '값순'(시점이면 조립기가 입력순으로 고정)",
+    "강조 행 2개 이상",
+    "막대 2개짜리 기본 변형(전후 변형이나 전후숫자로)",
+    "원그래프 대신 쓰기가 아니라면 구성비(그건 구성띠)"
+   ],
+   "x-클래스": "hbar(+hbar--stacked) · hbar__row(is-focus/is-accent) · chart-panel__so",
+   "x-기본폭": 7,
+   "x-최소폭": 5,
+   "x-pptx": "네이티브 도형 + 글상자",
+   "x-약한모델": true,
+   "x-색": "실적 전후: 이전=회색·이후=강조 / 계획 전후: 현재=강조·목표=주황(역할 '목표')"
+  },
+  "부품_점눈금": {
+   "type": "object",
+   "properties": {
+    "부품": {
+     "const": "점눈금"
+    },
+    "폭": {
+     "type": "integer",
+     "minimum": 2,
+     "maximum": 12,
+     "description": "12열 중 차지할 칸 수. 빼면 조립기가 장 유형의 기본 배치로 정한다(약한 모델은 늘 뺀다)."
+    },
+    "제목": {
+     "type": "string",
+     "minLength": 1,
+     "maxLength": 24
+    },
+    "단위": {
+     "type": "string",
+     "minLength": 1,
+     "maxLength": 6
+    },
+    "점": {
+     "type": "array",
+     "items": {
+      "type": "object",
+      "properties": {
+       "라벨": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 10
+       },
+       "값": {
+        "type": "number"
+       },
+       "역할": {
+        "enum": [
+         "강조",
+         "기준",
+         "목표"
+        ],
+        "default": "기준"
+       }
+      },
+      "additionalProperties": false,
+      "required": [
+       "라벨",
+       "값"
+      ]
+     },
+     "minItems": 2,
+     "maxItems": 3
+    },
+    "축": {
+     "type": "object",
+     "properties": {
+      "최소": {
+       "type": "number"
+      },
+      "최대": {
+       "type": "number"
+      }
+     },
+     "additionalProperties": false,
+     "required": [
+      "최소",
+      "최대"
+     ],
+     "description": "빼면 조립기가 점 범위에 끝 여백 15%를 두고 고른다(태그가 칸 밖으로 안 나가게)."
+    },
+    "요지": {
+     "oneOf": [
+      {
+       "type": "string",
+       "minLength": 1,
+       "maxLength": 40
+      },
+      {
+       "$ref": "#/$defs/런배열"
+      }
+     ],
+     "x-글자상한": 40
+    }
+   },
+   "additionalProperties": false,
+   "required": [
+    "부품",
+    "제목",
+    "점"
+   ],
+   "title": "점눈금",
+   "x-언제": "두 값의 작은 차이(0이 아닌 축): 우리 vs 평균, 현재 vs 목표 점수.",
+   "x-금지": [
+    "점 4개 이상",
+    "가까운 값 3개가 겹치는 배치(조립기가 태그를 위아래로 엇갈리게 하되, 그래도 겹치면 선차트로)"
+   ],
+   "x-클래스": "dotscale · dotscale__pt(is-accent) · dotscale__band · dotscale__ticks",
+   "x-기본폭": 5,
+   "x-최소폭": 4,
+   "x-pptx": "네이티브 도형 + 글상자",
+   "x-약한모델": false
+  },
+  "부품_선차트": {
+   "type": "object",
+   "properties": {
+    "부품": {
+     "const": "선차트"
+    },
+    "폭": {
+     "type": "integer",
+     "minimum": 2,
+     "maximum": 12,
+     "description": "12열 중 차지할 칸 수. 빼면 조립기가 장 유형의 기본 배치로 정한다(약한 모델은 늘 뺀다)."
+    },
+    "제목": {
+     "type": "string",
+     "minLength": 1,
+     "maxLength": 24
+    },
+    "단위": {
+     "type": "string",
+     "minLength": 1,
+     "maxLength": 6
+    },
+    "가로축": {
+     "type": "array",
+     "items": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 8
+     },
+     "minItems": 2,
+     "maxItems": 12
+    },
+    "계열": {
+     "type": "array",
+     "items": {
+      "type": "object",
+      "properties": {
+       "이름": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 10
+       },
+       "값": {
+        "type": "array",
+        "items": {
+         "type": [
+          "number",
+          "null"
+         ]
+        },
+        "minItems": 2,
+        "maxItems": 12
+       },
+       "역할": {
+        "enum": [
+         "강조",
+         "비교",
+         "계획"
+        ],
+        "default": "강조"
+       }
+      },
+      "additionalProperties": false,
+      "required": [
+       "이름",
+       "값"
+      ]
+     },
+     "minItems": 1,
+     "maxItems": 3
+    },
+    "기준선": {
+     "type": "object",
+     "properties": {
+      "값": {
+       "type": "number"
+      },
+      "라벨": {
+       "type": "string",
+       "minLength": 1,
+       "maxLength": 16
+      }
+     },
+     "additionalProperties": false,
+     "required": [
+      "값",
+      "라벨"
+     ]
+    },
+    "요지": {
+     "oneOf": [
+      {
+       "type": "string",
+       "minLength": 1,
+       "maxLength": 40
+      },
+      {
+       "$ref": "#/$defs/런배열"
+      }
+     ],
+     "x-글자상한": 40
+    }
+   },
+   "additionalProperties": false,
+   "required": [
+    "부품",
+    "제목",
+    "가로축",
+    "계열"
+   ],
+   "title": "선차트",
+   "x-언제": "시간 변화(추이). 값 배열만 준다 — 좌표·눈금·끝값 라벨은 조립기가 SVG로 그린다.",
+   "x-금지": [
+    "좌표·viewBox·색을 모델이 쓰기(슬롯에 없다)",
+    "강조 계열 2개 이상",
+    "가로축 길이와 값 배열 길이가 다름",
+    "범례·테두리·꺾쇠 제목·(단위: ) 표기"
+   ],
+   "x-클래스": "chart-panel + svg.lc(lc-focus/context/plan/ref/grid/end/endlab)",
+   "x-기본폭": 7,
+   "x-최소폭": 6,
+   "x-pptx": "그림(PNG, 글 편집 불가)",
+   "x-약한모델": true
+  },
+  "부품_비율링": {
+   "type": "object",
+   "properties": {
+    "부품": {
+     "const": "비율링"
+    },
+    "폭": {
+     "type": "integer",
+     "minimum": 2,
+     "maximum": 12,
+     "description": "12열 중 차지할 칸 수. 빼면 조립기가 장 유형의 기본 배치로 정한다(약한 모델은 늘 뺀다)."
+    },
+    "라벨": {
+     "type": "string",
+     "minLength": 1,
+     "maxLength": 16
+    },
+    "값": {
+     "type": "number",
+     "minimum": 0,
+     "maximum": 100,
+     "description": "백분율"
+    },
+    "표시": {
+     "type": "string",
+     "minLength": 1,
+     "maxLength": 12
+    },
+    "역할": {
+     "enum": [
+      "강조",
+      "격차"
+     ],
+     "default": "강조"
+    },
+    "맥락": {
+     "type": "string",
+     "minLength": 1,
+     "maxLength": 24
+    }
+   },
+   "additionalProperties": false,
+   "required": [
+    "부품",
+    "라벨",
+    "값"
+   ],
+   "title": "비율링",
+   "x-언제": "한 값의 전체 중 비중 하나(조치율·전환율).",
+   "x-금지": [
+    "여러 조각 구성비(그건 구성띠)",
+    "목표 대비 달성(그건 진행막대)"
+   ],
+   "x-클래스": "svg.lc.ring(ring-track/ring-val) + num",
+   "x-기본폭": 4,
+   "x-최소폭": 3,
+   "x-pptx": "그림(PNG)",
+   "x-약한모델": false
+  },
+  "부품_구성띠": {
+   "type": "object",
+   "properties": {
+    "부품": {
+     "const": "구성띠"
+    },
+    "폭": {
+     "type": "integer",
+     "minimum": 2,
+     "maximum": 12,
+     "description": "12열 중 차지할 칸 수. 빼면 조립기가 장 유형의 기본 배치로 정한다(약한 모델은 늘 뺀다)."
+    },
+    "제목": {
+     "type": "string",
+     "minLength": 1,
+     "maxLength": 24
+    },
+    "단위": {
+     "type": "string",
+     "minLength": 1,
+     "maxLength": 6
+    },
+    "조각": {
+     "type": "array",
+     "items": {
+      "type": "object",
+      "properties": {
+       "라벨": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 8
+       },
+       "값": {
+        "type": "number"
+       }
+      },
+      "additionalProperties": false,
+      "required": [
+       "라벨",
+       "값"
+      ]
+     },
+     "minItems": 2,
+     "maxItems": 5
+    },
+    "강조": {
+     "type": "integer",
+     "minimum": 0,
+     "description": "강조할 조각 색인(0부터)"
+    },
+    "요지": {
+     "oneOf": [
+      {
+       "type": "string",
+       "minLength": 1,
+       "maxLength": 40
+      },
+      {
+       "$ref": "#/$defs/런배열"
+      }
+     ],
+     "x-글자상한": 40
+    }
+   },
+   "additionalProperties": false,
+   "required": [
+    "부품",
+    "제목",
+    "조각"
+   ],
+   "title": "구성띠",
+   "x-언제": "부분/전체 구성비(100% 누적 띠). 비율은 조립기가 값의 합으로 계산한다.",
+   "x-금지": [
+    "원그래프",
+    "조각 6개 이상",
+    "합이 전체가 아닌 값(기간별 값 나열)"
+   ],
+   "x-클래스": "(신설) share-bar",
+   "x-기본폭": 4,
+   "x-최소폭": 4,
+   "x-pptx": "네이티브 도형",
+   "x-약한모델": false,
+   "x-신설": "시제품 ds 에 없던 부품(시제품 노트의 '모자랐던 점'에서 뽑음) — 조립기·CSS 신규 구현 필요"
+  },
+  "부품_전후숫자": {
+   "type": "object",
+   "properties": {
+    "부품": {
+     "const": "전후숫자"
+    },
+    "폭": {
+     "type": "integer",
+     "minimum": 2,
+     "maximum": 12,
+     "description": "12열 중 차지할 칸 수. 빼면 조립기가 장 유형의 기본 배치로 정한다(약한 모델은 늘 뺀다)."
+    },
+    "라벨": {
+     "type": "string",
+     "minLength": 1,
+     "maxLength": 16
+    },
+    "이전": {
+     "type": "object",
+     "properties": {
+      "값": {
+       "type": "string",
+       "minLength": 1,
+       "maxLength": 10
+      },
+      "단위": {
+       "type": "string",
+       "minLength": 1,
+       "maxLength": 8
+      },
+      "라벨": {
+       "type": "string",
+       "minLength": 1,
+       "maxLength": 10
+      }
+     },
+     "additionalProperties": false,
+     "required": [
+      "값"
+     ]
+    },
+    "이후": {
+     "type": "object",
+     "properties": {
+      "값": {
+       "type": "string",
+       "minLength": 1,
+       "maxLength": 10
+      },
+      "단위": {
+       "type": "string",
+       "minLength": 1,
+       "maxLength": 8
+      },
+      "라벨": {
+       "type": "string",
+       "minLength": 1,
+       "maxLength": 10
+      }
+     },
+     "additionalProperties": false,
+     "required": [
+      "값"
+     ]
+    },
+    "증감": {
+     "type": "object",
+     "properties": {
+      "값": {
+       "type": "string",
+       "minLength": 1,
+       "maxLength": 10,
+       "description": "보이는 증감 크기. 예: '25건', '16시간', '38%'. 기호(▲▼)는 쓰지 않는다 — 조립기가 방향에서 붙인다."
+      },
+      "방향": {
+       "enum": [
+        "증가",
+        "감소",
+        "유지"
+       ]
+      },
+      "판정": {
+       "enum": [
+        "좋음",
+        "나쁨",
+        "중립"
+       ],
+       "default": "중립"
+      }
+     },
+     "additionalProperties": false,
+     "required": [
+      "방향",
+      "판정"
+     ],
+     "description": "증감 칩. 색은 방향이 아니라 판정(좋음/나쁨)으로 칠하고 ▲▼ 기호를 늘 같이 찍는다."
+    },
+    "종류": {
+     "enum": [
+      "실적",
+      "계획"
+     ],
+     "default": "실적"
+    }
+   },
+   "additionalProperties": false,
+   "required": [
+    "부품",
+    "라벨",
+    "이전",
+    "이후"
+   ],
+   "title": "전후숫자",
+   "x-언제": "숫자 하나의 전→후(42시간→26시간, 58건→33건)를 작은 칸에서.",
+   "x-금지": [
+    "세 값 이상(가로막대·선차트로)",
+    "이전 라벨에 자료에 없는 시점 쓰기(모르면 '이전')"
+   ],
+   "x-클래스": "(신설) num-pair: num + 화살표 + num + delta",
+   "x-기본폭": 4,
+   "x-최소폭": 3,
+   "x-pptx": "네이티브 글상자",
+   "x-약한모델": false,
+   "x-신설": "시제품 ds 에 없던 부품(시제품 노트의 '모자랐던 점'에서 뽑음) — 조립기·CSS 신규 구현 필요"
+  },
+  "부품_짝카드": {
+   "type": "object",
+   "properties": {
+    "부품": {
+     "const": "짝카드"
+    },
+    "폭": {
+     "type": "integer",
+     "minimum": 2,
+     "maximum": 12,
+     "description": "12열 중 차지할 칸 수. 빼면 조립기가 장 유형의 기본 배치로 정한다(약한 모델은 늘 뺀다)."
+    },
+    "변형": {
+     "enum": [
+      "짝",
+      "대비"
+     ],
+     "default": "짝"
+    },
+    "왼제목": {
+     "type": "string",
+     "minLength": 1,
+     "maxLength": 10
+    },
+    "오른제목": {
+     "type": "string",
+     "minLength": 1,
+     "maxLength": 10
+    },
+    "줄": {
+     "type": "array",
+     "items": {
+      "type": "object",
+      "properties": {
+       "왼": {
+        "$ref": "#/$defs/짝칸"
+       },
+       "오른": {
+        "$ref": "#/$defs/짝칸"
+       }
+      },
+      "additionalProperties": false,
+      "required": [
+       "왼",
+       "오른"
+      ]
+     },
+     "minItems": 2,
+     "maxItems": 4
+    },
+    "왼항목": {
+     "type": "array",
+     "items": {
+      "$ref": "#/$defs/짝칸"
+     },
+     "minItems": 1,
+     "maxItems": 4
+    },
+    "오른항목": {
+     "type": "array",
+     "items": {
+      "$ref": "#/$defs/짝칸"
+     },
+     "minItems": 1,
+     "maxItems": 4
+    }
+   },
+   "additionalProperties": false,
+   "required": [
+    "부품",
+    "왼제목",
+    "오른제목"
+   ],
+   "title": "짝카드",
+   "x-언제": "짝: 문제→대응이 자료에서 1:1로 맞을 때(화살표). 대비: 기회/도전·현재/개선처럼 두 군을 나란히(화살표 없음, 줄 대응 없음).",
+   "x-금지": [
+    "자료에 없는 짝 만들기(1:1이 아니면 변형 '대비')",
+    "짝 배치 설명을 화면에 쓰기('두 목록을 나란히 둔 것' → 노트.메모)"
+   ],
+   "x-클래스": "pair · pair__head/row/from/to/arrow · ico",
+   "x-기본폭": 8,
+   "x-최소폭": 6,
+   "x-pptx": "네이티브 도형 + 글상자",
+   "x-약한모델": true,
+   "allOf": [
+    {
+     "if": {
+      "properties": {
+       "변형": {
+        "const": "대비"
+       }
+      },
+      "required": [
+       "변형"
+      ]
+     },
+     "then": {
+      "required": [
+       "왼항목",
+       "오른항목"
+      ],
+      "not": {
+       "required": [
+        "줄"
+       ]
+      }
+     },
+     "else": {
+      "required": [
+       "줄"
+      ],
+      "not": {
+       "anyOf": [
+        {
+         "required": [
+          "왼항목"
+         ]
+        },
+        {
+         "required": [
+          "오른항목"
+         ]
+        }
+       ]
+      }
+     }
+    }
+   ]
+  },
+  "부품_타임라인": {
+   "type": "object",
+   "properties": {
+    "부품": {
+     "const": "타임라인"
+    },
+    "폭": {
+     "type": "integer",
+     "minimum": 2,
+     "maximum": 12,
+     "description": "12열 중 차지할 칸 수. 빼면 조립기가 장 유형의 기본 배치로 정한다(약한 모델은 늘 뺀다)."
+    },
+    "단계": {
+     "type": "array",
+     "items": {
+      "type": "object",
+      "properties": {
+       "시점": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 12
+       },
+       "제목": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 12
+       },
+       "설명": {
+        "type": "array",
+        "items": {
+         "type": "string",
+         "minLength": 1,
+         "maxLength": 20
+        },
+        "minItems": 1,
+        "maxItems": 2
+       },
+       "상태": {
+        "enum": [
+         "완료",
+         "진행",
+         "운영",
+         "주의",
+         "지연",
+         "예정",
+         "목표"
+        ]
+       }
+      },
+      "additionalProperties": false,
+      "required": [
+       "시점",
+       "제목"
+      ]
+     },
+     "minItems": 2,
+     "maxItems": 6
+    },
+    "상시": {
+     "type": "array",
+     "items": {
+      "type": "object",
+      "properties": {
+       "기간": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 10
+       },
+       "제목": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 20
+       }
+      },
+      "additionalProperties": false,
+      "required": [
+       "기간",
+       "제목"
+      ]
+     },
+     "minItems": 1,
+     "maxItems": 2
+    }
+   },
+   "additionalProperties": false,
+   "required": [
+    "부품",
+    "단계"
+   ],
+   "title": "타임라인",
+   "x-언제": "가로 일정 3~6단계(리본). '하반기'처럼 한 점에 못 박을 항목은 상시(리본 아래 긴 띠)로.",
+   "x-금지": [
+    "시간 순서가 아닌 단계 배열",
+    "모호한 시점을 월 사이에 끼워 순서 지어내기",
+    "2단계만(전후숫자·짝카드로)"
+   ],
+   "x-클래스": "ribbon · ribbon__band/step/when/what/desc (+상시: 신설 ribbon__span)",
+   "x-기본폭": 12,
+   "x-최소폭": 8,
+   "x-pptx": "네이티브 도형(띠 2색 45°) + 화살촉 그림",
+   "x-약한모델": true
+  },
+  "부품_세로타임라인": {
+   "type": "object",
+   "properties": {
+    "부품": {
+     "const": "세로타임라인"
+    },
+    "폭": {
+     "type": "integer",
+     "minimum": 2,
+     "maximum": 12,
+     "description": "12열 중 차지할 칸 수. 빼면 조립기가 장 유형의 기본 배치로 정한다(약한 모델은 늘 뺀다)."
+    },
+    "항목": {
+     "type": "array",
+     "items": {
+      "type": "object",
+      "properties": {
+       "시점": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 10
+       },
+       "제목": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 16
+       },
+       "설명": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 24
+       },
+       "상태": {
+        "enum": [
+         "완료",
+         "진행",
+         "운영",
+         "주의",
+         "지연",
+         "예정",
+         "목표"
+        ]
+       }
+      },
+      "additionalProperties": false,
+      "required": [
+       "시점",
+       "제목"
+      ]
+     },
+     "minItems": 3,
+     "maxItems": 5
+    }
+   },
+   "additionalProperties": false,
+   "required": [
+    "부품",
+    "항목"
+   ],
+   "title": "세로타임라인",
+   "x-언제": "일정 + 상태(완료·예정·목표)를 좁은 칸에서.",
+   "x-금지": [
+    "시간 순서가 아닌 배열",
+    "자료가 말하지 않은 상태 붙이기(상태는 자료 근거가 있을 때만)"
+   ],
+   "x-클래스": "vtl · vtl__item(is-done/is-goal) · vtl__dot/when/what/desc",
+   "x-기본폭": 4,
+   "x-최소폭": 4,
+   "x-pptx": "네이티브 도형 + 글상자",
+   "x-약한모델": false
+  },
+  "부품_요청상자": {
+   "type": "object",
+   "properties": {
+    "부품": {
+     "const": "요청상자"
+    },
+    "폭": {
+     "type": "integer",
+     "minimum": 2,
+     "maximum": 12,
+     "description": "12열 중 차지할 칸 수. 빼면 조립기가 장 유형의 기본 배치로 정한다(약한 모델은 늘 뺀다)."
+    },
+    "분류": {
+     "type": "string",
+     "minLength": 1,
+     "maxLength": 12,
+     "description": "예: '경영회의 승인 요청'"
+    },
+    "금액": {
+     "type": "object",
+     "properties": {
+      "값": {
+       "type": "string",
+       "minLength": 1,
+       "maxLength": 10
+      },
+      "단위": {
+       "type": "string",
+       "minLength": 1,
+       "maxLength": 8
+      },
+      "라벨": {
+       "type": "string",
+       "minLength": 1,
+       "maxLength": 10
+      }
+     },
+     "additionalProperties": false,
+     "required": [
+      "값"
+     ]
+    },
+    "요청문": {
+     "oneOf": [
+      {
+       "type": "string",
+       "minLength": 1,
+       "maxLength": 30
+      },
+      {
+       "$ref": "#/$defs/런배열"
+      }
+     ],
+     "x-글자상한": 30
+    },
+    "행": {
+     "type": "array",
+     "items": {
+      "type": "object",
+      "properties": {
+       "이름": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 6
+       },
+       "내용": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 30
+       }
+      },
+      "additionalProperties": false,
+      "required": [
+       "이름",
+       "내용"
+      ]
+     },
+     "minItems": 1,
+     "maxItems": 5
+    },
+    "변형": {
+     "enum": [
+      "진하게",
+      "밝게"
+     ],
+     "default": "진하게"
+    }
+   },
+   "additionalProperties": false,
+   "required": [
+    "부품",
+    "요청문",
+    "행"
+   ],
+   "title": "요청상자",
+   "x-언제": "결정·승인 요청(무엇을·규모·시점·기대효과). 덱에 딱 1개.",
+   "x-금지": [
+    "덱에 2개 이상(요청은 덱에서 한 번)",
+    "자료에 없는 행 채우기(행 이름 기본 4개 밖은 자료 문장일 때만: 함께 의결·협조·근거)",
+    "요청문과 첫 행 '무엇을'이 같은 말"
+   ],
+   "x-클래스": "ask(+ask--light) · ask__main/kicker/what · num--xl num--fit · ask__rows/row",
+   "x-기본폭": 7,
+   "x-최소폭": 6,
+   "x-pptx": "네이티브 도형 + 글상자",
+   "x-약한모델": true
+  },
+  "부품_인용": {
+   "type": "object",
+   "properties": {
+    "부품": {
+     "const": "인용"
+    },
+    "폭": {
+     "type": "integer",
+     "minimum": 2,
+     "maximum": 12,
+     "description": "12열 중 차지할 칸 수. 빼면 조립기가 장 유형의 기본 배치로 정한다(약한 모델은 늘 뺀다)."
+    },
+    "인용문": {
+     "type": "string",
+     "minLength": 1,
+     "maxLength": 80
+    },
+    "말한이": {
+     "type": "string",
+     "minLength": 1,
+     "maxLength": 30
+    },
+    "변형": {
+     "enum": [
+      "진하게",
+      "밝게"
+     ],
+     "default": "진하게"
+    }
+   },
+   "additionalProperties": false,
+   "required": [
+    "부품",
+    "인용문"
+   ],
+   "x-생성필수": [
+    "말한이"
+   ],
+   "x-생성필수-까닭": "fixup4 G7('26-10-01 주관 판정): 초안은 말한이를 늘 적는다(슬롯 표기 *). 지어낸 말한이를 교정이 키째 지운 인용(말한 사람 없는 인용 — 확인할것이 알린다)도 저장·조립되게 스키마 필수에서는 뺐다.",
+   "title": "인용",
+   "x-언제": "기관장 말씀·현장 의견을 자료 문장 그대로. 진하게는 인용 장(어두운 바탕)에서, 밝게는 다른 부품 옆 칸에서.",
+   "x-금지": [
+    "자료 문장 바꾸기·존댓말로 다듬기",
+    "덱에 2개 이상",
+    "비전 문장을 인용처럼 쓰기(말한 사람이 없다)"
+   ],
+   "x-클래스": "quote(+sl-page is-dark)",
+   "x-기본폭": 4,
+   "x-최소폭": 4,
+   "x-pptx": "네이티브 글상자",
+   "x-약한모델": false
+  },
+  "부품_표": {
+   "type": "object",
+   "properties": {
+    "부품": {
+     "const": "표"
+    },
+    "폭": {
+     "type": "integer",
+     "minimum": 2,
+     "maximum": 12,
+     "description": "12열 중 차지할 칸 수. 빼면 조립기가 장 유형의 기본 배치로 정한다(약한 모델은 늘 뺀다)."
+    },
+    "머리행": {
+     "type": "array",
+     "items": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 12
+     },
+     "minItems": 2,
+     "maxItems": 6
+    },
+    "행": {
+     "type": "array",
+     "items": {
+      "type": "array",
+      "items": {
+       "oneOf": [
+        {
+         "type": "string",
+         "minLength": 1,
+         "maxLength": 20
+        },
+        {
+         "type": "object",
+         "properties": {
+          "글": {
+           "type": "string",
+           "minLength": 1,
+           "maxLength": 20
+          },
+          "상태": {
+           "enum": [
+            "완료",
+            "진행",
+            "운영",
+            "주의",
+            "지연",
+            "예정",
+            "목표"
+           ]
+          },
+          "증감": {
+           "type": "object",
+           "properties": {
+            "값": {
+             "type": "string",
+             "minLength": 1,
+             "maxLength": 10,
+             "description": "보이는 증감 크기. 예: '25건', '16시간', '38%'. 기호(▲▼)는 쓰지 않는다 — 조립기가 방향에서 붙인다."
+            },
+            "방향": {
+             "enum": [
+              "증가",
+              "감소",
+              "유지"
+             ]
+            },
+            "판정": {
+             "enum": [
+              "좋음",
+              "나쁨",
+              "중립"
+             ],
+             "default": "중립"
+            }
+           },
+           "additionalProperties": false,
+           "required": [
+            "방향",
+            "판정"
+           ],
+           "description": "증감 칩. 색은 방향이 아니라 판정(좋음/나쁨)으로 칠하고 ▲▼ 기호를 늘 같이 찍는다."
+          }
+         },
+         "additionalProperties": false,
+         "required": [
+          "글"
+         ]
+        }
+       ]
+      },
+      "minItems": 2,
+      "maxItems": 6
+     },
+     "minItems": 2,
+     "maxItems": 7
+    },
+    "열정렬": {
+     "type": "array",
+     "items": {
+      "enum": [
+       "글",
+       "수",
+       "가운데"
+      ]
+     },
+     "minItems": 2,
+     "maxItems": 6
+    },
+    "강조행": {
+     "type": "integer",
+     "minimum": 0
+    },
+    "요지": {
+     "oneOf": [
+      {
+       "type": "string",
+       "minLength": 1,
+       "maxLength": 40
+      },
+      {
+       "$ref": "#/$defs/런배열"
+      }
+     ],
+     "x-글자상한": 40
+    }
+   },
+   "additionalProperties": false,
+   "required": [
+    "부품",
+    "머리행",
+    "행"
+   ],
+   "title": "표",
+   "x-언제": "여러 지표를 열 3개 이상으로 대조. 숫자 열은 오른쪽 정렬.",
+   "x-금지": [
+    "행 4개 이하이고 상태·진척이 주인공(카드+상태로)",
+    "행마다 칸 수가 머리행과 다름",
+    "강조행 2개 이상",
+    "칸 합치기(colspan)"
+   ],
+   "x-클래스": "tbl-wrap · tbl · th/td .n/.c/.k · tr.is-focus · chip · delta",
+   "x-기본폭": 8,
+   "x-최소폭": 7,
+   "x-pptx": "네이티브 표(칸 안 칩은 별도 도형)",
+   "x-약한모델": false
+  },
+  "부품_체계도": {
+   "type": "object",
+   "properties": {
+    "부품": {
+     "const": "체계도"
+    },
+    "폭": {
+     "type": "integer",
+     "minimum": 2,
+     "maximum": 12,
+     "description": "12열 중 차지할 칸 수. 빼면 조립기가 장 유형의 기본 배치로 정한다(약한 모델은 늘 뺀다)."
+    },
+    "비전": {
+     "type": "string",
+     "minLength": 1,
+     "maxLength": 30
+    },
+    "목표": {
+     "type": "array",
+     "items": {
+      "type": "object",
+      "properties": {
+       "분류": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 8
+       },
+       "값": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 12
+       }
+      },
+      "additionalProperties": false,
+      "required": [
+       "분류",
+       "값"
+      ]
+     },
+     "minItems": 2,
+     "maxItems": 5
+    },
+    "과제": {
+     "type": "array",
+     "items": {
+      "type": "object",
+      "properties": {
+       "이름": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 10
+       },
+       "항목": {
+        "type": "array",
+        "items": {
+         "type": "string",
+         "minLength": 1,
+         "maxLength": 15
+        },
+        "minItems": 1,
+        "maxItems": 3
+       }
+      },
+      "additionalProperties": false,
+      "required": [
+       "이름"
+      ]
+     },
+     "minItems": 3,
+     "maxItems": 6
+    },
+    "변형": {
+     "enum": [
+      "기본",
+      "이름만"
+     ],
+     "default": "기본"
+    }
+   },
+   "additionalProperties": false,
+   "required": [
+    "부품",
+    "비전",
+    "과제"
+   ],
+   "title": "체계도",
+   "x-언제": "비전 → 목표 → 과제 한 장. 발표 밀도·과제 5개 이상이면 변형 '이름만'.",
+   "x-금지": [
+    "과제 5열에 항목 3개(열 폭 188px — 과제 5개 이상이면 항목 2개 · 9자 이하)",
+    "목표와 과제를 자료에 없는 선으로 잇기"
+   ],
+   "x-클래스": "sys · sys__vision/goals/goal/tasks/task/no/items",
+   "x-기본폭": 12,
+   "x-최소폭": 12,
+   "x-pptx": "네이티브 도형 + 글상자",
+   "x-약한모델": false
+  },
+  "부품_색띠행": {
+   "type": "object",
+   "properties": {
+    "부품": {
+     "const": "색띠행"
+    },
+    "폭": {
+     "type": "integer",
+     "minimum": 2,
+     "maximum": 12,
+     "description": "12열 중 차지할 칸 수. 빼면 조립기가 장 유형의 기본 배치로 정한다(약한 모델은 늘 뺀다)."
+    },
+    "행": {
+     "type": "array",
+     "items": {
+      "type": "object",
+      "properties": {
+       "분야": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 8
+       },
+       "항목": {
+        "type": "array",
+        "items": {
+         "type": "string",
+         "minLength": 1,
+         "maxLength": 28
+        },
+        "minItems": 1,
+        "maxItems": 3
+       }
+      },
+      "additionalProperties": false,
+      "required": [
+       "분야",
+       "항목"
+      ]
+     },
+     "minItems": 3,
+     "maxItems": 5
+    }
+   },
+   "additionalProperties": false,
+   "required": [
+    "부품",
+    "행"
+   ],
+   "title": "색띠행",
+   "x-언제": "분야 → 세부 과제(왼쪽 색 칸 + 오른쪽 항목). 과제 나열형 업무보고.",
+   "x-금지": [
+    "행 2개 이하(카드로)",
+    "분야 이름에 번호 기호 넣기(조립기가 ①②를 붙인다)"
+   ],
+   "x-클래스": "rowband · rowband__row/key/val · checks",
+   "x-기본폭": 8,
+   "x-최소폭": 7,
+   "x-pptx": "네이티브 도형 + 글상자",
+   "x-약한모델": false
+  },
+  "부품_아이콘목록": {
+   "type": "object",
+   "properties": {
+    "부품": {
+     "const": "아이콘목록"
+    },
+    "폭": {
+     "type": "integer",
+     "minimum": 2,
+     "maximum": 12,
+     "description": "12열 중 차지할 칸 수. 빼면 조립기가 장 유형의 기본 배치로 정한다(약한 모델은 늘 뺀다)."
+    },
+    "제목": {
+     "type": "string",
+     "minLength": 1,
+     "maxLength": 16
+    },
+    "항목": {
+     "type": "array",
+     "items": {
+      "type": "object",
+      "properties": {
+       "아이콘": {
+        "enum": [
+         "야간",
+         "고령층",
+         "상담",
+         "시설",
+         "완료",
+         "문서",
+         "안전",
+         "전화",
+         "일정",
+         "사람",
+         "돈",
+         "누리집",
+         "가족",
+         "도구",
+         "목표",
+         "차트"
+        ]
+       },
+       "글": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 16
+       },
+       "보조": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 20
+       }
+      },
+      "additionalProperties": false,
+      "required": [
+       "아이콘",
+       "글"
+      ]
+     },
+     "minItems": 2,
+     "maxItems": 5
+    },
+    "방향": {
+     "enum": [
+      "가로",
+      "세로"
+     ],
+     "default": "가로"
+    }
+   },
+   "additionalProperties": false,
+   "required": [
+    "부품",
+    "항목"
+   ],
+   "title": "아이콘목록",
+   "x-언제": "대상·창구·참여 기관처럼 이름 위주 짧은 항목(카드에 담으면 비는 것).",
+   "x-금지": [
+    "아이콘을 장식으로 뿌리기(뜻이 맞는 아이콘이 없으면 이 부품을 쓰지 않는다)",
+    "이모지"
+   ],
+   "x-클래스": "(신설) icon-list: ico + 글",
+   "x-기본폭": 12,
+   "x-최소폭": 4,
+   "x-pptx": "아이콘 그림 + 네이티브 글상자",
+   "x-약한모델": false,
+   "x-신설": "시제품 ds 에 없던 부품(시제품 노트의 '모자랐던 점'에서 뽑음) — 조립기·CSS 신규 구현 필요"
+  },
+  "부품_글머리": {
+   "type": "object",
+   "properties": {
+    "부품": {
+     "const": "글머리"
+    },
+    "폭": {
+     "type": "integer",
+     "minimum": 2,
+     "maximum": 12,
+     "description": "12열 중 차지할 칸 수. 빼면 조립기가 장 유형의 기본 배치로 정한다(약한 모델은 늘 뺀다)."
+    },
+    "항목": {
+     "type": "array",
+     "items": {
+      "oneOf": [
+       {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 30
+       },
+       {
+        "type": "object",
+        "properties": {
+         "글": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 30
+         },
+         "하위": {
+          "type": "array",
+          "items": {
+           "type": "string",
+           "minLength": 1,
+           "maxLength": 24
+          },
+          "minItems": 1,
+          "maxItems": 2
+         }
+        },
+        "additionalProperties": false,
+        "required": [
+         "글"
+        ]
+       }
+      ]
+     },
+     "minItems": 3,
+     "maxItems": 8
+    }
+   },
+   "additionalProperties": false,
+   "required": [
+    "부품",
+    "항목"
+   ],
+   "title": "글머리",
+   "x-언제": "배포 밀도 전용: 개조식 단독 본문.",
+   "x-금지": [
+    "밀도 발표·보고에서 쓰기(카드 안 항목으로)",
+    "장 전체가 글머리뿐인 장을 덱의 25% 넘게"
+   ],
+   "x-클래스": "checks(+checks--num/dot)",
+   "x-기본폭": 12,
+   "x-최소폭": 6,
+   "x-pptx": "네이티브 글상자",
+   "x-약한모델": false
+  }
+ },
+ "x-약한모델": {
+  "설명": "서버 EXAONE 등 약한 모델에 주는 부분집합. 지시문 조립기가 이 목록 밖 유형·부품을 싣지 않는다. 폭·세로묶음·런배열·리드·밀도 덮어쓰기를 쓰지 않는다(조립기 기본 배치). 강조는 머리.강조로만.",
+  "유형": [
+   "표지",
+   "한눈에보기",
+   "카드열",
+   "데이터",
+   "비교",
+   "일정",
+   "요청",
+   "마무리"
+  ],
+  "부품": [
+   "지표타일",
+   "카드",
+   "항목타일",
+   "진행막대",
+   "가로막대",
+   "선차트",
+   "짝카드",
+   "타임라인",
+   "요청상자"
+  ],
+  "쓰지않는슬롯": [
+   "폭",
+   "리드",
+   "밀도",
+   "칸[].요지(런배열)",
+   "표지.수치"
+  ]
+ },
+ "x-기본배치": {
+  "설명": "칸에 폭이 없을 때 조립기가 쓰는 배치. [부품 수] → 폭 목록. 유형에 맞지 않는 부품이 오면 x-기본폭으로 줄을 채운다.",
+  "한눈에보기": {
+   "허용": [
+    "지표타일",
+    "카드",
+    "요청상자",
+    "항목타일"
+   ],
+   "2": [
+    6,
+    6
+   ],
+   "3": [
+    4,
+    4,
+    4
+   ],
+   "4": [
+    3,
+    3,
+    3,
+    3
+   ],
+   "규칙": "지표타일 2~3 + (카드 또는 요청상자 1). 요청상자가 있으면 그 칸 폭 5 이상"
+  },
+  "카드열": {
+   "허용": [
+    "카드",
+    "항목타일"
+   ],
+   "2": [
+    6,
+    6
+   ],
+   "3": [
+    4,
+    4,
+    4
+   ],
+   "4": [
+    3,
+    3,
+    3,
+    3
+   ]
+  },
+  "데이터": {
+   "허용": [
+    "가로막대",
+    "선차트",
+    "진행막대",
+    "지표타일",
+    "점눈금",
+    "전후숫자",
+    "구성띠",
+    "비율링",
+    "항목타일"
+   ],
+   "1": [
+    12
+   ],
+   "2": [
+    7,
+    5
+   ],
+   "3": [
+    7,
+    "세로묶음 5(2개)"
+   ],
+   "규칙": "첫 차트형 부품(가로막대·선차트·점눈금·구성띠)이 왼쪽 7, 나머지는 오른쪽 5에 세로묶음"
+  },
+  "비교": {
+   "허용": [
+    "짝카드",
+    "카드",
+    "인용"
+   ],
+   "1": [
+    12
+   ],
+   "2": [
+    8,
+    4
+   ]
+  },
+  "일정": {
+   "허용": [
+    "타임라인",
+    "세로타임라인",
+    "아이콘목록",
+    "카드"
+   ],
+   "1": [
+    12
+   ],
+   "2": [
+    "12",
+    "12(둘째 줄)"
+   ],
+   "규칙": "타임라인은 늘 한 줄을 다 쓴다. 세로타임라인이면 [4, 8]"
+  },
+  "요청": {
+   "허용": [
+    "요청상자",
+    "수량목록",
+    "지표타일",
+    "카드"
+   ],
+   "1": [
+    12
+   ],
+   "2": [
+    7,
+    5
+   ]
+  },
+  "체계도": {
+   "허용": [
+    "체계도"
+   ],
+   "1": [
+    12
+   ]
+  },
+  "분야표": {
+   "허용": [
+    "색띠행",
+    "세로타임라인",
+    "지표타일",
+    "카드"
+   ],
+   "1": [
+    12
+   ],
+   "2": [
+    8,
+    4
+   ]
+  },
+  "표": {
+   "허용": [
+    "표",
+    "지표타일",
+    "구성띠",
+    "비율링",
+    "카드"
+   ],
+   "1": [
+    12
+   ],
+   "2": [
+    8,
+    4
+   ]
+  },
+  "인용": {
+   "허용": [
+    "인용"
+   ],
+   "1": [
+    10
+   ]
+  },
+  "배포글": {
+   "허용": [
+    "글머리",
+    "표",
+    "카드"
+   ],
+   "1": [
+    12
+   ],
+   "2": [
+    6,
+    6
+   ]
+  },
+  "자유": {
+   "허용": "전부",
+   "규칙": "폭 필수. 줄마다 합 12"
+  }
+ }
+}

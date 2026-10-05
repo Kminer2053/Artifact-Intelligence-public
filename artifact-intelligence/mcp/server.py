@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """문서지능 MCP 서버 — 공공기관 문서 6종(1페이지·풀버전·시행문·규정·보도자료·발표슬라이드) 파이프라인의 도구 계층.
 
-로드맵(스킬 → 지식 라이브러리 → MCP → 플랫폼)의 3단계 실체. 개방 전략 원칙:
-도구 인터페이스는 열고, 지식(온톨로지·원장)은 서버 뒤에 둔다 — 클라이언트는
-조회 도구로 필요한 만큼만 지식을 받아 쓴다.
+로드맵(스킬 → 지식 라이브러리 → MCP → 플랫폼)의 3단계 실체. 개방 전략('26-09-25 완전 공개):
+도구 인터페이스도 작성 규칙(ontology/ontology.json)도 열어 둔다 — 설치본은 규칙을 로컬에서 읽고,
+사용자 문서는 이 컴퓨터를 떠나지 않는다.
 
 실행: .venv/bin/python mcp/server.py  (stdio)
 등록: claude mcp add artifact-intelligence -- <이 venv python 절대경로> <이 파일 절대경로>
@@ -29,10 +29,21 @@ mcp = FastMCP(
     "artifact-intelligence",
     instructions=(
         "대한민국 공공기관 문서 6종(1페이지·풀버전·시행문·규정·보도자료·발표슬라이드) 생성 파이프라인(문서지능)의 도구 모음. "
-        "지식 정본은 온톨로지(개체×3요소, 12유형 목차로직)이며 ontology_query/report_types로 조회한다. "
-        "생성 흐름: 유형 판별·빌드플랜(사용자 승인) → 3층 인스턴스 JSON 작성 → style_lint → "
-        "assemble_docs → render_gate(1쪽·어절분리·문체 하드 게이트). "
-        "사용자 리터칭 동기화는 장르마다 다르다 — backtrace_scan/adopt는 1페이지 보고서(samples) 전용이고, "
+        "지식 정본은 이 설치본에 든 온톨로지(ontology/ontology.json, 개체×3요소·유형별 목차로직)이며, 장르는 genres, "
+        "목차 시퀀스는 seq, 설계·작성 지침은 composeplan·compose 가 거기서 뽑아 준다. "
+        "생성 흐름: 유형 판별(detect)·빌드플랜 승인(saveplan→approveplan) → 3층 인스턴스 JSON 작성 → new(조립) → "
+        "stylelint·gate(1쪽·어절분리·문체 하드 게이트)·fabcheck. "
+        "작업 방식은 둘이다 — 바로 완성(검수 없이 끝까지: 빌드플랜 승인은 에이전트가 approveplan 으로 기록하고, "
+        "게이트를 사유대로 최대 3회 고쳐 export 한 뒤 확인할 것을 모아 끝 보고) / 함께 검수(판정 확인·빌드플랜 "
+        "사용자 승인·editor 편집기 리터칭·내보내기 승인에서 멈춤). 방식은 에이전트가 대화(와 방식 질문의 답)를 읽고 "
+        "정해 workmode 의 work_mode 에 싣는다 — 넘긴 방식→이 대화에서 정한 방식→저장된 선택 순이고 요청 말투는 "
+        "힌트일 뿐이다. 셋 다 없으면 한 번만 묻는다(저장은 work_mode 필수, 이 대화의 방식은 2시간 무활동이면 잊는다). "
+        "장르는 에이전트가 요청을 읽고 정한다(문서 종류를 말했으면 그 장르, 없으면 내용으로) — detect 점수는 1페이지 "
+        "보고서 안에서 보고목적 유형을 고를 때만 쓰고, 명시장르는 참고다. export 는 지금 판이 검사(stylelint·gate·"
+        "fabcheck — new/save 의 check=true, 원문은 문서마다 처음 받은 것을 보관)를 통과한 기록이 있어야 낸다 — 원문 없이 "
+        "만든 문서는 거절(자료가 없으면 요청 글을 source_text 로), 파일은 build/exports 에만 쓴다(override_reason 은 "
+        "사람이 명시적으로 원할 때만). "
+        "사용자 리터칭 동기화는 장르마다 다르다 — backtrace(mode=scan/adopt)는 1페이지 보고서(samples) 전용이고, "
         "그 외 장르(발표슬라이드·풀버전·시행문·규정·보도자료)는 history(key=문서키)에서 처리='대기'인 지시를 읽어 문서 JSON을 직접 고친 뒤 save로 반영한다. "
         "규칙 차원 피드백은 동의 카드를 거쳐 consentcorpus 로 남긴다 — 이때 변경(델타)과 함께 문서 기본 스펙(장르·유형·길이)을 실어야 규칙 보완의 목표물이 잡힌다."
     ),
@@ -107,6 +118,15 @@ def _펴기(r):
     return f"[{표}]\n{(r.get('로그') or '').strip()}"[:120000]
 
 
+class 막힌결과(Exception):
+    """ok:false 로 막힌 결과 — FastMCP 가 이 예외를 is_error=true 결과로 바꾼다."""
+
+
+# ok:false 가 '등록·저장하지 않았다'(막힘)는 뜻인 작업 — new 는 hard 게이트 위반·플랜 없음·되묻기에서 등록하지 않는다.
+# 검사 작업(gate·stylelint·fabcheck)의 ok:false 는 '검사 FAIL' 이라는 정상 결과라 넣지 않는다.
+_막힘오류작업 = frozenset({"새문서"})
+
+
 def _도구만들기(작):
     """작업 하나를 MCP 도구로 감싼다. 인자 이름·타입을 실제 서명으로 만들어야
     클라이언트가 무엇을 넣을지 안다 — **kwargs 로 받으면 아무것도 안 보인다.
@@ -139,7 +159,16 @@ def _도구만들기(작):
     def fn(**kw):
         인자 = {k: kw.get(영문[k]) for k in 받는순}
         인자 = {k: v for k, v in 인자.items() if v not in ("", None)}
-        return _펴기(api.부르기(작이름, 인자))
+        # 세션 격리 입구(_부르기)를 탄다 — stdio 는 열쇠가 비어 api.부르기 와 같다. `--http` 에서 토큰 미들웨어가
+        # _현재열쇠 를 심으면 사람마다 자료뿌리·대화 칸이 갈린다(fixup3 G, verify2 §2-D). 지금 이 파일엔 그
+        # 미들웨어가 없어 `--http` 는 열쇠 없이 돈다 — 그래서 api._대화칸 은 공유 연결·열쇠 없음이면 대화 기억을 끈다.
+        r = _부르기(작이름, 인자)
+        글 = _펴기(r)
+        # 막힌 결과는 MCP 오류(is_error=true)로 돌려준다(bench14 M s7 — hard 게이트 위반으로 등록하지 않은 new 가
+        # is_error=false 라 클라이언트가 성공으로 셌다). 글은 그대로 실린다(FastMCP 가 'Error executing tool …: ' 을 앞에 붙임).
+        if 작이름 in _막힘오류작업 and isinstance(r, dict) and r.get("ok") is False:
+            raise 막힌결과(글)
+        return 글
 
     매개 = []
     주석 = {}

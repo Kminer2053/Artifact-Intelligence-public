@@ -86,6 +86,7 @@ body {
 @media print { .font-switcher { display: none; } }
 
 
+:root { --op-ind2: 3.5mm; --op-ind3: 7.9mm; --op-ind4: 10.6mm; }
 .h-l1 { 
   font-family: var(--doc-h-l1-font);
   font-size: var(--doc-h-l1-size);
@@ -98,7 +99,7 @@ body {
 .i-l2 { 
   font-family: var(--doc-h-l2-font);
   font-size: var(--doc-h-l2-size);
-  margin: 0.5mm 0 0.5mm 1.5em;
+  margin: 0.5mm 0 0.5mm var(--op-ind2, 3.5mm);
   padding-left: 1.2em;
   
 }
@@ -107,10 +108,12 @@ body {
   width: 1.2em; margin-left: -1.2em; }
 [data-mk2="◦"] { --doc-mk2: "◦"; }
 
+[data-mk2="ㅇ"] { --doc-mk2: "ㅇ"; }
+
 .i-l3 { 
   font-family: var(--doc-h-l3-font);
   font-size: var(--doc-h-l3-size);
-  margin: 0.4mm 0 0.4mm 3em;
+  margin: 0.4mm 0 0.4mm var(--op-ind3, 7.9mm);
   padding-left: 0.85em;
   color: var(--doc-color-text);
 }
@@ -119,7 +122,7 @@ body {
 .i-l4 { 
   font-family: var(--doc-h-l4-font);
   font-size: var(--doc-h-l4-size);
-  margin: 0.4mm 0 0.4mm 4.2em;
+  margin: 0.4mm 0 0.4mm var(--op-ind4, 10.6mm);
   padding-left: 0.8em;
   color: var(--doc-color-text-sub);
 }
@@ -211,3 +214,33 @@ table.doc-table[data-style="테두리점선"] td {
   border-bottom: 0.12mm dashed var(--doc-p-black);
 }
 table.doc-table[data-style="테두리점선"] tr:last-child td { border-bottom: none; }
+
+
+:root[data-제목모양="겹줄"]:not([data-mk2]) { --doc-mk2: "ㅇ"; }
+:root[data-제목모양="연한띠"] { --tm-c: #0070C0; }
+
+:is(:root[data-제목틀="두색띠"], :root[data-제목모양="겹줄"]:not([data-제목틀])) .doc-titlebar {
+  background: #3CBFFF; }
+
+:is(:root[data-제목틀="두색띠"], :root[data-제목모양="겹줄"]:not([data-제목틀])) .doc-titlebar.bottom {
+  background: #0080C0; }
+
+:is(:root[data-제목틀="굵은줄"], :root[data-제목틀="가는줄"], :root[data-제목틀="연한띠"],
+    :root[data-제목틀="짙은띠"], :root[data-제목틀="없음"],
+    :root:not([data-제목틀]):is([data-제목모양="연한띠"], [data-제목모양="짙은띠"],
+                             [data-제목모양="회색띠"], [data-제목모양="줄만"])) .doc-titlebar { display: none; }
+:is(:root[data-제목틀="굵은줄"], :root[data-제목모양="줄만"]:not([data-제목틀])) .doc-title {
+  border-top: 0.4mm solid #000; border-bottom: 0.4mm solid #000; padding: 1.6mm 2mm; margin-bottom: 1mm; }
+:is(:root[data-제목틀="가는줄"], :root[data-제목모양="회색띠"]:not([data-제목틀])) .doc-title {
+  border-top: 0.12mm solid #000; border-bottom: 0.12mm solid #000; padding: 1.6mm 2mm; margin-bottom: 1mm; }
+:is(:root[data-제목틀="연한띠"], :root[data-제목모양="연한띠"]:not([data-제목틀])) .doc-title {
+  background: #E3EEF9; padding: 2mm; margin-bottom: 1mm; }
+:is(:root[data-제목틀="짙은띠"], :root[data-제목모양="짙은띠"]:not([data-제목틀])) .doc-title {
+  background: #1F3864; color: #fff; padding: 2mm; margin-bottom: 1mm; }
+
+:is(:root[data-절모양="밑줄"], :root:not([data-절모양]):is([data-제목모양="연한띠"], [data-제목모양="줄만"])) .h-l1 {
+  border-bottom: 0.4mm solid var(--tm-c, #000); padding-bottom: 0.6mm; margin-bottom: 0.5mm; }
+:is(:root[data-절모양="회색띠"], :root[data-제목모양="회색띠"]:not([data-절모양])) .h-l1 {
+  background: #F2F2F2; }
+:is(:root[data-절모양="연한띠"], :root[data-제목모양="짙은띠"]:not([data-절모양])) .h-l1 {
+  background: #E3EEF9; }

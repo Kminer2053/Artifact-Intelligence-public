@@ -1,0 +1,332 @@
+{
+ "_doc": "규칙이 바뀌면 어디까지 미치는가. 같은 규칙이 여러 곳에 복제돼 있어서, 지문만으로는 어긋남을 못 잡는다.",
+ "_왜_필요한가": "온톨로지가 '장 5개 초과 → 통합 검토'라고 적어 둔 것을 조립기는 6개 초과로 검사하고 있었다(assemble_full.py). 정본과 코드가 어긋나도 아무도 몰랐다.",
+ "_지문갈래": {
+  "조판": {
+   "무엇": "출력을 결정하는 것 — 이게 바뀌면 산출물이 달라질 수 있다",
+   "판정": "임시 폴더에 다시 만들어 겉모습을 대조해야 확정된다",
+   "_갈래가_또_나뉜다": "HTML을 만드는 것(조립기·프로파일)은 다시 만들어 글자를 대조하면 확정된다. 그런데 CSS·JS는 <link>·<script src>로 참조돼 HTML 글자가 그대로다 — 다시 만들어도 '같음'이 나오는데 화면과 인쇄 결과는 달라진다. 못 잡는 것을 '같음'으로 적으면 그게 바로 이 프로젝트가 계속 싸워 온 공허한 통과다. 그래서 갈라서 다르게 다룬다."
+  },
+  "규칙": {
+   "무엇": "사람이 판단하는 근거 — 이게 바뀌어도 산출물은 안 바뀐다",
+   "판정": "화면에 알리지 않고 이력에 한 줄만 남긴다",
+   "_왜_갈랐나": "ontology.json 은 98KB에 판정 이력까지 담긴 채 계속 바뀐다. 안 가르면 한 글자 수정이 문서 17건 전부를 낡음 후보로 만들어, 그때부터 아무도 알림을 안 읽는다.",
+   "_확인된_사실": "조립기 3종과 골격 렌더러 넷 다 ontology.json 을 열지 않는다 — editor-profiles.json 만 읽는다. stylelint.py 머리의 '규칙 정본: ontology/ontology.json' 은 주석일 뿐이다."
+  }
+ },
+ "규칙파일": [
+  "ontology/ontology.json",
+  "buildplan/rewind-rules.json",
+  "buildplan/schema.json",
+  "ontology/실측_타이포.json"
+ ],
+ "onepage-report": {
+  "산출물": [
+   "html",
+   "pdf",
+   "편집기화면"
+  ],
+  "사람용뷰": [
+   "references/format-1p.md"
+  ],
+  "코드자리": {
+   "글자": [
+    "build/assemble.py",
+    "build/속성값.py",
+    "build/stylelint.py",
+    "ontology/editor-profiles.json",
+    "build/genres.py",
+    "build/표꼴.py",
+    "build/수치꼴.py"
+   ],
+   "_글자_판정": "다시 만들어 겉모습을 대조하면 확정된다",
+   "화면": [
+    "build/report.css",
+    "build/tokens.css",
+    "build/jachigan.js",
+    "build/audit.js"
+   ],
+   "_화면_판정": "HTML 글자가 안 바뀌므로 대조로 확정할 수 없다 — '달라질 수 있음'으로 보고한다"
+  }
+ },
+ "gongmun": {
+  "산출물": [
+   "html",
+   "pdf",
+   "편집기화면"
+  ],
+  "사람용뷰": [
+   "references/format-gongmun.md"
+  ],
+  "코드자리": {
+   "글자": [
+    "build/assemble_gongmun.py",
+    "build/붙임꼴.py",
+    "build/속성값.py",
+    "build/stylelint.py",
+    "ontology/editor-profiles.json",
+    "build/genres.py",
+    "build/표꼴.py",
+    "build/수치꼴.py",
+    "build/수신꼴.py"
+   ],
+   "_글자_판정": "다시 만들어 겉모습을 대조하면 확정된다",
+   "화면": [
+    "build/gongmun.css",
+    "build/tokens.css",
+    "build/jachigan.js",
+    "build/audit.js",
+    "build/gmseal.js"
+   ],
+   "_화면_판정": "HTML 글자가 안 바뀌므로 대조로 확정할 수 없다 — '달라질 수 있음'으로 보고한다"
+  }
+ },
+ "fullreport": {
+  "산출물": [
+   "html",
+   "pdf",
+   "편집기화면"
+  ],
+  "사람용뷰": [
+   "references/format-full.md"
+  ],
+  "코드자리": {
+   "글자": [
+    "build/assemble_full.py",
+    "build/속성값.py",
+    "build/svgfig.py",
+    "build/stylelint.py",
+    "ontology/editor-profiles.json",
+    "build/genres.py",
+    "build/표꼴.py",
+    "build/수치꼴.py",
+    "build/도식색.py"
+   ],
+   "_글자_판정": "다시 만들어 겉모습을 대조하면 확정된다",
+   "화면": [
+    "build/fullreport.css",
+    "build/tokens.css",
+    "build/svgfig.js",
+    "build/jachigan.js",
+    "build/audit.js"
+   ],
+   "_화면_판정": "HTML 글자가 안 바뀌므로 대조로 확정할 수 없다 — '달라질 수 있음'으로 보고한다"
+  }
+ },
+ "빌드플랜": {
+  "산출물": [
+   "골격화면"
+  ],
+  "사람용뷰": [],
+  "코드자리": {
+   "글자": [
+    "buildplan/render_skeleton.py",
+    "ontology/editor-profiles.json",
+    "build/genres.py"
+   ],
+   "_글자_판정": "다시 만들어 겉모습을 대조하면 확정된다",
+   "화면": [
+    "buildplan/skeleton.css",
+    "build/tokens.css"
+   ],
+   "_화면_판정": "HTML 글자가 안 바뀌므로 대조로 확정할 수 없다 — '달라질 수 있음'으로 보고한다"
+  }
+ },
+ "_같은_규칙이_복제된_자리": [
+  {
+   "규칙": "장 개수 상한",
+   "정본": "ontology.document_types.fullreport.게이트.경고 — '장 5개 초과'",
+   "코드": "build/assemble_full.py warn_check() — len(chapters) > 5",
+   "상태": "일치('26.7.31. 코드를 정본에 맞춤)"
+  },
+  {
+   "규칙": "채움도 하한 0.72",
+   "정본": "ontology 1p 소프트 게이트",
+   "코드": "build/audit.js sparse 판정 · buildplan/rewind-rules.json 문턱",
+   "상태": "일치"
+  },
+  {
+   "규칙": "항목 45자",
+   "정본": "writing_profiles 및 document_types.*.문체.길이규칙",
+   "코드": "build/stylelint.py lint_segment()",
+   "상태": "일치('26.7.30. 장르별로 갈랐음)"
+  },
+  {
+   "규칙": "들여쓰기 계단 · 제목 모양(묶음·요소별) CSS",
+   "정본": "build/report.css·build/fullreport.css·build/press.css('26-09-28 완화 계단·끝 '제목 모양' 절), 선택지는 ontology/editor-profiles.json 상단바.제목모양·제목틀·장모양·절모양·제목모양_기본·본문꼴",
+   "코드": "sessions/_proto/editor-proto.html 의 .pg-op·.pg-fr·.pg-pr 발췌와 TITLE_SHAPES 표(편집기 시안 — 추적 안 되는 파일이라 지문이 못 본다)",
+   "상태": "일치('26-09-28 시안에 옮김 — 위 CSS·선택지를 바꾸면 시안도 같이 고친다)"
+  }
+ ],
+ "_출력에_영향없음": {
+  "_doc": "바뀌어도 산출물이 안 달라지는 것 — 검사기·관측기·되감기처럼 읽기만 하는 도구. 자료뿌리.py 는 '자료를 어디서 읽고 어디에 쓰는가'만 정한다(크롬찾기.py 와 같은 성격) — 문서의 글자·서식은 한 글자도 안 건드린다. 세션.py(2026-08-07, WP-S2 ②)는 그 자료뿌리 밑 '세션 디렉터리'의 한살이(활동 기록·만료 청소·익명 후보 적재)만 다룬다 — 세션이 없으면 아무 일도 안 하므로 이 저장소의 38건 산출물과는 무관하다. 실측 2026-08-07: 자료뿌리 도입 전후로 build/samples 통합 md5 무변화(699c52be…), 대조 38/38 유지. 요소순서긁기.py·골든대조.py(2026-08-07, WP-H5·오픈소스 차용)도 같은 성격 — 전자는 외부 hwpx-owpml-model 소스를 읽어 build/요소순서.json 을 새로 쓰는 오프라인 도구(산출물 조립 경로 밖), 후자는 그 표와 이미 만들어진 .hwpx 를 읽기만 하는 정적 대조기다. 골든순서긁기.py(2026-08-08, WP-H6)도 마찬가지 — 외부 neolord0/hwpxlib 골든 표본을 읽어 build/골든요소순서.json 을 새로 쓰는 오프라인 도구다. 이 세 긁기·대조기는 모두 assemble*.py 를 호출하지도, 문서 자료를 쓰지도 않는다(수동으로 돌리는 개발 도구라 산출물 조립 경로 밖). 다만 WP-H6 부터는 _hwpx_write.py 가 저장 직전 charPr·refList 자식순서를 정본화할 때 build/골든요소순서.json(없으면 build/요소순서.json)을 읽으므로, 이 두 표(build/*.json — 전체글롭 대상 아님)가 바뀌면 산출물 순서가 달라진다. 표를 다시 긁으면 build/요소순서_기준선.json 을 --기준선-갱신 으로 다시 재고 표본을 다시 정본화해 같은 커밋에 넣는다(골든대조.py 기준선_갱신 주석). 재현점수.py(2026-08-13)는 화면·hwpx 를 읽어 build/observed/ 에만 집계를 쓰는 관측기라 산출물 조립 경로 밖이다. 내보내기메타.py(2026-08-13)는 예외적으로 **조립 경로 안에서** 도는 첫 영향없음 파일이다 — 내보내기가 hwpx 를 다 쓴 뒤 서버 환경(플랫폼·버전·글꼴)을 읽어 {key}.hwpx.meta.json 사이드카(gitignore, **/build/samples/*.meta.json)만 새로 쓰고 산출물 바이트엔 한 바이트도 관여하지 않으며 어떤 게이트도 그 메타를 소비하지 않는다(api.py try/except 로 기록 실패가 내보내기를 못 세운다). 단서: 나중에 게이트가 이 메타를 소비하거나 사이드카가 납품물에 동봉되면 영향있음으로 재분류한다. pdf줄.py(2026-08-14, WP-H3 1차)는 이미 만들어진 PDF 두 벌을 poppler pdftotext -bbox 로 읽어 줄 상자를 대조만 하는 오프라인 자(尺)다 — assemble*·_hwpx_write 를 호출하지 않고 문서 자료를 쓰지도 않는다(요소순서긁기·골든대조와 같은 성격). 자기시험 3건 100%·교차 9.5% 실측. topptx.py(2026-08-14)는 내보내기메타와 달리 산출 바이트(pptx)를 실제로 만들지만, 그 pptx 는 낡음-도장(html→hwpx 기준)이 세는 38건 대조 산출물이 아니라 **별도 export 표적**이라 여기 둔다 — 슬라이드 HTML 을 라이브 크롬으로 수확해 편집 가능한 pptx 로 옮기며, html·hwpx 겉모습엔 한 바이트도 관여하지 않는다. 검증은 대조.py·낡음이 아니라 verify_all --full 의 check_pptx_reproduction(되읽기: 슬라이드 장수·네이티브 텍스트박스·표·표지제목) 이 따로 맡는다. 단서: pptx 를 stamp/낡음 체계에 넣거나 대조로 재게 되면 그때 slides.코드자리 또는 내보내기.코드자리로 옮긴다. pdf낡음.py(2026-08-16)는 표본 PDF 의 Info.Keywords 에 원본기준(html 기준해시)만 심어 verify_all 의 check_pdf_staleness 가 낡음을 대조하게 한다 — 본문 스트림(pdftotext·pdfinfo·판면·기하 오라클이 재는 것)은 한 글자도 안 건드리고 증분 저장으로 메타만 덧댄다(실측: 스탬프 전후 pdfinfo 쪽수·pdftotext -bbox 좌표 무변). hwpx zip 코멘트(tohwpx.py)의 PDF 판이라 산출 겉모습엔 영향없다.",
+  "_왜_적나": "목록에 없다고 경고만 계속 띄우면 아무도 안 읽는다. 파일마다 '영향 있음/없음'을 한 번씩 정해 두고, 둘 다 아닌 것만 경고한다.",
+  "파일": [
+   "build/verify_all.py",
+   "build/e2e_전체검증.py",
+   "build/e2e_웹앱.py",
+   "build/observe.py",
+   "build/재현점수.py",
+   "build/내보내기메타.py",
+   "build/topptx.py",
+   "build/pdf낡음.py",
+   "build/imageasset.py",
+   "build/pictogram.py",
+   "build/render_verify.sh",
+   "build/크롬찾기.py",
+   "build/자료뿌리.py",
+   "build/세션.py",
+   "build/skill_doc.py",
+   "build/카탈로그.py",
+   "build/배포준비.py",
+   "build/전이카탈로그.json",
+   "build/요소순서긁기.py",
+   "build/골든대조.py",
+   "build/골든순서긁기.py",
+   "buildplan/render_plan.py",
+   "buildplan/rewind.py",
+   "ontology/파급표.json",
+   "build/pdf줄.py",
+   "build/mcp별칭가드.py",
+   "build/파이썬310가드.py",
+   "build/카탈로그방.py",
+   "build/pptx차트.py"
+  ]
+ },
+ "_실측파일": "ontology/실측_타이포.json 은 사람이 쓰지 않는다 — research/corpus/pattern.py --내보내기 가 실물 실측에서 기계로 적재한다. 값이 바뀌어도 산출물은 안 바뀌므로 규칙파일로 다룬다. 다시 재면 통째로 덮이니 손으로 고치지 말 것.",
+ "regulation": {
+  "산출물": [
+   "html",
+   "pdf",
+   "편집기화면"
+  ],
+  "사람용뷰": [],
+  "코드자리": {
+   "글자": [
+    "build/assemble_regulation.py",
+    "build/조번호꼴.py",
+    "build/조문꼴.py",
+    "build/속성값.py",
+    "ontology/editor-profiles.json",
+    "build/genres.py",
+    "build/표꼴.py",
+    "build/수치꼴.py"
+   ],
+   "_글자_판정": "다시 만들어 겉모습을 대조하면 확정된다",
+   "화면": [
+    "build/regulation.css",
+    "build/tokens.css",
+    "build/jachigan.js",
+    "build/audit.js"
+   ],
+   "_화면_판정": "HTML 글자가 안 바뀌므로 대조로 확정할 수 없다 — '달라질 수 있음'으로 보고한다"
+  }
+ },
+ "press-release": {
+  "산출물": [
+   "html",
+   "pdf",
+   "편집기화면"
+  ],
+  "사람용뷰": [],
+  "코드자리": {
+   "글자": [
+    "build/assemble_press.py",
+    "build/속성값.py",
+    "ontology/editor-profiles.json",
+    "build/genres.py",
+    "build/표꼴.py",
+    "build/수치꼴.py"
+   ],
+   "_글자_판정": "다시 만들어 겉모습을 대조하면 확정된다",
+   "화면": [
+    "build/press.css",
+    "build/tokens.css",
+    "build/jachigan.js",
+    "build/audit.js"
+   ],
+   "_화면_판정": "HTML 글자가 안 바뀌므로 대조로 확정할 수 없다 — '달라질 수 있음'으로 보고한다"
+  }
+ },
+ "_주석": {
+  "build/genres.py": "장르 등록부(2026-08-04 신설). build/*-docs.json 을 세어 장르 목록을 만든다. 조립기·문체검사기·조판감사·편집기·편집반영기·작업화면·관측기가 전부 여기서 목록을 얻는다. 여기 표에 장르를 안 적으면 등록부가 예외를 던지므로 **조용히 빠지지 않는다** — 손목록 함정을 여섯 번 밟고 만든 자리다"
+ },
+ "내보내기": {
+  "산출물": [
+   "md",
+   "hwpx"
+  ],
+  "_왜": "완성된 **HTML 을 그대로** 다른 그릇으로 옮기는 길. 길은 한 줄이다 — 자료 → 화면(HTML) → HWPX. 화면을 베끼는 것이지 다시 만드는 게 아니다.",
+  "코드자리": {
+   "글자": [
+    "build/tomd.py",
+    "build/tohwpx.py",
+    "build/화면읽기.py",
+    "build/역할.py",
+    "build/_hwpx_write.py",
+    "build/_hwpx_read.py",
+    "build/대조.py",
+    "build/표꼴.py",
+    "build/수치꼴.py",
+    "build/수신꼴.py"
+   ],
+   "_글자_판정": "**`python3 build/대조.py build/samples/<키>` 로 잰다.** 머리 없는 크롬으로 인쇄 매체 계산값을 뽑아 HTML 을 재고, HWPX 는 header.xml 의 charPr/paraPr 를 풀어 재서 마디끼리 짝짓는다. 빠진 마디와 다른 값이 표로 나온다. verify_all --full 의 check_hwpx_fidelity 가 장르마다 이걸 돌린다.",
+   "화면": [],
+   "_화면_판정": "없다 — 내보내기는 화면을 만들지 않는다. 디자인 정본은 HTML 이고 여기는 그것을 옮길 뿐이다."
+  },
+  "_주의": "**화면이 정본이다.** tohwpx 는 인스턴스 JSON 을 읽지 않는다 — 글머리 □○- 가 자료에 없고 CSS 가 정하기 때문이다(2026-08-05 에 자료를 읽다가 풀버전 HWPX 가 제목 한 줄만 남았다). 화면읽기.py 가 크롬에 물어 계산값을 받고, 역할.py 가 명령으로 바꾸고, _hwpx_write.py 가 python-hwpx 로 쓴다. **역할.py 의 기본은 '옮김' 이다** — 등록 안 된 역할도 잰 값 그대로 내보내고 `미지정` 으로 고발한다. 기본이 '건너뜀' 이면 새 장르가 조용히 사라진다. 확인은 `python3 build/대조.py build/samples/<키>` — 빠진 마디와 다른 값이 표로 나온다. **XSD 통과는 '열린다'는 뜻이지 '화면과 같다'는 뜻이 아니다.**",
+  "사람용뷰": [],
+  "_생성물": "build/_hwpx_write.py 와 build/_hwpx_read.py 는 **진짜 모듈**이다(전에는 매 실행마다 덮어써지는 문자열이었다 — 손으로 고쳐도 날아갔다). python-hwpx 가 따로 둔 venv(build/.hwpxenv)에 있어 그 파이썬으로만 돈다."
+ },
+ "자료넣기": {
+  "_왜": "사용자가 던진 자료(파일·대화·예시 서식)를 문서 재료로 바꾸는 길. **자료가 서로 어긋나면 한쪽을 골라 조용히 따르지 않는다** — 짚어서 되묻는다(운영자 판정 2026-08-05).",
+  "코드자리": {
+   "글자": [
+    "workspace/api.py (파일읽기·서식분석·어긋남)",
+    "build/어긋남.py",
+    "build/지어냈나.py",
+    "build/교정.py",
+    "build/깨짐.py",
+    "build/표기꼴.py",
+    "build/판별로직.py",
+    "build/안전xml.py",
+    "build/일반어사전.py"
+   ],
+   "_글자_판정": "`python3 build/어긋남.py <자료1> <자료2>` 로 어긋난 자리를 짚고, `python3 build/지어냈나.py <원문> <문서키>` 로 원문에 없는 수치·이름이 들어갔는지 잰다 — 제품 흐름에서는 api 작업 `지어냈나` 가 초안 등록 직후 되묻기로 돌려준다(WP-S6).",
+   "화면": [],
+   "_화면_판정": "없다 — 자료를 읽는 단계라 화면을 만들지 않는다."
+  },
+  "_주의": "`.txt`·`.md` 는 kordoc 을 거치지 않고 직접 읽는다 — 파서가 할 일이 없는데 거절당하고 있었다(2026-08-05). 파일은 workspace/inbox 안만 읽는다. 어긋남 찾기는 **수와 단위**만 본다 — 뜻이 어긋난 것은 못 잡으므로 '어긋남 없음' 이 '맞다' 는 뜻이 아니다."
+ },
+ "slides": {
+  "산출물": [
+   "html",
+   "pdf",
+   "편집기화면"
+  ],
+  "사람용뷰": [],
+  "코드자리": {
+   "글자": [
+    "build/assemble_slides.py",
+    "build/속성값.py",
+    "ontology/editor-profiles.json",
+    "build/genres.py",
+    "build/표꼴.py",
+    "build/수치꼴.py",
+    "build/슬라이드v2.py",
+    "build/slides_v2_gate.py"
+   ],
+   "_글자_판정": "다시 만들어 겉모습을 대조하면 확정된다",
+   "화면": [
+    "build/slides.css",
+    "build/tokens.css",
+    "build/jachigan.js",
+    "build/audit.js",
+    "build/svgfig.js",
+    "build/present.js",
+    "build/slides_v2.css"
+   ],
+   "_화면_판정": "HTML 글자가 안 바뀌므로 대조로 확정할 수 없다 — '달라질 수 있음'으로 보고한다"
+  }
+ }
+}

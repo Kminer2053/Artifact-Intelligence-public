@@ -1,3 +1,32 @@
 
 # 배포 비밀(관리자 키 등) — 서버 전용, 절대 커밋 금지
 .env
+.지식캐시/
+# 설치·개발 때 이 폴더 뿌리에 생기는 비밀 — 정책 토큰, 웹앱 서버 설정(LLM 키 원문)·토큰 원장('26-10-01 release04)
+/정책서버토큰.conf
+/설정.json
+/토큰원장.json
+*api_key*
+*api-key*
+*apikey*
+*.pem
+.DS_Store
+# 이 설치본 사람의 개인 설정(작업 방식·기본 제목 모양) — CLAUDE_PLUGIN_DATA 가 없는 길(개발 체크아웃·Cursor)에선 여기 생긴다
+/개인설정.json
+# 내보내기 관문이 보는 문서별 검사 기록(런타임, '26-09-29) — 세션 방이 아니면 코드뿌리 workspace/ 에 생긴다
+/workspace/검사기록.json
+# 검사 원문 보관·지어냄 의심/고친 곳(fixup3) · CLI 이번 대화 방식(fixup3) — 같은 런타임 자리
+/workspace/검사자료.json
+/workspace/대화방식.json
+# 플러그인 조판게이트의 검사용 PDF · 플러그인 내보내기 자리(fixup4 '26-09-29 — 내보낸 것만 산다)
+/workspace/_검사/
+/build/exports/
+# 받은 자료(사용자가 올린 첨부)와 거기서 꺼낸 그림 목록 카드(_그림/) · 그림 미리보기·생성 요청 목록 — 런타임 자료라
+# 디렉터리째 add 해도 커밋되지 않게('26-09-30 그림 P1, critic_impl #6)
+/workspace/inbox/
+/build/assets/_preview/
+/build/assets/manifest.json
+/build/assets/생성능력.json
+/build/assets/gen-*.png
+# 세션 방(사용자 문서·첨부) — 클론 설치(Cursor 길)에서 git 에 잡히지 않게('26-10-05 release04 N3)
+/sessions/

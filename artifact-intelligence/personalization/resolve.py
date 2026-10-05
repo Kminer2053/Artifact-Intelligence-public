@@ -22,8 +22,10 @@ PROFILES = Path(__file__).resolve().parent / "profiles"
 FORBIDDEN = ("게이트", "분량예산")  # 하드 게이트는 공통 불변 — 개인화 오버라이드 금지 경로
 
 # 조회 금지(2026-08-13 온톨로지 기밀) — 판별·문체·목차 정본은 개인화 문으로도 클라에
-# 내보내지 않는다. 개인화는 성향·비민감 값만 반환하고, 판정·조립이 필요하면 정책서버의
+# 내보내지 않는다. 개인화는 성향·비민감 값만 반환하고, 판정·조립이 필요하면
 # detect/compose 를 쓴다. (감사: '개인' 작업이 경로 제약 없이 크라운주얼을 되돌리던 구멍)
+# ※ '26-09-25 온톨로지 완전 공개·'26-10-01 설치본 동봉 뒤에도 이 거름은 그대로 둔다(걷을지는 따로
+#   정할 일 — 웹앱 정책서버의 '개인' 문이 같은 코드를 쓴다). 사용자에게 보이는 문구만 '기밀'을 뺐다.
 _조회금지 = ("목차로직", "장르판별", "판별신호", "판별키워드", "표준시퀀스", "압축시퀀스",
            "writing_profiles", "문체", "표정책", "생성_수단")
 
@@ -61,10 +63,10 @@ def _스크럽(node, 규칙안=False):
 def load(profile_name):
     onto_path = ROOT / "ontology" / "ontology.json"
     if not onto_path.exists():
-        # 정책만-로컬 배포본엔 온톨로지 로컬 정본이 없다(크라운주얼). 지식()처럼 부재를
-        # 우아하게 알리고 끝낸다 — FileNotFoundError 트레이스백·설치 절대경로가 로그로 새지 않게.
-        sys.exit("개인화는 온톨로지 로컬 정본이 있어야 합니다 — 정책만-로컬 배포본에는 없습니다"
-                 " (개인화는 웹앱/개발 환경에서 쓰세요).")
+        # '26-10-01 부터 공개 플러그인도 온톨로지를 함께 싣는다. 파일이 빠진 설치(옛 0.3.x 트리)만 여기
+        # 온다 — 지식()처럼 부재를 알리고 끝낸다(FileNotFoundError 트레이스백·설치 절대경로가 로그로 새지 않게).
+        sys.exit("개인화에는 작성 규칙 파일(ontology/ontology.json)이 있어야 합니다. 설치본에 함께"
+                 " 들어 있어야 하니 플러그인을 다시 설치하거나 업데이트하세요.")
     onto = json.load(open(onto_path, encoding="utf-8"))
     pf = PROFILES / f"{profile_name}.json"
     if not pf.exists():
@@ -102,8 +104,8 @@ def load(profile_name):
 
 def query(onto, path):
     if any(f in path for f in _조회금지):
-        return ("이 경로는 조회할 수 없습니다 — 판별·문체·목차 정본은 온톨로지 기밀입니다"
-                " (판정·조립은 detect/compose 를 쓰세요).")
+        return ("이 경로는 개인화 조회로 돌려주지 않습니다. 판별·문체·목차 규칙은 detect·compose 가"
+                " 지시문에 실어 주니 그쪽을 쓰세요(규칙 원본은 ontology/ontology.json 에 공개돼 있습니다).")
     parts = [x for x in path.split(".") if x]
     규칙안 = bool(parts) and parts[0] in _규칙뿌리     # 규칙 뿌리 아래 경로면 허용목록 모드
     node = onto
@@ -116,12 +118,12 @@ def query(onto, path):
             return f"경로 오류: '{p}' 없음"
     # 규칙 뿌리 아래의 스칼라(잎)는 허용 잎 이름일 때만 — 예: …slides.label OK, …구성.중핵 거부.
     if 규칙안 and not isinstance(node, (dict, list)) and (not parts or parts[-1] not in _허용잎):
-        return ("이 경로는 조회할 수 없습니다 — 구성·문체·판별 정본은 온톨로지 기밀입니다"
-                " (판정·조립은 detect/compose 를 쓰세요).")
+        return ("이 경로는 개인화 조회로 돌려주지 않습니다. 구성·문체·판별 규칙은 detect·compose 가"
+                " 지시문에 실어 주니 그쪽을 쓰세요(규칙 원본은 ontology/ontology.json 에 공개돼 있습니다).")
     잘림 = _스크럽(node, 규칙안)   # 반환 서브트리도 허용목록으로 잘라낸다(조상·빈 경로 우회 봉합)
     if 규칙안 and isinstance(잘림, (dict, list)) and not 잘림:
-        return ("이 경로는 조회할 수 없습니다 — 구성·문체·판별 정본은 온톨로지 기밀입니다"
-                " (판정·조립은 detect/compose 를 쓰세요).")
+        return ("이 경로는 개인화 조회로 돌려주지 않습니다. 구성·문체·판별 규칙은 detect·compose 가"
+                " 지시문에 실어 주니 그쪽을 쓰세요(규칙 원본은 ontology/ontology.json 에 공개돼 있습니다).")
     return 잘림
 
 

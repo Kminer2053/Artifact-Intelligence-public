@@ -1157,8 +1157,153 @@ class 손잡이(SimpleHTTPRequestHandler):
         self.wfile.write(b)
 
 
+# ── 인쇄 크롬 정리('26-09-30 주관 판정 Q3, verify_fixup4_ux N3) ─────────────────────────────────────────────
+# PDF·HWPX·PPTX 내보내기는 헤들리스 크롬을 자식으로 띄운다(build/크롬찾기·화면읽기·topptx). 서버가 도중에 죽으면(SIGKILL·
+# 'MainPID kill 재시작') 그 크롬이 고아(PPID 1)로 남았다. 두 겹으로 치운다 — ① 정상 종료(SIGTERM·SIGINT·SIGHUP·atexit)는 여기서
+# 자손 헤들리스 크롬을 끈다 ② 잡을 수 없는 죽음(SIGKILL)은 곁 지키미 프로세스가 1초마다 자손 목록을 적어 두었다가, 서버가 사라지면
+# 적어 둔 것 가운데 같은 시작 시각으로 아직 살아 있는 것만 끈다(pid 재사용 가림). 끄는 것은 명령줄에 --headless 가 든 이 서버의 자손뿐이다(사용자
+# 크롬·다른 측정 크롬은 건드리지 않는다).
+_지키미코드 = r'''
+import os, signal, subprocess, sys, time
+부모 = int(sys.argv[1])
+signal.signal(signal.SIGINT, signal.SIG_IGN)      # 터미널 Ctrl-C 는 서버가 받는다 — 지키미는 서버가 사라진 뒤 치운다
+signal.signal(signal.SIGHUP, signal.SIG_IGN)
+def 표():
+    # pid·ppid·시작 시각(lstart — 5낱말)·명령. 시작 시각은 pid 가 다른 프로세스로 다시 쓰였는지 가리는 데 쓴다(exec 로 명령이
+    # 바뀌어도 시작 시각은 그대로다 — 느린 감싸개가 exec 로 크롬이 되는 꼴)
+    try:
+        out = subprocess.run(["ps", "-A", "-o", "pid=", "-o", "ppid=", "-o", "lstart=", "-o", "command="],
+                             capture_output=True, text=True, timeout=10).stdout
+    except Exception:
+        return None
+    자식, 시작, 명령 = {}, {}, {}
+    for 줄 in out.splitlines():
+        p = 줄.split(None, 7)
+        if len(p) < 7 or not p[0].isdigit() or not p[1].isdigit():
+            continue
+        자식.setdefault(int(p[1]), []).append(int(p[0]))
+        시작[int(p[0])] = " ".join(p[2:7])
+        명령[int(p[0])] = p[7] if len(p) > 7 else ""
+    return 자식, 시작, 명령
+def 자손크롬(자식, 시작, 명령):
+    본, 쌓 = {}, list(자식.get(부모, []))
+    while 쌓:
+        x = 쌓.pop()
+        if x == os.getpid() or x in 본:
+            continue
+        본[x] = (시작.get(x, ""), 명령.get(x, ""))
+        쌓 += 자식.get(x, [])
+    return {p: v for p, v in 본.items() if "--headless" in v[1]}
+알던 = {}
+n = 0
+while True:
+    if os.getppid() != 부모:
+        break
+    if n % 2 == 0:
+        t = 표()
+        if t:
+            알던 = 자손크롬(*t)
+    n += 1
+    time.sleep(0.5)
+if 알던:
+    t = 표()
+    지금 = t[1] if t else {}
+    끌 = [p for p, v in 알던.items() if v[0] and 지금.get(p) == v[0]]
+    for p in 끌:
+        try:
+            os.kill(p, signal.SIGTERM)
+        except OSError:
+            pass
+    def 살았나(p):
+        try:
+            os.kill(p, 0)
+            return True
+        except OSError:
+            return False
+    for _ in range(30):                     # 3초까지 스스로 끝나기를 기다리고, 남은 것은 SIGKILL
+        if not any(살았나(p) for p in 끌):
+            break
+        time.sleep(0.1)
+    for p in 끌:
+        if 살았나(p):
+            try:
+                os.kill(p, signal.SIGKILL)
+            except OSError:
+                pass
+    time.sleep(0.3)
+    # 격리 프로필(build/크롬찾기 의 munseo-chrome.* 임시 폴더)도 치운다 — 서버가 죽어 finally 가 돌지 못했다
+    import re, shutil, tempfile
+    임시 = os.path.realpath(tempfile.gettempdir())
+    for p in 끌:
+        m = re.search(r"--user-data-dir=(\S+)", 알던[p][1])
+        if not m:
+            continue
+        d = os.path.realpath(m.group(1).rstrip("/"))
+        if os.path.basename(d).startswith("munseo-chrome.") and os.path.dirname(d) == 임시:
+            shutil.rmtree(d, ignore_errors=True)
+'''
+
+
+def _자손헤들리스크롬():
+    """이 서버 프로세스의 자손 가운데 명령줄에 --headless 가 든 것(pid 목록)."""
+    import subprocess as _sp
+    try:
+        out = _sp.run(["ps", "-A", "-o", "pid=", "-o", "ppid=", "-o", "command="], capture_output=True,
+                      text=True, timeout=10).stdout
+    except Exception:
+        return []
+    자식, 명령 = {}, {}
+    for 줄 in out.splitlines():
+        p = 줄.split(None, 2)
+        if len(p) < 2 or not p[0].isdigit() or not p[1].isdigit():
+            continue
+        자식.setdefault(int(p[1]), []).append(int(p[0]))
+        명령[int(p[0])] = p[2] if len(p) > 2 else ""
+    본, 쌓 = set(), list(자식.get(os.getpid(), []))
+    while 쌓:
+        x = 쌓.pop()
+        if x in 본:
+            continue
+        본.add(x)
+        쌓 += 자식.get(x, [])
+    return [p for p in 본 if "--headless" in 명령.get(p, "")]
+
+
+def _크롬치우기():
+    import signal as _sig
+    for p in _자손헤들리스크롬():
+        try:
+            os.kill(p, _sig.SIGTERM)
+        except OSError:
+            pass
+
+
+def _크롬지키기():
+    """정상 종료 때 치우는 손(atexit·신호)과 SIGKILL 뒤에 치우는 곁 지키미를 건다. 못 걸어도 서버는 뜬다."""
+    import atexit
+    import signal as _sig
+    import subprocess as _sp
+    atexit.register(_크롬치우기)
+
+    def _끝(signum, frame):
+        # 전과 같이 곧바로 끝낸다(SystemExit 로 올리면 도는 내보내기 작업 스레드를 기다려 재시작이 늦어진다)
+        _크롬치우기()
+        os._exit(128 + signum)
+    for s_ in (_sig.SIGTERM, _sig.SIGHUP):
+        try:
+            _sig.signal(s_, _끝)
+        except (OSError, ValueError):
+            pass
+    try:
+        _sp.Popen([sys.executable, "-c", _지키미코드, str(os.getpid())], stdin=_sp.DEVNULL,
+                  stdout=_sp.DEVNULL, stderr=_sp.DEVNULL, close_fds=True)
+    except Exception as e:
+        print(f"  (인쇄 크롬 지키미를 못 띄웠습니다: {type(e).__name__})", file=sys.stderr)
+
+
 if __name__ == "__main__":
     srv = ThreadingHTTPServer((호스트, 포트), 손잡이)
+    _크롬지키기()
     print(f"편집 서버 — http://{호스트}:{포트}  (코드 {ROOT})")
     print(f"  자료뿌리 {자료뿌리.기본뿌리()}"
           + ("" if 자료뿌리.기본뿌리() == ROOT

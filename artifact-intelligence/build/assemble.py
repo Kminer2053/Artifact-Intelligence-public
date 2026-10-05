@@ -5,6 +5,8 @@ import os as _os, sys as _sys
 _sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__)))
 import genres
 import 속성값
+import 수치꼴
+import 표꼴
 import 자료뿌리
 import html
 import json
@@ -23,7 +25,7 @@ ROOT = os.path.dirname(BASE)
 #   **호출마다** 다시 푼다. subprocess 로 부를 때도 같은 함수를 탄다.
 
 HEAD = """<!doctype html>
-<html lang="ko" data-genre="onepage" data-fonts="{font}"{mk2}>
+<html lang="ko" data-genre="onepage" data-fonts="{font}"{mk2}{shape}>
 <head>
 <meta charset="utf-8">{기준도장}
 <title>{title}</title>
@@ -210,7 +212,7 @@ def enforce_emphasis(texts):
     return out
 
 
-def mk2_attr(값, 선택지):
+def mk2_attr(값, 선택지, 묶음기호=""):
     """2단 마커 선택 — 정본이 ○ 이고, 실물이 많이 쓰는 ◦ 를 선택지로 준다.
 
     실측(내부 보고서 사례)은 ◦ 가 여러 문서  · ○ 가 여러 문서 였다. 그래도 정본을
@@ -221,13 +223,24 @@ def mk2_attr(값, 선택지):
     선택지는 **부르는 쪽이 편집기 프로파일에서 세어** 넘긴다(항목.2단마커) —
     여기 손으로 적어 두면 화면이 주는 선택지와 조립기가 받는 선택지가 갈라진다.
     2026-08-07: 값이 속성으로 그냥 들어가던 것을 속성값.열거 로 못 박았다.
+
+    `묶음기호` — 제목 모양 묶음이 정하는 둘째 기호('파랑 겹줄' = ㅇ, report.css 가 data-mk2 가
+    없을 때 건다). 묶음이 기호를 바꾸는데 사람이 ○ 를 따로 골랐으면 속성으로 남긴다 — 안 남기면
+    등록부는 ○ 인데 화면·HWPX 는 ㅇ 이 되어 왕복이 갈렸다('26-09-28 2단계 검토 발견 6).
     """
     if not 선택지:
         return ""
     고른것 = 속성값.열거(값, 선택지, "2단마커")
-    if not 고른것 or 고른것 == 선택지[0]:
+    if not 고른것 or (고른것 == 선택지[0] and 묶음기호 in ("", 선택지[0])):
         return ""          # 기본값은 속성을 안 남긴다 — 왕복 불변식이 깨진다
     return f' data-mk2="{고른것}"'
+
+
+# 순수 수치 칸(숫자·부호·단위·기호만) 판정과 열 단위 우측정렬은 build/수치꼴.py 공용
+# 모듈에 있다(assemble_full.py 와 같이 쓴다, assemble:F10 '26-09-27 — 두 조립기가 각자
+# 정규식을 복사해 뒀다가 단위 목록이 갈라졌었다). 얇은 별칭만 남겨 기존 호출부를 그대로 둔다.
+_순수수치인가 = 수치꼴.순수수치인가
+_표_열_우측정렬 = 수치꼴.표_열_우측정렬
 
 
 def 기준도장():
@@ -278,10 +291,26 @@ def build(doc):
                  for m in (prof.get("상단바") or {}).get("글꼴", ()))
     font = 속성값.열거(doc.get("글꼴"), 글꼴들, "글꼴", 기본="embed")
     sw = {m: (' class="on"' if m == font else "") for m in 글꼴들}
+    # 제목 모양('26-09-28) — 묶음(제목모양) 하나 + 요소별 덮어쓰기(제목틀·절모양). 1p 는 장이 없다.
+    # 선택지 정본은 편집기 프로파일의 상단바.제목모양·제목틀·절모양 이다(손목록 금지) — 값은 <html>
+    # data 속성으로 들어가므로 속성값.열거 를 **여기서 직접** 부른다(도우미로 감싸면 속성 잠금 정적
+    # 검사가 못 밝힌다). 기본(키 없음)이면 속성을 안 남긴다 — 왕복 불변식.
+    _상단 = prof.get("상단바") or {}
+    모양 = 속성값.열거(doc.get("제목모양"), tuple(m[0] for m in _상단.get("제목모양", ())),
+                   "제목모양", 기본="")
+    제목틀 = 속성값.열거(doc.get("제목틀"), tuple(m[0] for m in _상단.get("제목틀", ())),
+                    "제목틀", 기본="")
+    절모양 = 속성값.열거(doc.get("절모양"), tuple(m[0] for m in _상단.get("절모양", ())),
+                    "절모양", 기본="")
+    shape = "".join((f' data-제목모양="{모양}"' if 모양 else "",
+                     f' data-제목틀="{제목틀}"' if 제목틀 else "",
+                     f' data-절모양="{절모양}"' if 절모양 else ""))
     parts = [HEAD.format(
-        기준도장=기준도장(), font=font,
+        기준도장=기준도장(), font=font, shape=shape,
         mk2=mk2_attr(doc.get("2단마커"),
-                     tuple(((prof.get("개체") or {}).get("항목") or {}).get("2단마커", ()))),
+                     tuple(((prof.get("개체") or {}).get("항목") or {}).get("2단마커", ())),
+                     next(((m[4] if len(m) > 4 and isinstance(m[4], dict) else {}).get("2단마커", "")
+                           for m in _상단.get("제목모양", ()) if m[0] == 모양), "")),
         sw_embed=sw.get("embed", ""), sw_serif=sw.get("serif", ""),
         sw_hwp=sw.get("hwp", ""),
         title=html.escape(norm_plain(doc.get("title", ""))),
@@ -308,28 +337,11 @@ def build(doc):
             # 않고 편집기 프로파일(ontology/editor-profiles.json 의 표.스타일)에서
             # 세어 온다(규칙 2). 예전에는 값을 그대로 data-style 에 보간해
             # `x"><img src=x onerror=…>` 로 표 태그 안에 마크업을 심을 수 있었다.
-            표스타일들 = ((prof.get("개체") or {}).get("표") or {}).get("스타일") or ()
-            style = 속성값.열거(table.get("style"), 표스타일들, "table.style", 기본="")
-            style_attr = f' data-style="{style}"' if style and style != "샌드위치" else ""
-            parts.append(f'    <table class="doc-table"{style_attr}>\n      <tr>')
-            for hcell in table["header"]:
-                parts.append(f'<th>{html.escape(hcell)}</th>')
-            parts.append('</tr>\n')
-            rows = table["rows"]
-            # 열 단위 정렬 판정: 첫 열 제외, 절반 이상이 숫자성인 열은 '-' 포함 전체 우측 정렬
-            ncols = max(len(r) for r in rows) if rows else 0
-            numeric_col = [False] * ncols
-            for j in range(1, ncols):
-                vals = [r[j] for r in rows if j < len(r)]
-                hits = sum(1 for v in vals if any(ch.isdigit() for ch in v))
-                numeric_col[j] = hits * 2 >= len(vals) and hits > 0
-            for row in rows:
-                parts.append('      <tr>')
-                for j, cell in enumerate(row):
-                    r = ' class="r"' if j < ncols and numeric_col[j] else ''
-                    parts.append(f'<td{r}>{html.escape(cell)}</td>')
-                parts.append('</tr>\n')
-            parts.append('    </table>\n  </div>\n')
+            # '26-09-29 표 재설계 P1: 열폭·열정렬·머리·첫열·병합·강조는 build/표꼴.py 한 곳이 그린다
+            # (여섯 조립기 공용). 후보 여섯은 온톨로지 스타일_프리셋 — 이 프로파일 목록과 같다(r18 시험).
+            # 샌드위치는 report.css 기본이라 속성을 안 남긴다(종전과 같은 산출). 보고서형이라 숫자 열도
+            # 가운데다(통계형만 오른쪽 — 사장님 판정 '26-09-28 ④).
+            parts.append("    " + 표꼴.표html(table, "doc-table", 샌드위치속성=False) + "\n  </div>\n")
     # 붙임: attach가 있으면 "붙임 …1부.  끝.", 없으면 본문 끝에 "끝."만 (KeyError 방지)
     attach_raw = doc.get("attach") or ""
     end_mark = doc.get("show_end_mark", False)  # 종결 표기 — 정본 기본값 False (entities.붙임.문체.종결표기_옵션.기본값): 내부 1p 보고서 표준=표기 없음. 시행문은 별도 조립기(assemble_gongmun)가 강제

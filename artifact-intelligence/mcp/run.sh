@@ -9,8 +9,12 @@ PY="${MUNSEO_PYTHON:-python3}"
 if [ ! -x "$HERE/.venv/bin/python" ]; then
   # 서버를 exec 하려면 mcp venv 가 지금 있어야 하므로 이 한 가지는 여기서 동기로 세운다.
   "$PY" -m venv "$HERE/.venv" >&2 2>&1 || true
-  "$HERE/.venv/bin/python" -m pip install --quiet --disable-pip-version-check \
-    -r "$HERE/requirements.txt" >&2 2>&1 || true
+  # 깐 요구의 해시를 적는다('26-10-01 주관 판정 R2) — requirements.txt 가 뒤에 바뀌면 bootstrap(아래, 비블로킹)이 다시 깐다
+  if "$HERE/.venv/bin/python" -m pip install --quiet --disable-pip-version-check \
+       -r "$HERE/requirements.txt" >&2 2>&1; then
+    "$HERE/.venv/bin/python" -c 'import hashlib,sys;print(hashlib.sha256(open(sys.argv[1],"rb").read()).hexdigest())' \
+      "$HERE/requirements.txt" > "$HERE/.venv/.requirements.sha256" 2>/dev/null || true
+  fi
 fi
 
 # 전 클라이언트 공통 자동 부트스트랩 — MCP 서버는 Claude Code·Codex·Cursor 어디서든 이

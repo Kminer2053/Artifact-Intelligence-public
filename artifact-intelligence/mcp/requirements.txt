@@ -2,4 +2,9 @@
 # 배포 트리엔 .venv 가 없다(재생성물, .gitignore) — 설치 후 한 번 재생성한다:
 #   python3 -m venv mcp/.venv
 #   mcp/.venv/bin/pip install -r mcp/requirements.txt
-mcp>=1.28,<2
+# 1.28.1 아래는 GHSA-vj7q-gjh5-988w(HIGH)에 걸린다 — 아래 판을 막는다('26-10-01 release04 OSV 대조).
+mcp>=1.28.1,<2
+# 첨부 그림 자르기(build/imageasset.py) — MCP 서버 파이썬에서도 돈다('26-09-30). 없으면 build/.hwpxenv 로 넘긴다.
+# 첨부 그림 목록 카드(PDF 경계는 PyMuPDF)는 이 파이썬에 PyMuPDF 가 없으면 build/.hwpxenv(build/requirements.txt 의
+# pymupdf)로 넘긴다 — 무거운 휠을 MCP venv 에 또 깔지 않는다(r2/img impl_p1: mcp/.venv 에서 카드 2.5초, 넘김 실측).
+pillow==12.3.0

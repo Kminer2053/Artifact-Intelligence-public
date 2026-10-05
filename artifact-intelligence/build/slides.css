@@ -117,6 +117,8 @@ html[data-genre="slides"] body { margin: 0; font-family: var(--doc-font-body); }
 .sl-fig[data-크기="가득"] svg { max-height: none; height: auto; width: 100%; }
 .sl-img .cap { font-size: calc(var(--sl-body-size) - 4pt); color: var(--sl-sub); margin-bottom: 2mm; }
 .sl-img .note { font-size: calc(var(--sl-body-size) - 5pt); color: var(--sl-sub); margin-top: 2mm; }
+
+.fr-img[data-miss] { display: none !important; }
 .sl-img .ai-gen {
   display: inline-block; margin-top: 2mm; font-size: calc(var(--sl-foot-size) - 1pt);
   color: var(--sl-sub); border: 0.3mm solid var(--sl-line); border-radius: 2mm; padding: 0.6mm 2mm;
@@ -278,3 +280,24 @@ html[data-genre="slides"] body { margin: 0; font-family: var(--doc-font-body); }
 .sl-src::before { content: "출처: "; }
 .sl-num { position: absolute; right: 18mm; bottom: 7mm; font-size: var(--sl-foot-size);
   color: var(--sl-sub); font-variant-numeric: tabular-nums; }
+
+
+:root[data-genre="slides"] {
+  --fig-pt-flow: 18; --fig-pt-sys: 18; --fig-pt-chart: 14; --fig-pt-sub: 14; --fig-pt-min: 14;
+  --fig-slot-mm: 306.7; --fig-max-h-mm: 116;
+  --fig-chart-h-mm: 100; --fig-chart-big-h-mm: 112; --fig-chart-half-h-mm: 80;
+  --fig-accent: #1F3864; --fig-mid: #B1B9C9; --fig-soft: #E4E7EC; --fig-chart: #1F3864; --fig-chart-mid: #A1ABBE;
+  --fig-cat1-mid: #B1D6CD; --fig-cat1-soft: #E2F0EC; --fig-cat2-mid: #ECCEB4; --fig-cat2-soft: #F8EDE3;
+}
+:root[data-genre="slides"][data-테마="청록"] { --fig-accent: #12695F; --fig-mid: #ACCAC7; --fig-soft: #E3EDEC;
+  --fig-chart: #12695F; --fig-chart-mid: #9BC0BC; --fig-cat1-mid: #ECCEB4; --fig-cat1-soft: #F8EDE3;
+  --fig-cat2-mid: #CBC1DE; --fig-cat2-soft: #ECE8F3; }
+:root[data-genre="slides"][data-테마="감청"] { --fig-accent: #23508C; --fig-mid: #B2C2D7; --fig-soft: #E5EAF1;
+  --fig-chart: #23508C; --fig-chart-mid: #A3B6CF; }
+:root[data-genre="slides"][data-테마="자목"] { --fig-accent: #7E2D3A; --fig-mid: #D2B6BA; --fig-soft: #F0E6E7;
+  --fig-chart: #7E2D3A; --fig-chart-mid: #C9A7AC; --fig-cat1-mid: #B6CDE5; --fig-cat1-soft: #E4ECF5;
+  --fig-cat2-mid: #B1D6CD; --fig-cat2-soft: #E2F0EC; }
+:root[data-genre="slides"][data-테마="숲"]   { --fig-accent: #285A3D; --fig-mid: #B4C5BB; --fig-soft: #E5EBE8;
+  --fig-chart: #285A3D; --fig-chart-mid: #A5BAAE; --fig-cat1-mid: #B6CDE5; --fig-cat1-soft: #E4ECF5; }
+:root[data-genre="slides"][data-테마="먹"]   { --fig-accent: #37424F; --fig-mid: #B9BDC1; --fig-soft: #E7E8EA;
+  --fig-chart: #37424F; --fig-chart-mid: #ABB0B5; }

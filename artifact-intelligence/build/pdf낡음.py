@@ -26,17 +26,46 @@ def _html기준(html경로):
     return m.group(1) if m else None
 
 
+_AI_XMP = ('<?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?><x:xmpmeta xmlns:x="adobe:ns:meta/">'
+           '<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"><rdf:Description rdf:about="" '
+           'xmlns:Iptc4xmpExt="http://iptc.org/std/Iptc4xmpExt/2008-02-29/" xmlns:dc="http://purl.org/dc/elements/1.1/" '
+           'Iptc4xmpExt:DigitalSourceType="http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia">'
+           '<dc:description><rdf:Alt><rdf:li xml:lang="x-default">AI 생성물이 포함된 문서</rdf:li></rdf:Alt></dc:description>'
+           '</rdf:Description></rdf:RDF></x:xmpmeta><?xpacket end="w"?>')
+
+
+def _AI그림있나(html경로):
+    """조립된 HTML 에 실린(표식이 아닌) AI 생성 그림이 있나 — imageasset.render 가 data-gen 을 달고, 못 얻으면 data-miss."""
+    try:
+        h = open(html경로, encoding="utf-8").read()
+    except OSError:
+        return False
+    return any("data-miss=" not in m.group(0)
+               for m in re.finditer(r'<div class="blk fr-fig fr-img[^>]*data-gen="gen-[0-9a-f]{12}"[^>]*>', h))
+
+
 def 찍기(pdf경로, html경로) -> bool:
     """PDF 메타 keywords 에 {"원본기준": html기준} 를 증분 저장으로 심는다(본문 불변).
+    AI 생성 그림이 실린 문서면 문서 정보(주제·키워드)와 XMP(IPTC DigitalSourceType)에도 'AI 생성물'을 적는다
+    ('26-09-30 fixup, review_impl2 M7 — PDF 속 그림은 크롬이 다시 인코딩해 PNG 글 조각 표기가 사라진다).
     실패는 조용히 False — 스탬프 실패가 내보내기를 못 세우면 안 된다(부가 정보다)."""
     기준 = _html기준(html경로)
-    if not 기준:
+    ai = _AI그림있나(html경로)
+    if not 기준 and not ai:
         return False
     try:
         import fitz
         doc = fitz.open(pdf경로)
         md = doc.metadata or {}
-        md["keywords"] = json.dumps({_열쇠: 기준})
+        kw = {_열쇠: 기준} if 기준 else {}
+        if ai:
+            kw["AI생성물"] = True
+            md["subject"] = "그림 일부를 AI로 만든 문서"
+            try:
+                doc.set_xml_metadata(_AI_XMP)
+            except Exception:
+                pass
+        md["keywords"] = json.dumps(kw)
         doc.set_metadata(md)
         doc.save(pdf경로, incremental=True, encryption=fitz.PDF_ENCRYPT_KEEP)
         doc.close()

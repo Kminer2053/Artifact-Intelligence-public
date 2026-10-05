@@ -214,8 +214,25 @@
 
   /* 헤드리스 인쇄에서는 rAF가 돌지 않으므로 동기 실행 + 폰트 로드 후 재실행 */
   function run() {
-    hunt();
-    if (document.fonts && document.fonts.status !== 'loaded') document.fonts.ready.then(hunt);
+    const 끝 = () => document.documentElement.setAttribute('data-jachigan-done', '1');
+    // 글꼴이 앉은 뒤의 마무리 — 순서가 정해져 있다('26-09-28 도식 재설계 P0):
+    //   ① 도식 전부 다시 그림(SVGFIG.refresh — 칸 폭을 다시 잰다) → ② 달라진 도식이 있으면
+    //   재조판(__repaginate) → ③ 자간 사냥 → ④ 완료 신호. 헤드리스 인쇄는 rAF 가 안 돌므로
+    //   약속 콜백 안에서 **동기로** 잇는다. 도식이 커져 쪽 경계가 움직였는데 옛 쪽 나눔으로
+    //   인쇄되는 일이 없게 완료 신호는 맨 끝이다.
+    const 마무리 = () => {
+      let 바뀜 = 0;
+      try { if (window.SVGFIG && window.SVGFIG.refresh) 바뀜 = window.SVGFIG.refresh(); } catch (e) { 바뀜 = 0; }
+      if (바뀜 && typeof window.__repaginate === 'function') window.__repaginate();
+      hunt();
+      끝();
+    };
+    // 글꼴이 늦게 앉으면 자간이 다시 벌어질 수 있어 로드 뒤 한 번 더 돈다(기존 동작).
+    // **완료 신호는 이 재실행까지 끝난 뒤에만 찍는다** — build/화면읽기.py 가 고정
+    // time.sleep(1.3) 대신 이 신호를 짧은 간격으로 확인해 문서 내용과 무관하게
+    // 버려지던 대기 시간을 없앤다(2026-09-26, speed_result.json 진단).
+    if (document.fonts && document.fonts.status !== 'loaded') { hunt(); document.fonts.ready.then(마무리); }
+    else 마무리();
   }
   if (document.readyState === 'complete') run();
   else window.addEventListener('load', run);

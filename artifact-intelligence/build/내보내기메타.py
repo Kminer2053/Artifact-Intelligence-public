@@ -18,6 +18,7 @@
 from __future__ import annotations
 
 import importlib.util
+import os
 import platform
 import subprocess
 from datetime import datetime, timezone
@@ -55,14 +56,16 @@ def _크롬() -> dict:
     except Exception:
         경로 = None
     if not 경로:
-        return {"경로": None, "버전": None}
+        return {"실행파일": None, "버전": None}
     try:
         r = subprocess.run([경로, "--version"], capture_output=True, text=True,
                            timeout=15)
         버전 = r.stdout.strip() or None
     except Exception:
         버전 = None
-    return {"경로": 경로, "버전": 버전}
+    # 실행 파일 이름만 남긴다 — 사이드카는 산출물 곁에 놓여 사용자가 폴더째 건네면 같이 간다. 크롬이
+    # ~/Applications·~/.cache 에 있으면 홈 경로(계정 이름)가 따라갔다('26-10-01 감사 paths). 품질을 가르는 것은 판이다
+    return {"실행파일": os.path.basename(str(경로)), "버전": 버전}
 
 
 def _서버글꼴() -> dict:

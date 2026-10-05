@@ -361,6 +361,44 @@ def main():
     if not changes and not inst and not 보관req.get("종류"):
         return 0
 
+    # 판형 v2 슬라이드는 조립기가 게이트(모양·강조·요청 한 번·폭)를 먼저 건다. 걸리는 편집을
+    # 정본에 써 두면 다시 만들기가 실패한 채 등록부만 바뀌어, 다음 조립·내보내기가 줄줄이 막힌다.
+    # 그래서 **쓰기 전에** 같은 게이트를 돌려 걸리면 쓰지 않고 까닭을 돌려준다(편집기가 그대로 띄운다).
+    if changes and tgt["kind"] == "doc" and doc.get("판형") == "v2":
+        try:
+            import slides_v2_gate
+            막힘, _ = slides_v2_gate.검사(doc)
+            # 편집 **전**에 이미 있던 위반은 이 편집 탓이 아니다('26-09-28 적대 검토 ⑤: 규칙이 늘거나
+            # soft→hard 로 오른 뒤, 옛 위반 하나가 다른 장의 편집까지 모두 막았다). 장 번호를 지운 꼴로
+            # 개수를 세어 **새로 생긴 위반만** 막고, 옛 위반은 알리기만 한다(재조립은 --저장 이라 낮춘다).
+            if 막힘 and isinstance(old, dict) and old.get("판형") == "v2":
+                import collections
+                import re as _re
+                꼴 = lambda t: _re.sub(r"장\.\d+", "장.#", t)
+                전 = collections.Counter(꼴(b) for b in slides_v2_gate.검사(old)[0])
+                새 = []
+                for b in 막힘:
+                    if 전[꼴(b)] > 0:
+                        전[꼴(b)] -= 1
+                    else:
+                        새.append(b)
+                옛 = [b for b in 막힘 if b not in 새]
+                if 옛:
+                    print(f"  ! 편집 전부터 있던 판 규칙 위반 {len(옛)}건(이번 편집과 무관 — 저장은 막지 않습니다)")
+                    for b in 옛[:3]:
+                        print(f"    · {b}")
+                막힘 = 새
+        except Exception as e:           # 게이트를 못 돌렸다면 조립기가 다시 본다 — 여기서 막지 않는다
+            막힘 = []
+            print(f"  (판 규칙 미리 보기를 못 했습니다: {type(e).__name__})")
+        if 막힘:
+            print("  ✗ 판 규칙에 걸려 저장하지 않았습니다 — 고친 곳을 되돌리거나 바꿔 주세요")
+            for b in 막힘[:5]:
+                print(f"    · {b}")
+            if len(막힘) > 5:
+                print(f"    · … 외 {len(막힘) - 5}건")
+            return 1
+
     if changes:
         # ── 낙관적 잠금을 **창 바깥**에서 검사한다 (적대리뷰 ④) ──────────────
         #
@@ -440,7 +478,11 @@ def main():
         # **자기 문서만 다시 만든다**(WP-S2 ②). 예전에는 등록부 전체를 조립해서
         # 한 건을 저장할 때마다 같은 장르의 다른 문서 HTML 이 전부 다시 써졌다 —
         # 세션을 갈라 놓아도 한 세션 안에서 그대로 남는 문제였다.
-        cmd = tgt["cmd"] + (["--only", key] if tgt["kind"] == "doc" else [])
+        # --저장 은 "이건 새문서가 아니라 저장 뒤 재조립"이라는 표다(r9 재진단, '26-09-27).
+        # assemble_regulation.py 는 이걸 보고 조번호꼴.맞추기 를 건너뛴다(사람이 편집기에서
+        # 고친 조 인용을 저장마다 되돌리지 않으려고). 다른 장르 조립기는 알 수 없는
+        # 옵션이라 조용히 무시한다(main() 이 "--"로 시작하는 인자를 전부 걸러낸다).
+        cmd = tgt["cmd"] + (["--only", key, "--저장"] if tgt["kind"] == "doc" else [])
         code, out = run(cmd)
         print(f"  {'✓' if code == 0 else '✗'} 다시 만들기: {out.splitlines()[-1] if out else '완료'}")
         if code != 0:

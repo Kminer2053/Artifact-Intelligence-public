@@ -6,3 +6,39 @@
 **/__pycache__/
 *.pyc
 **/.env
+# 개발 체크아웃에서 웹앱을 돌리면 코드 뿌리에 생기는 서버 설정(LLM 키 원문)·토큰 원장
+**/설정.json
+**/토큰원장.json
+
+# 로컬에만 두는 비밀·잡파일 — 리포에 올리지 않는다('26-10-01, 소스 리포와 같은 패턴)
+*api_key*
+*api-key*
+*apikey*
+*.pem
+*.p12
+id_rsa*
+.DS_Store
+
+# 이 작업본에서 플러그인을 돌리면 생기는 사용자 자료 — 올리지 않는다('26-10-05 release04 N3, 배포준비 로컬전용과 같은 자리)
+**/sessions/
+artifact-intelligence/workspace/inbox/
+artifact-intelligence/workspace/editors/
+artifact-intelligence/workspace/requests/
+artifact-intelligence/workspace/_검사/
+artifact-intelligence/workspace/검사기록.json
+artifact-intelligence/workspace/검사자료.json
+artifact-intelligence/workspace/대화방식.json
+artifact-intelligence/개인설정.json
+artifact-intelligence/build/exports/
+artifact-intelligence/build/observed/
+artifact-intelligence/build/assets/_preview/
+artifact-intelligence/build/assets/manifest.json
+artifact-intelligence/build/assets/생성능력.json
+artifact-intelligence/build/assets/gen-*.png
+artifact-intelligence/history/*/
+artifact-intelligence/history/기준.jsonl
+artifact-intelligence/feedback/candidates/
+artifact-intelligence/feedback/corpus/
+artifact-intelligence/feedback/commons/
+artifact-intelligence/feedback/backups/
+artifact-intelligence/feedback/edit-log.jsonl
