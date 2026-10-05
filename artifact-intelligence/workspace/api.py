@@ -293,7 +293,7 @@ def _지식조회(정책서버, path, 전체=False):
     # 느렸다('26-09-26 실측). 같은 TTL 로 설치 트리 안에 남긴다 — 버전을 올리면 트리가 바뀌어 저절로 비워진다.
     import hashlib
     칸 = os.path.join(ROOT, ".지식캐시",
-                     hashlib.sha1(f"{정책서버}|{캐시키}".encode("utf-8"), usedforsecurity=False).hexdigest() + ".json")
+                     hashlib.sha256(f"{정책서버}|{캐시키}".encode("utf-8")).hexdigest() + ".json")
     try:
         with open(칸, encoding="utf-8") as f:
             쌓인 = json.load(f)
@@ -10248,7 +10248,7 @@ def _웹자료적기(자료):
 
 
 def _웹글지문(글):
-    return hashlib.sha1(re.sub(r"\s+", "", str(글 or "")).encode("utf-8"), usedforsecurity=False).hexdigest()[:20]
+    return hashlib.sha256(re.sub(r"\s+", "", str(글 or "")).encode("utf-8")).hexdigest()[:20]
 
 
 def _웹앞맞춤(doc):
